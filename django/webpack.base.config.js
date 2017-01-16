@@ -6,12 +6,12 @@ module.exports = {
 
   entry: {
     // Add as many entry points as you have container-react-components here
-    App1: './reactjs/App1',
+    App1: './djreact/reactjs/App1',
     vendors: ['react'],
   },
 
   output: {
-      path: path.resolve('./static/bundles/local/'),
+      path: path.resolve('./djreact/static/bundles/local/'),
       filename: "[name]-[hash].js"
   },
 

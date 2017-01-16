@@ -76,7 +76,7 @@ STATICFILES_DIRS = [
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'djreact/bundles/local/',  # end with slash
+        'BUNDLE_DIR_NAME': 'bundles/local/',  # end with slash
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-local.json'),
     }
 }
