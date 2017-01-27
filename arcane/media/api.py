@@ -13,6 +13,9 @@ class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
+    def perform_create(self, serializer):
+        serializer.save()
+
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -22,6 +25,9 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,6 +39,9 @@ class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
 
+    def perform_create(self, serializer):
+        serializer.save()
+
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -42,6 +51,9 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 def router_register(router):
     router.register(r'users', AlbumViewSet)
