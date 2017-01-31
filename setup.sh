@@ -18,6 +18,9 @@ cd arcane
 # SETUP NODE
 # npm install
 # SETUP DJANGO
+case "$os" in 
+    linux*)   chmod u+x manage.py;;
+esac
 ./manage.py makemigrations
 ./manage.py migrate
 # ./manage.py createsuperuser
@@ -25,7 +28,7 @@ echo "django configured"
 echo "arcane setup complete, starting arcane server"
 # START THE SERVER, WEBPACK
 case "$os" in
-  linux*)   chromium-browser "http://localhost:8000/admin";;
+  linux*)   vivaldi "http://localhost:8000/admin";;
   msys*)    start "" "c:\program files (x86)\google\chrome\application\chrome.exe" --new-window "http://localhost:8000/admin";;
 esac
 ./manage.py runserver
