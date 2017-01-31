@@ -2,13 +2,15 @@ Thumbs.db
 *.pyc
 *.log
 *.swp
-*.sqlite3
 .DS_Store
 .noseids
 .pycharm_helpers
 .idea
 pip.log
 webpack-stats.json
+*.sqlite3
+*db.sqlite3
+db.sqlite3
 arcane/db.sqlite3
 node_modules/
 __pycache__/
