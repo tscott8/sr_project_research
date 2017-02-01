@@ -80,25 +80,3 @@ class Track(models.Model):
 
             path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
         super(Track, self).clean()
-
-def upload_song(instance, file):
-    return instance.artist + "/" + instance.album + "/" + file
-
-class Song(models.Model):
-    file = models.FileField(_('File'), upload_to=upload_song, blank=True, null=True,
-                            help_text=_('Upload an mp3 here'))
-    artist = models.CharField(_('Artist'), max_length=50, blank=True)
-    album = models.CharField(_('Album'), max_length=50, blank=True)
-    title = models.CharField(_('Title'), max_length=50, blank=True)
-
-    def clean(self):
-        if self.file:
-            path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
-                   ContentFile(self.file.file.read()))
-            id3 = EasyID3(os.path.join(settings.MEDIA_ROOT, path))
-            if not self.artist: self.artist = id3.get('artist', '')[0]
-            if not self.title: self.title = id3.get('title', '')[0]
-            if not self.album: self.album = id3.get('album', '')[0]
-            print (id3.get('artist', ''))
-            path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
-        super(Song, self).clean()
