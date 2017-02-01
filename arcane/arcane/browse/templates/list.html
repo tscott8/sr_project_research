@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <!-- List of uploaded tracks -->
+        {% if tracks %}
+            <ul>
+                {% for track in tracks %}
+                    <li><a href="{{ track.url.url }}">{{ track.url.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No tracks.</p>
+        {% endif %}
+
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <ul>
+              <li>
+                {{ form.non_field_errors }}
+                {{ form.uploadfile.label_tag }}
+                {{ form.uploadfile.help_text }}
+                {{ form.uploadfile.errors }}
+                {{ form.uploadfile }}
+              </li>
+
+              <li>
+                {{ form.non_field_errors }}
+                {{ form.uploadtrack.label_tag }}
+                {{ form.uploadtrack.help_text }}
+                {{ form.uploadtrack.errors }}
+                {{ form.uploadtrack }}
+              </li>
+
+              <li>
+                {{ form.non_field_errors }}
+                {{ form.uploadalbum.label_tag }}
+                {{ form.uploadalbum.help_text }}
+                {{ form.uploadalbum.errors }}
+                {{ form.uploadalbum }}
+              </li>
+
+              <li>
+                {{ form.non_field_errors }}
+                {{ form.uploadartist.label_tag }}
+                {{ form.uploadartist.help_text }}
+                {{ form.uploadartist.errors }}
+                {{ form.uploadartist }}
+              </li>
+
+              <li>
+                {{ form.non_field_errors }}
+                {{ form.uploadgenre.label_tag }}
+                {{ form.uploadgenre.help_text }}
+                {{ form.uploadgenre.errors }}
+                {{ form.uploadgenre }}
+              </li>
+
+            <li><input type="submit" value="Upload"/></li>
+          </ul>
+        </form>
+    </body>
+
+</html>

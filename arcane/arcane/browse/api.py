@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
-from .models import Genre, Artist, Album, Song
+from .models import Genre, Artist, Album, Track
 
 class GenreSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -43,14 +43,14 @@ class AlbumViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 
-class SongSerializer(serializers.HyperlinkedModelSerializer):
+class TrackSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Song
+        model = Track
         fields = ('id', 'name', 'artist', 'album', 'genre', 'url', 'play_count')
 
-class SongViewSet(viewsets.ModelViewSet):
-    queryset = Song.objects.all()
-    serializer_class = SongSerializer
+class TrackViewSet(viewsets.ModelViewSet):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
 
     def perform_create(self, serializer):
         serializer.save()
@@ -59,4 +59,4 @@ def router_register(router):
     router.register(r'users', AlbumViewSet)
     router.register(r'users', ArtistViewSet)
     router.register(r'users', GenreViewSet)
-    router.register(r'users', SongViewSet)
+    router.register(r'users', TrackViewSet)

@@ -1,7 +1,7 @@
 from django.db import models
 
 def upload_genre_icon(instance, file):
-    return "storage/genres/" + instance.name + "/icons"
+    return instance.name + "/icons/" + file
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, default='unknown_genre')
@@ -12,7 +12,7 @@ class Genre(models.Model):
         return self.name
 
 def upload_artist_photo(instance, file):
-    return "storage/artists/" + instance.name + "/images"
+    return instance.name + "/images/" + file
 
 class Artist(models.Model):
     name = models.CharField(max_length=50, default='unknown_artist')
@@ -24,7 +24,7 @@ class Artist(models.Model):
         return self.name
 
 def upload_album_artwork(instance, file):
-    return "storage/artists/" + instance.artist.name + "/albums/" + instance.name + "/images"
+    return instance.artist.name + "/" + instance.name + "/artwork/" + file
 
 class Album(models.Model):
     name = models.CharField(max_length=50, default='unknown_album')
@@ -35,15 +35,18 @@ class Album(models.Model):
     def __str__(self):
         return self.name
 
-def upload_song(instance, file):
-    return "storage/artists/" + instance.artist.name + "/albums/" + instance.album.name + "/tracks/" + file
+def upload_track(instance, file):
+    return instance.artist.name + "/" + instance.album.name + "/" + file
 
-class Song(models.Model):
+class Track(models.Model):
     name = models.CharField(max_length=200, default='unknown_track')
     artist = models.ForeignKey(Artist, blank=True, null=True)
     album = models.ForeignKey(Album, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
-    url = models.FileField(upload_to=upload_song, default=None)
+    # artist = models.CharField(max_length=200, default='unknown_artist')
+    # album = models.CharField(max_length=200, default='unknown_album')
+    # genre = models.CharField(max_length=200, default='unknown_genre')
+    url = models.FileField(upload_to=upload_track, default=None)
     play_count = models.BigIntegerField(default=0)
 
     def __str__(self):

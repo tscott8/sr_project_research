@@ -16,4 +16,4 @@ node_modules/
 __pycache__/
 migrations/
 env/
-storage/
+media/

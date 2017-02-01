@@ -14,13 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import RedirectView
 from django.contrib import admin
 from . import routers
 
 urlpatterns = [
     # url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^browse/', include('arcane.browse.urls')),
+    url(r'^$', RedirectView.as_view(url='/browse/list/', permanent=True)),
     url(r'^api/', include(routers.SharedAPIRootRouter.router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^media/', include('media.urls')),
-]
+    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
