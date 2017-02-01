@@ -1,4 +1,10 @@
 from django.db import models
+from mutagen.easyid3 import EasyID3
+from django.utils.translation import ugettext_lazy as _
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import os
+from arcane import settings
 
 def upload_genre_icon(instance, file):
     return instance.name + "/icons/" + file
@@ -39,15 +45,60 @@ def upload_track(instance, file):
     return instance.artist.name + "/" + instance.album.name + "/" + file
 
 class Track(models.Model):
-    name = models.CharField(max_length=200, default='unknown_track')
+    play_count = models.BigIntegerField(default=0)
+    url = models.FileField(upload_to=upload_track, blank=True, null=True)
+    genre = models.ForeignKey(Genre, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
     album = models.ForeignKey(Album, blank=True, null=True)
-    genre = models.ForeignKey(Genre, blank=True, null=True)
+    name = models.CharField(max_length=200, blank=True)
     # artist = models.CharField(max_length=200, default='unknown_artist')
     # album = models.CharField(max_length=200, default='unknown_album')
     # genre = models.CharField(max_length=200, default='unknown_genre')
-    url = models.FileField(upload_to=upload_track, default=None)
-    play_count = models.BigIntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.url:
+            path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
+                   ContentFile(self.url.file.read()))
+            id3 = EasyID3(os.path.join(settings.MEDIA_ROOT, path))
+            print (id3.get('title', ''),id3.get('album', ''),id3.get('artist', ''),id3.get('genre', ''))
+            if not self.name: self.name = id3.get('title', '')[0]
+            new_genre = Genre(name=id3.get('genre', '')[0])
+            if not self.genre:
+                self.genre = new_genre
+                new_genre.save()
+            new_artist = Artist(name=id3.get('artist', '')[0], genre=new_genre)
+            if not self.artist:
+                self.artist = new_artist
+                new_artist.save()
+            new_album = Album(name=id3.get('album', '')[0], genre=new_genre, artist=new_artist)
+            if not self.album:
+                self.album = new_album
+                new_album.save()
+
+            path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
+        super(Track, self).clean()
+
+def upload_song(instance, file):
+    return instance.artist + "/" + instance.album + "/" + file
+
+class Song(models.Model):
+    file = models.FileField(_('File'), upload_to=upload_song, blank=True, null=True,
+                            help_text=_('Upload an mp3 here'))
+    artist = models.CharField(_('Artist'), max_length=50, blank=True)
+    album = models.CharField(_('Album'), max_length=50, blank=True)
+    title = models.CharField(_('Title'), max_length=50, blank=True)
+
+    def clean(self):
+        if self.file:
+            path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
+                   ContentFile(self.file.file.read()))
+            id3 = EasyID3(os.path.join(settings.MEDIA_ROOT, path))
+            if not self.artist: self.artist = id3.get('artist', '')[0]
+            if not self.title: self.title = id3.get('title', '')[0]
+            if not self.album: self.album = id3.get('album', '')[0]
+            print (id3.get('artist', ''))
+            path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
+        super(Song, self).clean()

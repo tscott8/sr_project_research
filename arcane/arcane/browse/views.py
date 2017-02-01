@@ -13,18 +13,20 @@ def list(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-            newgenre = Genre(name=request.POST['uploadgenre'])
-            newgenre.save()
-            newartist = Artist(name=request.POST['uploadartist'], genre=newgenre)
-            newartist.save()
-            newalbum = Album(name=request.POST['uploadalbum'], artist=newartist, genre=newgenre)
-            newalbum.save()
-            newtrack = Track(
-                url=request.FILES['uploadfile'],
-                name=request.POST['uploadtrack'],
-                genre=newgenre,
-                artist=newartist,
-                album=newalbum,)
+            # newgenre = Genre(name=request.POST['uploadgenre'])
+            # newgenre.save()
+            # newartist = Artist(name=request.POST['uploadartist'], genre=newgenre)
+            # newartist.save()
+            # newalbum = Album(name=request.POST['uploadalbum'], artist=newartist, genre=newgenre)
+            # newalbum.save()
+            # newtrack = Track(
+            #     url=request.FILES['uploadfile'],
+            #     name=request.POST['uploadtrack'],
+            #     genre=newgenre,
+            #     artist=newartist,
+            #     album=newalbum,)
+            newtrack = Track(url=request.FILES['uploadfile'])
+            newtrack.clean()
             newtrack.save()
 
             # Redirect to the track list after POST

@@ -10,7 +10,7 @@
         {% if tracks %}
             <ul>
                 {% for track in tracks %}
-                    <li><a href="{{ track.url.url }}">{{ track.url.name }}</a></li>
+                    <li><a href="{{ track.url.url }}">{{ track.name}}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -20,7 +20,7 @@
         <!-- Upload form. Note enctype attribute! -->
         <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <ul>
+            <!-- <ul>
               <li>
                 {{ form.non_field_errors }}
                 {{ form.uploadfile.label_tag }}
@@ -59,10 +59,18 @@
                 {{ form.uploadgenre.help_text }}
                 {{ form.uploadgenre.errors }}
                 {{ form.uploadgenre }}
-              </li>
+              </li> -->
 
-            <li><input type="submit" value="Upload"/></li>
-          </ul>
+            <!-- <li><input type="submit" value="Upload"/></li>
+          </ul> -->
+          <p>
+            {{ form.non_field_errors }}
+            {{ form.uploadfile.label_tag }}
+            {{ form.uploadfile.help_text }}
+            {{ form.uploadfile.errors }}
+            {{ form.uploadfile }}
+          </p>
+          <p><input type="submit" value="Upload"/></p>
         </form>
     </body>
 
