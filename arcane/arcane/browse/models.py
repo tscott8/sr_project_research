@@ -10,7 +10,7 @@ def upload_genre_icon(instance, file):
     return instance.name + "/icons/" + file
 
 class Genre(models.Model):
-    name = models.CharField(max_length=50, default='unknown_genre')
+    name = models.CharField(max_length=50, default='unknown_genre', unique=True)
     color = models.CharField(max_length=7, default='#D50000')
     icon = models.ImageField(upload_to=upload_genre_icon, default=None)
 
@@ -21,7 +21,7 @@ def upload_artist_photo(instance, file):
     return instance.name + "/images/" + file
 
 class Artist(models.Model):
-    name = models.CharField(max_length=50, default='unknown_artist')
+    name = models.CharField(max_length=50, default='unknown_artist', unique=True)
     # user_id <- do me later
     genre = models.ForeignKey(Genre, blank=True, null=True)
     cover_photo = models.ImageField(upload_to=upload_artist_photo, default=None)
@@ -63,20 +63,35 @@ class Track(models.Model):
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
             id3 = EasyID3(os.path.join(settings.MEDIA_ROOT, path))
-            print (id3.get('title', ''),id3.get('album', ''),id3.get('artist', ''),id3.get('genre', ''))
-            if not self.name: self.name = id3.get('title', '')[0]
-            new_genre = Genre(name=id3.get('genre', '')[0])
+            iTitle, iAlbum, iArtist, iGenre = id3.get('title', '')[0],id3.get('album', '')[0],id3.get('artist', '')[0],id3.get('genre', '')[0]
+            print (iTitle, iAlbum, iArtist, iGenre)
+            if not self.name: self.name = iTitle
             if not self.genre:
-                self.genre = new_genre
-                new_genre.save()
-            new_artist = Artist(name=id3.get('artist', '')[0], genre=new_genre)
-            if not self.artist:
-                self.artist = new_artist
-                new_artist.save()
-            new_album = Album(name=id3.get('album', '')[0], genre=new_genre, artist=new_artist)
-            if not self.album:
-                self.album = new_album
-                new_album.save()
+                try:
+                    check = Genre.objects.get(name=iGenre)
+                    self.genre = check
+                except Genre.DoesNotExist:
+                    new_genre = Genre(name=iGenre)
+                    new_genre.save()
+                    self.genre = new_genre
 
+            if not self.artist:
+                try:
+                    check = Artist.objects.get(name=iArtist)
+                    self.artist = check
+                except Artist.DoesNotExist:
+                    new_artist = Artist(name=iArtist, genre=self.genre)
+                    new_artist.save()
+                    self.artist = new_artist
+
+            if not self.album:
+                try:
+                    check = Album.objects.get(name=iAlbum)
+                    self.album = check
+                except Album.DoesNotExist:
+                    new_album = Album(name=iAlbum, genre=self.genre, artist=self.artist)
+                    new_album.save()
+                    self.album = new_album
+        
             path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
         super(Track, self).clean()
