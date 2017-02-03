@@ -10,9 +10,9 @@ def upload_genre_icon(instance, file):
     return instance.name + "/icons/" + file
 
 class Genre(models.Model):
-    name = models.CharField(max_length=50, default='unknown_genre', unique=True)
+    name = models.CharField(max_length=50, unique=True)
     color = models.CharField(max_length=7, default='#D50000')
-    icon = models.ImageField(upload_to=upload_genre_icon, default=None)
+    icon = models.ImageField(upload_to=upload_genre_icon, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -21,10 +21,10 @@ def upload_artist_photo(instance, file):
     return instance.name + "/images/" + file
 
 class Artist(models.Model):
-    name = models.CharField(max_length=50, default='unknown_artist', unique=True)
+    name = models.CharField(max_length=50, unique=True)
     # user_id <- do me later
     genre = models.ForeignKey(Genre, blank=True, null=True)
-    cover_photo = models.ImageField(upload_to=upload_artist_photo, default=None)
+    cover_photo = models.ImageField(upload_to=upload_artist_photo, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -33,10 +33,10 @@ def upload_album_artwork(instance, file):
     return instance.artist.name + "/" + instance.name + "/artwork/" + file
 
 class Album(models.Model):
-    name = models.CharField(max_length=50, default='unknown_album')
+    name = models.CharField(max_length=50)
     artist = models.ForeignKey(Artist, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
-    artwork =  models.ImageField(upload_to=upload_album_artwork, default=None)
+    artwork =  models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -63,7 +63,22 @@ class Track(models.Model):
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
             id3 = EasyID3(os.path.join(settings.MEDIA_ROOT, path))
-            iTitle, iAlbum, iArtist, iGenre = id3.get('title', '')[0],id3.get('album', '')[0],id3.get('artist', '')[0],id3.get('genre', '')[0]
+            try:
+                iTitle = id3.get('title', '')[0]
+            except IndexError:
+                iTitle = "unknown_track"
+            try:
+                iAlbum = id3.get('album', '')[0]
+            except IndexError:
+                iAlbum = "unknown_album"
+            try:
+                iArtist = id3.get('artist', '')[0]
+            except IndexError:
+                iArtist = "unknown_artist"
+            try:
+                iGenre = id3.get('genre', '')[0]
+            except IndexError:
+                iGenre = "unknown_genre"
             print (iTitle, iAlbum, iArtist, iGenre)
             if not self.name: self.name = iTitle
             if not self.genre:
@@ -92,6 +107,6 @@ class Track(models.Model):
                     new_album = Album(name=iAlbum, genre=self.genre, artist=self.artist)
                     new_album.save()
                     self.album = new_album
-        
+
             path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
         super(Track, self).clean()
