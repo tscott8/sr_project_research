@@ -5,7 +5,7 @@ from django import forms
 
 class UploadForm(forms.Form):
     # uploadfile = forms.FileField(label='Select a file')
-    uploadfiles = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    uploadfiles = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), label='Select files')
 
     # uploadtrack = forms.CharField(label='Track Name')
     # uploadalbum = forms.CharField(label='Album Name')
