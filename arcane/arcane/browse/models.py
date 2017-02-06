@@ -51,14 +51,11 @@ class Track(models.Model):
     artist = models.ForeignKey(Artist, blank=True, null=True)
     album = models.ForeignKey(Album, blank=True, null=True)
     name = models.CharField(max_length=200, blank=True)
-    # artist = models.CharField(max_length=200, default='unknown_artist')
-    # album = models.CharField(max_length=200, default='unknown_album')
-    # genre = models.CharField(max_length=200, default='unknown_genre')
 
     def __str__(self):
         return self.name
 
-    def clean(self):
+    def save(self, *args, **kwargs):
         if self.url:
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
@@ -109,4 +106,4 @@ class Track(models.Model):
                     self.album = new_album
 
             path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
-        super(Track, self).clean()
+        super(Track, self).save(*args, **kwargs)
