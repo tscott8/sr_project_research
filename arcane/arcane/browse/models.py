@@ -76,8 +76,14 @@ class Track(models.Model):
                 iGenre = id3.get('genre', '')[0]
             except IndexError:
                 iGenre = "unknown_genre"
-            print (iTitle, iAlbum, iArtist, iGenre)
-            if not self.name: self.name = iTitle
+            print ('Uploading...', iTitle, iAlbum, iArtist, iGenre)
+            if not self.name:
+                try:
+                    check = Track.objects.get(name=iTitle)
+                    print('Upload Failed... ', check, iAlbum, iArtist, iGenre, 'already exists...')
+                    return
+                except Track.DoesNotExist:
+                    self.name = iTitle
             if not self.genre:
                 try:
                     check = Genre.objects.get(name=iGenre)
