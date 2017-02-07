@@ -15,6 +15,12 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/local/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-local.json'),
+    }
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -41,6 +47,12 @@ INSTALLED_APPS = [
     # REST FRAMEWORK
     'rest_framework',
 
+    # CORS Headings
+    'corsheaders',
+
+    # Webpack
+    'webpack_loader',
+
     # Project Apps
     'arcane.browse',
 ]
@@ -61,7 +73,18 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    # CORS Headers
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+#     'localhost',
+#     'localhost:8000',
+#     '127.0.0.1',
+# )
 
 ROOT_URLCONF = 'arcane.urls'
 
@@ -148,3 +171,9 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+
+STATICFILES_DIRS = [
+    'arcane/static',
+    'assets'
+]
