@@ -12,11 +12,10 @@ def list(request):
     # Handle file upload
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
+        files = request.FILES.getlist('uploadfiles')
         if form.is_valid():
-            newtrack = Track(url=request.FILES['uploadfile'])
-            newtrack.clean()
-            newtrack.save()
-
+            for f in files:
+                Track.objects.create(url=f)
             # Redirect to the track list after POST
             return HttpResponseRedirect(reverse('list'))
     else:
