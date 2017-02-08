@@ -23,10 +23,17 @@ def list(request):
 
     # Load documents for the list page
     tracks = Track.objects.all()
+    albums = Album.objects.all()
+    artists = Artist.objects.all()
+    genres = Genre.objects.all()
 
     # Render list page with the documents and the form
     return render(
         request,
         'list.html',
-        {'tracks': tracks, 'form': form}
+        {'tracks': tracks,
+         'albums': albums,
+         'artists': artists,
+         'genres': genres,
+         'form': form}
     )
