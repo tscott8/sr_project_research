@@ -7,7 +7,7 @@ Thumbs.db
 .pycharm_helpers
 .idea
 pip.log
-webpack-stats.json
+webpack-stats-local.json
 *.sqlite3
 *db.sqlite3
 db.sqlite3
@@ -17,3 +17,6 @@ __pycache__/
 migrations/
 env/
 media/
+pip-selfcheck.json
+static/
+bundles/
