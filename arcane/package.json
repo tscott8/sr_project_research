@@ -37,10 +37,9 @@
     "webpack-hot-middleware": "^2.16.1"
   },
   "scripts": {
-    "start": "webpack-dev-server -d --hot --inline --progress --colors --config webpack.local.config.js",
+    "start": "webpack-dev-server -d --hot --inline --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/webpack --progress --colors --config webpack.local.config.js",
-    "mid": "webpack --progress --colors"
+    "build": "./node_modules/.bin/webpack --progress --colors"
   },
   "author": "",
   "license": "ISC"

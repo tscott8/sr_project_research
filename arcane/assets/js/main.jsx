@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from "react-tap-event-plugin";
 
-import App from './components/App';
+import App from './containers/App.jsx';
 import configureStore from './store/configureStore';
 
 //Needed for React Developer Tools
