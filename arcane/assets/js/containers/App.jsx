@@ -1,7 +1,11 @@
-import React from "react"
-import { render } from "react-dom"
+import React, {Component, PropTypes} from "react";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { render } from "react-dom";
 
-import AppContainer from "../containers/AppContainer"
+import * as GenreActions from '../actions/genres';
+
+import AppContainer from "./AppContainer";
 
 import {grey100, redA700, cyan500, cyan700,
        fullBlack, darkBlack, white, grey400,
@@ -12,9 +16,6 @@ import baseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import spacing from 'material-ui/styles/spacing';
 import {fade} from 'material-ui/utils/colorManipulator';
-import injectTapEventPlugin from "react-tap-event-plugin";
-
-injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
    spacing: spacing,
@@ -44,12 +45,33 @@ const muiTheme = getMuiTheme({
 
 class App extends React.Component {
   render() {
-    return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-         <AppContainer />  
-      </MuiThemeProvider>
+     const { genres, actions } = this.props;
+     return (
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <AppContainer />
+       </MuiThemeProvider>
     )
   }
 }
 
-render(<App/>, document.getElementById('app'))
+App.propTypes = {
+   genres: PropTypes.array.isRequired,
+   actions: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+  return {
+    genres: state.genres
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(GenreActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
