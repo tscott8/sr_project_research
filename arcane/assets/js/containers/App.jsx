@@ -6,6 +6,7 @@ import { render } from "react-dom";
 import * as GenreActions from '../actions/genres';
 
 import AppContainer from "./AppContainer";
+import Header from '../components/Header';
 
 import {grey100, redA700, cyan500, cyan700,
        fullBlack, darkBlack, white, grey400,
@@ -48,6 +49,7 @@ class App extends React.Component {
      const { genres, actions } = this.props;
      return (
         <MuiThemeProvider muiTheme={muiTheme}>
+          <Header/>
           <AppContainer />
        </MuiThemeProvider>
     )
