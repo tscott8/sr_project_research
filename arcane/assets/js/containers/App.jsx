@@ -1,26 +1,21 @@
 import React, {Component, PropTypes} from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { render } from "react-dom"
-import MuiThemeProvider from 'material-ui'
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import theme from "../constants/material-ui-theme"
+import Header from "../components/Header"
 import * as GenreActions from '../actions/genres'
-import AppContainer from "./AppContainer";
-import Header from '../components/Header';
-
-import AppContainer from "./AppContainer"
-import muiTheme from "../constants/material-ui-theme"
 
 
-class App extends React.Component {
+class App extends Component {
   render() {
      const { genres, actions } = this.props;
      return (
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <Header/>
-          <AppContainer />
+        <MuiThemeProvider muiTheme={theme}>
+          <div>
+            <Header /></div>
         </MuiThemeProvider>
-    )
+    );
   }
 }
 
