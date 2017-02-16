@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { render } from "react-dom"
 import MuiThemeProvider from 'material-ui'
 
-
 import * as GenreActions from '../actions/genres'
+import AppContainer from "./AppContainer";
+import Header from '../components/Header';
 
 import AppContainer from "./AppContainer"
 import muiTheme from "../constants/material-ui-theme"
@@ -16,6 +17,7 @@ class App extends React.Component {
      const { genres, actions } = this.props;
      return (
         <MuiThemeProvider muiTheme={muiTheme}>
+          <Header/>
           <AppContainer />
         </MuiThemeProvider>
     )
