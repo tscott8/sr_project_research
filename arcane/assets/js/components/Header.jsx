@@ -25,7 +25,7 @@ const gridStyle = {
 const drawerHeaderStyle = {
   root: {
     width:'100%',
-    display:'flex',
+    display:'flex'
   },
   icon: {
     marginRight:'10%'
@@ -35,6 +35,7 @@ const drawerHeaderStyle = {
   }
 
 };
+
 export default class Header extends Component  {
 
   constructor(props){
