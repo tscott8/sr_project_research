@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import {Divider, Drawer} from 'material-ui'
 import GridMenu from './ArcaneMenu'
+import MiniPlayer from './ArcaneMiniPlayer'
+
+
 const drawerHeaderStyle = {
   root: {
     width:'100%',
@@ -52,6 +55,7 @@ export default class ArcaneDrawer extends Component  {
           handleToggle={this.props.handleClose}>
           <DrawerHeader/>
           <Divider/>
+          <MiniPlayer/>
           <GridMenu onClick={this.props.handleClose}/>
         </Drawer>
       );

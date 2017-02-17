@@ -63,10 +63,11 @@ export class MenuTile extends Component {
 }
 
 const menuList = [
+  { "name": "Browse", "icon": "subscriptions", "url":"/main/genres" },
   { "name": "Playlists", "icon": "subject", "url":"/main/genres" },
   { "name": "Upload", "icon": "cloud_upload", "url": "/main/uploads" },
-  { "name": "Radio", "icon": "play_circle_outline", "url": "/main/genres"},
-  { "name": "My Music", "icon": "home", "url": "/main/artist-music"},
+  { "name": "Radio", "icon": "radio", "url": "/main/genres"},
+  { "name": "My Music", "icon": "library_music", "url": "/main/artist-music"},
   { "name": "Profile", "icon": "account_circle", "url": "/main/artist"},
   { "name": "About", "icon": "info", "url": "/about"}
 ];
