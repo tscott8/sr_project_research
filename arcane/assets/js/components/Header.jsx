@@ -3,7 +3,6 @@ import { AppBar } from 'material-ui'
 import ArcaneDrawer from './ArcaneDrawer'
 
 
-<<<<<<< HEAD
 const drawerHeaderStyle = {
   root: {
     width:'100%',
@@ -18,8 +17,6 @@ const drawerHeaderStyle = {
 
 };
 
-=======
->>>>>>> f093900d91d954f67c6dac34125e4df0a43c0be7
 export default class Header extends Component  {
 
   constructor(props){
