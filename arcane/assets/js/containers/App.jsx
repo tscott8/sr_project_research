@@ -13,7 +13,8 @@ class App extends Component {
      return (
         <MuiThemeProvider muiTheme={theme}>
           <div>
-            <Header /></div>
+            <Header />
+          </div>
         </MuiThemeProvider>
     );
   }
