@@ -2,11 +2,17 @@ const path = require("path")
 const webpack = require('webpack')
 const BundleTracker = require('webpack-bundle-tracker')
 
+const ip = 'localhost';
+
 module.exports = {
   context: __dirname,
 
   entry: {
-    App: "./assets/js/main.jsx",
+    App: [
+      'webpack-dev-server/client?http://' + ip + ':3000',
+      'webpack/hot/only-dev-server',
+      "./assets/js/main.jsx",
+   ],
     vendors: [
       "react",
       "react-dom",
@@ -17,13 +23,16 @@ module.exports = {
   },
 
   plugins: [
+     new webpack.HotModuleReplacementPlugin(),
+     new webpack.NoEmitOnErrorsPlugin(),
      new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'}),
      new BundleTracker({filename: './webpack-stats-local.json'})
  ],
 
   output: {
     path: path.resolve("./assets/bundles/local/"),
-    filename: "[name]-[hash].js"
+    filename: "[name]-[hash].js",
+    publicPath: 'http://' + ip + ':3000' + '/assets/bundles/'
   },
   module: {
    //   rules: [
@@ -46,5 +55,6 @@ module.exports = {
      resolve: {
        extensions: ['.js', '.jsx']
    },
-   devtool:  "#eval-source-map"
+   devtool:  "#eval-source-map",
+
 }

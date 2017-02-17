@@ -31,7 +31,7 @@ export class DrawerHeader extends Component  {
   render() {
       return (
           <div style={drawerHeaderStyle.root}>
-            <div style={drawerHeaderStyle.icon}><img style={drawerHeaderStyle.icon.img} src="images/favicon.png"/></div>
+            <div style={drawerHeaderStyle.icon}><img style={drawerHeaderStyle.icon.img} src="http://localhost:8000/static/favicon.png"/></div>
             <div style={drawerHeaderStyle.label}><h1>Arcane</h1></div>
           </div>
       );

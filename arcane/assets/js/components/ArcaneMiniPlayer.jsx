@@ -2,38 +2,40 @@ import React, { Component } from 'react'
 import {FontIcon, FloatingActionButton, Slider, IconButton} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 
+const url = "http://localhost:8000/";
+
 const sizes = {
-  smallIcon: {
-  width: '20',
-  height:' 20',
-  fontSize: '20px'
-},
-mediumIcon: {
-  width: '30',
-  height:' 30',
-  fontSize: '30px'
-},
-largeIcon: {
-  width: '60',
-  height:' 60',
-  fontSize: '60px'
-},
-small: {
-  width: '25',
-  height: '25',
-  padding:' 4'
-},
-medium: {
-  width: '35',
-  height: '35',
-  padding:' 4',
-  verticalAlign:'bottom'
-},
-large: {
-  width: '65',
-  height: '65',
-  padding:'4'
-}
+   smallIcon: {
+     width: '20',
+     height:' 20',
+     fontSize: '20px'
+   },
+   mediumIcon: {
+     width: '30',
+     height:' 30',
+     fontSize: '30px'
+   },
+   largeIcon: {
+     width: '60',
+     height:' 60',
+     fontSize: '60px'
+   },
+   small: {
+     width: '25',
+     height: '25',
+     padding:' 4'
+   },
+   medium: {
+     width: '35',
+     height: '35',
+     padding:' 4',
+     verticalAlign:'bottom'
+   },
+   large: {
+     width: '65',
+     height: '65',
+     padding:'4'
+   }
 };
 export class PlaybackControl extends Component {
   constructor(props){
@@ -138,7 +140,7 @@ export default class MiniPlayer extends Component {
         <CardMedia
           style={cardStyle.media}
           overlay={<div style={cardStyle.media.controls}>{this.renderPlaybackControls()}</div>}>
-            <img src="images/1.jpg" />
+            <img src={url + "static/images/1.jpg"} />
         </CardMedia>
       </Card>
     </div>
