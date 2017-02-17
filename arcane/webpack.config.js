@@ -11,7 +11,8 @@ module.exports = {
       "react",
       "react-dom",
       "react-redux",
-      "redux"
+      "react-tap-event-plugin",
+      "material-ui"
    ]
   },
 
