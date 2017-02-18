@@ -4,6 +4,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import MenuTile from './MenuTile'
 
+const url = "http://localhost:8000/";
+
 const collectionStyles = {
   root: {
     display: 'flex',
@@ -15,6 +17,13 @@ const collectionStyles = {
     height:'100%',
     width: '100%',
     overflowY: 'auto',
+  },
+  artistTile: {
+    root:{
+    },
+    img:{
+      maxHeight:'200'
+    },
   }
 };
 export class GenresCollection extends Component {
@@ -61,9 +70,9 @@ export class TracksCollection extends Component {
         <tr
           key={'trackRow_'+ track.id}>
           <td><a href={track.url}>{ track.name }</a></td>
-          <td>{ track.album.name }</td>
-          <td>{ track.artist.name }</td>
-          <td>{ track.genre.name }</td>
+          <td>{ track.album }</td>
+          <td>{ track.artist }</td>
+          <td>{ track.genre }</td>
         </tr>
       ))
       return arr;
@@ -88,7 +97,41 @@ export class TracksCollection extends Component {
     );
   }
 }
-
+export class ArtistsCollection extends Component {
+  constructor(props) {
+    super(props);
+  }
+  renderArtistTiles(artists) {
+    if (artists) {
+      let arr = artists.map((tile) => (
+        <GridTile
+          key={'artistTile_'+ tile.id}
+          title={tile.name}
+          subtitle={tile.genre}
+          cols={1}
+          rows={1}
+          style={collectionStyles.artistTile.root}
+          >
+          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/3.jpg'}/>
+        </GridTile>
+      ))
+      return arr;
+    }
+  }
+  render() {
+    const {artists} = this.props;
+    return(
+      <div style={collectionStyles.root}>
+      <GridList
+        cols={6}
+        cellHeight={'auto'}
+        style={collectionStyles.gridList}>
+        {this.renderArtistTiles(artists.results)}
+        </GridList>
+      </div>
+    );
+  }
+}
 const styles = {
   root: {
     margin:10
@@ -140,7 +183,7 @@ export default class CollectionTabs extends Component {
             <GenresCollection genres={this.props.genres}/>
           </div>
           <div style={styles.slide}>
-            slide n°2
+            <ArtistsCollection artists={this.props.artists}/>
           </div>
           <div style={styles.slide}>
             slide n°3
