@@ -41,7 +41,7 @@ export class DrawerHeader extends Component  {
   }
 }
 const drawerStyle = {
-  height:'100%',
+  top:'64',
   justifyContent: 'space-between',
 };
 export default class ArcaneDrawer extends Component  {
@@ -55,7 +55,7 @@ export default class ArcaneDrawer extends Component  {
           docked={false}
           open={this.props.open}
           onRequestChange={this.props.onRequestChange}>
-          <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/>
+          {/* <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/> */}
           <GridMenu onClick={this.props.handleClose}/>
         </Drawer>
       );

@@ -27,6 +27,9 @@ const muiTheme = {
       trackColor: Colors.redA700,
       trackColorSelected: Colors.redA700
    },
+   drawer: {
+     width:280
+   }
 
 };
 
