@@ -5,7 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import theme from "../constants/material-ui-theme"
 import Header from "../components/Header"
 import * as GenreActions from '../actions/genres'
-
+import CollectionTabs from '../components/CollectionTabs'
+import LargePlayer from '../components/FooterPlayer'
 
 class App extends Component {
   render() {
@@ -14,6 +15,8 @@ class App extends Component {
         <MuiThemeProvider muiTheme={theme}>
           <div>
             <Header />
+            <CollectionTabs/>
+            <LargePlayer/>
           </div>
         </MuiThemeProvider>
     );
