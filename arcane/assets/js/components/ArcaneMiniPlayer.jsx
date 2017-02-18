@@ -152,7 +152,7 @@ export default class MiniPlayer extends Component {
         <CardMedia
           style={cardStyle.media}
           overlay={<div style={cardStyle.media.controls}>{this.renderPlaybackControls()}</div>}>
-            <img style={imgStyle} src={url + "static/images/2.jpg"} />
+            <img style={imgStyle} src={url + "static/images/1.jpg"} />
         </CardMedia>
       </Card>
     );
