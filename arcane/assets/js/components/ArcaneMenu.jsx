@@ -9,10 +9,10 @@ const iconStyle = {
   padding:'0',
   textAlign:'center',
   width:'inherit',
-  height:'70%',
-  fontSize:'40px',
+  height:'auto',
+  fontSize:'40',
   display:'block',
-  paddingTop:'8%'
+  paddingTop:'7.5%'
 };
 const labelStyle= {
   margin:'0',
@@ -20,10 +20,10 @@ const labelStyle= {
   textAlign:'center',
   width:'inherit',
   height:'auto',
-  fontSize:'15px',
+  fontSize:'12',
   display:'block',
-  paddingTop:'10%',
-  paddingBottom:'8%'
+  paddingTop:'5',
+  paddingBottom:'7.5%'
 };
 const tileStyle = {
   width:'100%',
@@ -75,7 +75,8 @@ const gridStyle = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height:'auto'
   },
   gridList: {
     width: '100%',

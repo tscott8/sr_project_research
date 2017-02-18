@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Divider, Drawer, AppBar, FontIcon} from 'material-ui'
+import {Divider, Drawer, AppBar, FontIcon, List, ListItem} from 'material-ui'
 import GridMenu from './ArcaneMenu'
 import MiniPlayer from './ArcaneMiniPlayer'
 import Test from '../components/Test'
@@ -41,8 +41,8 @@ export class DrawerHeader extends Component  {
   }
 }
 const drawerStyle = {
-  top:'64',
-  justifyContent: 'space-between',
+  height: 'calc(100vh - 64px)',
+  top:'64px'
 };
 export default class ArcaneDrawer extends Component  {
   constructor(props){
@@ -57,6 +57,10 @@ export default class ArcaneDrawer extends Component  {
           onRequestChange={this.props.onRequestChange}>
           {/* <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/> */}
           <GridMenu onClick={this.props.handleClose}/>
+          <List>
+            <ListItem>A</ListItem>
+            <ListItem>Settings</ListItem>
+          </List>
         </Drawer>
       );
   }

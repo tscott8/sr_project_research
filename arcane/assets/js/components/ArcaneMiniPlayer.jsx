@@ -114,8 +114,10 @@ const sliderStyle = {
   margin:'0',
   padding:'0',
 };
-const tileStyle = {
-}
+const imgStyle = {
+    flex: 1,
+    width: '100%',
+    height: 'auto',};
 
 export default class MiniPlayer extends Component {
   constructor(props){
@@ -150,7 +152,7 @@ export default class MiniPlayer extends Component {
         <CardMedia
           style={cardStyle.media}
           overlay={<div style={cardStyle.media.controls}>{this.renderPlaybackControls()}</div>}>
-            <img src={url + "static/images/2.jpg"} />
+            <img style={imgStyle} src={url + "static/images/2.jpg"} />
         </CardMedia>
       </Card>
     );
