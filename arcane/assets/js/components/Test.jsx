@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
-import MiniPlayer from './ArcaneMiniPlayer'
+import MiniPlayer from './MiniPlayer'
 const tilesData = [
   {
     img: 'http://localhost:8000/static/images/1.jpg',

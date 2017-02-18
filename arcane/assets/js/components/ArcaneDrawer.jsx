@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import {Divider, Drawer, AppBar, FontIcon, List, ListItem} from 'material-ui'
 import GridMenu from './ArcaneMenu'
-import MiniPlayer from './ArcaneMiniPlayer'
-import Test from '../components/Test'
-
 
 const drawerHeaderStyle = {
   root:{},
@@ -42,7 +39,8 @@ export class DrawerHeader extends Component  {
 }
 const drawerStyle = {
   height: 'calc(100vh - 64px)',
-  top:'64px'
+  top:'64px',
+  overflowY:'hidden'
 };
 export default class ArcaneDrawer extends Component  {
   constructor(props){

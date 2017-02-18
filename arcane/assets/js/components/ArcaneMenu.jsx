@@ -1,34 +1,35 @@
 import React, { Component } from 'react'
 import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
-import MiniPlayer from './ArcaneMiniPlayer'
+import MiniPlayer from './MiniPlayer'
 
 const url = "http://localhost:8000/";
 
 const iconStyle = {
-  margin:'0',
-  padding:'0',
+  margin:0,
+  padding:10,
+  paddingBottom:5,
   textAlign:'center',
   width:'inherit',
   height:'auto',
-  fontSize:'40',
+  fontSize:45,
   display:'block',
-  paddingTop:'7.5%'
 };
 const labelStyle= {
-  margin:'0',
-  padding:'0',
+  margin:0,
+  padding:10,
+  paddingTop:0,
   textAlign:'center',
   width:'inherit',
   height:'auto',
-  fontSize:'12',
+  fontSize:13,
   display:'block',
-  paddingTop:'5',
-  paddingBottom:'7.5%'
 };
 const tileStyle = {
   width:'100%',
   height:'auto'
 }
+
+
 
 export class MenuTile extends Component {
   constructor(props){
@@ -90,6 +91,7 @@ export default class GridMenu extends Component {
   }
   renderMenuMap() {
     let arr = [<GridTile
+                    key={'miniPlayer'}
                     cols={2}
                     rows={2}>
                     <MiniPlayer/>
