@@ -1,21 +1,7 @@
 import React, { Component } from 'react'
-import { AppBar } from 'material-ui'
+import { AppBar,Drawer } from 'material-ui'
 import ArcaneDrawer from './ArcaneDrawer'
 
-
-const drawerHeaderStyle = {
-  root: {
-    width:'100%',
-    display:'flex'
-  },
-  icon: {
-    marginRight:'10%'
-  },
-  label: {
-    display:'inline-block'
-  }
-
-};
 
 export default class Header extends Component  {
 
@@ -31,7 +17,8 @@ export default class Header extends Component  {
           <div>
             <ArcaneDrawer
               open={this.state.open}
-              handleClose={this.handleClose.bind(this)}/>
+              handleClose={this.handleClose.bind(this)}
+              onRequestChange={(open) => this.setState({open})}/>
             <AppBar
               title="Arcane"
               primary={true}

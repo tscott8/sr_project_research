@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import {Divider, Drawer} from 'material-ui'
+import {Divider, Drawer, AppBar, FontIcon} from 'material-ui'
 import GridMenu from './ArcaneMenu'
 import MiniPlayer from './ArcaneMiniPlayer'
+import Test from '../components/Test'
 
 
 const drawerHeaderStyle = {
-  root: {
-    width:'100%',
-    display:'flex'
-  },
+  root:{},
   icon: {
     margin:'1%',
     img: {
-      height:'99%',
+      padding:'10%',
       width: 'auto'
     }
   },
@@ -21,26 +19,30 @@ const drawerHeaderStyle = {
     display:'inline-block',
     marginLeft:'5%'
   }
-
 };
 export class DrawerHeader extends Component  {
 
   constructor(props){
     super(props);
   }
+  renderLogo() {
+    <div style={drawerHeaderStyle.root}>
+     <div style={drawerHeaderStyle.icon}></div>
+     <div style={drawerHeaderStyle.label}>Arcane</div>
+   </div>
+  }
   render() {
       return (
-          <div style={drawerHeaderStyle.root}>
-            <div style={drawerHeaderStyle.icon}><img style={drawerHeaderStyle.icon.img} src="http://localhost:8000/static/favicon.png"/></div>
-            <div style={drawerHeaderStyle.label}><h1>Arcane</h1></div>
-          </div>
+        <AppBar
+          title="Arcane"
+          primary={true}
+          onLeftIconButtonTouchTap={this.props.onLeftIconButtonTouchTap}/>
       );
   }
 }
 const drawerStyle = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-around'
+  height:'100%',
+  justifyContent: 'space-between',
 };
 export default class ArcaneDrawer extends Component  {
   constructor(props){
@@ -49,13 +51,11 @@ export default class ArcaneDrawer extends Component  {
   render() {
       return (
         <Drawer
-          style={drawerStyle}
+          containerStyle={drawerStyle}
           docked={false}
           open={this.props.open}
-          handleToggle={this.props.handleClose}>
-          <DrawerHeader/>
-          <Divider/>
-          <MiniPlayer/>
+          onRequestChange={this.props.onRequestChange}>
+          <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/>
           <GridMenu onClick={this.props.handleClose}/>
         </Drawer>
       );

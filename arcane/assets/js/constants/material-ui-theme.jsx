@@ -26,7 +26,8 @@ const muiTheme = {
    slider: {
       trackColor: Colors.redA700,
       trackColorSelected: Colors.redA700
-   }
+   },
+
 };
 
 //Theme must be wrapped in funciton getMuiTheme
