@@ -1,4 +1,4 @@
-import { GET_MENU_ITEMS } from '../actions/ActionTypes';
+import { GET_MENU_ITEMS } from '../constants/ActionTypes';
 
 const initialState = [];
 
