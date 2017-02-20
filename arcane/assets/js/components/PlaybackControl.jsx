@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import {FontIcon, FloatingActionButton, Slider, IconButton} from 'material-ui'
-const sizes = {
+const styles = {
    smallIcon: {
      width:20,
      height:20,
-     fontSize:20
+     fontSize:20,
+     color: 'rgb(213, 0, 0)'
    },
    mediumIcon: {
      width:40,
      height:40,
-     fontSize:40
+     fontSize:40,
+     color: 'rgb(213, 0, 0)'
    },
    largeIcon: {
      width:60,
@@ -26,12 +28,16 @@ const sizes = {
      width:45,
      height:45,
      padding:4,
-     verticalAlign:'bottom'
+     verticalAlign:'bottom',
+
    },
    large: {
      width: 65,
      height: 65,
      padding:4
+   },
+   hover: {
+    color: 'rgb(0, 151, 167)'
    }
 };
 export default class PlaybackControl extends Component {
@@ -47,11 +53,10 @@ export default class PlaybackControl extends Component {
       return(
         <IconButton
           iconClassName="material-icons"
-          style={sizes.medium}
-          iconStyle={sizes.mediumIcon}
+          style={styles.medium}
+          iconStyle={styles.mediumIcon}
           onClick={this.playPauseClick.bind(this)}
-          tooltip={this.props.tooltip}
-          tooltipPosition="bottom-center">
+          hoveredStyle={styles.hover}>
           {this.state.playing ? this.props.icon : "pause"}
         </IconButton>
       );
@@ -60,11 +65,10 @@ export default class PlaybackControl extends Component {
       return(
         <IconButton
           iconClassName="material-icons"
-          style={sizes.small}
-          iconStyle={sizes.smallIcon}
+          style={styles.small}
+          iconStyle={styles.smallIcon}
           onClick={this.props.onCLick}
-          tooltip={this.props.tooltip}
-          tooltipPosition="bottom-center">
+          hoveredStyle={styles.hover}>
           {this.props.icon}
         </IconButton>
       );

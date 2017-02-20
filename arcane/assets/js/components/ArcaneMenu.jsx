@@ -1,57 +1,8 @@
 import React, { Component } from 'react'
 import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
 import MiniPlayer from './MiniPlayer'
-
+import SquareButton from './SquareButton'
 const url = "http://localhost:8000/";
-
-const iconStyle = {
-  margin:0,
-  padding:10,
-  paddingBottom:5,
-  textAlign:'center',
-  width:'inherit',
-  height:'auto',
-  fontSize:45,
-  display:'block',
-};
-const labelStyle= {
-  margin:0,
-  padding:10,
-  paddingTop:0,
-  textAlign:'center',
-  width:'inherit',
-  height:'auto',
-  fontSize:13,
-  display:'block',
-};
-const tileStyle = {
-  width:'100%',
-  height:'auto'
-}
-
-
-
-export class MenuTile extends Component {
-  constructor(props){
-    super(props);
-    this.state = {active:false};
-  }
-  render() {
-    return(
-      <RaisedButton
-        href=""
-        target="_blank"
-        secondary={true}
-        onClick={this.props.onClick}
-        icon={<FontIcon
-            className="material-icons"
-            style={iconStyle}>{this.props.icon}</FontIcon>}
-        label={this.props.name}
-        labelStyle={labelStyle}
-        style={tileStyle}/>
-    );
-  }
-}
 
 const menuList = [
   { "name": "Browse", "icon": "subscriptions", "url":url, featured:false },
@@ -63,21 +14,13 @@ const menuList = [
   { "name": "About", "icon": "info", "url": "/about"}
 ];
 
-const gridMenuStyle = {
-  display: 'flex',
-  marginTop:'1%',
-  marginBottom:'1%',
-  width:'100%',
-  height:'auto',
-  overflowX: 'auto',
-  overflowY: 'auto'
-};
 const gridStyle = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    height:'auto'
+    height:'auto',
+    overflowY: 'auto'
   },
   gridList: {
     width: '100%',
@@ -101,7 +44,7 @@ export default class GridMenu extends Component {
               key={tile.name}
               cols={tile.featured ? 2 : 1}
               rows={tile.featured ? 2 : 1}>
-              <MenuTile
+              <SquareButton
                 key={"menuTile" + tile.name}
                 name={tile.name}
                 icon={tile.icon}

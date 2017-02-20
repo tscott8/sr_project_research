@@ -46,7 +46,7 @@ class AlbumViewSet(viewsets.ModelViewSet):
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Track
-        fields = ('id', 'name', 'artist', 'album', 'genre', 'url', 'play_count')
+        fields = ('id', 'name', 'duration','length', 'artist', 'album', 'genre', 'url', 'play_count')
 
 class TrackViewSet(viewsets.ModelViewSet):
     queryset = Track.objects.all()

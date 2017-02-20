@@ -1,22 +1,30 @@
 import React, {Component, PropTypes} from 'react';
-import {Paper, GridTile,GridList} from 'material-ui'
+import {Paper, GridTile,GridList,Divider} from 'material-ui'
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
+  from 'material-ui/Table';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import MenuTile from './MenuTile'
+import SquareButton from './SquareButton'
 
 const url = "http://localhost:8000/";
 
 const collectionStyles = {
   root: {
     display: 'flex',
-    justifyContent: 'space-between',
-    overflowY:'auto'
+    justifyContent: 'space-around',
+    overflowY:'scroll',
+    width:'100%',
+    height:'auto',
+    padding:3,
+    maxHeight:'70vh'
   },
   gridList: {
-    margin:5,
-    height:'100%',
-    width: '100%',
-    overflowY: 'auto',
+    width:'100%',
+    overflowY: 'scroll',
+  },
+  table: {
+    overflowY:'scroll'
   },
   artistTile: {
     root:{
@@ -35,7 +43,7 @@ export class GenresCollection extends Component {
       let arr = genres.map((tile) => (
         <GridTile
           key={'genreTile_'+ tile.id}>
-          <MenuTile
+          <SquareButton
             key={"genreMenuTile_" + tile.id}
             name={tile.name}
             icon={tile.icon ? tile.icon : 'build'}
@@ -50,12 +58,12 @@ export class GenresCollection extends Component {
     const {genres} = this.props;
     return(
       <div style={collectionStyles.root}>
-      <GridList
-        cols={6}
-        cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderGenreTiles(genres.results)}
-        </GridList>
+        <GridList
+          cols={6}
+          cellHeight={'auto'}
+          style={collectionStyles.gridList}>
+          {this.renderGenreTiles(genres.results)}
+          </GridList>
       </div>
     );
   }
@@ -64,36 +72,43 @@ export class TracksCollection extends Component {
   constructor(props) {
     super(props);
   }
+  convertDuration(duration) {
+    return '1:20';
+  }
   renderTracks(tracks) {
     if (tracks) {
       let arr = tracks.map((track) => (
-        <tr
+        <TableRow
           key={'trackRow_'+ track.id}>
-          <td><a href={track.url}>{ track.name }</a></td>
-          <td>{ track.album }</td>
-          <td>{ track.artist }</td>
-          <td>{ track.genre }</td>
-        </tr>
+          <TableRowColumn><a href={track.url}>{ track.name }</a></TableRowColumn>
+          <TableRowColumn>{track.duration }</TableRowColumn>
+          <TableRowColumn><a href={track.artist}>{ track.artist }</a></TableRowColumn>
+          <TableRowColumn><a href={track.album}>{ track.album }</a></TableRowColumn>
+          <TableRowColumn><a href={track.genre}>{ track.genre }</a></TableRowColumn>
+          <TableRowColumn>{ track.play_count }</TableRowColumn>
+        </TableRow>
       ))
       return arr;
     }
   }
   render() {
-    const {tracks } = this.props;
+    const {tracks} = this.props;
     return(
-      <div style={collectionStyles.root}>
-        <table>
-          <tbody>
-            <tr>
-              <th>Track</th>
-              <th>Album</th>
-              <th>Artist</th>
-              <th>Genre</th>
-            </tr>
+        <Table height={'65vh'} multiSelectable={true}>
+          <TableHeader enableSelectAll={true}>
+            <TableRow>
+              <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn>Duration</TableHeaderColumn>
+              <TableHeaderColumn>Artist</TableHeaderColumn>
+              <TableHeaderColumn>Album</TableHeaderColumn>
+              <TableHeaderColumn>Genre</TableHeaderColumn>
+              <TableHeaderColumn>Play Count</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody stripedRows={true} style={collectionStyles.tbody} showRowHover={true}>
               {this.renderTracks(tracks.results)}
-            </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
     );
   }
 }
@@ -132,9 +147,48 @@ export class ArtistsCollection extends Component {
     );
   }
 }
+
+export class AlbumsCollection extends Component {
+  constructor(props) {
+    super(props);
+  }
+  renderAlbumTiles(albums) {
+    if (albums) {
+      let arr = albums.map((tile) => (
+        <GridTile
+          key={'albumTile_'+ tile.id}
+          title={tile.name}
+          subtitle={tile.genre}
+          cols={1}
+          rows={1}
+          style={collectionStyles.artistTile.root}
+          >
+          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/3.jpg'}/>
+        </GridTile>
+      ))
+      return arr;
+    }
+  }
+  render() {
+    const {albums} = this.props;
+    return(
+      <div style={collectionStyles.root}>
+      <GridList
+        cols={6}
+        cellHeight={'auto'}
+        style={collectionStyles.gridList}>
+        {this.renderAlbumTiles(albums.results)}
+        </GridList>
+      </div>
+    );
+  }
+}
+
+
 const styles = {
-  root: {
-    margin:10
+
+  tabs:{
+    overflowY:'auto',
   },
   headline: {
     fontSize: 24,
@@ -143,7 +197,7 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    padding: 10,
+    padding: 0,
   },
 };
 export default class CollectionTabs extends Component {
@@ -155,23 +209,31 @@ export default class CollectionTabs extends Component {
     };
   }
 
+
   handleChange = (value) => {
     this.setState({
       slideIndex: value,
     });
   };
-
+  componentDidMount() {
+    this.props.actions.genreActions.getGenres();
+    this.props.actions.trackActions.getTracks();
+    this.props.actions.artistActions.getArtists();
+    this.props.actions.albumActions.getAlbums();
+  }
   render() {
     return (
-      <Paper style={styles.root}>
+      <Paper style={styles.paper}
+        zDepth={5}>
+
         <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}
         >
-          <Tab label="Genres" value={0} />
-          <Tab label="Artists" value={1} />
-          <Tab label="Albums" value={2} />
-          <Tab label="Songs" value={3} />
+          <Tab label={"Genres ["+ this.props.genres.count + "]"} value={0} />
+          <Tab label={"Artists ["+ this.props.artists.count + "]"} value={1} />
+          <Tab label={"Albums ["+ this.props.albums.count + "]"} value={2} />
+          <Tab label={"Songs ["+ this.props.tracks.count + "]"} value={3} />
           <Tab label="Playlists" value={4} />
           <Tab label="Stations" value={5} />
         </Tabs>
@@ -186,7 +248,7 @@ export default class CollectionTabs extends Component {
             <ArtistsCollection artists={this.props.artists}/>
           </div>
           <div style={styles.slide}>
-            slide n°3
+            <AlbumsCollection albums={this.props.albums}/>
           </div>
           <div style={styles.slide}>
             <TracksCollection tracks={this.props.tracks}/>
@@ -198,7 +260,6 @@ export default class CollectionTabs extends Component {
           <div style={styles.slide}>
             slide n°2
           </div>
-
         </SwipeableViews>
       </Paper>
     );
