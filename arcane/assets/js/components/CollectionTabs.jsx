@@ -15,10 +15,12 @@ const collectionStyles = {
     justifyContent: 'space-around',
     overflowY:'scroll',
     width:'100%',
+    height:'auto',
     padding:3,
-    maxHeight:'75vh'
+    maxHeight:'70vh'
   },
   gridList: {
+    width:'100%',
     overflowY: 'scroll',
   },
   table: {
@@ -70,16 +72,19 @@ export class TracksCollection extends Component {
   constructor(props) {
     super(props);
   }
+  convertDuration(duration) {
+    return '1:20';
+  }
   renderTracks(tracks) {
     if (tracks) {
       let arr = tracks.map((track) => (
         <TableRow
           key={'trackRow_'+ track.id}>
           <TableRowColumn><a href={track.url}>{ track.name }</a></TableRowColumn>
-          <TableRowColumn>{ '1:20' }</TableRowColumn>
-          <TableRowColumn>{ track.artist }</TableRowColumn>
-          <TableRowColumn>{ track.album }</TableRowColumn>
-          <TableRowColumn>{ track.genre }</TableRowColumn>
+          <TableRowColumn>{track.duration }</TableRowColumn>
+          <TableRowColumn><a href={track.artist}>{ track.artist }</a></TableRowColumn>
+          <TableRowColumn><a href={track.album}>{ track.album }</a></TableRowColumn>
+          <TableRowColumn><a href={track.genre}>{ track.genre }</a></TableRowColumn>
           <TableRowColumn>{ track.play_count }</TableRowColumn>
         </TableRow>
       ))
@@ -89,7 +94,7 @@ export class TracksCollection extends Component {
   render() {
     const {tracks } = this.props;
     return(
-        <Table height={'67vh'} multiSelectable={true}>
+        <Table height={'65vh'} multiSelectable={true}>
           <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>

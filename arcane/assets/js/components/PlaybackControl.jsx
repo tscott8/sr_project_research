@@ -28,7 +28,8 @@ const styles = {
      width:45,
      height:45,
      padding:4,
-     verticalAlign:'bottom'
+     verticalAlign:'bottom',
+
    },
    large: {
      width: 65,
@@ -36,7 +37,7 @@ const styles = {
      padding:4
    },
    hover: {
-     color: 'rgb(213, 0, 0)'
+    color: 'rgb(0, 151, 167)'
    }
 };
 export default class PlaybackControl extends Component {
@@ -55,8 +56,6 @@ export default class PlaybackControl extends Component {
           style={styles.medium}
           iconStyle={styles.mediumIcon}
           onClick={this.playPauseClick.bind(this)}
-          tooltip={this.props.tooltip}
-          tooltipPosition="top-center"
           hoveredStyle={styles.hover}>
           {this.state.playing ? this.props.icon : "pause"}
         </IconButton>
@@ -69,8 +68,6 @@ export default class PlaybackControl extends Component {
           style={styles.small}
           iconStyle={styles.smallIcon}
           onClick={this.props.onCLick}
-          tooltip={this.props.tooltip}
-          tooltipPosition="top-center"
           hoveredStyle={styles.hover}>
           {this.props.icon}
         </IconButton>

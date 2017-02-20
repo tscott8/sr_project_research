@@ -22,6 +22,7 @@ const muiTheme = {
       pickerHeaderColor: fade(Colors.darkBlack, 0.12),
       clockCircleColor: fade(Colors.darkBlack, 0.07),
       shadowColor: Colors.fullBlack,
+
    },
    slider: {
       trackColor: Colors.redA700,
@@ -36,9 +37,14 @@ const muiTheme = {
     color: Colors.redA700
    },
    raisedButton: {
+
     secondaryColor:Colors.redA700,
     secondaryTextColor:Colors.grey300
-    },
+   },
+   tableRow:{
+     hoverColor:Colors.cyan700,
+     selectedColor:Colors.redA700
+   }
 
 };
 

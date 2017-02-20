@@ -1,10 +1,15 @@
 from django.db import models
-from mutagen.easyid3 import EasyID3
+# from mutagen.easyid3 import EasyID3
+import mutagen
+import mutagen.easyid3
+import mutagen.id3
 from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import os
 from arcane import settings
+
+
 
 def upload_genre_icon(instance, file):
     return instance.name + "/icons/" + file
@@ -44,6 +49,19 @@ class Album(models.Model):
 def upload_track(instance, file):
     return instance.artist.name + "/" + instance.album.name + "/" + file
 
+def getTrackInfo(filename):
+    short_tags = full_tags = mutagen.File(filename)
+    if isinstance(full_tags, mutagen.mp3.MP3):
+        short_tags = mutagen.easyid3.EasyID3(filename)
+    album = short_tags.get('album', ['No Album'])[0]
+    artist = short_tags.get('artist', ['No Artist'])[0]
+    genre = short_tags.get('genre', ['No Genre'])[0]
+    duration = "%u:%.2d" % (full_tags.info.length / 60, full_tags.info.length % 60)
+    length = full_tags.info.length
+    title = short_tags.get('title', ['No Title'])[0]
+    size = os.stat(filename).st_size
+    return {'album':album, 'artist':artist, 'duration':duration, 'genre':genre, 'length':length, 'title':title, 'size':size}
+
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)
     url = models.FileField(upload_to=upload_track, blank=True, null=True)
@@ -51,39 +69,31 @@ class Track(models.Model):
     artist = models.ForeignKey(Artist, blank=True, null=True)
     album = models.ForeignKey(Album, blank=True, null=True)
     name = models.CharField(max_length=200, blank=True)
+    duration = models.CharField(max_length=200, blank=True)
+    length = models.BigIntegerField(blank=True)
 
     def __str__(self):
         return self.name
-
+        
     def save(self, *args, **kwargs):
         if self.url:
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
-            id3 = EasyID3(os.path.join(settings.MEDIA_ROOT, path))
-            try:
-                iTitle = id3.get('title', '')[0]
-            except IndexError:
-                iTitle = "unknown_track"
-            try:
-                iAlbum = id3.get('album', '')[0]
-            except IndexError:
-                iAlbum = "unknown_album"
-            try:
-                iArtist = id3.get('artist', '')[0]
-            except IndexError:
-                iArtist = "unknown_artist"
-            try:
-                iGenre = id3.get('genre', '')[0]
-            except IndexError:
-                iGenre = "unknown_genre"
-            print ('Uploading...', iTitle, iAlbum, iArtist, iGenre)
+            track = getTrackInfo(os.path.join(settings.MEDIA_ROOT, path))
+            print(track)
+            iTitle, iAlbum, iArtist, iGenre, iDuration, iLength = track['title'], track['album'], track['artist'], track['genre'], track['duration'], track['length']
+            print ('Uploading... [', iTitle, iAlbum, iArtist, iGenre, iDuration, iLength,']')
+
             if not self.name:
                 try:
                     check = Track.objects.get(name=iTitle)
-                    print('Upload Failed... ', check, iAlbum, iArtist, iGenre, 'already exists...')
+                    print('Upload Failed... [', check, iTitle, iAlbum, iArtist, iGenre, iDuration, iLength, '] already exists...')
                     return
                 except Track.DoesNotExist:
                     self.name = iTitle
+                    self.duration = iDuration
+                    self.length = iLength
+
             if not self.genre:
                 try:
                     check = Genre.objects.get(name=iGenre)
@@ -110,6 +120,5 @@ class Track(models.Model):
                     new_album = Album(name=iAlbum, genre=self.genre, artist=self.artist)
                     new_album.save()
                     self.album = new_album
-
             path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))
         super(Track, self).save(*args, **kwargs)
