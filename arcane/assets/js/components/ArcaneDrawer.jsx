@@ -40,7 +40,7 @@ export class DrawerHeader extends Component  {
 const drawerStyle = {
   height: 'calc(100vh - 64px)',
   top:'64px',
-  overflowY:'hidden'
+  overflowY:'auto'
 };
 export default class ArcaneDrawer extends Component  {
   constructor(props){

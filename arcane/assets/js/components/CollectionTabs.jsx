@@ -1,8 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {Paper, GridTile,GridList} from 'material-ui'
+import {Paper, GridTile,GridList,Divider} from 'material-ui'
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
+  from 'material-ui/Table';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import MenuTile from './MenuTile'
+import SquareButton from './SquareButton'
 
 const url = "http://localhost:8000/";
 
@@ -10,13 +13,20 @@ const collectionStyles = {
   root: {
     display: 'flex',
     justifyContent: 'space-between',
-    overflowY:'auto'
+    overflowY:'auto',
+    width:'100%',
+    marginTop:5
   },
   gridList: {
-    margin:5,
     height:'100%',
     width: '100%',
     overflowY: 'auto',
+  },
+  tracksTable: {
+    margin:10,
+    borderSpacing:'5',
+    borderCollapse: 'separate',
+    width:'100%',
   },
   artistTile: {
     root:{
@@ -35,7 +45,7 @@ export class GenresCollection extends Component {
       let arr = genres.map((tile) => (
         <GridTile
           key={'genreTile_'+ tile.id}>
-          <MenuTile
+          <SquareButton
             key={"genreMenuTile_" + tile.id}
             name={tile.name}
             icon={tile.icon ? tile.icon : 'build'}
@@ -67,13 +77,13 @@ export class TracksCollection extends Component {
   renderTracks(tracks) {
     if (tracks) {
       let arr = tracks.map((track) => (
-        <tr
+        <TableRow
           key={'trackRow_'+ track.id}>
-          <td><a href={track.url}>{ track.name }</a></td>
-          <td>{ track.album }</td>
-          <td>{ track.artist }</td>
-          <td>{ track.genre }</td>
-        </tr>
+          <TableRowColumn><a href={track.url}>{ track.name }</a></TableRowColumn>
+          <TableRowColumn>{ track.album }</TableRowColumn>
+          <TableRowColumn>{ track.artist }</TableRowColumn>
+          <TableRowColumn>{ track.genre }</TableRowColumn>
+        </TableRow>
       ))
       return arr;
     }
@@ -81,19 +91,19 @@ export class TracksCollection extends Component {
   render() {
     const {tracks } = this.props;
     return(
-      <div style={collectionStyles.root}>
-        <table>
-          <tbody>
-            <tr>
-              <th>Track</th>
-              <th>Album</th>
-              <th>Artist</th>
-              <th>Genre</th>
-            </tr>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn>Track</TableHeaderColumn>
+              <TableHeaderColumn>Album</TableHeaderColumn>
+              <TableHeaderColumn>Artist</TableHeaderColumn>
+              <TableHeaderColumn>Genre</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody stripedRows={true}>
               {this.renderTracks(tracks.results)}
-            </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
     );
   }
 }
@@ -134,7 +144,10 @@ export class ArtistsCollection extends Component {
 }
 const styles = {
   root: {
-    margin:10
+    height: 'calc(100vh - 64px)',
+    top:'64px',
+    overflowY:'auto',
+    padding:10
   },
   headline: {
     fontSize: 24,
@@ -143,7 +156,7 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    padding: 10,
+    padding: 0,
   },
 };
 export default class CollectionTabs extends Component {
@@ -198,7 +211,6 @@ export default class CollectionTabs extends Component {
           <div style={styles.slide}>
             slide n°2
           </div>
-
         </SwipeableViews>
       </Paper>
     );
