@@ -6,13 +6,15 @@ import mutagen.id3
 from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.template.defaultfilters import slugify
+
 import os
 from arcane import settings
 
 
 
 def upload_genre_icon(instance, file):
-    return instance.name + "/icons/" + file
+    return slugify(instance.name + "/icons/" + file)
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -23,7 +25,7 @@ class Genre(models.Model):
         return self.name
 
 def upload_artist_photo(instance, file):
-    return instance.name + "/images/" + file
+    return slugify(instance.name + "/images/" + file)
 
 class Artist(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -35,7 +37,7 @@ class Artist(models.Model):
         return self.name
 
 def upload_album_artwork(instance, file):
-    return instance.artist.name + "/" + instance.name + "/artwork/" + file
+    return slugify(instance.artist.name + "/" + instance.name + "/artwork/" + file)
 
 class Album(models.Model):
     name = models.CharField(max_length=50)
@@ -47,7 +49,7 @@ class Album(models.Model):
         return self.name
 
 def upload_track(instance, file):
-    return instance.artist.name + "/" + instance.album.name + "/" + file
+    return slugify(instance.artist.name + "/" + instance.album.name + "/" + file)
 
 def getTrackInfo(filename):
     short_tags = full_tags = mutagen.File(filename)
@@ -74,7 +76,7 @@ class Track(models.Model):
 
     def __str__(self):
         return self.name
-        
+
     def save(self, *args, **kwargs):
         if self.url:
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),

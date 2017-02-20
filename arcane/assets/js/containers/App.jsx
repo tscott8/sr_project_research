@@ -9,6 +9,7 @@ import LargePlayer from '../components/FooterPlayer'
 import * as GenreActions from '../actions/GenreActions'
 import * as TrackActions from '../actions/TrackActions'
 import * as ArtistActions from '../actions/ArtistActions'
+import * as AlbumActions from '../actions/AlbumActions'
 
 const bodyStyle = {
   height:'100vh',
@@ -24,17 +25,22 @@ class App extends Component {
     this.props.actions.genreActions.getGenres();
     this.props.actions.trackActions.getTracks();
     this.props.actions.artistActions.getArtists();
-
+    this.props.actions.albumActions.getAlbums();
   }
 
   render() {
-     const { genres, tracks, artists, actions} = this.props;
+     const { genres, tracks, artists, albums, actions } = this.props;
      return (
         <MuiThemeProvider muiTheme={theme}>
           <div>
             <Header />
             <div style={bodyStyle}>
-              <CollectionTabs genres={genres} tracks={tracks} artists={artists} actions={actions}/>
+              <CollectionTabs
+                genres={genres}
+                tracks={tracks}
+                artists={artists}
+                albums={albums}
+                actions={actions}/>
             </div>
             <LargePlayer/>
           </div>
@@ -47,14 +53,17 @@ App.propTypes = {
   actions: PropTypes.object.isRequired,
   genres: PropTypes.object.isRequired,
   tracks: PropTypes.object.isRequired,
-  artists: PropTypes.object.isRequired
+  artists: PropTypes.object.isRequired,
+  albums: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
   return {
     genres: state.genres,
     tracks: state.tracks,
-    artists: state.artists
+    artists: state.artists,
+    albums: state.albums,
+
   };
 }
 
@@ -63,7 +72,8 @@ function mapDispatchToProps(dispatch) {
     actions: {
       genreActions: bindActionCreators(GenreActions, dispatch),
       trackActions: bindActionCreators(TrackActions, dispatch),
-      artistActions: bindActionCreators(ArtistActions, dispatch)
+      artistActions: bindActionCreators(ArtistActions, dispatch),
+      albumActions: bindActionCreators(AlbumActions, dispatch)
     }
   };
 }
