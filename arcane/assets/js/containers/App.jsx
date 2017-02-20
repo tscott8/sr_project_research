@@ -10,6 +10,14 @@ import * as GenreActions from '../actions/GenreActions'
 import * as TrackActions from '../actions/TrackActions'
 import * as ArtistActions from '../actions/ArtistActions'
 
+const bodyStyle = {
+  height:'100vh',
+  padding:10,
+  background: 'rgb(70, 70, 70) repeat top center fixed',
+  backgroundSize:'cover',
+  position:'fixed'
+};
+
 class App extends Component {
 
   componentDidMount() {
@@ -25,7 +33,9 @@ class App extends Component {
         <MuiThemeProvider muiTheme={theme}>
           <div>
             <Header />
-            <CollectionTabs genres={genres} tracks={tracks} artists={artists} actions={actions}/>
+            <div style={bodyStyle}>
+              <CollectionTabs genres={genres} tracks={tracks} artists={artists} actions={actions}/>
+            </div>
             <LargePlayer/>
           </div>
         </MuiThemeProvider>

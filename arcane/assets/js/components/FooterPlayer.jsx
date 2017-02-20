@@ -23,12 +23,7 @@ const controlList = [
   { "icon": "skip_next", "tooltip": "next", "onClick":"" },
   { "icon": "shuffle", "tooltip": "shuffle", "onClick":"" }
 ];
-const controlPackStyle = {
-  textAlign:'center',
-  margin:'0',
-  padding:'0',
-  width:'100%'
-};
+
 const styles = {
   width: '100%',
   bottom: 0,

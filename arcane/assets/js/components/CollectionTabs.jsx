@@ -12,21 +12,17 @@ const url = "http://localhost:8000/";
 const collectionStyles = {
   root: {
     display: 'flex',
-    justifyContent: 'space-between',
-    overflowY:'auto',
+    justifyContent: 'space-around',
+    overflowY:'scroll',
     width:'100%',
-    marginTop:5
+    padding:3,
+    maxHeight:'75vh'
   },
   gridList: {
-    height:'100%',
-    width: '100%',
-    overflowY: 'auto',
+    overflowY: 'scroll',
   },
-  tracksTable: {
-    margin:10,
-    borderSpacing:'5',
-    borderCollapse: 'separate',
-    width:'100%',
+  table: {
+    overflowY:'scroll'
   },
   artistTile: {
     root:{
@@ -60,12 +56,12 @@ export class GenresCollection extends Component {
     const {genres} = this.props;
     return(
       <div style={collectionStyles.root}>
-      <GridList
-        cols={6}
-        cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderGenreTiles(genres.results)}
-        </GridList>
+        <GridList
+          cols={6}
+          cellHeight={'auto'}
+          style={collectionStyles.gridList}>
+          {this.renderGenreTiles(genres.results)}
+          </GridList>
       </div>
     );
   }
@@ -80,9 +76,11 @@ export class TracksCollection extends Component {
         <TableRow
           key={'trackRow_'+ track.id}>
           <TableRowColumn><a href={track.url}>{ track.name }</a></TableRowColumn>
-          <TableRowColumn>{ track.album }</TableRowColumn>
+          <TableRowColumn>{ '1:20' }</TableRowColumn>
           <TableRowColumn>{ track.artist }</TableRowColumn>
+          <TableRowColumn>{ track.album }</TableRowColumn>
           <TableRowColumn>{ track.genre }</TableRowColumn>
+          <TableRowColumn>{ track.play_count }</TableRowColumn>
         </TableRow>
       ))
       return arr;
@@ -91,16 +89,18 @@ export class TracksCollection extends Component {
   render() {
     const {tracks } = this.props;
     return(
-        <Table>
-          <TableHeader>
+        <Table height={'67vh'} multiSelectable={true}>
+          <TableHeader enableSelectAll={true}>
             <TableRow>
-              <TableHeaderColumn>Track</TableHeaderColumn>
-              <TableHeaderColumn>Album</TableHeaderColumn>
+              <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn>Duration</TableHeaderColumn>
               <TableHeaderColumn>Artist</TableHeaderColumn>
+              <TableHeaderColumn>Album</TableHeaderColumn>
               <TableHeaderColumn>Genre</TableHeaderColumn>
+              <TableHeaderColumn>Play Count</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody stripedRows={true}>
+          <TableBody stripedRows={true} style={collectionStyles.tbody} showRowHover={true}>
               {this.renderTracks(tracks.results)}
           </TableBody>
         </Table>
@@ -143,11 +143,9 @@ export class ArtistsCollection extends Component {
   }
 }
 const styles = {
-  root: {
-    height: 'calc(100vh - 64px)',
-    top:'64px',
+
+  tabs:{
     overflowY:'auto',
-    padding:10
   },
   headline: {
     fontSize: 24,
@@ -176,7 +174,9 @@ export default class CollectionTabs extends Component {
 
   render() {
     return (
-      <Paper style={styles.root}>
+      <Paper style={styles.paper}
+        zDepth={5}>
+
         <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}
