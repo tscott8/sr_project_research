@@ -7,30 +7,30 @@
 
     <body>
         <!-- List of uploaded tracks -->
-        <fieldset>
           {% if genres %}
+          <fieldset>
           <legend>Genres [{{ genres|length }}]</legend>
           <ul>
               {% for genre in genres %}
                   <li><a href="">{{ genre.name }}</a></li>
               {% endfor %}
           </ul>
-          {% endif %}
         </fieldset>
+        {% endif %}
 
+        {% if artists %}
         <fieldset>
           <legend>Artists  [{{ artists|length }}]</legend>
-          {% if artists %}
           <ul>
               {% for artist in artists %}
                   <li><a href="">{{ artist.name }}</a></li>
               {% endfor %}
           </ul>
+        </fieldset>
         {% endif %}
-      </fieldset>
 
-        <fieldset>
           {% if tracks %}
+          <fieldset>
         <legend>Tracks  [{{ tracks|length }}]</legend>
           <table>
               <thead>
@@ -52,8 +52,8 @@
               {% endfor %}
             </tbody>
           </table>
-      {% endif %}
     </fieldset>
+    {% endif %}
 
         <!-- Upload form. Note enctype attribute! -->
         <fieldset>

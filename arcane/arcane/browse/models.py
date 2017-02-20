@@ -14,7 +14,7 @@ from arcane import settings
 
 
 def upload_genre_icon(instance, file):
-    return slugify(instance.name + "/icons/" + file)
+    return slugify(instance.name) + "/icons/" + file
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -25,7 +25,7 @@ class Genre(models.Model):
         return self.name
 
 def upload_artist_photo(instance, file):
-    return slugify(instance.name + "/images/" + file)
+    return slugify(instance.name) + "/images/" + file
 
 class Artist(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -37,7 +37,7 @@ class Artist(models.Model):
         return self.name
 
 def upload_album_artwork(instance, file):
-    return slugify(instance.artist.name + "/" + instance.name + "/artwork/" + file)
+    return slugify(instance.artist.name) + "/" + slugify(instance.name) + "/artwork/" + file
 
 class Album(models.Model):
     name = models.CharField(max_length=50)
@@ -49,7 +49,7 @@ class Album(models.Model):
         return self.name
 
 def upload_track(instance, file):
-    return slugify(instance.artist.name + "/" + instance.album.name + "/" + file)
+    return slugify(instance.artist.name) + "/" + slugify(instance.album.name) + "/" + file
 
 def getTrackInfo(filename):
     short_tags = full_tags = mutagen.File(filename)
