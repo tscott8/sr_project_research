@@ -1,6 +1,6 @@
 import {GET_TRACKS} from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {};
 
 export default function tracks(state = initialState, action) {
    switch (action.type){

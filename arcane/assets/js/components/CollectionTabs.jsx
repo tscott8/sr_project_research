@@ -1,193 +1,14 @@
 import React, {Component, PropTypes} from 'react';
-import {Paper, GridTile,GridList,Divider} from 'material-ui'
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
-  from 'material-ui/Table';
+import {Paper} from 'material-ui'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import MenuTile from './MenuTile'
-import SquareButton from './SquareButton'
-
-const url = "http://localhost:8000/";
-
-const collectionStyles = {
-  root: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    overflowY:'scroll',
-    width:'100%',
-    height:'auto',
-    padding:3,
-    maxHeight:'70vh'
-  },
-  gridList: {
-    width:'100%',
-    overflowY: 'scroll',
-  },
-  table: {
-    overflowY:'scroll'
-  },
-  artistTile: {
-    root:{
-    },
-    img:{
-      maxHeight:'200'
-    },
-  }
-};
-export class GenresCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderGenreTiles(genres) {
-    if (genres) {
-      let arr = genres.map((tile) => (
-        <GridTile
-          key={'genreTile_'+ tile.id}>
-          <SquareButton
-            key={"genreMenuTile_" + tile.id}
-            name={tile.name}
-            icon={tile.icon ? tile.icon : 'build'}
-            url={tile.url ? tile.url : ''}
-            onClick={this.props.onClick}/>
-        </GridTile>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {genres} = this.props;
-    return(
-      <div style={collectionStyles.root}>
-        <GridList
-          cols={6}
-          cellHeight={'auto'}
-          style={collectionStyles.gridList}>
-          {this.renderGenreTiles(genres.results)}
-          </GridList>
-      </div>
-    );
-  }
-}
-export class TracksCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  convertDuration(duration) {
-    return '1:20';
-  }
-  renderTracks(tracks) {
-    if (tracks) {
-      let arr = tracks.map((track) => (
-        <TableRow
-          key={'trackRow_'+ track.id}>
-          <TableRowColumn><a href={track.url}>{ track.name }</a></TableRowColumn>
-          <TableRowColumn>{track.duration }</TableRowColumn>
-          <TableRowColumn><a href={track.artist}>{ track.artist }</a></TableRowColumn>
-          <TableRowColumn><a href={track.album}>{ track.album }</a></TableRowColumn>
-          <TableRowColumn><a href={track.genre}>{ track.genre }</a></TableRowColumn>
-          <TableRowColumn>{ track.play_count }</TableRowColumn>
-        </TableRow>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {tracks} = this.props;
-    return(
-        <Table height={'65vh'} multiSelectable={true}>
-          <TableHeader enableSelectAll={true}>
-            <TableRow>
-              <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Duration</TableHeaderColumn>
-              <TableHeaderColumn>Artist</TableHeaderColumn>
-              <TableHeaderColumn>Album</TableHeaderColumn>
-              <TableHeaderColumn>Genre</TableHeaderColumn>
-              <TableHeaderColumn>Play Count</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody stripedRows={true} style={collectionStyles.tbody} showRowHover={true}>
-              {this.renderTracks(tracks.results)}
-          </TableBody>
-        </Table>
-    );
-  }
-}
-export class ArtistsCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderArtistTiles(artists) {
-    if (artists) {
-      let arr = artists.map((tile) => (
-        <GridTile
-          key={'artistTile_'+ tile.id}
-          title={tile.name}
-          subtitle={tile.genre}
-          cols={1}
-          rows={1}
-          style={collectionStyles.artistTile.root}
-          >
-          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/3.jpg'}/>
-        </GridTile>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {artists} = this.props;
-    return(
-      <div style={collectionStyles.root}>
-      <GridList
-        cols={6}
-        cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderArtistTiles(artists.results)}
-        </GridList>
-      </div>
-    );
-  }
-}
-
-export class AlbumsCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderAlbumTiles(albums) {
-    if (albums) {
-      let arr = albums.map((tile) => (
-        <GridTile
-          key={'albumTile_'+ tile.id}
-          title={tile.name}
-          subtitle={tile.genre}
-          cols={1}
-          rows={1}
-          style={collectionStyles.artistTile.root}
-          >
-          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/3.jpg'}/>
-        </GridTile>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {albums} = this.props;
-    return(
-      <div style={collectionStyles.root}>
-      <GridList
-        cols={6}
-        cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderAlbumTiles(albums.results)}
-        </GridList>
-      </div>
-    );
-  }
-}
-
+import {GenresCollection, ArtistsCollection, AlbumsCollection, TracksCollection} from './Collections'
 
 const styles = {
-
-  tabs:{
+  paper: {
+    margin:10
+  },
+  tabs: {
     overflowY:'auto',
   },
   headline: {
@@ -205,11 +26,10 @@ export default class CollectionTabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      slideIndex: 0,
+      slideIndex: 3,
+      renderCount: false,
     };
   }
-
-
   handleChange = (value) => {
     this.setState({
       slideIndex: value,
@@ -221,46 +41,64 @@ export default class CollectionTabs extends Component {
     this.props.actions.artistActions.getArtists();
     this.props.actions.albumActions.getAlbums();
   }
+  renderCount(countIndex) {
+    const {genres,artists,albums,tracks} = this.props;
+    let counts = [
+      genres.count > 0 ? '['+genres.count+']' : '',
+      artists.count > 0 ? '['+artists.count+']' : '',
+      albums.count > 0 ? '['+albums.count+']' : '',
+      tracks.count > 0 ? '['+tracks.count+']' : '',
+    ];
+    return this.state.renderCount ? counts[countIndex] : '';
+  }
+
+  renderTabs() {
+    let contents = [
+      {index: 0, label: "Genres " + this.renderCount(0)},
+      {index: 1, label: "Artists " + this.renderCount(1)},
+      {index: 2, label: "Albums " + this.renderCount(2)},
+      {index: 3, label: "Songs " + this.renderCount(3)},
+  ];
+  let tabs = contents.map((tab) => (
+      <Tab
+        key={tab.index}
+        label={tab.label}
+        value={tab.index}/>
+  ))
+  return tabs;
+  }
+  renderSlide(index) {
+    let contents = [
+      <GenresCollection genres={this.props.genres} actions={this.props.actions.genreActions}/>,
+      <ArtistsCollection artists={this.props.artists} actions={this.props.actions.artistActions}/>,
+      <AlbumsCollection albums={this.props.albums} actions={this.props.actions.albumActions}/>,
+      <TracksCollection tracks={this.props.tracks} actions={this.props.actions.trackActions}/>,
+    ];
+    return contents[index];
+  }
+  renderSlides() {
+    let contents = [0,1,2,3];
+    let slides = contents.map((slide) => (
+      <div  key ={slide} style={styles.slide}>
+        {this.renderSlide(slide)}
+      </div>
+    ))
+    return slides;
+  }
   render() {
     return (
-      <Paper style={styles.paper}
-        zDepth={5}>
-
+      <Paper style={styles.paper}>
         <Tabs
           onChange={this.handleChange}
-          value={this.state.slideIndex}
-        >
-          <Tab label={"Genres ["+ this.props.genres.count + "]"} value={0} />
-          <Tab label={"Artists ["+ this.props.artists.count + "]"} value={1} />
-          <Tab label={"Albums ["+ this.props.albums.count + "]"} value={2} />
-          <Tab label={"Songs ["+ this.props.tracks.count + "]"} value={3} />
-          <Tab label="Playlists" value={4} />
-          <Tab label="Stations" value={5} />
+          value={this.state.slideIndex}>
+          {this.renderTabs()}
         </Tabs>
+
         <SwipeableViews
           index={this.state.slideIndex}
-          onChangeIndex={this.handleChange}
-        >
-          <div style={styles.slide}>
-            <GenresCollection genres={this.props.genres}/>
-          </div>
-          <div style={styles.slide}>
-            <ArtistsCollection artists={this.props.artists}/>
-          </div>
-          <div style={styles.slide}>
-            <AlbumsCollection albums={this.props.albums}/>
-          </div>
-          <div style={styles.slide}>
-            <TracksCollection tracks={this.props.tracks}/>
-          </div>
-          <div>
-            <h2 style={styles.headline}>Tabs with slide effect</h2>
-            Swipe to see the next slide.<br />
-          </div>
-          <div style={styles.slide}>
-            slide n°2
-          </div>
-        </SwipeableViews>
+          onChangeIndex={this.handleChange}>
+          {this.renderSlides()}
+      </SwipeableViews>
       </Paper>
     );
   }

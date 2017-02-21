@@ -1,6 +1,6 @@
 import {GET_GENRES} from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {};
 
 export default function genres(state = initialState, action) {
    switch (action.type){
