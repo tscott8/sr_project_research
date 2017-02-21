@@ -55,10 +55,10 @@ export default class ArcaneDrawer extends Component  {
           onRequestChange={this.props.onRequestChange}>
           {/* <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/> */}
           <GridMenu onClick={this.props.handleClose}/>
-          <List>
+          {/* <List>
             <ListItem>A</ListItem>
             <ListItem>Settings</ListItem>
-          </List>
+          </List> */}
         </Drawer>
       );
   }

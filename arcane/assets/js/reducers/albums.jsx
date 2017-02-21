@@ -1,6 +1,6 @@
 import {GET_ALBUMS} from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {};
 
 export default function albums(state = initialState, action) {
    switch (action.type){

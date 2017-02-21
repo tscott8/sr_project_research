@@ -1,6 +1,6 @@
 import {GET_ARTISTS} from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {};
 
 export default function artists(state = initialState, action) {
    switch (action.type){

@@ -20,12 +20,10 @@ const gridStyle = {
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     height:'auto',
-    overflowY: 'auto'
   },
   gridList: {
     width: '100%',
     height: '100%',
-    overflowY: 'auto',
   },
 };
 export default class GridMenu extends Component {

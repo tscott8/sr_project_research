@@ -11,9 +11,9 @@ import * as TrackActions from '../actions/TrackActions'
 import * as ArtistActions from '../actions/ArtistActions'
 import * as AlbumActions from '../actions/AlbumActions'
 
-const bodyStyle = {
-  height:'100vh',
-  padding:10,
+const appBody = {
+  width:'100%',
+  height:'100%',
   background: 'rgb(70, 70, 70) repeat top center fixed',
   backgroundSize:'cover',
   position:'fixed'
@@ -21,27 +21,25 @@ const bodyStyle = {
 
 class App extends Component {
 
-  componentDidMount() {
-    this.props.actions.genreActions.getGenres();
-    this.props.actions.trackActions.getTracks();
-    this.props.actions.artistActions.getArtists();
-    this.props.actions.albumActions.getAlbums();
-  }
+  // componentDidMount() {
+  //   this.props.actions.genreActions.getGenres();
+  //   this.props.actions.trackActions.getTracks();
+  //   this.props.actions.artistActions.getArtists();
+  //   this.props.actions.albumActions.getAlbums();
+  // }
 
   render() {
      const { genres, tracks, artists, albums, actions } = this.props;
      return (
         <MuiThemeProvider muiTheme={theme}>
-          <div>
+          <div style={appBody}>
             <Header />
-            <div style={bodyStyle}>
               <CollectionTabs
                 genres={genres}
                 tracks={tracks}
                 artists={artists}
                 albums={albums}
                 actions={actions}/>
-            </div>
             <LargePlayer/>
           </div>
         </MuiThemeProvider>
