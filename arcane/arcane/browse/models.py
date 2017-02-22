@@ -55,14 +55,16 @@ def getTrackInfo(filename):
     short_tags = full_tags = mutagen.File(filename)
     if isinstance(full_tags, mutagen.mp3.MP3):
         short_tags = mutagen.easyid3.EasyID3(filename)
-    album = short_tags.get('album', ['No Album'])[0]
-    artist = short_tags.get('artist', ['No Artist'])[0]
-    genre = short_tags.get('genre', ['No Genre'])[0]
-    duration = "%u:%.2d" % (full_tags.info.length / 60, full_tags.info.length % 60)
-    length = full_tags.info.length
-    title = short_tags.get('title', ['No Title'])[0]
-    size = os.stat(filename).st_size
-    return {'album':album, 'artist':artist, 'duration':duration, 'genre':genre, 'length':length, 'title':title, 'size':size}
+    return {
+        'album':short_tags.get('album', ['No Album'])[0],
+        # 'albumArt':full_tags.tags.get('APIC', ['No Artwork'])[0]
+        'artist':short_tags.get('artist', ['No Artist'])[0],
+        'genre':short_tags.get('genre', ['No Genre'])[0],
+        'duration': "%u:%.2d" % (full_tags.info.length / 60, full_tags.info.length % 60),
+        'length': full_tags.info.length,
+        'title': short_tags.get('title', ['No Title'])[0],
+        'size': os.stat(filename).st_size,
+    };
 
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)

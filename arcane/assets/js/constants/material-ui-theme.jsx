@@ -37,7 +37,6 @@ const muiTheme = {
     color: Colors.redA700
    },
    raisedButton: {
-
     secondaryColor:Colors.redA700,
     secondaryTextColor:Colors.grey300
    },
