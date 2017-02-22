@@ -1,14 +1,13 @@
-import React from "react";
-import { render } from "react-dom";
-import { Provider } from 'react-redux';
-import injectTapEventPlugin from "react-tap-event-plugin";
-
-import App from './containers/App';
-import configureStore from './store/configureStore';
-
-import { Router, browserHistory } from 'react-router'
+import React from "react"
+import { render } from "react-dom"
+import { Provider } from 'react-redux'
+import { Router } from 'react-router'
+import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import RoutesContainer from './routes/routes'
+import injectTapEventPlugin from "react-tap-event-plugin"
+
+import configureStore from './store/configureStore'
+import routes from './routes/routes'
 
 //Needed for React Developer Tools
 window.React = React;
@@ -24,10 +23,9 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store)
 
 render(
-    <Provider store={store}>
-      <Router history={history}>
-         <RoutesContainer />
-      </Router>
-    </Provider>,
+   <Provider store={store}>
+     <Router history={history} routes={routes}>
+     </Router>
+   </Provider>,
     document.getElementById("app")
 );
