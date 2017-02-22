@@ -10,7 +10,7 @@ import * as GenreActions from '../actions/GenreActions'
 import * as TrackActions from '../actions/TrackActions'
 import * as ArtistActions from '../actions/ArtistActions'
 import * as AlbumActions from '../actions/AlbumActions'
-
+import Uploader from '../components/Uploader'
 const appBody = {
   width:'100%',
   height:'100%',
@@ -34,6 +34,7 @@ class App extends Component {
         <MuiThemeProvider muiTheme={theme}>
           <div style={appBody}>
             <Header />
+            {/* <Uploader/> */}
               <CollectionTabs
                 genres={genres}
                 tracks={tracks}
