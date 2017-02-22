@@ -24,7 +24,7 @@ export default function configureStore(initialState) {
     compose(
       applyMiddleware(thunk, routerMiddleware(history), promise, ...debugware),
       window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
+   ),
   );
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

@@ -1,6 +1,4 @@
 import React, {Component, PropTypes} from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import theme from "../constants/material-ui-theme"
 import Header from "../components/Header"
@@ -19,7 +17,7 @@ const appBody = {
   position:'fixed'
 };
 
-class App extends Component {
+export default class App extends Component {
 
   // componentDidMount() {
   //   this.props.actions.genreActions.getGenres();
@@ -29,52 +27,16 @@ class App extends Component {
   // }
 
   render() {
-     const { genres, tracks, artists, albums, actions } = this.props;
      return (
         <MuiThemeProvider muiTheme={theme}>
           <div style={appBody}>
             <Header />
             {/* <Uploader/> */}
-              <CollectionTabs
-                genres={genres}
-                tracks={tracks}
-                artists={artists}
-                albums={albums}
-                actions={actions}/>
+            {this.props.children}
+
             <LargePlayer/>
           </div>
         </MuiThemeProvider>
     );
   }
 }
-
-App.propTypes = {
-  actions: PropTypes.object.isRequired,
-  genres: PropTypes.object.isRequired,
-  tracks: PropTypes.object.isRequired,
-  artists: PropTypes.object.isRequired,
-  albums: PropTypes.object.isRequired
-}
-
-function mapStateToProps(state) {
-  return {
-    genres: state.genres,
-    tracks: state.tracks,
-    artists: state.artists,
-    albums: state.albums,
-
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      genreActions: bindActionCreators(GenreActions, dispatch),
-      trackActions: bindActionCreators(TrackActions, dispatch),
-      artistActions: bindActionCreators(ArtistActions, dispatch),
-      albumActions: bindActionCreators(AlbumActions, dispatch)
-    }
-  };
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(App);

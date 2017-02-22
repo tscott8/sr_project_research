@@ -27,8 +27,9 @@ export default class CollectionTabs extends Component {
     super(props);
     this.state = {
       slideIndex: 3,
-      renderCount: false,
+      renderCount: false
     };
+
   }
   handleChange = (value) => {
     this.setState({
