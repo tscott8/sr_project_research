@@ -4,12 +4,7 @@ import { bindActionCreators } from 'redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import theme from "../constants/material-ui-theme"
 import Header from "../components/Header"
-import CollectionTabs from '../components/CollectionTabs'
 import LargePlayer from '../components/FooterPlayer'
-import * as GenreActions from '../actions/GenreActions'
-import * as TrackActions from '../actions/TrackActions'
-import * as ArtistActions from '../actions/ArtistActions'
-import * as AlbumActions from '../actions/AlbumActions'
 const appBody = {
   width:'100%',
   height:'100%',

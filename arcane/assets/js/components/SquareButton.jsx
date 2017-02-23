@@ -49,7 +49,7 @@ export default class SquareButton extends Component {
   }
   render() {
     return (
-      <Link to={ "/app/" + this.props.name.toLowerCase() }>
+      <Link to={ "/app/" + this.props.url }>
          <RaisedButton
            href=""
            target="_blank"

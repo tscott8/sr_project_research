@@ -5,13 +5,13 @@ import SquareButton from './SquareButton'
 const url = "http://localhost:8000/";
 
 const menuList = [
-  { "name": "Browse", "icon": "subscriptions", "url":url, featured:false },
-  { "name": "Playlists", "icon": "subject", "url":"/main/genres" },
-  { "name": "Upload", "icon": "cloud_upload", "url": "/main/uploads" },
-  { "name": "Radio", "icon": "radio", "url": "/main/genres"},
-  { "name": "My Music", "icon": "library_music", "url": "/main/artist-music"},
-  { "name": "Profile", "icon": "account_circle", "url": "/main/artist"},
-  { "name": "About", "icon": "info", "url": "/about"}
+  { "name": "Browse", "icon": "subscriptions", "url":'browse', featured:false },
+  { "name": "Playlists", "icon": "subject", "url":"playlists" },
+  { "name": "Upload", "icon": "cloud_upload", "url": "upload" },
+  { "name": "Radio", "icon": "radio", "url": "radio"},
+  { "name": "My Music", "icon": "library_music", "url": "my_music"},
+  { "name": "Profile", "icon": "account_circle", "url": "profile"},
+  { "name": "About", "icon": "info", "url": "about"}
 ];
 
 const gridStyle = {
