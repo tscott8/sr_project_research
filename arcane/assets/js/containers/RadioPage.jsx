@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import * as TrackActions from '../actions/TrackActions'
+import { TracksCollection } from '../components/Collections'
 
 class Radio extends Component {
    constructor(props) {
@@ -11,21 +12,26 @@ class Radio extends Component {
    }
 
    render() {
+      console.info("tracks in render: ", this.props.tracks);
       return (
-         <h1>Radio</h1>
+         <div>
+            <h1>Radio</h1>
+            <TracksCollection tracks={this.props.tracks} />
+         </div>
       );
    }
 }
 
 Radio.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  tracks: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
-  const { getTracks } = state
+  const { tracks } = state
 
   return {
-    getTracks
+     tracks
   }
 }
 
