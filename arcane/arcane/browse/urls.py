@@ -17,6 +17,5 @@ router.register(r'tracks', api.TrackViewSet)
 urlpatterns = [
     url(r'^list/$', list, name='list'),
     url('^schema/$', schema_view),
-    url('^test/', generic.TemplateView.as_view(template_name='test.html')),
     url(r'^', include(router.urls)),
 ]

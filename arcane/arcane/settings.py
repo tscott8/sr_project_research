@@ -92,7 +92,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'arcane', 'browse', 'templates')
+            os.path.join(BASE_DIR, 'arcane', 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {

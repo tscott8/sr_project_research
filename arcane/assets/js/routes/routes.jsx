@@ -7,7 +7,7 @@ import Radio from '../containers/RadioPage'
 import LandingPage from '../containers/LandingPage'
 
 export default (
-   <Route path="/browse/test/" component={App} >
+   <Route path="/app/" component={App} >
       <IndexRoute component={LandingPage} />
       <Route path="upload" component={Uploader} />
       <Route path="radio" component={Radio} />
