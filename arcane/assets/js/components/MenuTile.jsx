@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
+import { Link } from 'react-router'
 
 const url = "http://localhost:8000/";
 
@@ -38,17 +39,19 @@ export default class MenuTile extends Component {
   }
   render() {
     return(
-      <RaisedButton
-        href=""
-        target="_blank"
-        secondary={true}
-        onClick={this.props.onClick}
-        icon={<FontIcon
-            className="material-icons"
-            style={iconStyle}>{this.props.icon}</FontIcon>}
-        label={this.props.name}
-        labelStyle={labelStyle}
-        style={tileStyle}/>
+      <Link to={ "app/" + this.props.name }>
+         <RaisedButton
+           href=""
+           target="_blank"
+           secondary={true}
+           onClick={this.props.onClick}
+           icon={<FontIcon
+               className="material-icons"
+               style={iconStyle}>{this.props.icon}</FontIcon>}
+           label={this.props.name}
+           labelStyle={labelStyle}
+           style={tileStyle}/>
+      </Link>
     );
   }
 }
