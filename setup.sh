@@ -16,14 +16,14 @@ pip install -r requirements.txt
 echo "requirements installed"
 cd arcane
 # SETUP NODE
-# npm install
+npm install
 # SETUP DJANGO
-case "$os" in 
+case "$os" in
     linux*)   chmod u+x manage.py;;
 esac
 ./manage.py makemigrations
 ./manage.py migrate
-# ./manage.py createsuperuser
+./manage.py createsuperuser
 echo "django configured"
 echo "arcane setup complete, starting arcane server"
 # START THE SERVER, WEBPACK

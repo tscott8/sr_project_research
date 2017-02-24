@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { AppBar,Drawer,IconMenu, IconButton, DropdownMenu, AutoComplete, MenuItem} from 'material-ui'
 import ArcaneDrawer from './ArcaneDrawer'
 import RadioDrawer from './RadioDrawer'
+import SearchBox from './SearchBox'
+import makeExpanding from './ExpandingAnimation';
+
+const ExpandingSearchBox = makeExpanding(SearchBox);
 
 export class RightActions extends Component {
   constructor(props){
@@ -10,9 +14,6 @@ export class RightActions extends Component {
     render() {
       return (
         <div>
-          <IconButton
-            onClick={this.props.searchClick}
-            iconClassName="material-icons">search</IconButton>
           <IconMenu
              iconButtonElement={<IconButton iconClassName="material-icons">person</IconButton>}
              targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -28,6 +29,33 @@ export class RightActions extends Component {
 
       );
     }
+}
+const titleStyles = {
+  root: {
+    display:'inline-flex',
+    width:'100%',
+    height:'inherit'
+  },
+  title: {
+    width:'50%'
+  },
+  search: {
+      width: '50%',
+      float:'right',
+  }
+};
+export class Title extends Component {
+  constructor(props){
+    super(props);
+  }
+  render() {
+    return(
+      <div style={titleStyles.root}>
+        <span style={titleStyles.title}>{"Arcane" + this.props.currentPage}</span>
+        <span style={titleStyles.search}><ExpandingSearchBox dataSource={[]}/></span>
+      </div>
+    );
+  }
 }
 
 
@@ -47,20 +75,7 @@ export default class Header extends Component  {
   handleRightToggle() { this.setState({rightOpen: !this.state.rightOpen}); }
   handleLeftClose() { this.setState({leftOpen: false}); }
   handleRightClose() { this.setState({rightOpen: false}); }
-  renderTitle() {
-    return(
-      <div>
-        <div>Arcane / {this.getPageName()}</div>
-        {/* {this.renderSearchField()} */}
-      </div>
-    );
-  }
-  renderSearchField() {
-      return (this.state.searching === true ? <AutoComplete
-                                                id={'searchField'}
-                                                fullWidth={true}
-                                               hintText="Type anything"/> : "");
-  }
+
   render() {
       return (
           <div>
@@ -73,12 +88,15 @@ export default class Header extends Component  {
               handleClose={this.handleRightClose.bind(this)}
               onRequestChange={(rightOpen) => this.setState({rightOpen})}/>
             <AppBar
-              title={"Arcane"+ this.props.currentPage}
+              title={<Title currentPage={this.props.currentPage}/>}
               primary={true}
-              iconElementRight={<RightActions
-                                  searchClick={this.handleSearchClick.bind(this)}
-                                  drawerClick={this.handleRightToggle.bind(this)}/>}
-              onLeftIconButtonTouchTap={this.handleLeftToggle.bind(this)}/>
+              onLeftIconButtonTouchTap={this.handleLeftToggle.bind(this)}
+              iconElementRight={
+                <RightActions
+                  searching={this.state.searching}
+                  searchClick={this.handleSearchClick.bind(this)}
+                  drawerClick={this.handleRightToggle.bind(this)}/>}
+            />
 
           </div>
       );
