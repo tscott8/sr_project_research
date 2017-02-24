@@ -6,12 +6,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import theme from "../constants/material-ui-theme"
 import Audio from '../components/Audio'
 import Header from "../components/Header"
-import CollectionTabs from '../components/CollectionTabs'
-import LargePlayer from '../components/FooterPlayer'
-import * as GenreActions from '../actions/GenreActions'
-import * as TrackActions from '../actions/TrackActions'
-import * as ArtistActions from '../actions/ArtistActions'
-import * as AlbumActions from '../actions/AlbumActions'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
 
@@ -115,10 +109,11 @@ export default class App extends Component {
       let song = find(songs, (o) => o.id === currentID);
       if (song === undefined) song = this.props.audio.defaultSong;
 
-      return (
+     const currentPage = this.props.routes[this.props.routes.length-1].path
+     return (
         <MuiThemeProvider muiTheme={theme}>
           <div style={appBody}>
-            <Audio ref="audio"
+             <Audio ref="audio"
                autoplay={false}
                source={song.audioFile}
                onProgress={this.handleProgress}
@@ -127,10 +122,8 @@ export default class App extends Component {
                onEnded={this.handleEnd}
                onLoadedData={this.handleLoadedData} />
 
-            <Header />
+            <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}/>
             {this.props.children}
-
-            <LargePlayer />
           </div>
         </MuiThemeProvider>
     );

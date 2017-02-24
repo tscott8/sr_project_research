@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-
+import Uploader from '../components/Uploader'
 import * as TrackActions from '../actions/TrackActions'
-import { TracksCollection } from '../components/Collections'
 
-class Radio extends Component {
+class Upload extends Component {
    constructor(props) {
       super(props);
       const { dispatch } = this.props;
@@ -15,13 +14,13 @@ class Radio extends Component {
       console.info("tracks in render: ", this.props.tracks);
       return (
          <div>
-            <TracksCollection tracks={this.props.tracks} />
+            <Uploader/>
          </div>
       );
    }
 }
 
-Radio.propTypes = {
+Upload.propTypes = {
   dispatch: PropTypes.func.isRequired,
   tracks: PropTypes.object.isRequired
 }
@@ -34,4 +33,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Radio);
+export default connect(mapStateToProps)(Upload);

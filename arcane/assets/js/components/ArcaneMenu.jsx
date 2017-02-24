@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
-import MiniPlayer from './MiniPlayer'
 import SquareButton from './SquareButton'
 const url = "http://localhost:8000/";
 
 const menuList = [
-  { "name": "Browse", "icon": "subscriptions", "url":url, featured:false },
-  { "name": "Playlists", "icon": "subject", "url":"/main/genres" },
-  { "name": "Upload", "icon": "cloud_upload", "url": "/main/uploads" },
-  { "name": "Radio", "icon": "radio", "url": "/main/genres"},
-  { "name": "My Music", "icon": "library_music", "url": "/main/artist-music"},
-  { "name": "Profile", "icon": "account_circle", "url": "/main/artist"},
-  { "name": "About", "icon": "info", "url": "/about"}
+  { "name": "Browse", "icon": "subscriptions", "url":"browse"},
+  { "name": "Playlists", "icon": "subject", "url":"playlists" },
+  { "name": "Upload", "icon": "cloud_upload", "url": "upload" },
+  { "name": "Radio", "icon": "radio", "url": "radio"},
+  { "name": "My Music", "icon": "library_music", "url": "my_music"},
+  { "name": "Profile", "icon": "account_circle", "url": "profile"},
+  { "name": "About", "icon": "info", "url": "about"}
 ];
 
 const gridStyle = {
@@ -31,12 +30,6 @@ export default class GridMenu extends Component {
     super(props);
   }
   renderMenuMap() {
-    let arr = [<GridTile
-                    key={'miniPlayer'}
-                    cols={2}
-                    rows={2}>
-                    <MiniPlayer/>
-                  </GridTile>];
     let map = menuList.map((tile) => (
             <GridTile
               key={tile.name}
@@ -50,8 +43,7 @@ export default class GridMenu extends Component {
                 onClick={this.props.onClick}/>
             </GridTile>
           ))
-    arr.push.apply(arr,map);
-    return arr;
+    return map;
   }
   render () {
     return (
