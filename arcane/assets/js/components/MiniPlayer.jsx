@@ -4,8 +4,6 @@ import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import PlaybackControl from './PlaybackControl'
 const url = "http://localhost:8000/";
 
-
-
 const controlList = [
   { "icon": "repeat", "tooltip": "repeat", "onClick":"" },
   { "icon": "skip_previous", "tooltip": "previous", "onClick":"" },

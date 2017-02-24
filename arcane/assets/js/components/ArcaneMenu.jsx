@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
-import MiniPlayer from './MiniPlayer'
 import SquareButton from './SquareButton'
 const url = "http://localhost:8000/";
 
@@ -31,12 +30,6 @@ export default class GridMenu extends Component {
     super(props);
   }
   renderMenuMap() {
-    let arr = [<GridTile
-                    key={'miniPlayer'}
-                    cols={2}
-                    rows={2}>
-                    <MiniPlayer/>
-                  </GridTile>];
     let map = menuList.map((tile) => (
             <GridTile
               key={tile.name}
@@ -50,8 +43,7 @@ export default class GridMenu extends Component {
                 onClick={this.props.onClick}/>
             </GridTile>
           ))
-    arr.push.apply(arr,map);
-    return arr;
+    return map;
   }
   render () {
     return (

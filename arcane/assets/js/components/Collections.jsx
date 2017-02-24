@@ -91,7 +91,7 @@ export class TracksCollection extends Component {
   render() {
     const {tracks} = this.props;
     return(
-        <Table height={'65vh'} multiSelectable={true}>
+        <Table height={'90vh'} multiSelectable={true}>
           <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>

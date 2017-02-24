@@ -36,12 +36,6 @@ export default class CollectionTabs extends Component {
       slideIndex: value,
     });
   };
-  componentDidMount() {
-    this.props.actions.genreActions.getGenres();
-    this.props.actions.trackActions.getTracks();
-    this.props.actions.artistActions.getArtists();
-    this.props.actions.albumActions.getAlbums();
-  }
   renderCount(countIndex) {
     const {genres,artists,albums,tracks} = this.props;
     let counts = [
@@ -70,10 +64,10 @@ export default class CollectionTabs extends Component {
   }
   renderSlide(index) {
     let contents = [
-      <GenresCollection genres={this.props.genres} actions={this.props.actions.genreActions}/>,
-      <ArtistsCollection artists={this.props.artists} actions={this.props.actions.artistActions}/>,
-      <AlbumsCollection albums={this.props.albums} actions={this.props.actions.albumActions}/>,
-      <TracksCollection tracks={this.props.tracks} actions={this.props.actions.trackActions}/>,
+      <GenresCollection genres={this.props.genres}/>,
+      <ArtistsCollection artists={this.props.artists}/>,
+      <AlbumsCollection albums={this.props.albums}/>,
+      <TracksCollection tracks={this.props.tracks}/>,
     ];
     return contents[index];
   }
