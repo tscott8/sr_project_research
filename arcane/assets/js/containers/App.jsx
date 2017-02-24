@@ -14,12 +14,12 @@ const appBody = {
 };
 
 export default class App extends Component {
-
   render() {
+    const currentPage = this.props.routes[this.props.routes.length-1].path
      return (
         <MuiThemeProvider muiTheme={theme}>
           <div style={appBody}>
-            <Header />
+            <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}/>
             {this.props.children}
           </div>
         </MuiThemeProvider>

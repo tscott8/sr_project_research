@@ -4,7 +4,7 @@ import SquareButton from './SquareButton'
 const url = "http://localhost:8000/";
 
 const menuList = [
-  { "name": "Browse", "icon": "subscriptions", "url":'browse', featured:false },
+  { "name": "Browse", "icon": "subscriptions", "url":"browse"},
   { "name": "Playlists", "icon": "subject", "url":"playlists" },
   { "name": "Upload", "icon": "cloud_upload", "url": "upload" },
   { "name": "Radio", "icon": "radio", "url": "radio"},

@@ -9,18 +9,14 @@ const url = "http://localhost:8000/";
 
 const collectionStyles = {
   root: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    overflowY:'auto',
     width:'100%',
-    height:'auto',
-    padding:3,
-    maxHeight:'70vh'
+    overflowY:'auto',
   },
   gridList: {
     width:'100%',
   },
   table: {
+    maxHeight:'82vh',
     overflowY:'auto'
   },
   href:{
@@ -57,14 +53,12 @@ export class GenresCollection extends Component {
   render() {
     const {genres} = this.props;
     return(
-      <div style={collectionStyles.root}>
         <GridList
           cols={6}
           cellHeight={'auto'}
           style={collectionStyles.gridList}>
           {this.renderGenreTiles(genres.results)}
           </GridList>
-      </div>
     );
   }
 }
@@ -91,7 +85,7 @@ export class TracksCollection extends Component {
   render() {
     const {tracks} = this.props;
     return(
-        <Table height={'90vh'} multiSelectable={true}>
+        <Table height={'inherit'} multiSelectable={true}>
           <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>

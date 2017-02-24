@@ -11,7 +11,7 @@ const styles = {
   guts: {
     root:{
       minWidth:'6rem',
-      minHeight:'6rem',
+      height:'6rem',
       width:'100%',
       height:'auto',
       justifyContent:'space-between',
@@ -28,7 +28,8 @@ const styles = {
       width:'100%',
       fontSize:'2rem',
       verticalAlign:'bottom',
-      display:'block'
+      display:'block',
+      overflowX:'hidden'
     }
   }
 };

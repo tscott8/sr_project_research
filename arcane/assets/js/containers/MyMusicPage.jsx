@@ -24,7 +24,6 @@ class MyMusic extends Component {
     const { genres, tracks, artists, albums, actions } = this.props;
       return (
         <div>
-          <h1>My Music</h1>
           <CollectionTabs
                genres={genres}
                tracks={tracks}

@@ -47,9 +47,6 @@ export default class Header extends Component  {
   handleRightToggle() { this.setState({rightOpen: !this.state.rightOpen}); }
   handleLeftClose() { this.setState({leftOpen: false}); }
   handleRightClose() { this.setState({rightOpen: false}); }
-  getPageName () {
-    return("My Music");
-  }
   renderTitle() {
     return(
       <div>
@@ -76,7 +73,7 @@ export default class Header extends Component  {
               handleClose={this.handleRightClose.bind(this)}
               onRequestChange={(rightOpen) => this.setState({rightOpen})}/>
             <AppBar
-              title={this.renderTitle()}
+              title={"Arcane"+ this.props.currentPage}
               primary={true}
               iconElementRight={<RightActions
                                   searchClick={this.handleSearchClick.bind(this)}

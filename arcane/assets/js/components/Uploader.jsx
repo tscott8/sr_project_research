@@ -6,7 +6,6 @@ const styles = {
   paper: {
     margin:10,
     padding:10,
-    height:'80vh'
   },
   dropzone: {
     color: 'cyan',

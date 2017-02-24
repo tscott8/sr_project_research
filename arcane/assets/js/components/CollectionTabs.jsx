@@ -6,10 +6,7 @@ import {GenresCollection, ArtistsCollection, AlbumsCollection, TracksCollection}
 
 const styles = {
   paper: {
-    margin:10
-  },
-  tabs: {
-    overflowY:'auto',
+    margin:10,
   },
   headline: {
     fontSize: 24,
@@ -18,8 +15,12 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    padding: 0,
+    padding:0
   },
+  swipes: {
+    maxHeight:'82vh',
+    margin:4
+  }
 };
 export default class CollectionTabs extends Component {
 
@@ -90,6 +91,7 @@ export default class CollectionTabs extends Component {
         </Tabs>
 
         <SwipeableViews
+          style={styles.swipes}
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}>
           {this.renderSlides()}
