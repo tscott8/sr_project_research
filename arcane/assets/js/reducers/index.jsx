@@ -4,6 +4,7 @@ import genres from './genres';
 import tracks from './tracks';
 import artists from './artists';
 import albums from './albums';
+import audio from './audio';
 import { routerReducer } from 'react-router-redux'
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     tracks,
     artists,
     albums,
+    audio,
     routing: routerReducer
 });
 
