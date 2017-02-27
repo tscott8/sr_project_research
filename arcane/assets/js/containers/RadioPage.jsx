@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 
 import * as TrackActions from '../actions/TrackActions'
 import { TracksCollection } from '../components/Collections'
+import Radio from '../components/Radio'
 
-class Radio extends Component {
+class RadioPage extends Component {
    constructor(props) {
       super(props);
       const { dispatch } = this.props;
@@ -15,13 +16,14 @@ class Radio extends Component {
       console.info("tracks in render: ", this.props.tracks);
       return (
          <div>
+           <Radio/>
             <TracksCollection tracks={this.props.tracks} />
          </div>
       );
    }
 }
 
-Radio.propTypes = {
+RadioPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   tracks: PropTypes.object.isRequired
 }
@@ -34,4 +36,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Radio);
+export default connect(mapStateToProps)(RadioPage);

@@ -25,7 +25,7 @@ const gridStyle = {
     height: '100%',
   },
 };
-export default class GridMenu extends Component {
+export default class ArcaneMenu extends Component {
   constructor(props){
     super(props);
   }

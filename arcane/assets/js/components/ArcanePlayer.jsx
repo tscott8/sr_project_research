@@ -13,7 +13,7 @@ const gridStyle = {
     height: '100%',
   },
 };
-export default class MiniRadio extends Component {
+export default class ArcanePlayer extends Component {
   constructor(props){
     super(props);
   }

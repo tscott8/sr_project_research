@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Divider, Drawer, AppBar, FontIcon, List, ListItem} from 'material-ui'
-import MiniRadio from './ArcanePlayer'
+import ArcanePlayer from './ArcanePlayer'
 
 const drawerStyle = {
   height: 'calc(100vh - 64px)',
@@ -19,7 +19,7 @@ export default class RadioDrawer extends Component  {
           open={this.props.open}
           openSecondary={true}
           onRequestChange={this.props.onRequestChange}>
-          <MiniRadio/>
+          <ArcanePlayer/>
         </Drawer>
       );
   }
