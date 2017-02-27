@@ -31,7 +31,7 @@ const fruit = [
 const SearchBox = ({isOpen, onClick}) => {
     const baseStyles = {
         open: {
-            width:500,
+            width:'inherit',
         },
         closed: {
             width: 0,
@@ -48,25 +48,31 @@ const SearchBox = ({isOpen, onClick}) => {
             float:'right'
         },
         frame: {
-            float:'right',
+            float:'left',
+            width:'inherit'
         }
     };
 const inputStyle = {
   verticalAlign:'super',
-
+  maxWidth: '27vw',
+  // backgroundColor:'rgba(97, 97, 97, .6)',
+  // borderRadius: 10,
+  // margin:0
+  // padding:0,
 }
 const textStyle = isOpen ? baseStyles.open : baseStyles.closed;
 const divStyle = Object.assign({}, textStyle, baseStyles.frame);
     divStyle.width += baseStyles.icon.width + 5;
 return (
-        <div style={divStyle}>
+        <div id="searchBox" style={divStyle}>
           <AutoComplete
             id={'searchField'}
             dataSource={fruit}
             filter={AutoComplete.fuzzyFilter}
             fullWidth={true}
             style={textStyle}
-            textFieldStyle={inputStyle}/>
+            textFieldStyle={inputStyle}
+            menuProps={{maxHeight:'50vh'}}/>
             <IconButton onClick={() => onClick()}>
                 <FontIcon className="material-icons">search</FontIcon>
             </IconButton>
