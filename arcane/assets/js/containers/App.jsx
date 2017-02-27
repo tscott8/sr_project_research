@@ -10,8 +10,9 @@ import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
 
 const appBody = {
-  width:'100%',
-  height:'100%',
+  minWidth:412,
+  width:'100vw',
+  height:'100vh',
   background: 'rgb(70, 70, 70) repeat top center fixed',
   backgroundSize:'cover',
   position:'fixed'
