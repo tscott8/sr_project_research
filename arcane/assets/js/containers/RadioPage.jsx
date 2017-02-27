@@ -8,7 +8,8 @@ class Radio extends Component {
    constructor(props) {
       super(props);
       const { dispatch } = this.props;
-      dispatch(TrackActions.getTracks());
+      if (this.props.tracks.length == 0)
+         dispatch(TrackActions.getTracks());
    }
 
    render() {

@@ -2,10 +2,12 @@ import React, {Component, PropTypes} from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from "../constants/material-ui-theme"
 import Audio from '../components/Audio'
 import Header from "../components/Header"
+import FloatingControls from '../components/FloatingControls'
+import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
 
@@ -22,7 +24,8 @@ const appBody = {
   dispatch => bindActionCreators(AudioActions, dispatch)
 )
 
-export default class App extends Component {
+class App extends Component {
+
 
    componentDidMount() {
        // Initialize DOM Audio and retrieve
@@ -124,8 +127,18 @@ export default class App extends Component {
 
             <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}/>
             {this.props.children}
+            <FloatingControls props={this.props}/>
           </div>
         </MuiThemeProvider>
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+   return({
+      play: () => {dispatch(ActionTypes.PLAY)},
+      pause: () => {dispatch(ActionTypes.PAUSE)}
+   });
+}
+
+export default connect(mapDispatchToProps)(App);
