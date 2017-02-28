@@ -20,7 +20,6 @@ const collectionStyles = {
     overflowY:'auto'
   },
   href:{
-    color:'red'
   },
   artistTile: {
     root:{

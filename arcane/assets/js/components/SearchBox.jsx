@@ -32,6 +32,8 @@ const SearchBox = ({isOpen, onClick}) => {
     const baseStyles = {
         open: {
             width:'inherit',
+            minWidth:'30vw',
+            maxWidth:'50vw'
         },
         closed: {
             width: 0,
@@ -49,17 +51,10 @@ const SearchBox = ({isOpen, onClick}) => {
         },
         frame: {
             float:'left',
-            width:'inherit'
+            width:'inherit',
+            display:'inline-flex'
         }
     };
-const inputStyle = {
-  verticalAlign:'super',
-  maxWidth: '27vw',
-  // backgroundColor:'rgba(97, 97, 97, .6)',
-  // borderRadius: 10,
-  // margin:0
-  // padding:0,
-}
 const textStyle = isOpen ? baseStyles.open : baseStyles.closed;
 const divStyle = Object.assign({}, textStyle, baseStyles.frame);
     divStyle.width += baseStyles.icon.width + 5;
@@ -71,8 +66,7 @@ return (
             filter={AutoComplete.fuzzyFilter}
             fullWidth={true}
             style={textStyle}
-            textFieldStyle={inputStyle}
-            menuProps={{maxHeight:'50vh'}}/>
+            menuProps={{maxHeight:'75vh'}}/>
             <IconButton onClick={() => onClick()}>
                 <FontIcon className="material-icons">search</FontIcon>
             </IconButton>

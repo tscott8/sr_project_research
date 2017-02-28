@@ -31,32 +31,6 @@ export class RightActions extends Component {
       );
     }
 }
-const titleStyles = {
-  root: {
-    display:'inline-flex',
-    width:'100%',
-    height:'inherit'
-  },
-  title: {
-    width:'50%'
-  },
-  search: {
-      width: '50%',
-  }
-};
-export class Title extends Component {
-  constructor(props){
-    super(props);
-  }
-  render() {
-    return(
-      <div style={titleStyles.root}>
-        <span style={titleStyles.title}>{"Arcane" + this.props.currentPage}</span>
-        <span style={titleStyles.search}><ExpandingSearchBox dataSource={[]}/></span>
-      </div>
-    );
-  }
-}
 
 
 
