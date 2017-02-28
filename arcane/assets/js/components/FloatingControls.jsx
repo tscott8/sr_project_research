@@ -26,7 +26,7 @@ const style = {
 export default class FloatingControls extends Component {
    constructor(props) {
       super(props);
-      if (this.props.isPlaying) {
+      if (!this.props.isPlaying) {
          this.state = {
             fabIcon: 'play_arrow'
          };

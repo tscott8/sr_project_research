@@ -43,15 +43,21 @@ export default class MiniPlayer extends Component {
       }
   }
 
+  handleSlideClick = (event, value) => {
+     console.info("Percent value: ", value);
+     this.props.onSetTime(value);
+  }
+
   renderPlaybackProgress() {
     return(
-      <Slider sliderStyle={sliderStyle} defaultValue={this.props.percent}/>
+      <Slider sliderStyle={sliderStyle} defaultValue={0} value={this.props.percent} onChange={this.handleSlideClick} />
     );
   }
   renderPlaybackButtons() {
     let items = [];
     for (let i = 0; i < this.state.controlList.length; i++) {
          let item = this.state.controlList[i];
+         //console.info("Control list item " + i + ": ", item);
          items.push(<PlaybackControl key={"miniControl" + i} icon={item.icon} tooltip={item.tooltip} onClick={item.onClick}/>);
       }
       return items;
