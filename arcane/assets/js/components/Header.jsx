@@ -86,7 +86,16 @@ export default class Header extends Component  {
             <RadioDrawer
               open={this.state.rightOpen}
               handleClose={this.handleRightClose.bind(this)}
-              onRequestChange={(rightOpen) => this.setState({rightOpen})}/>
+              onRequestChange={(rightOpen) => this.setState({rightOpen})}
+              onNext={this.props.onNext}
+              onPlay={this.props.onPlay}
+              onPrevious={this.props.onPrevious}
+              onToggleRepeat={this.props.onToggleRepeat}
+              onToggleLoop={this.props.onToggleLoop}
+              onSetTime={this.props.onSetTime}
+              percent={this.props.percent}
+              isRepeating={this.props.isRepeating}
+              isLooping={this.props.isLooping} />
             <AppBar
               titleStyle={{maxWidth:'33vw'}}
               title={"Arcane" + this.props.currentPage}

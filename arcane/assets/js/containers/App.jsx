@@ -79,11 +79,7 @@ export default class App extends Component {
 
   handleEnd = () => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
-    if (this.props.audio.isRepeating) {
-      this.props.next(audio);
-    } else {
-      this.props.pause(audio);
-    }
+    this.props.next(audio);
   }
 
   handleToggleLoop = () => {
@@ -109,7 +105,6 @@ export default class App extends Component {
         duration, isRepeating, songs, currentID, autoplay, isLooping
       } = this.props.audio;
 
-      console.info(songs[3]);
       let song = find(songs[3], (o) => o.id === currentID);
       if (song === undefined) song = this.props.audio.defaultSong;
 
@@ -126,12 +121,22 @@ export default class App extends Component {
                onEnded={this.handleEnd}
                onLoadedData={this.handleLoadedData} />
 
-            <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}/>
+            <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
+               onNext={this.handleNext}
+               onPlay={this.handlePlay}
+               onPrevious={this.handlePrevious}
+               onToggleRepeat={this.handleToggleRepeat}
+               onToggleLoop={this.handleToggleLoop}
+               onSetTime={this.handleTimeupdate}
+               percent={percent}
+               isRepeating={isRepeating}
+               isLooping={isLooping}/>
             {this.props.children}
             <FloatingControls
                isPlaying={isPlaying}
                onPlay={this.handlePlay}
-               onNext={this.handleNext} />
+               onNext={this.handleNext}
+               percent={percent} />
           </div>
         </MuiThemeProvider>
     );

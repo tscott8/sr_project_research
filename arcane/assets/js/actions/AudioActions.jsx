@@ -10,7 +10,6 @@ export function retrieveSongs() {
 
 
 export function play(audio) {
-   console.info("Audio player: ", audio);
   if (audio.paused)
       audio.play();
   else

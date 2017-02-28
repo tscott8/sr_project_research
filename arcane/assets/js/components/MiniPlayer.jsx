@@ -4,15 +4,6 @@ import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import PlaybackControl from './PlaybackControl'
 const url = "http://localhost:8000/";
 
-const controlList = [
-  { "icon": "repeat", "tooltip": "repeat", "onClick":"" },
-  { "icon": "skip_previous", "tooltip": "previous", "onClick":"" },
-  { "icon": "play_arrow", "tooltip": "play/pause", "onClick":"" },
-  { "icon": "skip_next", "tooltip": "next", "onClick":"" },
-  { "icon": "shuffle", "tooltip": "shuffle", "onClick":"" }
-
-];
-
 const cardStyle={
   root: {
   },
@@ -40,17 +31,27 @@ const imgStyle = {
 export default class MiniPlayer extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      controlList: [
+         { "icon": "repeat", "tooltip": "repeat", "onClick": this.props.onToggleRepeat },
+         { "icon": "skip_previous", "tooltip": "previous", "onClick": this.props.onPrevious },
+         { "icon": "play_arrow", "tooltip": "play/pause", "onClick": this.props.onPlay },
+         { "icon": "skip_next", "tooltip": "next", "onClick": this.props.onNext },
+         { "icon": "shuffle", "tooltip": "shuffle", "onClick":"" }
+
+         ]
+      }
   }
 
   renderPlaybackProgress() {
     return(
-      <Slider sliderStyle={sliderStyle}/>
+      <Slider sliderStyle={sliderStyle} defaultValue={this.props.percent}/>
     );
   }
   renderPlaybackButtons() {
     let items = [];
-    for (let i = 0; i < controlList.length; i++) {
-         let item = controlList[i];
+    for (let i = 0; i < this.state.controlList.length; i++) {
+         let item = this.state.controlList[i];
          items.push(<PlaybackControl key={"miniControl" + i} icon={item.icon} tooltip={item.tooltip} onClick={item.onClick}/>);
       }
       return items;

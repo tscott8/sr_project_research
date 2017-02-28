@@ -27,7 +27,16 @@ export default class ArcanePlayer extends Component {
               key={'miniPlayer'}
               cols={2}
               rows={2}>
-              <MiniPlayer/>
+              <MiniPlayer
+                 onNext={this.props.onNext}
+                 onPlay={this.props.onPlay}
+                 onPrevious={this.props.onPrevious}
+                 onToggleRepeat={this.props.onToggleRepeat}
+                 onToggleLoop={this.props.onToggleLoop}
+                 onSetTime={this.props.onSetTime}
+                 percent={this.props.percent}
+                 isRepeating={this.props.isRepeating}
+                 isLooping={this.props.isLooping}/>
             </GridTile>
         </GridList>
       </div>

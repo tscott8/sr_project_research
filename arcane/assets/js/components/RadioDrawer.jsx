@@ -19,7 +19,16 @@ export default class RadioDrawer extends Component  {
           open={this.props.open}
           openSecondary={true}
           onRequestChange={this.props.onRequestChange}>
-          <ArcanePlayer/>
+          <ArcanePlayer
+             onNext={this.props.onNext}
+             onPlay={this.props.onPlay}
+             onPrevious={this.props.onPrevious}
+             onToggleRepeat={this.props.onToggleRepeat}
+             onToggleLoop={this.props.onToggleLoop}
+             onSetTime={this.props.onSetTime}
+             percent={this.props.percent}
+             isRepeating={this.props.isRepeating}
+             isLooping={this.props.isLooping} />
         </Drawer>
       );
   }
