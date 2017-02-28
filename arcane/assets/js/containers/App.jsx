@@ -105,7 +105,7 @@ export default class App extends Component {
         duration, isRepeating, songs, currentID, autoplay, isLooping
       } = this.props.audio;
 
-      let song = find(songs[3], (o) => o.id === currentID);
+      let song = find(songs, (o) => o.id === currentID);
       if (song === undefined) song = this.props.audio.defaultSong;
 
      const currentPage = this.props.routes[this.props.routes.length-1].path

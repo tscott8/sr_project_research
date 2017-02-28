@@ -4,7 +4,7 @@ export function retrieveSongs() {
   // This could be written as a thunk or saga
   return fetch("http://localhost:8000/api/tracks").then(response => response.json()).then(json => ({
             type: types.INITIALIZE,
-            songs: json
+            songs: json.results
          }));
 };
 

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { FloatingActionButton, FontIcon, CircularProgress } from 'material-ui'
-import { redA700 } from 'material-ui/styles/colors'
+import { redA400 } from 'material-ui/styles/colors'
 import * as ActionTypes from '../constants/ActionTypes'
 
 const style = {
@@ -26,32 +26,35 @@ const style = {
 export default class FloatingControls extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         fabIcon: 'play_arrow',
-         fabFunction: this.play
-      };
-   }
+      if (this.props.isPlaying) {
+         this.state = {
+            fabIcon: 'play_arrow'
+         };
+      } else {
+         this.state = {
+            fabIcon: 'pause'
+         }
+      }
 
-   pause() {
-      this.setState({
-         fabIcon: 'play_arrow',
-         fabFunction: this.play
-      });
-      this.props.onPlay();
    }
 
    play() {
-      this.setState({
-         fabIcon: 'pause',
-         fabFunction: this.pause
-      });
+      if (this.props.isPlaying) {
+         this.setState({
+            fabIcon: 'play_arrow'
+         });
+      } else {
+         this.setState({
+            fabIcon: 'pause'
+         });
+      }
 
       this.props.onPlay();
    }
 
    render() {
       return (
-         <FloatingActionButton onClick={this.state.fabFunction.bind(this)} style={style.fab} >
+         <FloatingActionButton onClick={this.play.bind(this)} style={style.fab} >
            <FontIcon className="material-icons">{this.state.fabIcon}</FontIcon>
            <CircularProgress
              mode="determinate"
@@ -59,7 +62,7 @@ export default class FloatingControls extends Component {
              size={57}
              thickness={3}
              style={style.progress}
-             color={redA700} />
+             color={redA400} />
          </FloatingActionButton>
       );
    }
