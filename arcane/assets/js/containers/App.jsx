@@ -12,9 +12,8 @@ import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
 
 const appBody = {
-  minWidth:412,
-  width:'100vw',
-  height:'100vh',
+  width:'100%',
+  height:'100%',
   background: 'rgb(70, 70, 70) repeat top center fixed',
   backgroundSize:'cover',
   position:'fixed'
@@ -25,7 +24,7 @@ const appBody = {
   dispatch => bindActionCreators(AudioActions, dispatch)
 )
 
-class App extends Component {
+export default class App extends Component {
 
 
    componentDidMount() {
@@ -110,7 +109,8 @@ class App extends Component {
         duration, isRepeating, songs, currentID, autoplay, isLooping
       } = this.props.audio;
 
-      let song = find(songs, (o) => o.id === currentID);
+      console.info(songs[3]);
+      let song = find(songs[3], (o) => o.id === currentID);
       if (song === undefined) song = this.props.audio.defaultSong;
 
      const currentPage = this.props.routes[this.props.routes.length-1].path
@@ -119,7 +119,7 @@ class App extends Component {
           <div style={appBody}>
              <Audio ref="audio"
                autoplay={false}
-               source={song.audioFile}
+               source={song.url}
                onProgress={this.handleProgress}
                onTimeupdate={this.handleTimeupdate}
                onError={this.handleError}
@@ -128,18 +128,12 @@ class App extends Component {
 
             <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}/>
             {this.props.children}
-            <FloatingControls props={this.props}/>
+            <FloatingControls
+               isPlaying={isPlaying}
+               onPlay={this.handlePlay}
+               onNext={this.handleNext} />
           </div>
         </MuiThemeProvider>
     );
   }
 }
-
-function mapDispatchToProps(dispatch) {
-   return({
-      play: () => {dispatch(ActionTypes.PLAY)},
-      pause: () => {dispatch(ActionTypes.PAUSE)}
-   });
-}
-
-export default connect(mapDispatchToProps)(App);

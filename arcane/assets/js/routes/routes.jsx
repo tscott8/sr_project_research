@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Route, DefaultRoute, IndexRoute} from 'react-router'
+import { Route, DefaultRoute, IndexRoute } from 'react-router'
 
 import App from '../containers/App'
 import Upload from '../containers/UploadPage'

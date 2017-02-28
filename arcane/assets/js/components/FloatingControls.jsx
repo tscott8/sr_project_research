@@ -25,8 +25,7 @@ export default class FloatingControls extends Component {
          fabIcon: 'play_arrow',
          fabFunction: this.play
       });
-      this.props.dispatch(ActionTypes.PAUSE);
-      console.info("Playing!");
+      this.props.onPlay();
    }
 
    play() {
@@ -34,8 +33,11 @@ export default class FloatingControls extends Component {
          fabIcon: 'pause',
          fabFunction: this.pause
       });
-      this.props.play();
-      console.info("Paused");
+
+      this.props.onPlay();
+      if (this.refs.audio.src == null) {
+         this.props.onNext();
+      }
    }
 
    render() {
@@ -44,11 +46,5 @@ export default class FloatingControls extends Component {
            <FontIcon className="material-icons">{this.state.fabIcon}</FontIcon>
          </FloatingActionButton>
       );
-
    }
-}
-
-FloatingControls.propTypes = {
-   play: PropTypes.func.isRequired,
-   pause: PropTypes.func.isRequired
 }

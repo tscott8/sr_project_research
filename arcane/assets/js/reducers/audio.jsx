@@ -29,9 +29,9 @@
    currentID: null,
    defaultSong: {
      "id": -1,
-     "coverURL": "/static/images/2.jpg",
-     "audioFile": null,
-     "title": "Waiting...",
+     "album": "",
+     "url": "http://localhost:8000/media/the-goo-goo-dolls/dizzy-up-the-girl/iris.mp3",
+     "name": "Waiting...",
      "artist": "No song loaded",
      "favorite": false
    }
@@ -42,12 +42,13 @@
  }
 
  function getAdjacentSong(songs, startIndex, direction) {
+    console.info(songs);
    let nextIndex = startIndex + direction;
    nextIndex = nextIndex < 0 ? songs.length-1 : nextIndex > songs.length-1 ? 0 : nextIndex;
    return songs[nextIndex].id;
  }
 
- function getAudioState(audio) {
+function getAudioState(audio) {
    var test = {
      isPlaying: !audio.paused,
      percent: audio.currentTime / audio.duration,

@@ -3,13 +3,14 @@ import * as types from '../constants/ActionTypes'
 export function retrieveSongs() {
   // This could be written as a thunk or saga
   return fetch("http://localhost:8000/api/tracks").then(response => response.json()).then(json => ({
-            type:types.GET_TRACKS,
-            tracks: json
+            type: types.INITIALIZE,
+            songs: json
          }));
 };
 
 
 export function play(audio) {
+   console.info("Audio player: ", audio);
   if (audio.paused)
       audio.play();
   else

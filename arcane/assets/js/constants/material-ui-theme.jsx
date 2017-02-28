@@ -1,6 +1,7 @@
 import { fade } from 'material-ui/utils/colorManipulator'
 import * as Colors from 'material-ui/styles/colors';
 import { spacing, getMuiTheme } from 'material-ui/styles';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 
 const muiTheme = {
    spacing: spacing,
@@ -48,4 +49,4 @@ const muiTheme = {
 };
 
 //Theme must be wrapped in funciton getMuiTheme
-export default getMuiTheme(muiTheme);
+export default getMuiTheme(darkBaseTheme);
