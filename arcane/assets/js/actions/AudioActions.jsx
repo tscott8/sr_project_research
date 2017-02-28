@@ -60,7 +60,9 @@ export function setError(audio) {
 }
 
 export function updatePosition(audio, percent) {
+   console.info("Percent during update: ", percent);
   audio.currentTime = percent * audio.duration;
+  console.info("Current time: ", percent * audio.currentTime);
   return { type: types.UPDATE_POSITION, audio }
 }
 

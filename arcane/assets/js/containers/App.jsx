@@ -48,10 +48,12 @@ export default class App extends Component {
   }
 
   handlePlay = () => {
+     console.info("Handling Play request");
     this.props.play(ReactDOM.findDOMNode(this.refs.audio));
   }
 
   handleNext = () => {
+     console.info("Handling Next request");
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.next(audio);
   }
@@ -127,7 +129,7 @@ export default class App extends Component {
                onPrevious={this.handlePrevious}
                onToggleRepeat={this.handleToggleRepeat}
                onToggleLoop={this.handleToggleLoop}
-               onSetTime={this.handleTimeupdate}
+               onSetTime={this.handleTrackClick}
                percent={percent}
                isRepeating={isRepeating}
                isLooping={isLooping}/>
