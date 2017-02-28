@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import {} from 'material-ui'
 import {Slider} from 'react-slick'
+import MiniPlayer from './MiniPlayer2'
 
-const settings = {
-
-  };
 export default class Radio extends Component  {
   constructor(props){
     super(props);
@@ -12,6 +10,7 @@ export default class Radio extends Component  {
   render() {
       return (
         <div>
+          <MiniPlayer/>
           {/* <Slider
             dots={true}
             infinite={true}

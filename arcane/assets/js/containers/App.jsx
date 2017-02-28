@@ -130,7 +130,9 @@ export default class App extends Component {
                onSetTime={this.handleTimeupdate}
                percent={percent}
                isRepeating={isRepeating}
-               isLooping={isLooping}/>
+               isLooping={isLooping}
+               queue={songs}
+               currentID = {currentID}/>
             {this.props.children}
             <FloatingControls
                isPlaying={isPlaying}

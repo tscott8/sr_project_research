@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {FontIcon, FloatingActionButton, Slider, IconButton} from 'material-ui'
+import {FontIcon, FloatingActionButton, Slider, IconButton, List, ListItem, Divider} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import PlaybackControl from './PlaybackControl'
 const url = "http://localhost:8000/";
@@ -13,6 +13,12 @@ const cardStyle={
     }
   }
 };
+const qStyle= {
+  root: {
+    height:'55vh',
+    overflowY:'auto'
+  }
+}
 const controlPackStyle = {
   textAlign:'center',
   margin:'0',
@@ -70,9 +76,45 @@ export default class MiniPlayer extends Component {
       </div>
     );
   }
-
+  renderEQIcon(track) {
+    const {currentID} = this.props;
+    if(track.id === currentID) {
+      return(
+        <FontIcon
+          className="material-icons">equalizer</FontIcon>
+      );
+    }
+    else {
+      return (
+        <FontIcon
+          className="material-icons">play_arrow</FontIcon>
+      );
+    }
+  }
+  renderQueueList() {
+    const {queue} = this.props;
+      let q = queue.map((track) => (
+        <div>
+          <ListItem
+            primaryText={track.name}
+            secondaryText={track.artist}
+            leftAvatar={<img src={track.artwork}/>}
+            rightIcon={this.renderEQIcon(track)}/>
+          <Divider/>
+      </div>
+    ))
+    return q;
+  }
+  renderQueue() {
+    return (
+      <List style={qStyle.root}>
+        {this.renderQueueList()}
+      </List>
+    );
+  }
   render() {
     return (
+      <div>
        <Card style={cardStyle.root}>
         <CardMedia
           style={cardStyle.media}
@@ -85,6 +127,8 @@ export default class MiniPlayer extends Component {
               src={url + "static/images/2.jpg"} />
         </CardMedia>
       </Card>
+      {this.renderQueue()}
+    </div>
     );
   }
 }

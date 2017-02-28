@@ -69,7 +69,9 @@ export default class Header extends Component  {
               onSetTime={this.props.onSetTime}
               percent={this.props.percent}
               isRepeating={this.props.isRepeating}
-              isLooping={this.props.isLooping} />
+              isLooping={this.props.isLooping}
+              queue={this.props.queue}
+              currentID={this.props.currentID}/>
             <AppBar
               titleStyle={{maxWidth:'33vw'}}
               title={"Arcane" + this.props.currentPage}
