@@ -8,7 +8,6 @@ const styles = {
     padding:10,
   },
   dropzone: {
-    color: 'cyan',
     textAlign:'center',
     padding:200
   },

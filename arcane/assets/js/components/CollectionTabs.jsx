@@ -1,13 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import {Paper} from 'material-ui'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import {GenresCollection, ArtistsCollection, AlbumsCollection, TracksCollection} from './Collections'
 
 const styles = {
-  paper: {
-    margin:10,
-  },
   headline: {
     fontSize: 24,
     paddingTop: 16,
@@ -18,8 +14,7 @@ const styles = {
     padding:0
   },
   swipes: {
-    maxHeight:'82vh',
-    margin:4
+    maxHeight:'85vh',
   }
 };
 export default class CollectionTabs extends Component {
@@ -83,7 +78,7 @@ export default class CollectionTabs extends Component {
   }
   render() {
     return (
-      <Paper style={styles.paper}>
+      <div>
         <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}>
@@ -96,7 +91,7 @@ export default class CollectionTabs extends Component {
           onChangeIndex={this.handleChange}>
           {this.renderSlides()}
       </SwipeableViews>
-      </Paper>
+    </div>
     );
   }
 }

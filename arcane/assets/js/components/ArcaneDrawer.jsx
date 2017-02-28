@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Divider, Drawer, AppBar, FontIcon, List, ListItem} from 'material-ui'
-import GridMenu from './ArcaneMenu'
+import ArcaneMenu from './ArcaneMenu'
 
 const drawerHeaderStyle = {
   root:{},
@@ -54,7 +54,7 @@ export default class ArcaneDrawer extends Component  {
           open={this.props.open}
           onRequestChange={this.props.onRequestChange}>
           {/* <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/> */}
-          <GridMenu onClick={this.props.handleClose}/>
+          <ArcaneMenu onClick={this.props.handleClose}/>
           {/* <List>
             <ListItem>A</ListItem>
             <ListItem>Settings</ListItem>
