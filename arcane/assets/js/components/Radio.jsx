@@ -1,30 +1,46 @@
 import React, { Component } from 'react'
 import {} from 'material-ui'
-import {Slider} from 'react-slick'
+import Slider from 'react-slick'
 
 const settings = {
+   dots: true,
+   infinite: true,
+   arrows: true,
+   speed: 500,
+   slidesToShow: 1,
+   slidesToScroll: 1,
+   centerMode: true,
+   fade: true
+}
 
-  };
+const styles = {
+   outerDiv: {
+      maxWidth: '500px',
+      maxHeight: '25vh',
+      marginLeft: '30vw',
+      marginBottom: '42vh'
+   },
+   innerDiv: {
+      width: 'inherit',
+      height: 'inherit',
+   }
+}
+
 export default class Radio extends Component  {
   constructor(props){
     super(props);
   }
   render() {
       return (
-        <div>
-          {/* <Slider
-            dots={true}
-            infinite={true}
-            speed={500}
-            slidesToShow={1}
-            slidesToScroll={1}>
-              <div><h3>1</h3></div>
-              <div><h3>2</h3></div>
-              <div><h3>3</h3></div>
-              <div><h3>4</h3></div>
-              <div><h3>5</h3></div>
-              <div><h3>6</h3></div>
-          </Slider> */}
+        <div style={styles.outerDiv}>
+          <Slider {...settings} >
+              <div><img src="http://localhost:8000/static/images/1.jpg" style={styles.innerDiv} /></div>
+              <div><img src="http://localhost:8000/static/images/2.jpg" style={styles.innerDiv} /></div>
+              <div><img src="http://localhost:8000/static/images/3.jpg" style={styles.innerDiv} /></div>
+              <div><img src="http://localhost:8000/static/images/4.jpg" style={styles.innerDiv} /></div>
+              <div><img src="http://localhost:8000/static/images/5.jpg" style={styles.innerDiv} /></div>
+              <div><img src="http://localhost:8000/static/images/6.jpg" style={styles.innerDiv} /></div>
+          </Slider>
         </div>
       );
   }
