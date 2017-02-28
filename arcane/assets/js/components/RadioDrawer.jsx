@@ -5,7 +5,6 @@ import ArcanePlayer from './ArcanePlayer'
 const drawerStyle = {
   height: 'calc(100vh - 64px)',
   top:'64px',
-  overflowY:'auto'
 };
 export default class RadioDrawer extends Component  {
   constructor(props){
@@ -28,7 +27,9 @@ export default class RadioDrawer extends Component  {
              onSetTime={this.props.onSetTime}
              percent={this.props.percent}
              isRepeating={this.props.isRepeating}
-             isLooping={this.props.isLooping} />
+             isLooping={this.props.isLooping}
+            queue={this.props.queue}
+            currentID={this.props.currentID}/>
         </Drawer>
       );
   }
