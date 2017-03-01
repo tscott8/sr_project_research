@@ -44,6 +44,10 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
 
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
+    artist = ArtistSerializer(read_only=True)
+    # album = serializers.StringRelatedField()
+    album = AlbumSerializer(read_only=True)
+    genre = GenreSerializer(read_only=True)
     class Meta:
         model = Track
         fields = ('id', 'name', 'duration','length', 'artist', 'album', 'genre', 'url', 'play_count')

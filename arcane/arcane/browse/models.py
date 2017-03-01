@@ -11,8 +11,6 @@ from django.template.defaultfilters import slugify
 import os
 from arcane import settings
 
-
-
 def upload_genre_icon(instance, file):
     return slugify(instance.name) + "/icons/" + file
 
@@ -22,6 +20,9 @@ class Genre(models.Model):
     icon = models.ImageField(upload_to=upload_genre_icon, blank=True, null=True)
 
     def __str__(self):
+        return self.name
+
+    def __unicode__(self):
         return self.name
 
 def upload_artist_photo(instance, file):
@@ -36,6 +37,9 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
 def upload_album_artwork(instance, file):
     return slugify(instance.artist.name) + "/" + slugify(instance.name) + "/artwork/" + file
 
@@ -46,6 +50,9 @@ class Album(models.Model):
     artwork = models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 
     def __str__(self):
+        return self.name
+
+    def __unicode__(self):
         return self.name
 
 def upload_track(instance, file):
@@ -70,14 +77,8 @@ def getTrackInfo(filename):
         'title': short_tags.get('title', ['No Title'])[0],
         'size': os.stat(filename).st_size,
     }
-    print('trackInfo')
-    # artworkLocation = os.path.join(settings.MEDIA_ROOT, slugify(trackInfo['artist']) , slugify(trackInfo['album']) , "albumArt.jpg")
-    # print(artworkLoc)
-    # trackInfo['artwork'] = artworkLocation
-    # artwork = full_tags.tags['APIC:'].data # access APIC frame and grab the image
-    # with open(artworkLocation, 'wb') as img:
-    #     img.write(artwork) # write artwork to new image
     return trackInfo
+
 def saveArtwork(data, artist, album):
     path = os.path.join(settings.MEDIA_ROOT, slugify(artist) , slugify(album) , "artwork.jpg")
     artworkLocation = default_storage.save(path,
@@ -86,8 +87,10 @@ def saveArtwork(data, artist, album):
     # with open(artworkLocation, 'wb') as img:
         # img.write(data) # write artwork to new image
     return (slugify(artist) +"/" + slugify(album) +"/"+ "artwork.jpg")
+
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)
+    # order = models.BigIntegerField(default=0)
     url = models.FileField(upload_to=upload_track, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
@@ -99,19 +102,21 @@ class Track(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if self.url:
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
             track = getTrackInfo(os.path.join(settings.MEDIA_ROOT, path))
-            print(track)
             iTitle, iAlbum, iArtwork, iArtist, iGenre, iDuration, iLength = track['title'], track['album'], track['artwork'], track['artist'], track['genre'], track['duration'], track['length']
             print ('Uploading... [', iTitle, iAlbum, iArtist, iGenre, iDuration, iLength,']')
 
             if not self.name:
                 try:
                     check = Track.objects.get(name=iTitle)
-                    print('Upload Failed... [', check, iTitle, iAlbum, iArtist, iArtist, iGenre, iDuration, iLength, '] already exists...')
+                    print('Upload Failed... [', check, iTitle, iAlbum, iArtist, iGenre, iDuration, iLength, '] already exists...')
                     return
                 except Track.DoesNotExist:
                     self.name = iTitle

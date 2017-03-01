@@ -74,9 +74,9 @@ export class TracksCollection extends Component {
           key={'trackRow_'+ track.id}>
           <TableRowColumn><a style={collectionStyles.href} href={track.url}>{ track.name }</a></TableRowColumn>
           <TableRowColumn>{track.duration }</TableRowColumn>
-          <TableRowColumn><a style={collectionStyles.href} href={track.artist}>{ track.artist }</a></TableRowColumn>
-          <TableRowColumn><a style={collectionStyles.href} href={track.album}>{ track.album }</a></TableRowColumn>
-          <TableRowColumn><a style={collectionStyles.href} href={track.genre}>{ track.genre }</a></TableRowColumn>
+          <TableRowColumn><a style={collectionStyles.href} href={url+'api/artists/'+track.artist.id}>{ track.artist.name }</a></TableRowColumn>
+          <TableRowColumn><a style={collectionStyles.href} href={url+'api/albums/'+track.album.id}>{ track.album.name }</a></TableRowColumn>
+          <TableRowColumn><a style={collectionStyles.href} href={url+'api/genres/'+track.genre.id}>{ track.genre.name }</a></TableRowColumn>
           <TableRowColumn>{ track.play_count }</TableRowColumn>
         </TableRow>
       ))
@@ -150,7 +150,7 @@ export class AlbumsCollection extends Component {
         <GridTile
           key={'albumTile_'+ tile.id}
           title={tile.name}
-          subtitle={tile.genre}
+          subtitle={tile.artist}
           cols={1}
           rows={1}
           >
