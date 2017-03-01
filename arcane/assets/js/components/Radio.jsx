@@ -34,7 +34,7 @@ export default class Radio extends Component  {
   }
   render() {
       return (
-        <div {/*style={styles.outerDiv}*/}>
+        <div >
           <MiniPlayer/>
           {/* <Slider {...settings}>
             <div><img src="http://localhost:8000/static/images/1.jpg" style={styles.innerDiv} /></div>
