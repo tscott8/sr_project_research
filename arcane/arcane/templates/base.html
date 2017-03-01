@@ -242,8 +242,24 @@
     .player .music .song-1 .state i, .player .music .song-2 .state i, .player .music .song-3 .state i, .player .music .song-4 .state i {
       color: #ddd;
     }
+
+     body::-webkit-scrollbar-track
+     {
+   	  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    	  background-color: #F5F5F5;
+     }
+
+    body::-webkit-scrollbar
+    {
+    	  width: 6px;
+    	  background-color: #F5F5F5;
+    }
+
+    body::-webkit-scrollbar-thumb
+    {
+    	  background-color: #000000;
+    }
     </style>
->>>>>>> e99b54c4d9d9343cfa740436d4214be7e1c493ed
   </head>
   <body>
     {% block main %}{% endblock %}
