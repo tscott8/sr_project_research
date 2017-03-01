@@ -5,23 +5,20 @@ import { bindActionCreators } from 'redux'
 import * as AlbumActions from '../actions/AlbumActions'
 import AlbumCarousel from '../components/AlbumCarousel'
 
+
 class BrowsePage extends Component {
    constructor(props) {
       super(props);
-      const {dispatch} = this.props;
+      const {dispatch, albums} = this.props;
       dispatch(AlbumActions.getAlbums());
    }
 
-   componentDidMount() {
-      this.props.getAlbums("?-created");
-   }
-
    render() {
-      const { albums } = this.props;
-      console.info("ablums in browse render: ", this.props);
+      console.info("ablums in browse render: ", this.props.albums);
       return (
          <div>
-            <AlbumCarousel list={albums} />
+            <h3>New Releases</h3>
+            <AlbumCarousel list={this.props.albums} />
          </div>
       );
    }
