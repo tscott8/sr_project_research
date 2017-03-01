@@ -10,6 +10,8 @@ const url = "http://localhost:8000/";
 const collectionStyles = {
   root: {
     width:'100%',
+    height:'100%'
+
   },
   gridList: {
     marginTop:3,
@@ -17,8 +19,8 @@ const collectionStyles = {
     height:'100%'
   },
   table: {
-    maxHeight:'82vh',
-    overflowY:'auto'
+    // maxHeight:'calc(100vh - 114px)',
+
   },
   artistTile: {
     root:{
@@ -86,7 +88,7 @@ export class TracksCollection extends Component {
   render() {
     const {tracks} = this.props;
     return(
-        <Table height={'inherit'} multiSelectable={true}>
+        <Table height={'calc(100vh - 172px)'} multiSelectable={true}>
           <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
@@ -97,7 +99,7 @@ export class TracksCollection extends Component {
               <TableHeaderColumn>Play Count</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody stripedRows={true} style={collectionStyles.tbody} showRowHover={true}>
+          <TableBody preScanRows={false} stripedRows={true} style={collectionStyles.tbody} showRowHover={true}>
               {this.renderTracks(tracks.results)}
           </TableBody>
         </Table>

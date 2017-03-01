@@ -80,7 +80,9 @@ function getAudioState(audio) {
 
      return array;
  }
-
+ function randomSample(arr) {
+     return arr[Math.floor(arr.length * Math.random())];
+ }
  export default function audio(state = initialState, action) {
    switch (action.type) {
      case INITIALIZE:
