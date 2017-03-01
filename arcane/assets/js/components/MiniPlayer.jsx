@@ -50,13 +50,13 @@ export default class MiniPlayer extends Component {
   }
 
   handleSlideClick = (event, value) => {
-     console.info("Percent value: ", value);
+     console.info("Value in handle slide:", value);
      this.props.onSetTime(value);
   }
 
   renderPlaybackProgress() {
     return(
-      <Slider sliderStyle={sliderStyle} defaultValue={0} value={this.props.percent} onChange={this.handleSlideClick} />
+      <Slider sliderStyle={sliderStyle} defaultValue={0} value={this.props.percent} max={100} onChange={this.handleSlideClick} />
     );
   }
   renderPlaybackButtons() {

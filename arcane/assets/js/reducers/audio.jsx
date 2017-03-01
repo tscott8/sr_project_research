@@ -30,7 +30,7 @@
    defaultSong: {
      "id": -1,
      "album": "",
-     "url": "http://localhost:8000/media/the-goo-goo-dolls/dizzy-up-the-girl/iris.mp3",
+     "url": "http://localhost:8000/static/default.mp3",
      "name": "Waiting...",
      "artist": "No song loaded",
      "favorite": false
