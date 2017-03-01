@@ -5,6 +5,7 @@ import ArcanePlayer from './ArcanePlayer'
 const drawerStyle = {
   height: 'calc(100vh - 64px)',
   top:'64px',
+  overflowY:'hidden'
 };
 export default class RadioDrawer extends Component  {
   constructor(props){

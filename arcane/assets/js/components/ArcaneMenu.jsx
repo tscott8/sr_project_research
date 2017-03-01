@@ -25,9 +25,8 @@ const gridStyle = {
     height: '100%',
   },
   gridTile: {
-    maxWidth: 'calc(100vw/8)',
-    maxHeight: 'calc(100vw/8)',
-    minHeight:'calc((100vh - 64px)/7)',
+    // maxHeight: 'calc((100vh - 64px)/8)',
+    // minHeight:'calc((100vh - 64px)/6)',
 
   },
 };

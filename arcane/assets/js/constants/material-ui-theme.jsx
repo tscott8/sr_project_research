@@ -49,4 +49,4 @@ const muiTheme = {
 };
 
 //Theme must be wrapped in funciton getMuiTheme
-export default getMuiTheme(darkBaseTheme);
+export default getMuiTheme(muiTheme);

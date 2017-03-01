@@ -11,10 +11,12 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    padding:0
+    padding:0,
+    maxHeight:'calc(100vh - 114px)',
+
   },
   swipes: {
-    maxHeight:'85vh',
+    // maxHeight:'calc(100vh - 114px)',
   }
 };
 export default class CollectionTabs extends Component {

@@ -10,6 +10,14 @@ const cardStyle={
   media: {
     controls:{
       marginLeft:'0',
+    },
+    title: {
+      textAlign:'center',
+      fontSize:'1.5rem'
+    },
+    artist: {
+      textAlign:'center',
+      fontSize:'1rem'
     }
   }
 };
@@ -60,6 +68,17 @@ export default class MiniPlayer extends Component {
      this.props.onSetTime(value);
   }
 
+  getNowPlayingSong() {
+    const {currentID, queue} = this.props;
+    console.log(currentID, queue)
+    let lookup = [];
+    for (var i = 0, len = queue.length; i < len; i++) {
+        lookup[queue[i].id] = queue[i];
+    }
+    console.log('in Get', lookup[currentID])
+    return lookup[currentID]
+  }
+
   renderPlaybackProgress() {
     return(
       <Slider sliderStyle={sliderStyle} defaultValue={0} value={this.props.percent} max={100} onChange={this.handleSlideClick} />
@@ -100,51 +119,61 @@ export default class MiniPlayer extends Component {
   renderQueueList() {
     const {queue} = this.props;
       let q = queue.map((track) => (
+        <div>
+          <Divider/>
           <ListItem
             primaryText={track.name}
             secondaryText={track.artist.name}
             leftAvatar={<Avatar src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}
             rightIconButton={this.renderEQIcon(track)}/>
+        </div>
     ))
-    return q;
-  }
-  renderQueue() {
     return (
       <List style={qStyle.root}>
-        {this.renderQueueList()}
+        {q}
       </List>
     );
   }
-  renderNowPlayingArt() {
-    const {currentID, queue} = this.props;
-    console.log(currentID, queue)
-    let lookup = [];
-    for (var i = 0, len = queue.length; i < len; i++) {
-        lookup[queue[i].id] = queue[i];
-    }
-    console.log(lookup)
-    let art_src = lookup[currentID]
-    console.log(art_src)
+  renderOverlay() {
+    let cur_song = this.getNowPlayingSong();
+    return(
+      <div style={cardStyle.media.controls}>
+        <div style={cardStyle.media.title}>{cur_song.name ? cur_song.name : null}</div>
+        <div style={cardStyle.media.artist}>{cur_song.artist.name ? cur_song.artist.name : null}</div>
+        {this.renderPlaybackControls()}
+      </div>
+    );
+  }
+  renderNowPlaying() {
+    // const {currentID, queue} = this.props;
+    // console.log(currentID, queue)
+    // let lookup = [];
+    // for (var i = 0, len = queue.length; i < len; i++) {
+    //     lookup[queue[i].id] = queue[i];
+    // }
+    // console.log(lookup)
+    let cur_song = this.getNowPlayingSong();
     return (
-      <img
-        style={imgStyle.nowPlaying}
-        src={art_src ? art_src.album.artwork : url+'static/images/default-artwork.png'} />
+      <Card style={cardStyle.root}>
+       <CardMedia
+         style={cardStyle.media}
+         overlay={cur_song ? this.renderOverlay() : null}>
+         <img
+           style={imgStyle.nowPlaying}
+           src={cur_song ? cur_song.album.artwork : url+'static/images/default-artwork.png'} />
+
+       </CardMedia>
+     </Card>
+
     );
 
   }
   render() {
     return (
       <div>
-       <Card style={cardStyle.root}>
-        <CardMedia
-          style={cardStyle.media}
-          overlay={<div style={cardStyle.media.controls}>{this.renderPlaybackControls()}</div>}>
-          {this.renderNowPlayingArt()}
-
-        </CardMedia>
-      </Card>
-      {this.renderQueue()}
-    </div>
+        {this.renderNowPlaying()}
+        {this.renderQueueList()}
+      </div>
     );
   }
 }
