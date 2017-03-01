@@ -17,12 +17,18 @@ const gridStyle = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     height:'auto',
   },
   gridList: {
     width: '100%',
     height: '100%',
+  },
+  gridTile: {
+    maxWidth: 'calc(100vw/8)',
+    maxHeight: 'calc(100vw/8)',
+    minHeight:'calc((100vh - 64px)/7)',
+
   },
 };
 export default class ArcaneMenu extends Component {
@@ -34,7 +40,8 @@ export default class ArcaneMenu extends Component {
             <GridTile
               key={tile.name}
               cols={tile.featured ? 2 : 1}
-              rows={tile.featured ? 2 : 1}>
+              rows={tile.featured ? 2 : 1}
+              style={gridStyle.gridTile}>
               <SquareButton
                 key={"menuTile" + tile.name}
                 name={tile.name}
@@ -49,6 +56,7 @@ export default class ArcaneMenu extends Component {
     return (
       <div style={gridStyle.root}>
         <GridList
+          cols={2}
           cellHeight={'auto'}
           style={gridStyle.gridList}>
             {this.renderMenuMap()}
