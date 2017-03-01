@@ -31,6 +31,9 @@ const collectionStyles = {
       minHeight:100,
       minWidth: 100
     },
+  },
+  href: {
+    color:'white'
   }
 };
 export class GenresCollection extends Component {
@@ -99,7 +102,7 @@ export class TracksCollection extends Component {
               <TableHeaderColumn>Play Count</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody preScanRows={false} stripedRows={true} style={collectionStyles.tbody} showRowHover={true}>
+          <TableBody preScanRows={false} stripedRows={true} style={collectionStyles.tbody} showRowHover={false}>
               {this.renderTracks(tracks.results)}
           </TableBody>
         </Table>

@@ -89,6 +89,7 @@ function getAudioState(audio) {
        const songsArray = shuffle(sortBy(action.songs, ['id']));
        return {...state, songs: songsArray, currentID: songsArray[0].id };
      case PLAY:
+       return {...state, ...getAudioState(action.audio) };
      case PAUSE:
      case ERROR:
        return {...state, ...getAudioState(action.audio) };
