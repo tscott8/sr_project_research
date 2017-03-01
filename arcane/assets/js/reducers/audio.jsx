@@ -61,10 +61,30 @@ function getAudioState(audio) {
    return test;
  }
 
+ function shuffle(array) {
+     let counter = array.length;
+
+     // While there are elements in the array
+     while (counter > 0) {
+         // Pick a random index
+         let index = Math.floor(Math.random() * counter);
+
+         // Decrease counter by 1
+         counter--;
+
+         // And swap the last element with it
+         let temp = array[counter];
+         array[counter] = array[index];
+         array[index] = temp;
+     }
+
+     return array;
+ }
+
  export default function audio(state = initialState, action) {
    switch (action.type) {
      case INITIALIZE:
-       const songsArray = sortBy(action.songs, ['id']);
+       const songsArray = shuffle(sortBy(action.songs, ['id']));
        return {...state, songs: songsArray, currentID: songsArray[0].id };
      case PLAY:
      case PAUSE:

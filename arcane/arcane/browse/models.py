@@ -11,8 +11,6 @@ from django.template.defaultfilters import slugify
 import os
 from arcane import settings
 
-
-
 def upload_genre_icon(instance, file):
     return slugify(instance.name) + "/icons/" + file
 
@@ -22,6 +20,9 @@ class Genre(models.Model):
     icon = models.ImageField(upload_to=upload_genre_icon, blank=True, null=True)
 
     def __str__(self):
+        return self.name
+
+    def __unicode__(self):
         return self.name
 
 def upload_artist_photo(instance, file):
@@ -36,6 +37,9 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
 def upload_album_artwork(instance, file):
     return slugify(instance.artist.name) + "/" + slugify(instance.name) + "/artwork/" + file
 
@@ -43,9 +47,12 @@ class Album(models.Model):
     name = models.CharField(max_length=50)
     artist = models.ForeignKey(Artist, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
-    artwork =  models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
+    artwork = models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 
     def __str__(self):
+        return self.name
+
+    def __unicode__(self):
         return self.name
 
 def upload_track(instance, file):
@@ -55,19 +62,35 @@ def getTrackInfo(filename):
     short_tags = full_tags = mutagen.File(filename)
     if isinstance(full_tags, mutagen.mp3.MP3):
         short_tags = mutagen.easyid3.EasyID3(filename)
-    return {
+    try:
+        artwork = full_tags.tags['APIC:'].data
+        print(artwork)
+    except:
+        artwork = 'No Artwork'
+    trackInfo = {
         'album':short_tags.get('album', ['No Album'])[0],
-        # 'albumArt':full_tags.tags.get('APIC', ['No Artwork'])[0]
+        'artwork': artwork, # access APIC frame and grab the image,
         'artist':short_tags.get('artist', ['No Artist'])[0],
         'genre':short_tags.get('genre', ['No Genre'])[0],
         'duration': "%u:%.2d" % (full_tags.info.length / 60, full_tags.info.length % 60),
         'length': full_tags.info.length,
         'title': short_tags.get('title', ['No Title'])[0],
         'size': os.stat(filename).st_size,
-    };
+    }
+    return trackInfo
+
+def saveArtwork(data, artist, album):
+    path = os.path.join(settings.MEDIA_ROOT, slugify(artist) , slugify(album) , "artwork.jpg")
+    artworkLocation = default_storage.save(path,
+           ContentFile(data))
+    # artworkLocation = os.path.join(settings.MEDIA_ROOT, slugify(artist) , slugify(album) , "albumArt.jpg")
+    # with open(artworkLocation, 'wb') as img:
+        # img.write(data) # write artwork to new image
+    return (slugify(artist) +"/" + slugify(album) +"/"+ "artwork.jpg")
 
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)
+    # order = models.BigIntegerField(default=0)
     url = models.FileField(upload_to=upload_track, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
@@ -79,13 +102,15 @@ class Track(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if self.url:
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
             track = getTrackInfo(os.path.join(settings.MEDIA_ROOT, path))
-            print(track)
-            iTitle, iAlbum, iArtist, iGenre, iDuration, iLength = track['title'], track['album'], track['artist'], track['genre'], track['duration'], track['length']
+            iTitle, iAlbum, iArtwork, iArtist, iGenre, iDuration, iLength = track['title'], track['album'], track['artwork'], track['artist'], track['genre'], track['duration'], track['length']
             print ('Uploading... [', iTitle, iAlbum, iArtist, iGenre, iDuration, iLength,']')
 
             if not self.name:
@@ -121,7 +146,8 @@ class Track(models.Model):
                     check = Album.objects.get(name=iAlbum)
                     self.album = check
                 except Album.DoesNotExist:
-                    new_album = Album(name=iAlbum, genre=self.genre, artist=self.artist)
+                    new_artwork = saveArtwork(iArtwork,iArtist,iAlbum) if iArtwork != 'No Artwork' else None
+                    new_album = Album(name=iAlbum, genre=self.genre, artist=self.artist, artwork=new_artwork)
                     new_album.save()
                     self.album = new_album
             path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'))

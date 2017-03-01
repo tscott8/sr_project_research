@@ -10,22 +10,24 @@ const url = "http://localhost:8000/";
 const collectionStyles = {
   root: {
     width:'100%',
-    overflowY:'auto',
   },
   gridList: {
+    marginTop:3,
     width:'100%',
+    height:'100%'
   },
   table: {
     maxHeight:'82vh',
     overflowY:'auto'
   },
-  href:{
-  },
   artistTile: {
     root:{
     },
     img:{
-      maxHeight:200
+      maxHeight:'calc(100vw/8)',
+      maxWidth: 'calc(100vw/8)',
+      minHeight:100,
+      minWidth: 100
     },
   }
 };
@@ -53,7 +55,7 @@ export class GenresCollection extends Component {
     const {genres} = this.props;
     return(
         <GridList
-          cols={6}
+          cols={8}
           cellHeight={'auto'}
           style={collectionStyles.gridList}>
           {this.renderGenreTiles(genres.results)}
@@ -72,9 +74,9 @@ export class TracksCollection extends Component {
           key={'trackRow_'+ track.id}>
           <TableRowColumn><a style={collectionStyles.href} href={track.url}>{ track.name }</a></TableRowColumn>
           <TableRowColumn>{track.duration }</TableRowColumn>
-          <TableRowColumn><a style={collectionStyles.href} href={track.artist}>{ track.artist }</a></TableRowColumn>
-          <TableRowColumn><a style={collectionStyles.href} href={track.album}>{ track.album }</a></TableRowColumn>
-          <TableRowColumn><a style={collectionStyles.href} href={track.genre}>{ track.genre }</a></TableRowColumn>
+          <TableRowColumn><a style={collectionStyles.href} href={url+'api/artists/'+track.artist.id}>{ track.artist.name }</a></TableRowColumn>
+          <TableRowColumn><a style={collectionStyles.href} href={url+'api/albums/'+track.album.id}>{ track.album.name }</a></TableRowColumn>
+          <TableRowColumn><a style={collectionStyles.href} href={url+'api/genres/'+track.genre.id}>{ track.genre.name }</a></TableRowColumn>
           <TableRowColumn>{ track.play_count }</TableRowColumn>
         </TableRow>
       ))
@@ -117,7 +119,7 @@ export class ArtistsCollection extends Component {
           rows={1}
           style={collectionStyles.artistTile.root}
           >
-          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/3.jpg'}/>
+          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}/>
         </GridTile>
       ))
       return arr;
@@ -128,7 +130,7 @@ export class ArtistsCollection extends Component {
     return(
       <div style={collectionStyles.root}>
       <GridList
-        cols={6}
+        cols={8}
         cellHeight={'auto'}
         style={collectionStyles.gridList}>
         {this.renderArtistTiles(artists.results)}
@@ -148,12 +150,11 @@ export class AlbumsCollection extends Component {
         <GridTile
           key={'albumTile_'+ tile.id}
           title={tile.name}
-          subtitle={tile.genre}
+          subtitle={tile.artist}
           cols={1}
           rows={1}
-          style={collectionStyles.artistTile.root}
           >
-          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/3.jpg'}/>
+          <img style={collectionStyles.artistTile.img} src={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}/>
         </GridTile>
       ))
       return arr;
@@ -164,7 +165,7 @@ export class AlbumsCollection extends Component {
     return(
       <div style={collectionStyles.root}>
       <GridList
-        cols={6}
+        cols={8}
         cellHeight={'auto'}
         style={collectionStyles.gridList}>
         {this.renderAlbumTiles(albums.results)}

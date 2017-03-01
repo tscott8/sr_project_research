@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {FontIcon, FloatingActionButton, Slider, IconButton, List, ListItem, Divider} from 'material-ui'
+import {FontIcon, FloatingActionButton, Slider, IconButton, List, ListItem, Divider, Avatar} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import PlaybackControl from './PlaybackControl'
 const url = "http://localhost:8000/";
@@ -30,9 +30,15 @@ const sliderStyle = {
   padding:'0',
 };
 const imgStyle = {
+  nowPlaying: {
     flex: 1,
-    height: 'auto'
+    maxHeight:'calc((100vh-64px)/6)'
+  },
+  avatar: {
+    maxWidth:50,
+  }
   };
+
 
 export default class MiniPlayer extends Component {
   constructor(props){
@@ -80,28 +86,25 @@ export default class MiniPlayer extends Component {
     const {currentID} = this.props;
     if(track.id === currentID) {
       return(
-        <FontIcon
-          className="material-icons">equalizer</FontIcon>
+        <IconButton
+          iconClassName="material-icons">equalizer</IconButton>
       );
     }
     else {
       return (
-        <FontIcon
-          className="material-icons">play_arrow</FontIcon>
+        <IconButton
+          iconClassName="material-icons">play_arrow</IconButton>
       );
     }
   }
   renderQueueList() {
     const {queue} = this.props;
       let q = queue.map((track) => (
-        <div>
           <ListItem
             primaryText={track.name}
-            secondaryText={track.artist}
-            leftAvatar={<img src={track.artwork}/>}
-            rightIcon={this.renderEQIcon(track)}/>
-          <Divider/>
-      </div>
+            secondaryText={track.artist.name}
+            leftAvatar={<Avatar src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}
+            rightIconButton={this.renderEQIcon(track)}/>
     ))
     return q;
   }
@@ -112,6 +115,23 @@ export default class MiniPlayer extends Component {
       </List>
     );
   }
+  renderNowPlayingArt() {
+    const {currentID, queue} = this.props;
+    console.log(currentID, queue)
+    let lookup = [];
+    for (var i = 0, len = queue.length; i < len; i++) {
+        lookup[queue[i].id] = queue[i];
+    }
+    console.log(lookup)
+    let art_src = lookup[currentID]
+    console.log(art_src)
+    return (
+      <img
+        style={imgStyle.nowPlaying}
+        src={art_src ? art_src.album.artwork : url+'static/images/default-artwork.png'} />
+    );
+
+  }
   render() {
     return (
       <div>
@@ -119,12 +139,8 @@ export default class MiniPlayer extends Component {
         <CardMedia
           style={cardStyle.media}
           overlay={<div style={cardStyle.media.controls}>{this.renderPlaybackControls()}</div>}>
-            <img
-              style={imgStyle}
-              width={'200px'}
-              height={'200px'}
+          {this.renderNowPlayingArt()}
 
-              src={url + "static/images/2.jpg"} />
         </CardMedia>
       </Card>
       {this.renderQueue()}

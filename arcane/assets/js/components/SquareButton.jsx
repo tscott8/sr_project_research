@@ -4,17 +4,19 @@ import { Link } from 'react-router'
 
 const styles = {
   root:{
+    minWidth:100,
+    minHeight:100,
     width:'100%',
     height:'auto',
-    textAlign:'center'
+    textAlign:'center',
+
   },
   guts: {
     root:{
-      minWidth:'6rem',
-      height:'6rem',
       width:'100%',
-      height:'auto',
-      justifyContent:'space-between',
+      height:'100%',
+      minWidth:'6rem',
+      minHeight:'6rem',
       padding:10,
     },
     icon: {
