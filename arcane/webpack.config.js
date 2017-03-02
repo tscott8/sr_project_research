@@ -56,5 +56,8 @@ module.exports = {
        extensions: ['.js', '.jsx']
    },
    devtool:  "#eval-source-map",
+   node: {
+      fs: 'empty'
+   }
 
 }

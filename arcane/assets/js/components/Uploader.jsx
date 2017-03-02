@@ -22,13 +22,15 @@ export default class Uploader extends Component  {
     super(props);
   }
   onDrop(files) {
-    console.log('Received files: ', files);
-
+     console.log('Received files: ', files);
+     for (let i = 0; i < files.length; i++) {
+        this.props.addTrack(files[i]);
+     }
   }
   render() {
       return (
         <Paper style={styles.paper}>
-            <Dropzone style={styles.dropzone} onDrop={this.onDrop.bind(this)}>
+            <Dropzone style={styles.dropzone} onDrop={this.onDrop.bind(this)} accept="audio/mp3">
               <h3 style={styles.text}>Try dropping some files here, or click to select files to upload.</h3>
             </Dropzone>
        </Paper>
