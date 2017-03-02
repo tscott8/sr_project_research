@@ -47,7 +47,7 @@ const SearchBox = ({isOpen, onClick}) => {
             height: 40,
             padding: 5,
             top: 7,
-            float:'right'
+            float:'right',
         },
         frame: {
             float:'left',
@@ -67,8 +67,8 @@ return (
             fullWidth={true}
             style={textStyle}
             menuProps={{maxHeight:'75vh'}}/>
-            <IconButton onClick={() => onClick()}>
-                <FontIcon className="material-icons">search</FontIcon>
+            <IconButton iconStyle={{color:'red'}} iconClassName="material-icons" onClick={() => onClick()}>
+            search
             </IconButton>
         </div>
     );
