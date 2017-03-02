@@ -58,39 +58,27 @@ const styles = {
    }
 }
 
-export default class AlbumCarousel extends Component {
+export default class BrowseCarousel extends Component {
   constructor(props) {
     super(props);
   }
-   renderSliderItems(albums) {
-
-      // let items = [];
-      // console.info(albums);
-        let items = albums ? albums.map((item) => (
-          <div key={'album_carousel_item_'+ item.id}>
+   renderSliderItems(list) {
+        let items = list ? list.map((item) => (
+          <div key={'browse_carousel_item_'+ item.id}>
             <img
-              src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
+              src={item.artwork ? item.artwork : url+this.props.defaultImage}
               style={styles.innerElement}/>
           </div>)) : [<div></div>];
-        // if (Object.keys(this.props.list).length > 0) {
-        //    for (let key in this.props.list) {
-        //       let item = this.props.list[key];
-        //       items.push(<div key={"album_carousel_item_" + item.id}><img src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'} style={styles.innerElement}/></div>)
-        //    }
-        // } else {
-        //    items.push(<div><img src="http://localhost:8000/static/images/default-artwork.png" /></div>);
-        // }
-        // console.info(items);
         return items;
 
    }
 
    render() {
-     const {albums} = this.props;
+     const {list} = this.props;
       return (
          <div style={styles.carouselDiv}>
             <Slider {...settings} style={styles.outerDiv}>
-               {this.renderSliderItems(albums.results)}
+               {this.renderSliderItems(list.results)}
             </Slider>
          </div>
       );

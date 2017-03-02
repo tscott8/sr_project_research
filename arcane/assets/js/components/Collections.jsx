@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {GridTile, GridList} from 'material-ui'
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
@@ -71,6 +71,21 @@ export class GenresCollection extends Component {
 export class TracksCollection extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selectedTracks: []
+    }
+  }
+  selectTracks(rows) {
+    console.log('rows', rows)
+    const {tracks} = this.props;
+    if (rows === "all") {
+        this.props.select(tracks.results)
+    }
+    let selectedTracks = [];
+    for (var i = 0; i < rows.length; i++) {
+      selectedTracks.push(tracks.results[rows[i]]);
+    }
+    this.props.select(selectedTracks)
   }
   renderTracks(tracks) {
     if (tracks) {
@@ -91,7 +106,7 @@ export class TracksCollection extends Component {
   render() {
     const {tracks} = this.props;
     return(
-        <Table height={'calc(100vh - 172px)'} multiSelectable={true}>
+        <Table height={'calc(100vh - 172px)'} multiSelectable={true}  onRowSelection={this.selectTracks.bind(this)}>
           <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
@@ -102,7 +117,7 @@ export class TracksCollection extends Component {
               <TableHeaderColumn>Play Count</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody preScanRows={false} stripedRows={true} style={collectionStyles.tbody} showRowHover={false}>
+          <TableBody deselectOnClickaway={false} preScanRows={false} stripedRows={true} style={collectionStyles.tbody} showRowHover={false}>
               {this.renderTracks(tracks.results)}
           </TableBody>
         </Table>
@@ -119,7 +134,7 @@ export class ArtistsCollection extends Component {
         <GridTile
           key={'artistTile_'+ tile.id}
           title={tile.name}
-          subtitle={tile.genre}
+          subtitle={tile.genre.name}
           cols={1}
           rows={1}
           style={collectionStyles.artistTile.root}
@@ -155,7 +170,7 @@ export class AlbumsCollection extends Component {
         <GridTile
           key={'albumTile_'+ tile.id}
           title={tile.name}
-          subtitle={tile.artist}
+          subtitle={tile.artist.name}
           cols={1}
           rows={1}
           >

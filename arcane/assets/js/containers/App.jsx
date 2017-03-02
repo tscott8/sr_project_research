@@ -56,11 +56,13 @@ export default class App extends Component {
      console.info("Handling Next request");
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.next(audio);
+    this.props.play(audio);
   }
 
   handlePrevious = () => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.previous(audio);
+    this.props.play(audio);
   }
 
   handleVolumeChange = (volume) => {
@@ -94,6 +96,7 @@ export default class App extends Component {
       this.props.play(audio);
     }
   }
+
   // componentDidMount() {
   //   this.props.actions.genreActions.getGenres();
   //   this.props.actions.trackActions.getTracks();
@@ -140,7 +143,8 @@ export default class App extends Component {
                isPlaying={isPlaying}
                onPlay={this.handlePlay}
                onNext={this.handleNext}
-               percent={percent} />
+               percent={percent}
+              />
           </div>
         </MuiThemeProvider>
     );

@@ -5,13 +5,13 @@ const styles = {
      width:20,
      height:20,
      fontSize:20,
-     color: 'rgb(213, 0, 0)'
+    //  color: 'rgb(213, 0, 0)'
    },
    mediumIcon: {
      width:40,
      height:40,
      fontSize:40,
-     color: 'rgb(213, 0, 0)'
+    //  color: 'rgb(213, 0, 0)'
    },
    largeIcon: {
      width:60,
@@ -21,13 +21,13 @@ const styles = {
    small: {
      width: 25,
      height: 25,
-     padding:4,
+     padding:2,
      verticalAlign:'super'
    },
    medium: {
      width:45,
      height:45,
-     padding:4,
+     padding:2,
      verticalAlign:'bottom',
 
    },
@@ -37,7 +37,7 @@ const styles = {
      padding:4
    },
    hover: {
-    color: 'rgb(0, 151, 167)'
+    color: 'red'
    }
 };
 export default class PlaybackControl extends Component {

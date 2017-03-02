@@ -80,3 +80,8 @@ export function toggleLoop(audio) {
   audio.loop = !audio.loop;
   return { type: types.TOGGLE_LOOP, audio }
 }
+
+export function addToQueue(audio, songs) {
+  audio.songs.push(songs);
+  return { type: types.ADD_TO_QUEUE, audio}
+}
