@@ -10,7 +10,9 @@ const menuList = [
   { "name": "Radio", "icon": "radio", "url": "radio"},
   { "name": "My Music", "icon": "library_music", "url": "my_music"},
   { "name": "Profile", "icon": "account_circle", "url": "profile"},
-  { "name": "About", "icon": "info", "url": "about"}
+  { "name": "About", "icon": "info", "url": "about"},
+  { "name": "Settings", "icon": "settings", "url": "settings"}
+
 ];
 
 const gridStyle = {

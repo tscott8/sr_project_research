@@ -28,7 +28,7 @@ const style={
   labelDivider: {
     verticalAlign:'top',
     paddingTop:4,
-    height:200
+    height:201
   },
   title: {
     fontSize:'1.8rem',

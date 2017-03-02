@@ -63,6 +63,7 @@ class MyMusic extends Component {
                artists={artists}
                albums={albums}
                select={this.addToSelected.bind(this)}
+               selectedTracks={this.state.selected}
                />
          {this.renderAddQueueButton()}
         </div>
