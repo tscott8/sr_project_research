@@ -62,10 +62,10 @@ export default class CollectionTabs extends Component {
   }
   renderSlide(index) {
     let contents = [
-      <GenresCollection genres={this.props.genres}/>,
-      <ArtistsCollection artists={this.props.artists}/>,
-      <AlbumsCollection albums={this.props.albums}/>,
-      <TracksCollection tracks={this.props.tracks}/>,
+      <GenresCollection select={this.props.select} genres={this.props.genres}/>,
+      <ArtistsCollection select={this.props.select} artists={this.props.artists}/>,
+      <AlbumsCollection select={this.props.select} albums={this.props.albums}/>,
+      <TracksCollection select={this.props.select} tracks={this.props.tracks}/>,
     ];
     return contents[index];
   }

@@ -19,7 +19,7 @@ export default class Audio extends React.Component {
     };
 
     static defaultProps = {
-        autoplay: true,
+        autoplay: false,
         preload: true,
         source: "",
         loop: false,

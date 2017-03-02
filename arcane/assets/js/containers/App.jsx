@@ -96,6 +96,7 @@ export default class App extends Component {
       this.props.play(audio);
     }
   }
+
   // componentDidMount() {
   //   this.props.actions.genreActions.getGenres();
   //   this.props.actions.trackActions.getTracks();
@@ -142,7 +143,8 @@ export default class App extends Component {
                isPlaying={isPlaying}
                onPlay={this.handlePlay}
                onNext={this.handleNext}
-               percent={percent} />
+               percent={percent}
+              />
           </div>
         </MuiThemeProvider>
     );

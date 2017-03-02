@@ -81,16 +81,14 @@ function getAudioState(audio) {
 
      return array;
  }
- function randomSample(arr) {
-     return arr[Math.floor(arr.length * Math.random())];
- }
+
+
  export default function audio(state = initialState, action) {
    switch (action.type) {
      case INITIALIZE:
-       const songsArray = shuffle(sortBy(action.songs, ['id']));
+       const songsArray = shuffle(sortBy(action.songs, ['id'])).slice(0,7);
        return {...state, songs: songsArray, currentID: songsArray[0].id };
      case PLAY:
-      //  return {...state, ...getAudioState(action.audio) };
      case PAUSE:
      case ERROR:
        return {...state, ...getAudioState(action.audio) };
@@ -124,7 +122,7 @@ function getAudioState(audio) {
      case TOGGLE_LOOP:
        return {...state, ...getAudioState(action.audio) };
      case ADD_TO_QUEUE:
-       return {...state, ...getAudioState(action.audio) };
+       return {...state, songs: action.songs };
      default:
        return state
    }

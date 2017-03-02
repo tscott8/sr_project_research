@@ -65,7 +65,7 @@ export default class AlbumCarousel extends Component {
    renderSliderItems(albums) {
 
       // let items = [];
-      console.info(albums);
+      // console.info(albums);
         let items = albums ? albums.map((item) => (
           <div key={'album_carousel_item_'+ item.id}>
             <img
@@ -80,7 +80,7 @@ export default class AlbumCarousel extends Component {
         // } else {
         //    items.push(<div><img src="http://localhost:8000/static/images/default-artwork.png" /></div>);
         // }
-        console.info(items);
+        // console.info(items);
         return items;
 
    }

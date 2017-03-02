@@ -4,13 +4,14 @@ import { redA400 } from 'material-ui/styles/colors'
 import * as ActionTypes from '../constants/ActionTypes'
 
 const style = {
-   fab: {
-      position: 'absolute',
-      right: '0',
-      bottom: '0',
-      marginBottom: '5vh',
-      marginRight: '5vh'
-   },
+  fab: {
+   position: 'absolute',
+   right: '0',
+   bottom: '0',
+   marginBottom: '5vh',
+   marginRight: '5vh'
+ },
+
    progress: {
       position: 'absolute',
       right: '0',
@@ -19,23 +20,20 @@ const style = {
       WebkitTransform: 'rotate(-90deg)',
       transform: 'rotate(-90deg)'
    }
-
 }
-
 
 export default class FloatingControls extends Component {
    constructor(props) {
       super(props);
       if (!this.props.isPlaying) {
          this.state = {
-            fabIcon: 'play_arrow'
+            fabIcon: 'play_arrow',
          };
       } else {
          this.state = {
-            fabIcon: 'pause'
+            fabIcon: 'pause',
          }
       }
-
    }
 
    play() {
@@ -52,9 +50,20 @@ export default class FloatingControls extends Component {
       this.props.onPlay();
    }
 
+  //  renderAddQueueButton() {
+  //    if (this.state.selected) {
+  //      return(
+  //        <FloatingActionButton onClick={this.props.pushToQueue} style={style.left} >
+  //          <FontIcon className="material-icons">queue</FontIcon>
+  //        </FloatingActionButton>
+  //      );
+  //    }
+  //  }
    render() {
       return (
-         <FloatingActionButton onClick={this.play.bind(this)} style={style.fab} >
+
+        <div>
+          <FloatingActionButton onClick={this.play.bind(this)} style={style.fab} >
            <FontIcon className="material-icons">{this.state.fabIcon}</FontIcon>
            <CircularProgress
              mode="determinate"
@@ -64,6 +73,8 @@ export default class FloatingControls extends Component {
              style={style.progress}
              color={redA400} />
          </FloatingActionButton>
+         {/* {this.renderAddQueueButton()} */}
+       </div>
       );
    }
 }
