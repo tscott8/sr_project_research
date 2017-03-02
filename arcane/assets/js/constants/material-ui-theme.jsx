@@ -26,9 +26,11 @@ const muiTheme = {
 
    },
    slider: {
-      trackColor: Colors.redA700,
+      trackColor: Colors.transparent,
       trackSize: 3,
-      trackColorSelected: Colors.redA700
+      trackColorSelected: fade(Colors.white, .3),
+      selectionColor: Colors.redA700,
+      handleColorZero: Colors.redA700,
    },
    drawer: {
      width:280,

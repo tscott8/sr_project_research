@@ -7,37 +7,46 @@ const url = "http://localhost:8000/";
 const style={
   root: {
   },
-  controls: {
-    marginLeft:'0',
+  player: {
+    marginLeft:0,
+    paddingBottom:8,
+    controlDivider: {
+      marginLeft:4,
+      marginRight:4,
+    },
     controlPack: {
       textAlign:'center',
       margin:'0',
       padding:'0',
       width:'100%',
-      paddingBottom:8
     },
     slider: {
       margin:'0',
       padding:'0',
     }
   },
+  labelDivider: {
+    verticalAlign:'top',
+    paddingTop:4,
+    height:200
+  },
   title: {
-    fontSize:'2rem',
+    fontSize:'1.8rem',
     marginLeft:8,
     marginRight:8,
     textAlign:'center',
     whiteSpace: 'nowrap',
     overflowX: 'hidden',
     textOverflow: 'clip',
-  },
+    },
   artist: {
-    fontSize:'1.25rem',
+    fontSize:'1.4rem',
     marginLeft:8,
     marginRight:8,
     textAlign:'center',
     whiteSpace: 'nowrap',
     overflowX: 'hidden',
-    textOverflow: 'clip'
+    textOverflow: 'clip',
   },
   img: {
     nowPlaying: {
@@ -89,19 +98,19 @@ export default class MiniPlayer extends Component {
     for (let i = 0; i < this.state.controlList.length; i++) {
          let item = this.state.controlList[i];
          //console.info("Control list item " + i + ": ", item);
-         items.push(<PlaybackControl
+         items.push(<span style={style.player.controlDivider}><PlaybackControl
                       key={"miniControl" + i}
                       icon={item.icon}
                       tooltip={item.tooltip}
-                      onClick={item.onClick}/>);
+                      onClick={item.onClick}/></span>);
       }
       return items;
   }
   renderPlaybackControls() {
     return(
-      <div style={style.controls.controlPack}>
+      <div style={style.player.controlPack}>
         <Slider
-          sliderStyle={style.controls.slider}
+          sliderStyle={style.player.slider}
           defaultValue={0}
           value={this.props.percent}
           max={100}
@@ -135,9 +144,11 @@ export default class MiniPlayer extends Component {
   renderOverlay() {
     let cur_song = this.getNowPlayingSong();
     return(
-      <div style={style.controls}>
-        <div style={style.title}>{cur_song.name ? cur_song.name : null}</div>
-        <div style={style.artist}>{cur_song.artist.name ? cur_song.artist.name : null}</div>
+      <div style={style.player}>
+        <div style={style.labelDivider}>
+          <div style={style.title}>{cur_song.name ? cur_song.name : null}</div>
+          <div style={style.artist}>{cur_song.artist.name ? cur_song.artist.name : null}</div>
+        </div>
         {this.renderPlaybackControls()}
       </div>
     );

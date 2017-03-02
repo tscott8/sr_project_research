@@ -134,7 +134,7 @@ export class ArtistsCollection extends Component {
         <GridTile
           key={'artistTile_'+ tile.id}
           title={tile.name}
-          subtitle={tile.genre}
+          subtitle={tile.genre.name}
           cols={1}
           rows={1}
           style={collectionStyles.artistTile.root}
@@ -170,7 +170,7 @@ export class AlbumsCollection extends Component {
         <GridTile
           key={'albumTile_'+ tile.id}
           title={tile.name}
-          subtitle={tile.artist}
+          subtitle={tile.artist.name}
           cols={1}
           rows={1}
           >

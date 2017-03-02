@@ -18,6 +18,8 @@ class GenreViewSet(viewsets.ModelViewSet):
 
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+    genre = GenreSerializer(read_only=True)
+
     class Meta:
         model = Artist
         fields = ('id', 'name', 'genre', 'cover_photo')
@@ -31,6 +33,9 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
+    artist = ArtistSerializer(read_only=True)
+    genre = GenreSerializer(read_only=True)
+
     class Meta:
         model = Album
         fields = ('id', 'name', 'artist', 'genre', 'artwork')
@@ -45,9 +50,9 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
-    # album = serializers.StringRelatedField()
     album = AlbumSerializer(read_only=True)
     genre = GenreSerializer(read_only=True)
+    # album = serializers.StringRelatedField()
     class Meta:
         model = Track
         fields = ('id', 'name', 'duration','length', 'artist', 'album', 'genre', 'url', 'play_count')
