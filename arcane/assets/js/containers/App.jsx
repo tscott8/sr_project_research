@@ -56,11 +56,13 @@ export default class App extends Component {
      console.info("Handling Next request");
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.next(audio);
+    this.props.play(audio);
   }
 
   handlePrevious = () => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.previous(audio);
+    this.props.play(audio);
   }
 
   handleVolumeChange = (volume) => {

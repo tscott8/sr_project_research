@@ -21,7 +21,7 @@ class MyMusic extends Component {
 
 
   render() {
-    const { genres, tracks, artists, albums, actions } = this.props;
+    const { genres, tracks, artists, albums } = this.props;
       return (
         <div>
           <CollectionTabs
@@ -29,7 +29,7 @@ class MyMusic extends Component {
                tracks={tracks}
                artists={artists}
                albums={albums}
-               actions={actions}/>
+               />
         </div>
       );
   }

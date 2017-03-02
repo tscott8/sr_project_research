@@ -6,7 +6,8 @@
    UPDATE_VOLUME, NEXT, PREVIOUS,
    PLAY, SET_TIME, SET_PROGRESS,
    TOGGLE_FAVORITE, TOGGLE_REPEAT,
-   UPDATE_POSITION, PAUSE, TOGGLE_LOOP
+   UPDATE_POSITION, PAUSE, TOGGLE_LOOP,
+   ADD_TO_QUEUE
  } from '../constants/ActionTypes'
 
  import find from 'lodash/find';
@@ -121,6 +122,8 @@ function getAudioState(audio) {
      case TOGGLE_REPEAT:
        return {...state, isRepeating: !state.isRepeating };
      case TOGGLE_LOOP:
+       return {...state, ...getAudioState(action.audio) };
+     case ADD_TO_QUEUE:
        return {...state, ...getAudioState(action.audio) };
      default:
        return state

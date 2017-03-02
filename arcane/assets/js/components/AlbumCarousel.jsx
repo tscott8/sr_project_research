@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Slider from 'react-slick'
-import MiniPlayer from './MiniPlayer2'
+
+const url = "http://localhost:8000/";
 
 const responsiveSettings = [
    {
@@ -27,8 +28,8 @@ const settings = {
    dots: false,
    infinite: true,
    arrows: true,
-   slidesToShow: 7,
-   slidesToScroll: 1,
+   slidesToShow: 8,
+   slidesToScroll: 3,
    centerMode: false,
    responsive: responsiveSettings
 }
@@ -45,8 +46,11 @@ const styles = {
       border: 'solid 3px'
    },
    innerElement: {
+      // height:'calc((100vh-64px)/6)',
+      height:'calc((100vh - 114px)/4)',
       margin: 'auto',
-      width: 'inherit',
+      width:'calc((100vh - 114px)/4)',
+      // height:'auto',
       paddingTop: '10',
       paddingBottom: '10',
       paddingLeft: '5',
@@ -55,26 +59,38 @@ const styles = {
 }
 
 export default class AlbumCarousel extends Component {
-   renderSliderItems() {
-      let items = [];
-      console.info(Object.keys(this.props.list));
-      if (Object.keys(this.props.list).length > 0) {
-         for (let key in this.props.list) {
-            let item = this.props.list[key];
-            items.push(<div key={"album_carousel_item_" + item.id}><img src={item.artwork} style={styles.innerElement}/></div>)
-         }
-      } else {
-         items.push(<div><img src="http://localhost:8000/static/images/default-artwork.png" /></div>);
-      }
-      console.info(items);
-      return items;
+  constructor(props) {
+    super(props);
+  }
+   renderSliderItems(albums) {
+
+      // let items = [];
+      console.info(albums);
+        let items = albums ? albums.map((item) => (
+          <div key={'album_carousel_item_'+ item.id}>
+            <img
+              src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
+              style={styles.innerElement}/>
+          </div>)) : [<div></div>];
+        // if (Object.keys(this.props.list).length > 0) {
+        //    for (let key in this.props.list) {
+        //       let item = this.props.list[key];
+        //       items.push(<div key={"album_carousel_item_" + item.id}><img src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'} style={styles.innerElement}/></div>)
+        //    }
+        // } else {
+        //    items.push(<div><img src="http://localhost:8000/static/images/default-artwork.png" /></div>);
+        // }
+        console.info(items);
+        return items;
+
    }
 
    render() {
+     const {albums} = this.props;
       return (
          <div style={styles.carouselDiv}>
             <Slider {...settings} style={styles.outerDiv}>
-               {this.renderSliderItems()}
+               {this.renderSliderItems(albums.results)}
             </Slider>
          </div>
       );
