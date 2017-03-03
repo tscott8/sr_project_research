@@ -79,6 +79,9 @@ export class TracksCollection extends Component {
       selectedTracks: [],
     }
   }
+  componentWillMount() {
+    ListItem.defaultProps.disableTouchRipple=true;
+  }
   // selectTracks(rows) {
   //   console.log(r)
   //   console.log('rows', rows)
@@ -113,15 +116,37 @@ export class TracksCollection extends Component {
   //     return arr;
   //   }
   // }
+  sortTracks (prop, arr) {
+    prop = prop.split('.');
+    var len = prop.length;
+
+    arr.sort(function (a, b) {
+        var i = 0;
+        while( i < len ) { a = a[prop[i]]; b = b[prop[i]]; i++; }
+        if (a < b) {
+            return -1;
+        } else if (a > b) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    return arr;
+  }
   renderTrackItemMenu() {
     return(
       <IconMenu
         iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
         targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
-        <MenuItem primaryText="Profile" />
-        <MenuItem primaryText="Help" />
-        <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText="Start radio" />
+        <MenuItem primaryText="Play next" />
+        <Divider/>
+        <MenuItem primaryText="Add to queue" />
+        <MenuItem primaryText="Add to playlist" />
+        <Divider/>
+        <MenuItem primaryText="Artist info" />
+        <MenuItem primaryText="Album info" />
       </IconMenu>
     );
   }
@@ -150,20 +175,24 @@ export class TracksCollection extends Component {
       return arr;
     }
   }
-  renderTracksList() {
+  render() {
     const {tracks} = this.props;
+    // const trackList = this.sortTracks( 'artist.name', tracks.results);
     return(
       <Menu
         autoWidth={false}
         desktop={true}
         width={'100vw'}
-        listStyle={{height:'calc(100vh - 172px)', overflowY:'auto', paddingTop:0, marginTop:0}}
+        listStyle={{paddingTop:0}}
+        disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
         selectedMenuItemStyle={{backgroundColor:'red'}}
         multiple={true}
         onChange={this.handleChange}
         value={this.props.selectedTracks}>
+        {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
         {this.renderTracksListItems(tracks.results)}
+
       </Menu>
     );
   }
@@ -193,9 +222,9 @@ export class TracksCollection extends Component {
   //       </Table>
   //   );
   // }
-  render() {
-    return (this.renderTracksList());
-  }
+  // render() {
+  //   return (this.renderTracksList());
+  // }
 }
 export class ArtistsCollection extends Component {
   constructor(props) {

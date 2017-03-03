@@ -34,6 +34,23 @@ export default class CollectionTabs extends Component {
       slideIndex: value,
     });
   };
+  sortByTag (prop, arr) {
+    prop = prop.split('.');
+    var len = prop.length;
+
+    arr.sort(function (a, b) {
+        var i = 0;
+        while( i < len ) { a = a[prop[i]]; b = b[prop[i]]; i++; }
+        if (a < b) {
+            return -1;
+        } else if (a > b) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    return arr;
+  }
   renderCount(countIndex) {
     const {genres,artists,albums,tracks} = this.props;
     let counts = [
@@ -61,6 +78,12 @@ export default class CollectionTabs extends Component {
   return tabs;
   }
   renderSlide(index) {
+    const {tracks, artists, albums, genres} = this.props;
+    const sortedTracks = tracks.results ? this.sortByTag('name', tracks.results) : [];
+    const sortedAlbums = albums.results ? this.sortByTag('name', albums.results) : [];
+    const sortedArtists = artists.results ? this.sortByTag('name', artists.results) : [];
+    const sortedGenres = genres.results ? this.sortByTag('name', genres.results) : [];
+
     let contents = [
       <GenresCollection select={this.props.select} genres={this.props.genres}/>,
       <ArtistsCollection select={this.props.select} artists={this.props.artists}/>,

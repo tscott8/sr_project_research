@@ -96,7 +96,11 @@ export default class App extends Component {
       this.props.play(audio);
     }
   }
-
+  pushToQueue = (songs) => {
+    const audio = ReactDOM.findDOMNode(this.refs.audio);
+    this.props.addToQueue(songs)
+    console.log('IN ADD TO QUEUE', songs)
+  }
   // componentDidMount() {
   //   this.props.actions.genreActions.getGenres();
   //   this.props.actions.trackActions.getTracks();

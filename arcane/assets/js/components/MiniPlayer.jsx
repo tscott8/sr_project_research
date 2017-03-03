@@ -60,6 +60,7 @@ const style={
     },
   },
   queue: {
+    paddingTop:0,
     height:'55vh',
     overflowY:'auto'
   }
