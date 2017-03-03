@@ -5,8 +5,8 @@ import ListDialog from './ListDialog'
 
 const styles = {
    card: {
-      width: '250px',
-      height: '320px'
+      width: 'inherit',
+      height: 'inherit'
    },
    img: {
       width: 'inherit',

@@ -15,7 +15,7 @@ export default class ListDialog extends Component {
 
    renderDialogTitle() {
       const { name, tracks } = this.props;
-      if (tracks.results) {
+      if (tracks && tracks.results) {
          return (
             <div>
                <h3>{tracks.results[0].album.name}</h3>
