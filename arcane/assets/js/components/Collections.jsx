@@ -17,9 +17,11 @@ const collectionStyles = {
 
   },
   gridList: {
-    marginTop:3,
+    margin:0,
+    marginTop:2,
     width:'100%',
-    height:'100%'
+    height:'100%',
+    justifyContent:'space-between'
   },
   table: {
     // maxHeight:'calc(100vh - 114px)',
@@ -97,7 +99,7 @@ export class TracksCollection extends Component {
   // }
   handleChange = (event, value) => {
     // this.setState({selectedTracks:value})
-    this.props.select(value);
+    this.props.select ? this.props.select(value) : console.log('No select function prop');
   }
 
   // renderTracksRows(tracks) {
@@ -189,7 +191,7 @@ export class TracksCollection extends Component {
         selectedMenuItemStyle={{backgroundColor:'red'}}
         multiple={true}
         onChange={this.handleChange}
-        value={this.props.selectedTracks}>
+        value={this.props.selectedTracks ? this.props.selectedTracks : []}>
         {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
         {this.renderTracksListItems(tracks.results)}
 
