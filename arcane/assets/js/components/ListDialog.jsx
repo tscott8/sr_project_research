@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { Dialog, FloatingActionButton, FlatButton, FontIcon } from 'material-ui'
+import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader } from 'material-ui'
+import{ CardTitle} from 'material-ui/Card'
 import { TracksCollection } from './Collections'
 
 const styles = {
    fab: {
-      float: 'right'
+      float: 'right',
+      top:0,
+      right:0,
+      position:'absolute',
+      margin:20,
+      zIndex:1
    }
 }
 
@@ -13,15 +19,16 @@ export default class ListDialog extends Component {
       super(props);
    }
 
-   renderDialogTitle() {
-      const { name, tracks } = this.props;
+   renderDialogTitle(tracks, name) {
+      // const { name, tracks } = this.props;
+      console.log('in renderDialogTitle', tracks)
       if (tracks.results) {
          return (
             <div>
-               <h3>{tracks.results[0].album.name}</h3>
-               <FloatingActionButton style={styles.fab}>
-                  <FontIcon className="material-icons">play_arrow</FontIcon>
-               </FloatingActionButton>
+              <FloatingActionButton style={styles.fab}>
+                <FontIcon className="material-icons">play_arrow</FontIcon>
+              </FloatingActionButton>
+              <CardTitle style={{padding:0}} title={tracks.results[0].album.name} subtitle={tracks.results[0].artist.name}/>
             </div>
          );
       } else {
@@ -38,10 +45,13 @@ export default class ListDialog extends Component {
    }
 
    render() {
+     const {tracks, name} = this.props
+     console.log('in render for ListDialog', tracks)
       return (
          <Dialog
+           bodyStyle={{padding:0, margin:0}}
             open={this.props.open}
-            title={this.renderDialogTitle()}
+            title={this.renderDialogTitle(tracks, name)}
             onRequestClose={this.props.onClose}
             autoDetectWindowHeight={true}
             autoScrollBodyContent={true}
@@ -50,7 +60,7 @@ export default class ListDialog extends Component {
                        primary={true}
                        onTouchTap={this.props.onClose}
                      />}>
-            <TracksCollection select={this.props.select} selectedTracks={this.props.selected} tracks={this.props.tracks} />
+            <TracksCollection tracks={tracks} select={this.props.select} selectedTracks={this.props.selectedTracks} />
          </Dialog>
       );
    }

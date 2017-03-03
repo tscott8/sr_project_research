@@ -169,9 +169,8 @@ export default class MiniPlayer extends Component {
   renderNowPlaying() {
     let cur_song = this.getNowPlayingSong();
     return (
-      <Card style={style.root}>
+      <Card>
        <CardMedia
-         style={style.media}
          overlay={cur_song ? this.renderOverlay() : null}>
          <img
            style={style.img.nowPlaying}
