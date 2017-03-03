@@ -6,6 +6,7 @@ import {GridTile, GridList,
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
 import SquareButton from './SquareButton'
+import Tile from './Tile'
 
 
 const url = "http://localhost:8000/";
@@ -273,12 +274,18 @@ export class AlbumsCollection extends Component {
       let arr = albums.map((tile) => (
         <GridTile
           key={'albumTile_'+ tile.id}
-          title={tile.name}
-          subtitle={tile.artist.name}
+          // title={tile.name}
+          // subtitle={tile.artist.name}
           cols={1}
           rows={1}
           >
-          <img style={collectionStyles.artistTile.img} src={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}/>
+            <Tile
+              name={tile.name}
+              imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
+              tracks={tile.tracks}
+              select={this.props.select}
+              selectedTracks={this.props.selectedTracks}/>
+          {/* <img style={collectionStyles.artistTile.img} src={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}/> */}
         </GridTile>
       ))
       return arr;

@@ -5,13 +5,12 @@ import ListDialog from './ListDialog'
 
 const styles = {
    card: {
-      width: 'calc(100vw/6)',
-      height:'calc(100vw/6)',
    },
    img: {
-      width: 'inherit',
-      height: 'inherit',
-      margin: 'auto'
+     maxHeight:'calc(100vw/8)',
+     maxWidth: 'calc(100vw/8)',
+     minHeight: 100,
+     minWidth: 100,
    },
    fab: {
       float: 'right',
@@ -63,12 +62,13 @@ export default class Tile extends Component {
                <CardMedia
                 //  actAsExpander
                 //  showExpandableButton
-                overlayContentStyle={{padding:0,height:'calc(100vw/6)'}}
-                 overlay={<FlatButton
-                   style={{width:'100%', bottom:0, position:'absolute'}}
+                overlayContentStyle={{padding:0}}
+                overlay={<FlatButton
+                   style={{width:'100%', bottom:0, position:'absolute', backgroundColor:  'rgba(0, 0, 0, 0.5)'}}
                    onClick={this.handleToggle}
                    label={name}
-                   labelStyle={{fontSize:'1.5rem'}}/>}
+                   labelStyle={{padding:0,marginLeft:4,marginRight:4, textOverflow:'clip',
+                    fontSize:'1.2rem'}}/>}
                 >
                 <img style={styles.img} src={imgURL} />
                </CardMedia>
