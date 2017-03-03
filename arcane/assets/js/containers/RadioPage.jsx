@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import * as TrackActions from '../actions/TrackActions'
-import { TracksCollection } from '../components/Collections'
 import Radio from '../components/Radio'
+import Tile from '../components/Tile'
 
 class RadioPage extends Component {
    constructor(props) {
@@ -14,11 +14,11 @@ class RadioPage extends Component {
    }
 
    render() {
-      console.info("tracks in render: ", this.props.tracks);
+      console.info("tracks in render: ", this.props.tracks.results);
       return (
          <div>
-           <Radio/>
-            <TracksCollection tracks={this.props.tracks} />
+            <Radio/>
+            <Tile name={"Test"} imgURL={'static/images/default-artwork.png'} track={this.props.tracks}/>
          </div>
       );
    }
@@ -30,7 +30,7 @@ RadioPage.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { tracks } = state
+  const { tracks, albums } = state
 
   return {
      tracks

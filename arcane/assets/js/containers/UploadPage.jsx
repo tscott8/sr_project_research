@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Uploader from '../components/Uploader'
 import * as TrackActions from '../actions/TrackActions'
-const ID3 = require('id3-parser');
 
 
 class Track {
@@ -25,18 +24,14 @@ class UploadPage extends Component {
          tracks: []
       }
       const { dispatch } = this.props;
-      dispatch(TrackActions.getTracks());
    }
 
    addTrack(track) {
       console.info(track);
       let newTrack = new Track();
       newTrack.url = track;
-      ID3.parse(track).then(tag => {
-          console.info(tag); // the parsed tag info
-      });
       // this.setState({
-      //    tracks: this.state.tracks.push(track)
+      //    tracks: this.state.tracks.push(newTrack)
       // });
    }
 
@@ -45,7 +40,6 @@ class UploadPage extends Component {
    }
 
    render() {
-      console.info("tracks in render: ", this.props.tracks);
       return (
          <div>
             <Uploader files={this.state.tracks} addTrack={this.addTrack.bind(this)}/>

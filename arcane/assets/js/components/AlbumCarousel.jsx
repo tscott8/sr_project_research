@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Slider from 'react-slick'
+import Tile from './Tile'
 
 const url = "http://localhost:8000/";
 
@@ -62,16 +63,22 @@ export default class AlbumCarousel extends Component {
   constructor(props) {
     super(props);
   }
+
+  select = () => {
+     console.info("Selected!");
+  }
    renderSliderItems(albums) {
 
       // let items = [];
       // console.info(albums);
         let items = albums ? albums.map((item) => (
           <div key={'album_carousel_item_'+ item.id}>
-            <img
-              src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
-              style={styles.innerElement}/>
+             <Tile name={item.name} imgURL={item.artwork} tracks={[]} selectedTracks={[]} select={this.select} />
           </div>)) : [<div></div>];
+            // <img
+            //   src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
+            //   style={styles.innerElement}/>
+
         // if (Object.keys(this.props.list).length > 0) {
         //    for (let key in this.props.list) {
         //       let item = this.props.list[key];
