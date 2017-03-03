@@ -1,23 +1,26 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import * as TrackActions from '../actions/TrackActions'
 import Radio from '../components/Radio'
+import { TracksCollection } from '../components/Collections'
+import * as TrackActions from '../actions/TrackActions'
 import Tile from '../components/Tile'
 
 class RadioPage extends Component {
    constructor(props) {
       super(props);
       const { dispatch } = this.props;
-      if (this.props.tracks.length == 0)
-         dispatch(TrackActions.getTracks());
+      dispatch(TrackActions.getTracks());
    }
 
    render() {
-      console.info("tracks in render: ", this.props.tracks.results);
+     const {tracks} = this.props;
+     console.log('IN RADIO Page', tracks)
+
       return (
          <div>
-            <Radio/>
+           <Radio tracks={this.props.tracks}/>
+           {/* <TracksCollection tracks={this.props.tracks}/>, */}
             <Tile name={"Test"} imgURL={'static/images/default-artwork.png'} track={this.props.tracks}/>
          </div>
       );

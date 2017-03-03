@@ -23,7 +23,6 @@ class MyMusic extends Component {
     super(props);
     this.state = { selected: [] };
     const { dispatch } = this.props;
-    console.log(this.props)
     dispatch(TrackActions.getTracks());
     dispatch(AlbumActions.getAlbums());
     dispatch(ArtistActions.getArtists());

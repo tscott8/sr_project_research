@@ -101,12 +101,6 @@ export default class App extends Component {
     this.props.addToQueue(songs)
     console.log('IN ADD TO QUEUE', songs)
   }
-  // componentDidMount() {
-  //   this.props.actions.genreActions.getGenres();
-  //   this.props.actions.trackActions.getTracks();
-  //   this.props.actions.artistActions.getArtists();
-  //   this.props.actions.albumActions.getAlbums();
-  // }
 
   render() {
       const {

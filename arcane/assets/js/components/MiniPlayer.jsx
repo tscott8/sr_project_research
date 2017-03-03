@@ -10,6 +10,7 @@ const style={
   player: {
     marginLeft:0,
     paddingBottom:8,
+    textOverflow: 'clip',
     controlDivider: {
       marginLeft:4,
       marginRight:4,
@@ -27,26 +28,30 @@ const style={
   },
   labelDivider: {
     verticalAlign:'top',
-    paddingTop:4,
+    padding:0,
     height:201
   },
   title: {
-    fontSize:'1.8rem',
+    // fontSize:'1.8rem',
     marginLeft:8,
     marginRight:8,
     textAlign:'center',
     whiteSpace: 'nowrap',
     overflowX: 'hidden',
     textOverflow: 'clip',
+    padding:0,
+    lineHeight:1.2
     },
   artist: {
-    fontSize:'1.4rem',
+    // fontSize:'1.4rem',
     marginLeft:8,
     marginRight:8,
     textAlign:'center',
     whiteSpace: 'nowrap',
     overflowX: 'hidden',
     textOverflow: 'clip',
+    padding:0,
+    lineHeight:1.1
   },
   img: {
     nowPlaying: {
@@ -146,10 +151,16 @@ export default class MiniPlayer extends Component {
     let cur_song = this.getNowPlayingSong();
     return(
       <div style={style.player}>
-        <div style={style.labelDivider}>
-          <div style={style.title}>{cur_song.name ? cur_song.name : null}</div>
-          <div style={style.artist}>{cur_song.artist.name ? cur_song.artist.name : null}</div>
-        </div>
+        {/* <div style={style.labelDivider}> */}
+          <CardTitle
+            style={style.labelDivider}
+            titleStyle={style.title}
+            subtitleStyle={style.artist}
+            title={cur_song.name ? cur_song.name : null}
+            subtitle={cur_song.artist.name ? cur_song.artist.name : null}/>
+          {/* <div style={style.title}>{cur_song.name ? cur_song.name : null}</div>
+          <div style={style.artist}>{cur_song.artist.name ? cur_song.artist.name : null}</div> */}
+        {/* </div> */}
         {this.renderPlaybackControls()}
       </div>
     );
