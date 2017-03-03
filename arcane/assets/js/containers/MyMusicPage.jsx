@@ -32,14 +32,14 @@ class MyMusic extends Component {
 
   addToSelected(items) {
     console.log('selected items:', items)
-    // let currentState = this.state.selected;
-    // currentState.push(items)
     this.setState({
       selected: items
     });
   }
   pushToQueue() {
+    // const { dispatch } = this.props;
     console.log('IN PUSH TO QUEUE', this.state.selected)
+    // this.props.pushToQueue(this.state.selected[0]);
     this.setState({selected:[]})
   }
 
@@ -63,6 +63,7 @@ class MyMusic extends Component {
                artists={artists}
                albums={albums}
                select={this.addToSelected.bind(this)}
+               selectedTracks={this.state.selected}
                />
          {this.renderAddQueueButton()}
         </div>

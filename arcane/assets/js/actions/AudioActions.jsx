@@ -82,6 +82,7 @@ export function toggleLoop(audio) {
 }
 
 export function addToQueue(audio, songs) {
+  console.log('In AudioActions.addToQueue... songs: ', songs)
   audio.songs.push(songs);
   return { type: types.ADD_TO_QUEUE, audio}
 }
