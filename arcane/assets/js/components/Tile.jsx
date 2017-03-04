@@ -4,7 +4,18 @@ import ListDialog from './ListDialog'
 
 
 const styles = {
-   card: {
+   cardButton: {
+     width:'100%',
+     bottom:0,
+     position:'absolute',
+     backgroundColor:  'rgba(0, 0, 0, 0.5)',
+     label: {
+       padding:0,
+       marginLeft:4,
+       marginRight:4,
+       textOverflow:'clip',
+       fontSize:'1.2rem'
+     }
    },
    img: {
      maxHeight:'calc(100vw/8)',
@@ -49,7 +60,7 @@ export default class Tile extends Component {
 
    render() {
       const { name, imgURL } = this.props;
-      console.log('IN TILE!')
+      // console.log('IN TILE!')
       return (
          <div>
             <Card style={styles.card}
@@ -60,21 +71,16 @@ export default class Tile extends Component {
                >
 
                <CardMedia
-                //  actAsExpander
-                //  showExpandableButton
                 overlayContentStyle={{padding:0}}
-                overlay={<FlatButton
-                   style={{width:'100%', bottom:0, position:'absolute', backgroundColor:  'rgba(0, 0, 0, 0.5)'}}
+                overlay={
+                  <FlatButton
+                   style={styles.cardButton}
                    onClick={this.handleToggle}
                    label={name}
-                   labelStyle={{padding:0,marginLeft:4,marginRight:4, textOverflow:'clip',
-                    fontSize:'1.2rem'}}/>}
-                >
+                   labelStyle={styles.cardButton.label}/>
+                }>
                 <img style={styles.img} src={imgURL} />
                </CardMedia>
-               {/* <CardTitle
-                  title={name}
-                  actAsExpander={true} /> */}
             </Card>
             <ListDialog
               name={name}

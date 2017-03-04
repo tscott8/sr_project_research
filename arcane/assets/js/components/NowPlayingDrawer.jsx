@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import {Divider, Drawer, AppBar, FontIcon, List, ListItem} from 'material-ui'
-import ArcanePlayer from './ArcanePlayer'
+import MiniPlayer from './MiniPlayer'
 
 const drawerStyle = {
   height: 'calc(100vh - 64px)',
   top:'64px',
   overflowY:'hidden'
 };
-export default class RadioDrawer extends Component  {
+export default class NowPlayingDrawer extends Component  {
   constructor(props){
     super(props);
   }
@@ -19,7 +19,7 @@ export default class RadioDrawer extends Component  {
           open={this.props.open}
           openSecondary={true}
           onRequestChange={this.props.onRequestChange}>
-          <ArcanePlayer
+          <MiniPlayer
              onNext={this.props.onNext}
              onPlay={this.props.onPlay}
              onPrevious={this.props.onPrevious}
