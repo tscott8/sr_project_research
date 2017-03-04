@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { FloatingActionButton, FontIcon } from 'material-ui'
+import { FloatingActionButton, FontIcon, Snackbar } from 'material-ui'
 import { connect } from 'react-redux'
 import CollectionTabs  from '../components/CollectionTabs'
 
@@ -21,7 +21,7 @@ class MyMusic extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selected: [] };
+    this.state = { selected: [], snackOpen:false };
     const { dispatch } = this.props;
     dispatch(TrackActions.getTracks());
     dispatch(AlbumActions.getAlbums());
@@ -39,13 +39,25 @@ class MyMusic extends Component {
     // const { dispatch } = this.props;
     console.log('IN PUSH TO QUEUE', this.state.selected)
     // this.props.pushToQueue(this.state.selected[0]);
-    this.setState({selected:[]})
+    this.setState({snackOpen:true, snackMessage:'Added '+this.state.selected.length+' items to the queue',selected:[]})
+    // this.setState({selected:[]})
   }
-
+  handleActionTouchTap = () => {
+   this.setState({
+     snackOpen: false,
+   });
+  };
+  handleRequestClose = () => {
+   this.setState({
+     snackOpen: false,
+   });
+  };
   renderAddQueueButton() {
     if (this.state.selected.length > 0) {
       return(
-        <FloatingActionButton onClick={this.pushToQueue.bind(this)} style={style.fab} >
+        <FloatingActionButton
+          onClick={this.pushToQueue.bind(this)}
+          style={style.fab} >
           <FontIcon className="material-icons">queue</FontIcon>
         </FloatingActionButton>
       );
@@ -64,7 +76,15 @@ class MyMusic extends Component {
                select={this.addToSelected.bind(this)}
                selectedTracks={this.state.selected}
                />
-         {this.renderAddQueueButton()}
+           {this.renderAddQueueButton()}
+           <Snackbar
+             open={this.state.snackOpen}
+             message={this.state.snackMessage}
+             action="undo"
+             autoHideDuration={this.state.autoHideDuration}
+             onActionTouchTap={this.handleActionTouchTap}
+             onRequestClose={this.handleRequestClose}
+           />
         </div>
       );
   }
