@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('arcane.browse.urls')),
     url(r'^favicon\.ico$', favicon_view),
-    url('^app/', generic.TemplateView.as_view(template_name='app.html')),
+    url(r'^app/', generic.TemplateView.as_view(template_name='app.html')),
     url(r'^$', RedirectView.as_view(url='/app/', permanent=True)),
     # url(r'^api/', include(routers.SharedAPIRootRouter.router.urls)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

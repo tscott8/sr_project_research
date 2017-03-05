@@ -8,16 +8,20 @@ import LandingPage from '../containers/LandingPage'
 import MyMusic from '../containers/MyMusicPage'
 import Browse from '../containers/BrowsePage'
 import About from '../containers/AboutPage'
+import SplashPage from '../containers/SplashPage'
 
 
 export default (
-   <Route path="/app/" component={App} >
-      <IndexRoute component={LandingPage} />
-      <Route path="upload" component={Upload} />
-      <Route path="radio" component={Radio} />
-      <Route path="my_music" component={MyMusic} />
-      <Route path="browse" component={Browse} />
-      <Route path="about" component={About} />
-      {/* <Route path="*" component={LandingPage} /> */}
+   <Route path="/" component={SplashPage}>
+      <Route path="/app/" component={App} >
+         <IndexRoute component={LandingPage} />
+         <Route path="upload" component={Upload} />
+         <Route path="radio" component={Radio} />
+         <Route path="my_music" component={MyMusic} />
+         <Route path="browse" component={Browse} />
+         <Route path="about" component={About} />
+         <Route path="*" component={SplashPage} />
+      </Route>
+      <Route path="*" component={SplashPage} />
    </Route>
 );
