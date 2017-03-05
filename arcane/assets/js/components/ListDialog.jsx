@@ -20,7 +20,6 @@ export default class ListDialog extends Component {
    }
 
    renderDialogTitle(tracks, name) {
-      // const { name, tracks } = this.props;
       console.log('in renderDialogTitle', tracks)
       if (tracks && tracks.results) {
          return (
@@ -50,17 +49,20 @@ export default class ListDialog extends Component {
       return (
          <Dialog
            bodyStyle={{padding:0, margin:0}}
-            open={this.props.open}
-            title={this.renderDialogTitle(tracks, name)}
-            onRequestClose={this.props.onClose}
-            autoDetectWindowHeight={true}
-            autoScrollBodyContent={true}
-            action={<FlatButton
+           open={this.props.open}
+           title={this.renderDialogTitle(tracks, name)}
+           onRequestClose={this.props.onClose}
+           autoDetectWindowHeight={true}
+           autoScrollBodyContent={true}
+           actions={<FlatButton
                        label="Cancel"
                        primary={true}
-                       onTouchTap={this.props.onClose}
-                     />}>
-            <TracksCollection tracks={tracks} select={this.props.select} selectedTracks={this.props.selectedTracks} />
+                       onTouchTap={this.props.onClose}/>
+           }>
+           <TracksCollection
+             tracks={tracks}
+             select={this.props.select}
+             selectedTracks={this.props.selectedTracks}/>
          </Dialog>
       );
    }

@@ -1,8 +1,7 @@
 import React from "react"
 import { render } from "react-dom"
 import { Provider } from 'react-redux'
-import { Router } from 'react-router'
-import { browserHistory } from 'react-router'
+import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import injectTapEventPlugin from "react-tap-event-plugin"
 
@@ -27,5 +26,5 @@ render(
      <Router history={history} routes={routes}>
      </Router>
    </Provider>,
-    document.getElementById("app")
+   document.getElementById("app")
 );

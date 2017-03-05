@@ -90,11 +90,11 @@ def saveArtwork(data, artist, album):
 
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)
-    # order = models.BigIntegerField(default=0)
+    # order = models.IntegerField(default=0)
     url = models.FileField(upload_to=upload_track, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
-    album = models.ForeignKey(Album, blank=True, null=True)
+    album = models.ForeignKey(Album, related_name='tracks', blank=True, null=True)
     name = models.CharField(max_length=200, blank=True)
     duration = models.CharField(max_length=200, blank=True)
     length = models.BigIntegerField(blank=True)

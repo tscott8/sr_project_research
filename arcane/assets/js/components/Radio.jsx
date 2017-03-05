@@ -55,7 +55,7 @@ const styles = {
           topActions: {
             display:'table-row',
             width:'100%',
-            height:530
+            height:535
           },
           text: {
             display:'table-row',
@@ -127,7 +127,6 @@ export default class Radio extends Component  {
            <Slider {...settings}>
              {this.renderSlides(tracks.results)}
           </Slider>
-          {/* <MiniPlayer/> */}
         </div>
       );
   }

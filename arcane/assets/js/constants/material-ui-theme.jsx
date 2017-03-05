@@ -46,6 +46,9 @@ const muiTheme = {
    tableRow:{
      hoverColor:Colors.cyan700,
      selectedColor:Colors.redA700
+   },
+   snackbar:{
+     backgroundColor:Colors.grey900
    }
 
 };

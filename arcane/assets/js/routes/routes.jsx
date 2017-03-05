@@ -7,6 +7,7 @@ import Radio from '../containers/RadioPage'
 import LandingPage from '../containers/LandingPage'
 import MyMusic from '../containers/MyMusicPage'
 import Browse from '../containers/BrowsePage'
+import About from '../containers/AboutPage'
 
 
 export default (
@@ -16,6 +17,7 @@ export default (
       <Route path="radio" component={Radio} />
       <Route path="my_music" component={MyMusic} />
       <Route path="browse" component={Browse} />
+      <Route path="about" component={About} />
       {/* <Route path="*" component={LandingPage} /> */}
    </Route>
 );

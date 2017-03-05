@@ -35,10 +35,12 @@ class ArtistViewSet(viewsets.ModelViewSet):
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
     genre = GenreSerializer(read_only=True)
+    # tracks = TrackSerializer(read_only=True, many=True)
+    tracks = serializers.StringRelatedField()
 
     class Meta:
         model = Album
-        fields = ('id', 'name', 'artist', 'genre', 'artwork')
+        fields = ('id', 'name', 'artist', 'genre', 'artwork', 'tracks')
 
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
@@ -52,7 +54,6 @@ class TrackSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
     album = AlbumSerializer(read_only=True)
     genre = GenreSerializer(read_only=True)
-    # album = serializers.StringRelatedField()
     class Meta:
         model = Track
         fields = ('id', 'name', 'duration','length', 'artist', 'album', 'genre', 'url', 'play_count')

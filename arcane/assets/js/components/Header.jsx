@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { AppBar,Drawer,IconMenu, IconButton, DropdownMenu, AutoComplete, MenuItem} from 'material-ui'
 import ArcaneDrawer from './ArcaneDrawer'
-import RadioDrawer from './RadioDrawer'
+import NowPlayingDrawer from './NowPlayingDrawer'
 import SearchBox from './SearchBox'
 import makeExpanding from './ExpandingAnimation';
 
@@ -59,7 +59,7 @@ export default class Header extends Component  {
               open={this.state.leftOpen}
               handleClose={this.handleLeftClose.bind(this)}
               onRequestChange={(leftOpen) => this.setState({leftOpen})}/>
-            <RadioDrawer
+            <NowPlayingDrawer
               open={this.state.rightOpen}
               handleClose={this.handleRightClose.bind(this)}
               onRequestChange={(rightOpen) => this.setState({rightOpen})}
