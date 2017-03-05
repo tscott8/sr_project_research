@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import {GenresCollection, ArtistsCollection, AlbumsCollection, TracksCollection} from './Collections'
-
+import {GenresCollection, ArtistsCollection, AlbumsCollection} from './Collections'
+import TracksCollection from './TracksCollection'
 const styles = {
   headline: {
     fontSize: 24,
@@ -13,9 +13,11 @@ const styles = {
   slide: {
     padding:0,
     maxHeight:'calc(100vh - 114px)',
-
+    maxWidth:'100vw'
   },
   swipes: {
+    maxWidth:'100vw'
+
     // maxHeight:'calc(100vh - 114px)',
   }
 };

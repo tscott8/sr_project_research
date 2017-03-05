@@ -1,5 +1,4 @@
 from django.db import models
-# from mutagen.easyid3 import EasyID3
 import mutagen
 import mutagen.easyid3
 import mutagen.id3
@@ -7,9 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.template.defaultfilters import slugify
-
 import os
 from arcane import settings
+from subprocess import call
 
 def upload_genre_icon(instance, file):
     return slugify(instance.name) + "/icons/" + file
@@ -64,7 +63,6 @@ def getTrackInfo(filename):
         short_tags = mutagen.easyid3.EasyID3(filename)
     try:
         artwork = full_tags.tags['APIC:'].data
-        print(artwork)
     except:
         artwork = 'No Artwork'
     trackInfo = {
@@ -77,16 +75,27 @@ def getTrackInfo(filename):
         'title': short_tags.get('title', ['No Title'])[0],
         'size': os.stat(filename).st_size,
     }
+    if artwork is 'No Artwork':
+        print('No Artwork Found... Downloading Now...')
+        path = os.path.join(settings.MEDIA_ROOT,'tmp','temp.jpg')
+        cmd = " ".join(["sacad", "\""+trackInfo['artist']+"\"",  "\""+trackInfo['album']+"\"", "600",  path])
+        call(cmd)
+        try:
+            f = open(path, 'rb')
+            trackInfo['artwork'] = f.read()
+            f.close()
+            print('Artwork Downloaded...')
+        except:
+            print('Unable to Download Artwork.. ')
     return trackInfo
 
 def saveArtwork(data, artist, album):
     path = os.path.join(settings.MEDIA_ROOT, slugify(artist) , slugify(album) , "artwork.jpg")
-    artworkLocation = default_storage.save(path,
-           ContentFile(data))
-    # artworkLocation = os.path.join(settings.MEDIA_ROOT, slugify(artist) , slugify(album) , "albumArt.jpg")
-    # with open(artworkLocation, 'wb') as img:
-        # img.write(data) # write artwork to new image
-    return (slugify(artist) +"/" + slugify(album) +"/"+ "artwork.jpg")
+    if data != 'No Artwork':
+        artworkLocation = default_storage.save(path, ContentFile(data))
+        return (slugify(artist) +"/" + slugify(album) +"/"+ "artwork.jpg")
+    else:
+        return None
 
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)
@@ -146,7 +155,7 @@ class Track(models.Model):
                     check = Album.objects.get(name=iAlbum)
                     self.album = check
                 except Album.DoesNotExist:
-                    new_artwork = saveArtwork(iArtwork,iArtist,iAlbum) if iArtwork != 'No Artwork' else None
+                    new_artwork = saveArtwork(iArtwork,iArtist,iAlbum)
                     new_album = Album(name=iAlbum, genre=self.genre, artist=self.artist, artwork=new_artwork)
                     new_album.save()
                     self.album = new_album

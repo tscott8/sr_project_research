@@ -6,6 +6,22 @@
     </head>
 
     <body>
+      <!-- Upload form. Note enctype attribute! -->
+      <fieldset>
+      <legend>Upload</legend>
+        <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>
+              {{ form.uploadfiles.label_tag }}
+              {{ form.non_field_errors }}
+              {{ form.uploadfiles.help_text }}
+              {{ form.uploadfiles.errors }}
+              {{ form.uploadfiles }}
+            </p>
+          <p><input type="submit" value="Upload"/></p>
+        </form>
+      </fieldset>
+
         <!-- List of uploaded tracks -->
           {% if genres %}
           <fieldset>
@@ -55,21 +71,6 @@
     </fieldset>
     {% endif %}
 
-        <!-- Upload form. Note enctype attribute! -->
-        <fieldset>
-        <legend>Upload</legend>
-          <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <p>
-                {{ form.uploadfiles.label_tag }}
-                {{ form.non_field_errors }}
-                {{ form.uploadfiles.help_text }}
-                {{ form.uploadfiles.errors }}
-                {{ form.uploadfiles }}
-              </p>
-            <p><input type="submit" value="Upload"/></p>
-          </form>
-        </fieldset>
     </body>
 
 </html>
