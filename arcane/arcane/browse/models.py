@@ -49,10 +49,10 @@ class Album(models.Model):
     artwork = models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return '%s: %s' % (self.id, self.name)
 
     def __unicode__(self):
-        return self.name
+        return '%s: %s' % (self.id, self.name)
 
 def upload_track(instance, file):
     return slugify(instance.artist.name) + "/" + slugify(instance.album.name) + "/" + file
@@ -66,13 +66,14 @@ def getTrackInfo(filename):
     except:
         artwork = 'No Artwork'
     trackInfo = {
-        'album':short_tags.get('album', ['No Album'])[0],
+        'title': short_tags.get('title', ['No Title'])[0],
+        'album': short_tags.get('album', ['No Album'])[0],
         'artwork': artwork, # access APIC frame and grab the image,
-        'artist':short_tags.get('artist', ['No Artist'])[0],
-        'genre':short_tags.get('genre', ['No Genre'])[0],
+        'artist': short_tags.get('artist', ['No Artist'])[0],
+        'genre': short_tags.get('genre', ['No Genre'])[0],
         'duration': "%u:%.2d" % (full_tags.info.length / 60, full_tags.info.length % 60),
         'length': full_tags.info.length,
-        'title': short_tags.get('title', ['No Title'])[0],
+        'order': short_tags.get('tracknumber', ['No #'])[0],
         'size': os.stat(filename).st_size,
     }
     if artwork is 'No Artwork':
@@ -99,38 +100,44 @@ def saveArtwork(data, artist, album):
 
 class Track(models.Model):
     play_count = models.BigIntegerField(default=0)
-    # order = models.IntegerField(default=0)
     url = models.FileField(upload_to=upload_track, blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
-    album = models.ForeignKey(Album, related_name='tracks', blank=True, null=True)
+    album = models.ForeignKey(Album, related_name='tracks', blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, blank=True)
     duration = models.CharField(max_length=200, blank=True)
     length = models.BigIntegerField(blank=True)
+    order = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        # unique_together = ('album', 'order')
+        ordering = ['order']
 
     def __str__(self):
-        return self.name
+        return '%s: %s' % (self.id, self.name)
 
     def __unicode__(self):
-        return self.name
+        return '%s: %s' % (self.id, self.name)
 
     def save(self, *args, **kwargs):
         if self.url:
             path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
                    ContentFile(self.url.file.read()))
             track = getTrackInfo(os.path.join(settings.MEDIA_ROOT, path))
-            iTitle, iAlbum, iArtwork, iArtist, iGenre, iDuration, iLength = track['title'], track['album'], track['artwork'], track['artist'], track['genre'], track['duration'], track['length']
-            print ('Uploading... [', iTitle, iAlbum, iArtist, iGenre, iDuration, iLength,']')
+            iTitle, iAlbum, iArtwork, iArtist, iGenre, iDuration, iLength, iOrder = track['title'], track['album'], track['artwork'], track['artist'], track['genre'], track['duration'], track['length'], track['order']
+            iOrder = int(iOrder.split('/')[0]) if (iOrder != '0') else None
+            print ('Uploading... [', iOrder, iTitle, iAlbum, iArtist, iGenre, iDuration, iLength,']')
 
             if not self.name:
                 try:
                     check = Track.objects.get(name=iTitle)
-                    print('Upload Failed... [', check, iTitle, iAlbum, iArtist, iGenre, iDuration, iLength, '] already exists...')
+                    print('Upload Failed... [', iOrder, check, iTitle, iAlbum, iArtist, iGenre, iDuration, iLength, '] already exists...')
                     return
                 except Track.DoesNotExist:
                     self.name = iTitle
                     self.duration = iDuration
                     self.length = iLength
+                    self.order = iOrder
 
             if not self.genre:
                 try:
