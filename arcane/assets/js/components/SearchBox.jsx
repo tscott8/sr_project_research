@@ -67,7 +67,10 @@ return (
             fullWidth={true}
             style={textStyle}
             menuProps={{maxHeight:'75vh'}}/>
-            <IconButton iconStyle={{color:'red'}} iconClassName="material-icons" onClick={() => onClick()}>
+            <IconButton
+              iconStyle={{color:'red'}} 
+              iconClassName="material-icons"
+              onClick={() => onClick()}>
             search
             </IconButton>
         </div>

@@ -1,14 +1,9 @@
-import React, {Component} from 'react';
-import {GridTile, GridList,
-  FontIcon, Avatar, IconButton,
-  IconMenu, Menu, MenuItem,
-  List, ListItem, Divider} from 'material-ui'
+import React, {Component, PropTypes} from 'react';
+import { FontIcon, Avatar, IconButton, IconMenu, Menu, MenuItem, Divider, List, ListItem} from 'material-ui'
+
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-import SquareButton from './SquareButton'
 import Tile from './Tile'
-
-
 const url = "http://localhost:8000/";
 
 const collectionStyles = {
@@ -41,40 +36,8 @@ const collectionStyles = {
     color:'white'
   }
 };
-export class GenresCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderGenreTiles(genres) {
-    if (genres) {
-      let arr = genres.map((tile) => (
-        <GridTile
-          key={'genreTile_'+ tile.id}>
-          <SquareButton
-            key={"genreMenuTile_" + tile.id}
-            name={tile.name}
-            icon={tile.icon ? tile.icon : 'build'}
-            url={tile.url ? tile.url : ''}
-            onClick={this.props.onClick}/>
-        </GridTile>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {genres} = this.props;
-    return(
-        <GridList
-          cols={8}
-          cellHeight={'auto'}
-          style={collectionStyles.gridList}>
-          {this.renderGenreTiles(genres.results)}
-          </GridList>
-    );
-  }
-}
 
-export class TracksCollection extends Component {
+export default class TracksCollection extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -159,6 +122,8 @@ export class TracksCollection extends Component {
             key={'track_list_item_'+ track.id}
             animation={null}
             innerDivStyle={{padding:0}}
+            style={{maxWidth:'100vw'}}
+
             // primaryText={track.name}
             // secondaryText={track.artist.name + ' - ' + track.duration}
             value={track}>
@@ -167,11 +132,11 @@ export class TracksCollection extends Component {
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
+              rightIconButton={this.renderTrackItemMenu()}
               leftAvatar={
                 <Avatar
                   style={{borderRadius:'0%'}}
-                  src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}
-              rightIconButton={this.renderTrackItemMenu()}/>
+                  src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}/>
           </MenuItem>
       ))
       return arr;
@@ -182,9 +147,10 @@ export class TracksCollection extends Component {
     // const trackList = this.sortTracks( 'artist.name', tracks.results);
     return(
       <Menu
-        autoWidth={false}
-        desktop={true}
+        // autoWidth={true}
+        // desktop={false}
         width={'100vw'}
+        // style={{padding:0}}
         listStyle={{paddingTop:0}}
         disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
@@ -227,80 +193,4 @@ export class TracksCollection extends Component {
   // render() {
   //   return (this.renderTracksList());
   // }
-}
-export class ArtistsCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderArtistTiles(artists) {
-    if (artists) {
-      let arr = artists.map((tile) => (
-        <GridTile
-          key={'artistTile_'+ tile.id}
-          title={tile.name}
-          subtitle={tile.genre.name}
-          cols={1}
-          rows={1}
-          style={collectionStyles.artistTile.root}
-          >
-          <img style={collectionStyles.artistTile.img} src={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}/>
-        </GridTile>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {artists} = this.props;
-    return(
-      <div style={collectionStyles.root}>
-      <GridList
-        cols={8}
-        cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderArtistTiles(artists.results)}
-        </GridList>
-      </div>
-    );
-  }
-}
-
-export class AlbumsCollection extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderAlbumTiles(albums) {
-    if (albums) {
-      let arr = albums.map((tile) => (
-        <GridTile
-          key={'albumTile_'+ tile.id}
-          // title={tile.name}
-          // subtitle={tile.artist.name}
-          cols={1}
-          rows={1}
-          >
-            <Tile
-              name={tile.name}
-              imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
-              tracks={tile.tracks}
-              select={this.props.select}
-              selectedTracks={this.props.selectedTracks}/>
-          {/* <img style={collectionStyles.artistTile.img} src={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}/> */}
-        </GridTile>
-      ))
-      return arr;
-    }
-  }
-  render() {
-    const {albums} = this.props;
-    return(
-      <div style={collectionStyles.root}>
-      <GridList
-        cols={8}
-        cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderAlbumTiles(albums.results)}
-        </GridList>
-      </div>
-    );
-  }
 }

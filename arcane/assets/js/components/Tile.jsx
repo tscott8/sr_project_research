@@ -4,6 +4,9 @@ import ListDialog from './ListDialog'
 
 
 const styles = {
+  card: {
+
+  },
    cardButton: {
      width:'100%',
      bottom:0,

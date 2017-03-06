@@ -54,11 +54,11 @@ export default class ListDialog extends Component {
            onRequestClose={this.props.onClose}
            autoDetectWindowHeight={true}
            autoScrollBodyContent={true}
-           actions={<FlatButton
-                       label="Cancel"
-                       primary={true}
-                       onTouchTap={this.props.onClose}/>
-           }>
+          //  actions={<FlatButton
+                      //  label="Cancel"
+                      //  primary={true}
+                      //  onTouchTap={this.props.onClose}/>}
+           >
            <TracksCollection
              tracks={tracks}
              select={this.props.select}
