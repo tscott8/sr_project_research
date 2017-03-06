@@ -5,7 +5,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 
 const muiTheme = {
    spacing: spacing,
-   fontFamily: 'Roboto, sans-serif',
+   fontFamily: 'Aldrich, Open Sans, sans-serif',
    palette: {
       primary1Color: Colors.grey900,
       primary2Color: Colors.grey900,
@@ -49,7 +49,10 @@ const muiTheme = {
    },
    snackbar:{
      backgroundColor:Colors.grey900
-   }
+   },
+   appBar: {
+    //  textColor:Colors.white,
+   },
 
 };
 

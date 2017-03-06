@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {FlatButton, IconButton} from 'material-ui'
+import {FlatButton, IconButton, ListItem} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import Slider from 'react-slick'
 import MiniPlayer from './MiniPlayer2'
@@ -23,22 +23,12 @@ const styles = {
       display: 'block',
       maxHeight:'100vh',
       maxWidth:'100vh',
-      // maxWidth: 600,
-      // minWidth:'33vw',
-      // height:'calc((100vh-128px)/2)',
-      // minHeight:'33vh',
       margin: 'auto',
       marginTop:10,
-      // marginBottom:20
-      /*maxHeight: '25vh',
-      marginBottom: '42vh'*/
-   },
+     },
    innerDiv: {
       maxWidth: 'inherit',
       maxHeight:'inherit',
-      // maxHeight: 'calc(inherit-20px)1',
-      // textAlign:'center',
-      // margin: '0 15px 15px 0',
       padding:5,
       card: {
         height:'100%',
@@ -47,27 +37,29 @@ const styles = {
         },
         overlay: {
           // padding:4,
-          height:'100%',
-          // overflow:'hidden',
-          // position:'relative',
+          // top:0,
+          // position:'absolute',
+          height:'50vh',
           width:'100%',
-          display:'table',
           topActions: {
-            display:'table-row',
             width:'100%',
-            height:535
-          },
-          text: {
-            display:'table-row',
-            textAlign:'center'
+            top:0,
+            position:'absolute'
           },
           bottomActions: {
-            display:'table-row'
-
+            fontSize:'2em',
+            lineHeight:'28px',
+            textShadow:'1px 2px black',
+            bottom:0,
+            right:0,
+            position:'absolute',
+            width:'100%',
+            // marginLeft:'20%',
+            // marginRight:'20%'
           }
         },
-    },
-   }
+      },
+    }
 }
 
 
@@ -79,7 +71,7 @@ export default class Radio extends Component  {
     }
   }
   handleHover() {this.setState({hover: true})}
-  handleLeave() {this.setState({hover: false})}
+  handleLeave() {this.setState({hover: true})}
   renderOverlay (track) {
     if (this.state.hover) {
       return (
@@ -92,13 +84,13 @@ export default class Radio extends Component  {
               hoveredStyle={{color:'red'}}
               >close</IconButton>
           </div>
-          <div style={styles.innerDiv.card.overlay.text}>
-            <CardTitle title={track.name} subtitle={track.artist.name}/>
-          </div>
-          {/* <div>
-            <IconButton iconClassName="material-icons">thumbs_up</IconButton>
-            <IconButton iconClassName="material-icons">thumbs_down</IconButton>
-          </div> */}
+          <ListItem
+            style={styles.innerDiv.card.overlay.bottomActions}
+            primaryText={track.name}
+            secondaryText={track.artist.name}
+            rightIconButton={ <IconButton iconClassName="material-icons">more_vert</IconButton>}
+            disabled={true}
+          />
         </div>
       );
     }
