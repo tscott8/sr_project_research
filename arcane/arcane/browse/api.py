@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers, serializers, viewsets, filters
 
 from .models import Genre, Artist, Album, Track
 
@@ -34,10 +34,11 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
-    genre = GenreSerializer(read_only=True)
+    # genre = GenreSerializer(read_only=True)
     # tracks = TrackSerializer(read_only=True, many=True)
-    tracks = serializers.StringRelatedField()
-
+    # tracks = serializers.StringRelatedField(read_only=True)
+    # tracks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Album
         fields = ('id', 'name', 'artist', 'genre', 'artwork', 'tracks')
@@ -51,16 +52,23 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
 
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
-    artist = ArtistSerializer(read_only=True)
-    album = AlbumSerializer(read_only=True)
-    genre = GenreSerializer(read_only=True)
+    # artist = ArtistSerializer(read_only=True)
+    # album = AlbumSerializer(read_only=True)
+    # genre = GenreSerializer(read_only=True)
+    album = serializers.StringRelatedField()
+    artist = serializers.StringRelatedField()
+    genre = serializers.StringRelatedField()
+
     class Meta:
         model = Track
-        fields = ('id', 'name', 'duration','length', 'artist', 'album', 'genre', 'url', 'play_count')
+        fields = ('id', 'order', 'name', 'duration', 'length', 'artist', 'album', 'genre', 'url', 'play_count')
 
 class TrackViewSet(viewsets.ModelViewSet):
-    queryset = Track.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('album', 'id')
     serializer_class = TrackSerializer
+    queryset = Track.objects.all()
+    lookup_field = "id"
 
     def perform_create(self, serializer):
         serializer.save()
