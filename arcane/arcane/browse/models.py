@@ -18,11 +18,13 @@ class Genre(models.Model):
     color = models.CharField(max_length=7, default='#D50000')
     icon = models.ImageField(upload_to=upload_genre_icon, blank=True, null=True)
 
+    # def __str__(self):
+    #     return '%d: %s' % (self.id, self.name)
     def __str__(self):
         return self.name
 
     def __unicode__(self):
-        return self.name
+        return '%d: %s' % (self.id, self.name)
 
 def upload_artist_photo(instance, file):
     return slugify(instance.name) + "/images/" + file
@@ -37,7 +39,7 @@ class Artist(models.Model):
         return self.name
 
     def __unicode__(self):
-        return self.name
+        return '%d: %s' % (self.id, self.name)
 
 def upload_album_artwork(instance, file):
     return slugify(instance.artist.name) + "/" + slugify(instance.name) + "/artwork/" + file
@@ -48,11 +50,14 @@ class Album(models.Model):
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artwork = models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 
+    # def __str__(self):
+    #     return '%d: %s' % (self.id, self.name)
+
     def __str__(self):
-        return '%s: %s' % (self.id, self.name)
+        return self.name
 
     def __unicode__(self):
-        return '%s: %s' % (self.id, self.name)
+        return '%d: %s' % (self.id, self.name)
 
 def upload_track(instance, file):
     return slugify(instance.artist.name) + "/" + slugify(instance.album.name) + "/" + file
@@ -73,7 +78,7 @@ def getTrackInfo(filename):
         'genre': short_tags.get('genre', ['No Genre'])[0],
         'duration': "%u:%.2d" % (full_tags.info.length / 60, full_tags.info.length % 60),
         'length': full_tags.info.length,
-        'order': short_tags.get('tracknumber', ['No #'])[0],
+        'order': short_tags.get('tracknumber', ['0'])[0],
         'size': os.stat(filename).st_size,
     }
     if artwork is 'No Artwork':
@@ -114,10 +119,10 @@ class Track(models.Model):
         ordering = ['order']
 
     def __str__(self):
-        return '%s: %s' % (self.id, self.name)
+        return '%d: %s' % (self.id, self.name)
 
     def __unicode__(self):
-        return '%s: %s' % (self.id, self.name)
+        return '%d: %s' % (self.id, self.name)
 
     def save(self, *args, **kwargs):
         if self.url:
