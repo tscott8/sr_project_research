@@ -25,29 +25,6 @@ const style = {
 export default class FloatingControls extends Component {
    constructor(props) {
       super(props);
-      if (this.props.isPlaying) {
-         this.state = {
-            fabIcon: 'play_arrow',
-         };
-      } else {
-         this.state = {
-            fabIcon: 'pause',
-         }
-      }
-   }
-
-   play() {
-      if (this.props.isPlaying) {
-         this.setState({
-            fabIcon: 'play_arrow'
-         });
-      } else {
-         this.setState({
-            fabIcon: 'pause'
-         });
-      }
-
-      this.props.onPlay();
    }
 
   //  renderAddQueueButton() {
@@ -63,8 +40,8 @@ export default class FloatingControls extends Component {
       return (
 
         <div>
-          <FloatingActionButton onClick={this.play.bind(this)} style={style.fab} >
-           <FontIcon className="material-icons">{this.state.fabIcon}</FontIcon>
+          <FloatingActionButton onClick={this.props.onPlay} style={style.fab} >
+           <FontIcon className="material-icons">{this.props.isPlaying ? "pause" : "play_arrow"}</FontIcon>
            <CircularProgress
              mode="determinate"
              value={this.props.percent * 100}
