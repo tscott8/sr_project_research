@@ -60,7 +60,7 @@ export default class SplashPage extends Component {
    }
 
    render() {
-      console.info(this.props.children);
+      //console.info(this.props.children);
       if (this.props.children) {
          return (
             <div>

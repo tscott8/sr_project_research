@@ -72,6 +72,7 @@ export default class Header extends Component  {
               percent={this.props.percent}
               isRepeating={this.props.isRepeating}
               isLooping={this.props.isLooping}
+              isPlaying={this.props.isPlaying}
               queue={this.props.queue}
               currentID={this.props.currentID}/>
             <AppBar

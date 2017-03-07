@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {FlatButton, IconButton, ListItem} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import Slider from 'react-slick'
-import MiniPlayer from './MiniPlayer2'
 
 const settings = {
    dots: false,

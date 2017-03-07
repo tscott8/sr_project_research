@@ -55,7 +55,9 @@ export default class App extends Component {
   handleNext = () => {
      console.info("Handling Next request");
     const audio = ReactDOM.findDOMNode(this.refs.audio);
-    this.props.next(audio);
+    if (!this.props.audio.isRepeating) {
+       this.props.next(audio);
+    }
     this.props.play(audio);
   }
 
@@ -78,7 +80,7 @@ export default class App extends Component {
   }
 
   handleTrackClick = (percent) => {
-    this.props.updatePosition(ReactDOM.findDOMNode(this.refs.audio), percent/100);
+    this.props.updatePosition(ReactDOM.findDOMNode(this.refs.audio), percent);
   }
 
   handleEnd = () => {
@@ -122,7 +124,8 @@ export default class App extends Component {
                onTimeupdate={this.handleTimeupdate}
                onError={this.handleError}
                onEnded={this.handleEnd}
-               onLoadedData={this.handleLoadedData} />
+               onLoadedData={this.handleLoadedData}
+               onCanPlay={this.handlePlay} />
 
             <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
                onNext={this.handleNext}
@@ -132,6 +135,7 @@ export default class App extends Component {
                onToggleLoop={this.handleToggleLoop}
                onSetTime={this.handleTrackClick}
                percent={percent}
+               isPlaying={isPlaying}
                isRepeating={isRepeating}
                isLooping={isLooping}
                queue={songs}

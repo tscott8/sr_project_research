@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {FontIcon, FloatingActionButton, Slider, IconButton, List, ListItem, Divider, Avatar} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
-import PlaybackControl from './PlaybackControl'
+import { DefaultControl, IconChangeControl, ColoredControl } from './PlaybackControls'
 const url = "http://localhost:8000/";
 
 const style={
@@ -85,6 +85,19 @@ export default class MiniPlayer extends Component {
       }
   }
 
+  componentWillReceiveProps() {
+     const { onToggleRepeat, onPrevious, onPlay, onNext } = this.props;
+     var newControlList = this.state.controlList;
+     //console.info(onPlay);
+     newControlList[0].onClick = onToggleRepeat;
+     newControlList[1].onClick = onPrevious;
+     newControlList[2].onClick = onPlay;
+     newControlList[3].onClick = onNext;
+     this.setState({
+        controlList: newControlList
+     });
+  }
+
   handleSlideClick = (event, value) => {
      console.info("Value in handle slide:", value);
      this.props.onSetTime(value);
@@ -100,28 +113,54 @@ export default class MiniPlayer extends Component {
   }
 
   renderPlaybackButtons() {
-    let items = [];
-    for (let i = 0; i < this.state.controlList.length; i++) {
-         let item = this.state.controlList[i];
-         //console.info("Control list item " + i + ": ", item);
-         items.push(<span style={style.player.controlDivider}><PlaybackControl
-                      key={"miniControl" + i}
-                      icon={item.icon}
-                      tooltip={item.tooltip}
-                      onClick={item.onClick}/></span>);
-      }
-      return items;
+   //  let items = [];
+   //  //console.info(this.props.isPlaying)
+   //  for (let i = 0; i < this.state.controlList.length; i++) {
+   //       let item = this.state.controlList[i];
+   //       //console.info("Control list item " + i + ": ", item.onClick);
+   //       items.push(<span style={style.player.controlDivider}><PlaybackControl
+   //                    key={"miniControl" + i}
+   //                    icon={item.icon}
+   //                    tooltip={item.tooltip}
+   //                    onClick={item.onClick}
+   //                    isPlaying={this.props.isPlaying}/></span>);
+   //    }
+   //    return items;
+      return (
+         <div>
+            <ColoredControl
+               flag={this.props.isLooping}
+               onClick={this.props.onToggleLoop}
+               icon="repeat" />
+            <DefaultControl
+               onClick={this.props.onPrevious}
+               icon="skip_previous" />
+            <IconChangeControl
+               flag={this.props.isPlaying}
+               onClick={this.props.onPlay}
+               icon1="play_arrow"
+               icon2="pause" />
+            <DefaultControl
+               onClick={this.props.onNext}
+               icon="skip_next" />
+            <ColoredControl
+               flag={this.props.isRepeating}
+               onClick={null}
+               icon="shuffle" />
+         </div>
+      );
   }
   renderPlaybackControls() {
+     //console.info(this.props.percent);
     return(
       <div style={style.player.controlPack}>
         <Slider
           sliderStyle={style.player.slider}
           defaultValue={0}
           value={this.props.percent}
-          max={100}
+          max={1}
           onChange={this.handleSlideClick.bind(this)}/>
-        <div>{this.renderPlaybackButtons()}</div>
+        {this.renderPlaybackButtons()}
       </div>
     );
   }

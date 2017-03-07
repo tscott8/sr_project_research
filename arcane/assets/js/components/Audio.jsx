@@ -114,7 +114,8 @@ export default class Audio extends React.Component {
                 crossOrigin="anonymous"
                 autoPlay={this.props.autoplay}
                 loop={this.props.loop}
-                src={this.props.source} />
+                src={this.props.source}
+                onCanPlay={this.props.onCanPlay} />
         )
     }
 

@@ -12,6 +12,7 @@ export default class NowPlayingDrawer extends Component  {
     super(props);
   }
   render() {
+     //console.info(this.props.isPlaying);
       return (
         <Drawer
           containerStyle={drawerStyle}
@@ -29,6 +30,7 @@ export default class NowPlayingDrawer extends Component  {
              percent={this.props.percent}
              isRepeating={this.props.isRepeating}
              isLooping={this.props.isLooping}
+             isPlaying={this.props.isPlaying}
             queue={this.props.queue}
             currentID={this.props.currentID}/>
         </Drawer>
