@@ -81,7 +81,7 @@ export default class CollectionTabs extends Component {
   }
   renderSlide(index) {
     const {tracks, artists, albums, genres} = this.props;
-    const sortedTracks = tracks.results ? this.sortByTag('name', tracks.results) : [];
+    const sortedTracks = tracks.allTracks.results ? this.sortByTag('name', tracks.allTracks.results) : [];
     const sortedAlbums = albums.results ? this.sortByTag('name', albums.results) : [];
     const sortedArtists = artists.results ? this.sortByTag('name', artists.results) : [];
     const sortedGenres = genres.results ? this.sortByTag('name', genres.results) : [];
@@ -90,7 +90,7 @@ export default class CollectionTabs extends Component {
       <GenresCollection select={this.props.select} genres={this.props.genres}/>,
       <ArtistsCollection select={this.props.select} artists={this.props.artists}/>,
       <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums} dispatch={this.props.dispatch}/>,
-      <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks}/>,
+      <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks}/>,
     ];
     return contents[index];
   }
