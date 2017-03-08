@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import * as TrackActions from '../actions/TrackActions'
 import { Card, CardMedia, CardTitle, Dialog, FlatButton, FloatingActionButton, FontIcon} from 'material-ui'
 import ListDialog from './ListDialog'
 
@@ -36,13 +38,23 @@ const styles = {
    }
 }
 
+
 export default class Tile extends Component {
    constructor(props) {
       super(props);
+
       this.state = {
-         expanded: false
+         expanded: false,
+         albumTracks: []
       }
    }
+
+   // componentDidMount() {
+   //
+   //    this.setState({
+   //       tracks: dispatch(TrackActions.getAlbumTracks(this.props.id))
+   //    });
+   // }
    handleExpand = () => {
      this.setState({expanded: true});
   };
@@ -52,12 +64,13 @@ export default class Tile extends Component {
    }
 
    handleExpandChange = (expanded) => {
-      console.info("Expanded? ", expanded);
-      this.setState({expanded: expanded});
+
+      this.setState({expanded: !expanded});
    };
 
    handleToggle = () => {
-    console.log('click')
+      const { dispatch } = this.props;
+      dispatch(TrackActions.getAlbumTracks(this.props.id));
     this.setState({expanded: !this.state.expanded});
   };
 
@@ -89,8 +102,8 @@ export default class Tile extends Component {
               name={name}
               open={this.state.expanded}
               onClose={this.handleClose}
-              tracks={this.props.tracks}
               select={this.props.select }
+              id={this.props.id}
               selectedTracks={this.props.selectedTracks}/>
          </div>
 

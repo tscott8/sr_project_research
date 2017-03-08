@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader } from 'material-ui'
 import{ CardTitle} from 'material-ui/Card'
-import { TracksCollection } from './Collections'
+import TracksCollection  from './TracksCollection'
+import * as TrackActions from '../actions/TrackActions'
 
 const styles = {
    fab: {
@@ -14,10 +16,15 @@ const styles = {
    }
 }
 
-export default class ListDialog extends Component {
+class ListDialog extends Component {
    constructor(props) {
       super(props);
+      const { tracks } = this.props;
+      this.state= {albumTracks: tracks.albumTracks};
    }
+
+   component
+
 
    renderDialogTitle(tracks, name) {
       console.log('in renderDialogTitle', tracks)
@@ -27,7 +34,7 @@ export default class ListDialog extends Component {
               <FloatingActionButton style={styles.fab}>
                 <FontIcon className="material-icons">play_arrow</FontIcon>
               </FloatingActionButton>
-              <CardTitle style={{padding:0}} title={tracks.results[0].album.name} subtitle={tracks.results[0].artist.name}/>
+              <CardTitle style={{padding:0}} title={name} />
             </div>
          );
       } else {
@@ -44,7 +51,7 @@ export default class ListDialog extends Component {
    }
 
    render() {
-     const {tracks, name} = this.props
+     const {tracks, name} = this.props;
      console.log('in render for ListDialog', tracks)
       return (
          <Dialog
@@ -60,10 +67,23 @@ export default class ListDialog extends Component {
                       //  onTouchTap={this.props.onClose}/>}
            >
            <TracksCollection
-             tracks={tracks}
+             tracks={this.props.tracks.albumTracks}
              select={this.props.select}
              selectedTracks={this.props.selectedTracks}/>
          </Dialog>
       );
    }
 }
+
+
+ListDialog.propTypes = {
+   dispatch: PropTypes.func.isRequired,
+   tracks: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+   const { tracks } = state
+   return { tracks };
+}
+
+export default connect(mapStateToProps)(ListDialog);

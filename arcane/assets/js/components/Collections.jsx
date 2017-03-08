@@ -283,7 +283,9 @@ export class AlbumsCollection extends Component {
               imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
               tracks={tile.tracks}
               select={this.props.select}
-              selectedTracks={this.props.selectedTracks}/>
+              selectedTracks={this.props.selectedTracks}
+              id={tile.id}
+              dispatch={this.props.dispatch}/>
           {/* <img style={collectionStyles.artistTile.img} src={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}/> */}
         </GridTile>
       ))

@@ -65,10 +65,11 @@ class MyMusic extends Component {
   }
 
   render() {
-    const { genres, tracks, artists, albums } = this.props;
+    const { genres, tracks, artists, albums, dispatch } = this.props;
       return (
         <div>
           <CollectionTabs
+             dispatch={dispatch}
                genres={genres}
                tracks={tracks}
                artists={artists}
