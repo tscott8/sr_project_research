@@ -115,6 +115,16 @@ export default class TracksCollection extends Component {
       </IconMenu>
     );
   }
+  renderArt(track) {
+    if (!this.props.noArt && track) {
+      return (
+        <Avatar
+          style={{borderRadius:'0%'}}
+          src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>
+     );
+    }
+  }
+
   renderTracksListItems(tracks) {
     if (tracks) {
       let arr = tracks.map((track) => (
@@ -133,10 +143,8 @@ export default class TracksCollection extends Component {
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
               rightIconButton={this.renderTrackItemMenu()}
-              leftAvatar={
-                <Avatar
-                  style={{borderRadius:'0%'}}
-                  src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}/>
+              leftAvatar={this.renderArt(track)
+                }/>
           </MenuItem>
       ))
       return arr;
