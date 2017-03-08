@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, ListItem} from 'material-ui'
+import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, ListItem, IconButton} from 'material-ui'
 import{ CardTitle} from 'material-ui/Card'
 import TracksCollection  from './TracksCollection'
 import * as TrackActions from '../actions/TrackActions'
@@ -26,8 +26,8 @@ class ListDialog extends Component {
    }
 
 
-   renderDialogTitle(tracks, name) {
-      console.log('in renderDialogTitle', tracks)
+   renderDialogTitle(tracks, title, subtitle) {
+      // console.log('in renderDialogTitle', tracks)
       if (tracks && tracks.results) {
          return (
             <div style={{paddingTop:160}}>
@@ -38,15 +38,15 @@ class ListDialog extends Component {
                 // style={{padding:0}}
                 // titleStyle={{padding:0}}
                 // subtitleStyle={{padding:0}}
-                title={name}
-                subtitle={tracks.results[0].artist.name}
+                title={title}
+                subtitle={subtitle}
               />
             </div>
          );
       } else {
          return (
-            <div>
-               <h3>{name}</h3>
+            <div style={{paddingTop:160}}>
+               <h3>{title}</h3>
                <FloatingActionButton style={styles.fab}>
                   <FontIcon className="material-icons">play_arrow</FontIcon>
                </FloatingActionButton>
@@ -57,14 +57,15 @@ class ListDialog extends Component {
    }
 
    render() {
-     const {tracks, name} = this.props;
+     const {tracks, title, subtitle, imgURL} = this.props;
+
      if(tracks) {
-       console.log('in render for ListDialog', tracks)
-       let art = tracks.albumTracks.results ? tracks.albumTracks.results[0].album.artwork : "http://localhost:8000/static/images/default-artwork.png";
+      //  console.log('in render for ListDialog', tracks)
+      //  let art = tracks.albumTracks.results ? tracks.albumTracks.results[0].album.artwork : "http://localhost:8000/static/images/default-artwork.png";
       return (
          <Dialog
-          //  contentStyle={{height:'80vh'}}
-           titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ art + ') ',
+          //  contentStyle={{maxHeight:'80vh'}}
+           titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ imgURL + ') ',
            backgroundSize: 'cover',
            backgroundPosition:'center center',
            overflow:'hidden',
@@ -73,7 +74,7 @@ class ListDialog extends Component {
        }}
            bodyStyle={{padding:0,margin:0}}
            open={this.props.open}
-           title={this.renderDialogTitle(tracks.albumTracks, name)}
+           title={this.renderDialogTitle(tracks.albumTracks, title, subtitle)}
            onRequestClose={this.props.onClose}
            autoDetectWindowHeight={true}
            autoScrollBodyContent={true}
@@ -83,10 +84,10 @@ class ListDialog extends Component {
                       //  onTouchTap={this.props.onClose}/>}
            >
            <TracksCollection
-             tracks={this.props.tracks.albumTracks}
+             tracks={tracks.albumTracks}
              select={this.props.select}
              selectedTracks={this.props.selectedTracks}
-            noArt={true}
+             noArt={true}
           />
          </Dialog>
       );

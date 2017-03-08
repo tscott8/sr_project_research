@@ -131,14 +131,17 @@ export default class TracksCollection extends Component {
           <MenuItem
             key={'track_list_item_'+ track.id}
             animation={null}
+            // style={{maxWidth:'100vw'}}
             innerDivStyle={{padding:0}}
-            style={{maxWidth:'100vw'}}
 
             // primaryText={track.name}
             // secondaryText={track.artist.name + ' - ' + track.duration}
             value={track}>
             <Divider/>
             <ListItem
+              // style={{maxWidth:''}}
+              innerDivStyle={{whiteSpace:'pre-line'}}
+
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
@@ -157,9 +160,9 @@ export default class TracksCollection extends Component {
       <Menu
         // autoWidth={true}
         // desktop={false}
-        width={'100vw'}
-        // style={{padding:0}}
-        listStyle={{paddingTop:0}}
+        width={'100%'}
+        // style={{maxWidth:'100vw'}}
+        listStyle={{paddingTop:0, maxWidth:'100vw'}}
         disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
         selectedMenuItemStyle={{backgroundColor:'red'}}

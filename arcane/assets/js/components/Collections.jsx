@@ -7,6 +7,12 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
   from 'material-ui/Table';
 import SquareButton from './SquareButton'
 import Tile from './Tile'
+import MediaQuery from 'react-responsive'
+
+const gridConfig = {
+  mobile: 3,
+  desktop: 8,
+}
 
 
 const url = "http://localhost:8000/";
@@ -271,37 +277,49 @@ export class AlbumsCollection extends Component {
   renderAlbumTiles(albums) {
     if (albums) {
       let arr = albums.map((tile) => (
-        <GridTile
-          key={'albumTile_'+ tile.id}
-          // title={tile.name}
-          // subtitle={tile.artist.name}
-          cols={1}
-          rows={1}
-          >
             <Tile
-              name={tile.name}
+              tileKey={'albumTile_'+ tile.id}
+              title={tile.name}
+              subtitle={tile.artist.name}
               imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
               tracks={tile.tracks}
               select={this.props.select}
               selectedTracks={this.props.selectedTracks}
               id={tile.id}
               dispatch={this.props.dispatch}/>
-          {/* <img style={collectionStyles.artistTile.img} src={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}/> */}
-        </GridTile>
+
       ))
       return arr;
     }
   }
-  render() {
+  renderGrid (cols) {
     const {albums} = this.props;
     return(
       <div style={collectionStyles.root}>
       <GridList
-        cols={8}
-        cellHeight={'auto'}
+        cols={cols}
+        // cellHeight={180}
         style={collectionStyles.gridList}>
         {this.renderAlbumTiles(albums.results)}
         </GridList>
+      </div>
+    );
+  }
+  render() {
+    const {albums} = this.props;
+    return(
+      <div>
+         <MediaQuery query='(min-device-width: 560px)'>
+            <MediaQuery query='(max-width: 59px)'>
+               {this.renderGrid(2)}
+            </MediaQuery>
+            <MediaQuery query='(min-width: 560px)'>
+               {this.renderGrid(8)}
+            </MediaQuery>
+         </MediaQuery>
+         <MediaQuery query='(max-device-width: 559px)'>
+            {this.renderGrid(2)}
+         </MediaQuery>
       </div>
     );
   }
