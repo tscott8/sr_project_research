@@ -12,6 +12,7 @@ class GenreSerializer(serializers.HyperlinkedModelSerializer):
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+    filter_fields = ('name', 'id')
 
     def perform_create(self, serializer):
         serializer.save()
@@ -27,6 +28,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+    filter_fields = ('name', 'id', 'genre')
 
     def perform_create(self, serializer):
         serializer.save()
@@ -48,6 +50,7 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+    filter_fields = ('name', 'id', 'artist', 'genre')
 
     def perform_create(self, serializer):
         serializer.save()
@@ -66,8 +69,8 @@ class TrackSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'order', 'name', 'duration', 'length', 'artist', 'album', 'genre', 'url', 'play_count')
 
 class TrackViewSet(viewsets.ModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('album', 'id')
+    filter_backends = (filters.DjangoFilterBackend)
+    filter_fields = ('album', 'id', 'name', 'genre')
     serializer_class = TrackSerializer
     queryset = Track.objects.all()
     lookup_field = "id"
