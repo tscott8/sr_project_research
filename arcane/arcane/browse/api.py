@@ -69,7 +69,7 @@ class TrackSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'order', 'name', 'duration', 'length', 'artist', 'album', 'genre', 'url', 'play_count')
 
 class TrackViewSet(viewsets.ModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend)
+    filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('album', 'id', 'name', 'genre')
     serializer_class = TrackSerializer
     queryset = Track.objects.all()

@@ -24,11 +24,11 @@ export default class NowPlayingDrawer extends Component  {
              onNext={this.props.onNext}
              onPlay={this.props.onPlay}
              onPrevious={this.props.onPrevious}
-             onToggleRepeat={this.props.onToggleRepeat}
+             onToggleShuffle={this.props.onToggleShuffle}
              onToggleLoop={this.props.onToggleLoop}
              onSetTime={this.props.onSetTime}
              percent={this.props.percent}
-             isRepeating={this.props.isRepeating}
+             isShuffling={this.props.isShuffling}
              isLooping={this.props.isLooping}
              isPlaying={this.props.isPlaying}
             queue={this.props.queue}

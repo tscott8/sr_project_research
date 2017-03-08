@@ -32,7 +32,7 @@ export default class App extends Component {
     this.props.updateVolume(ReactDOM.findDOMNode(this.refs.audio), this.props.audio.volume);
     this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));
     this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));
-    this.props.retrieveSongs();
+    this.props.retrieveSongs(this.props.isShuffling);
   }
 
   handleProgress = () => {
@@ -79,6 +79,10 @@ export default class App extends Component {
     this.props.toggleRepeat();
   }
 
+  handleToggleShuffle = () => {
+     this.props.toggleShuffle();
+ }
+
   handleTrackClick = (percent) => {
     this.props.updatePosition(ReactDOM.findDOMNode(this.refs.audio), percent);
   }
@@ -107,7 +111,8 @@ export default class App extends Component {
   render() {
       const {
         volume, isPlaying, percent, isFavorite, progress, error,
-        duration, isRepeating, songs, currentID, autoplay, isLooping
+        duration, isRepeating, songs, currentID, autoplay, isLooping,
+        isShuffling
       } = this.props.audio;
 
       let song = find(songs, (o) => o.id === currentID);
@@ -131,12 +136,12 @@ export default class App extends Component {
                onNext={this.handleNext}
                onPlay={this.handlePlay}
                onPrevious={this.handlePrevious}
-               onToggleRepeat={this.handleToggleRepeat}
+               onToggleShuffle={this.handleToggleShuffle}
                onToggleLoop={this.handleToggleLoop}
                onSetTime={this.handleTrackClick}
                percent={percent}
                isPlaying={isPlaying}
-               isRepeating={isRepeating}
+               isShuffling={isShuffling}
                isLooping={isLooping}
                queue={songs}
                currentID = {currentID}/>

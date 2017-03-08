@@ -7,7 +7,7 @@
    PLAY, SET_TIME, SET_PROGRESS,
    TOGGLE_FAVORITE, TOGGLE_REPEAT,
    UPDATE_POSITION, PAUSE, TOGGLE_LOOP,
-   ADD_TO_QUEUE
+   TOGGLE_SHUFFLE, ADD_TO_QUEUE
  } from '../constants/ActionTypes'
 
  import find from 'lodash/find';
@@ -21,6 +21,7 @@
    isFavorite: false,
    isRepeating: false,
    isLooping: false,
+   isShuffling: false,
    percent: 0,
    volume: 65,
    progress: {},
@@ -63,6 +64,7 @@ function getAudioState(audio) {
  }
 
  function shuffle(array) {
+    console.info(array);
      let counter = array.length;
 
      // While there are elements in the array
@@ -86,7 +88,8 @@ function getAudioState(audio) {
  export default function audio(state = initialState, action) {
    switch (action.type) {
      case INITIALIZE:
-       const songsArray = shuffle(sortBy(action.songs, ['id'])).slice(0,7);
+       //const songsArray = shuffle(sortBy(action.songs, ['id'])).slice(0,7);
+       const songsArray = sortBy(action.songs, ['id']);
        return {...state, songs: songsArray, currentID: songsArray[0].id };
      case PLAY:
      case PAUSE:
@@ -121,6 +124,8 @@ function getAudioState(audio) {
        return {...state, isRepeating: !state.isRepeating };
      case TOGGLE_LOOP:
        return {...state, ...getAudioState(action.audio) };
+     case TOGGLE_SHUFFLE:
+       return {...state, isShuffling: !state.isShuffling, songs: shuffle(state.songs.map(clone)) };
      case ADD_TO_QUEUE:
        return {...state, songs: action.songs };
      default:

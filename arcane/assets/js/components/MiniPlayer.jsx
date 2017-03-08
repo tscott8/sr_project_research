@@ -144,8 +144,8 @@ export default class MiniPlayer extends Component {
                onClick={this.props.onNext}
                icon="skip_next" />
             <ColoredControl
-               flag={this.props.isRepeating}
-               onClick={null}
+               flag={this.props.isShuffling}
+               onClick={this.props.onToggleShuffle}
                icon="shuffle" />
          </div>
       );

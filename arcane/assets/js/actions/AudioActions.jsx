@@ -1,10 +1,30 @@
 import * as types from '../constants/ActionTypes'
 
-export function retrieveSongs() {
+function shuffle(array) {
+    let counter = array.length;
+
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        let index = Math.floor(Math.random() * counter);
+
+        // Decrease counter by 1
+        counter--;
+
+        // And swap the last element with it
+        let temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
+}
+
+export function retrieveSongs(shuffle) {
   // This could be written as a thunk or saga
   return fetch("http://localhost:8000/api/tracks").then(response => response.json()).then(json => ({
             type: types.INITIALIZE,
-            songs: json.results
+            songs: shuffle ? shuffle(sortBy(json.results, ['id'])).slice(0,7) : json.results
          }));
 };
 
@@ -78,6 +98,10 @@ export function toggleRepeat() {
 export function toggleLoop(audio) {
   audio.loop = !audio.loop;
   return { type: types.TOGGLE_LOOP, audio }
+}
+
+export function toggleShuffle() {
+   return { type: types.TOGGLE_SHUFFLE }
 }
 
 export function addToQueue(audio, songs) {
