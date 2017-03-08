@@ -47,40 +47,11 @@ export default class TracksCollection extends Component {
   componentWillMount() {
     ListItem.defaultProps.disableTouchRipple=true;
   }
-  // selectTracks(rows) {
-  //   console.log(r)
-  //   console.log('rows', rows)
-  //   const {tracks} = this.props;
-  //   if (rows === "all") {
-  //       this.props.select(tracks.results)
-  //   }
-  //   let selectedTracks = [];
-  //   for (var i = 0; i < rows.length; i++) {
-  //     selectedTracks.push(tracks.results[rows[i]]);
-  //   }
-  //   this.props.select(selectedTracks)
-  // }
+
   handleChange = (event, value) => {
-    // this.setState({selectedTracks:value})
     this.props.select ? this.props.select(value) : console.log('No select function prop');
   }
 
-  // renderTracksRows(tracks) {
-  //   if (tracks) {
-  //     let arr = tracks.map((track) => (
-  //       <TableRow
-  //         key={'trackRow_'+ track.id}>
-  //         <TableRowColumn><a style={collectionStyles.href} href={track.url}>{ track.name }</a></TableRowColumn>
-  //         <TableRowColumn>{track.duration }</TableRowColumn>
-  //         <TableRowColumn><a style={collectionStyles.href} href={url+'api/artists/'+track.artist.id}>{ track.artist.name }</a></TableRowColumn>
-  //         <TableRowColumn><a style={collectionStyles.href} href={url+'api/albums/'+track.album.id}>{ track.album.name }</a></TableRowColumn>
-  //         <TableRowColumn><a style={collectionStyles.href} href={url+'api/genres/'+track.genre.id}>{ track.genre.name }</a></TableRowColumn>
-  //         <TableRowColumn>{ track.play_count }</TableRowColumn>
-  //       </TableRow>
-  //     ))
-  //     return arr;
-  //   }
-  // }
   sortTracks (prop, arr) {
     prop = prop.split('.');
     var len = prop.length;
@@ -133,21 +104,16 @@ export default class TracksCollection extends Component {
             animation={null}
             // style={{maxWidth:'100vw'}}
             innerDivStyle={{padding:0}}
-
-            // primaryText={track.name}
-            // secondaryText={track.artist.name + ' - ' + track.duration}
             value={track}>
             <Divider/>
             <ListItem
-              // style={{maxWidth:''}}
               innerDivStyle={{whiteSpace:'pre-line'}}
-
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
               rightIconButton={this.renderTrackItemMenu()}
               leftAvatar={this.renderArt(track)
-                }/>
+          }/>
           </MenuItem>
       ))
       return arr;
@@ -155,7 +121,6 @@ export default class TracksCollection extends Component {
   }
   render() {
     const {tracks} = this.props;
-    // const trackList = this.sortTracks( 'artist.name', tracks.results);
     return(
       <Menu
         // autoWidth={true}
@@ -175,33 +140,5 @@ export default class TracksCollection extends Component {
       </Menu>
     );
   }
-  // renderTracksTable() {
-  //   const {tracks} = this.props;
-  //   return(
-  //       <Table height={'calc(100vh - 172px)'} multiSelectable={true}  onRowSelection={this.selectTracks.bind(this)}>
-  //         <TableHeader enableSelectAll={true}>
-  //           <TableRow>
-  //             <TableHeaderColumn>Name</TableHeaderColumn>
-  //             <TableHeaderColumn>Duration</TableHeaderColumn>
-  //             <TableHeaderColumn>Artist</TableHeaderColumn>
-  //             <TableHeaderColumn>Album</TableHeaderColumn>
-  //             <TableHeaderColumn>Genre</TableHeaderColumn>
-  //             <TableHeaderColumn>Play Count</TableHeaderColumn>
-  //           </TableRow>
-  //         </TableHeader>
-  //         <TableBody
-  //           displayRowCheckbox={false}
-  //           deselectOnClickaway={false}
-  //           preScanRows={false}
-  //           stripedRows={true}
-  //           style={collectionStyles.tbody}
-  //           showRowHover={false}>
-  //             {this.renderTracksRows(tracks.results)}
-  //         </TableBody>
-  //       </Table>
-  //   );
-  // }
-  // render() {
-  //   return (this.renderTracksList());
-  // }
+
 }

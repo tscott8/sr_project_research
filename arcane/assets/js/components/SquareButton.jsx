@@ -31,7 +31,7 @@ const styles = {
       fontSize:'2rem',
       verticalAlign:'bottom',
       display:'block',
-      overflowX:'hidden'
+      overflowX:'hidden',
     }
   }
 };

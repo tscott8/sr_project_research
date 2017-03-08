@@ -27,7 +27,6 @@ class ListDialog extends Component {
 
 
    renderDialogTitle(tracks, title, subtitle) {
-      // console.log('in renderDialogTitle', tracks)
       if (tracks && tracks.results) {
          return (
             <div style={{paddingTop:160}}>
@@ -58,10 +57,7 @@ class ListDialog extends Component {
 
    render() {
      const {tracks, title, subtitle, imgURL} = this.props;
-
      if(tracks) {
-      //  console.log('in render for ListDialog', tracks)
-      //  let art = tracks.albumTracks.results ? tracks.albumTracks.results[0].album.artwork : "http://localhost:8000/static/images/default-artwork.png";
       return (
          <Dialog
           //  contentStyle={{maxHeight:'80vh'}}

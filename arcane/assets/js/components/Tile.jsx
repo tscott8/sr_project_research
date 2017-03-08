@@ -88,70 +88,48 @@ export default class Tile extends Component {
       }
    }
 
-  handleHover() {this.setState({hover: true})}
-  handleLeave() {this.setState({hover: false})}
-   // componentDidMount() {
-   //
-   //    this.setState({
-   //       tracks: dispatch(TrackActions.getAlbumTracks(this.props.id))
-   //    });
-   // }
-   handleExpand = () => {
-     this.setState({expanded: true});
-  };
-
-   handleClose = () => {
-      this.setState({expanded: false});
-   }
-
-   handleExpandChange = (expanded) => {
-      this.setState({expanded: !expanded});
-   };
+   handleHover() {this.setState({hover: true})}
+   handleLeave() {this.setState({hover: false})}
+   handleExpand = () => {this.setState({expanded: true});};
+   handleClose = () => {this.setState({expanded: false});}
+   handleExpandChange = (expanded) => {this.setState({expanded: !expanded});};
    handleToggle = () => {
-      const { dispatch } = this.props;
-      dispatch(TrackActions.getAlbumTracks(this.props.id));
-    this.setState({expanded: !this.state.expanded});
+     const { dispatch } = this.props;
+     dispatch(TrackActions.getAlbumTracks(this.props.id));
+     this.setState({expanded: !this.state.expanded});
   };
-  renderOverlay() {
-    const { title, subtitle } = this.props;
-    if (this.state.hover) {
-      return (
-        <FlatButton
-         style={styles.cardButton}
-         onClick={this.handleToggle}
-         label={<div><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
-         labelStyle={styles.cardButton.label}/>
-
-      );
-    }
-  }
+  // renderOverlay() {
+  //   const { title, subtitle } = this.props;
+  //   if (this.state.hover) {
+  //     return (
+  //       <FlatButton
+  //        style={styles.cardButton}
+  //        onClick={this.handleToggle}
+  //        label={<div><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
+  //        labelStyle={styles.cardButton.label}/>
+  //     );
+  //   }
+  // }
   render()  {
     const { title, subtitle, imgURL } = this.props;
-    // console.log('IN TILE!')
     return (
       <GridTile
         key={this.props.tileKey}
-        // title={tile.name}
-        // subtitle={tile.artist.name}
         cols={1}
         rows={1}
-        // style={styles.card}
+        // style={{width:'calc(100vw/9)', height:'calc(100vw/9)'}}
         >
           <RaisedButton
-            // style={{height:'inherit'}}
             style={styles.cardButton}
-
             fullWidth={true}
              buttonStyle={{padding:0, background: 'url('+ imgURL + ') ',
                     backgroundSize: 'cover', backgroundPosition:'center center'}}
             backgroundColor={'transparent'}
 
-            // overlayStyle={{background:'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) )', backgroundSize: 'cover'}}
              expanded={this.state.expanded}
              onMouseEnter={this.handleHover.bind(this)}
              onMouseLeave={this.handleLeave.bind(this)}
              onClick={this.handleToggle}
-            //  label={title}
              label={<div style={styles.cardButton.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
              labelStyle={this.state.hover ? styles.cardButton.label : {display:'none'}}
            />
@@ -168,43 +146,42 @@ export default class Tile extends Component {
 
     );
  }
-   render2() {
-      const { title, subtitle, imgURL } = this.props;
-      // console.log('IN TILE!')
-      return (
-         <div>
-            <Card style={styles.card}
-               expandable={true}
-               expanded={this.state.expanded}
-               initiallyExpanded={false}
-               onExpandChange={this.handleExpandChange}
-               onMouseEnter={this.handleHover.bind(this)}
-               onMouseLeave={this.handleLeave.bind(this)}
-               >
-
-               <CardMedia
-                overlayContentStyle={{padding:0}}
-                overlay={this.renderOverlay()
-                  // <FlatButton
-                  //  style={styles.cardButton}
-                  //  onClick={this.handleToggle}
-                  //  label={this.renderOverlay()}
-                  //  labelStyle={styles.cardButton.label}/>
-                }>
-                <img style={styles.img} src={imgURL} />
-               </CardMedia>
-            </Card>
-            <ListDialog
-              title={title}
-              subtitle={subtitle}
-              imgURL={imgURL}
-              id={this.props.id}
-              open={this.state.expanded}
-              onClose={this.handleClose}
-              select={this.props.select }
-              selectedTracks={this.props.selectedTracks}/>
-         </div>
-
-      );
-   }
+  //  render2() {
+  //     const { title, subtitle, imgURL } = this.props;
+  //     return (
+  //        <div>
+  //           <Card style={styles.card}
+  //              expandable={true}
+  //              expanded={this.state.expanded}
+  //              initiallyExpanded={false}
+  //              onExpandChange={this.handleExpandChange}
+  //              onMouseEnter={this.handleHover.bind(this)}
+  //              onMouseLeave={this.handleLeave.bind(this)}
+  //              >
+   //
+  //              <CardMedia
+  //               overlayContentStyle={{padding:0}}
+  //               overlay={this.renderOverlay()
+  //                 // <FlatButton
+  //                 //  style={styles.cardButton}
+  //                 //  onClick={this.handleToggle}
+  //                 //  label={this.renderOverlay()}
+  //                 //  labelStyle={styles.cardButton.label}/>
+  //               }>
+  //               <img style={styles.img} src={imgURL} />
+  //              </CardMedia>
+  //           </Card>
+  //           <ListDialog
+  //             title={title}
+  //             subtitle={subtitle}
+  //             imgURL={imgURL}
+  //             id={this.props.id}
+  //             open={this.state.expanded}
+  //             onClose={this.handleClose}
+  //             select={this.props.select }
+  //             selectedTracks={this.props.selectedTracks}/>
+  //        </div>
+   //
+  //     );
+  //  }
 }
