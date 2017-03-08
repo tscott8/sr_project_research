@@ -45,7 +45,6 @@ export default class Tile extends Component {
 
       this.state = {
          expanded: false,
-         albumTracks: []
       }
    }
 
@@ -64,10 +63,8 @@ export default class Tile extends Component {
    }
 
    handleExpandChange = (expanded) => {
-
       this.setState({expanded: !expanded});
    };
-
    handleToggle = () => {
       const { dispatch } = this.props;
       dispatch(TrackActions.getAlbumTracks(this.props.id));

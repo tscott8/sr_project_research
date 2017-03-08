@@ -115,7 +115,8 @@ export default class Audio extends React.Component {
                 autoPlay={this.props.autoplay}
                 loop={this.props.loop}
                 src={this.props.source}
-                onCanPlay={this.props.onCanPlay} />
+                //onCanPlay={this.props.onCanPlay}
+                />
         )
     }
 
