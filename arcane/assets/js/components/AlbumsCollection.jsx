@@ -67,6 +67,7 @@ export default class AlbumsCollection extends Component {
   }
   renderGrid (cols) {
     const {albums} = this.props;
+    if(albums){
     return(
       <div style={collectionStyles.root}>
       <GridList
@@ -77,6 +78,7 @@ export default class AlbumsCollection extends Component {
         </GridList>
       </div>
     );
+  }
   }
   render() {
     const {albums} = this.props;

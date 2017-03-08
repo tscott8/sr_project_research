@@ -126,7 +126,7 @@ export default class Tile extends Component {
                     backgroundSize: 'cover', backgroundPosition:'center center'}}
             backgroundColor={'transparent'}
 
-             expanded={this.state.expanded}
+            //  expanded={this.state.expanded}
              onMouseEnter={this.handleHover.bind(this)}
              onMouseLeave={this.handleLeave.bind(this)}
              onClick={this.handleToggle}

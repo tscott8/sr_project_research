@@ -21,7 +21,7 @@ class MyMusic extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selected: [], snackOpen:false };
+    this.state = { selected: [], snackOpen:false, snackMessage: 'Added nada!' };
     const { dispatch } = this.props;
     dispatch(TrackActions.getTracks());
     dispatch(AlbumActions.getAlbums());
