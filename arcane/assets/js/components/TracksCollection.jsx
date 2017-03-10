@@ -44,9 +44,6 @@ export default class TracksCollection extends Component {
       selectedTracks: [],
     }
   }
-  componentWillMount() {
-    ListItem.defaultProps.disableTouchRipple=true;
-  }
 
   handleChange = (event, value) => {
     this.props.select ? this.props.select(value) : console.log('No select function prop');
@@ -90,24 +87,26 @@ export default class TracksCollection extends Component {
     if (!this.props.noArt && track) {
       return (
         <Avatar
-          style={{borderRadius:'0%'}}
+          style={{borderRadius:'10%'}}
           src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>
      );
     }
   }
 
   renderTracksListItems(tracks) {
+    ListItem.defaultProps.disableTouchRipple=true;
     if (tracks) {
       let arr = tracks.map((track) => (
           <MenuItem
             key={'track_list_item_'+ track.id}
             animation={null}
-            // style={{maxWidth:'100vw'}}
-            innerDivStyle={{padding:0}}
+            // style={{maxWidth:'100%'}}
+            innerDivStyle={{padding:0, position:'relative'}}
             value={track}>
             <Divider/>
             <ListItem
-              innerDivStyle={{whiteSpace:'pre-line'}}
+              style={{maxWidth:'99%'}}
+              innerDivStyle={{whiteSpace:'pre-line', }}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}

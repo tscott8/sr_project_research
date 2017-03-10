@@ -50,8 +50,14 @@ export default class AlbumsCollection extends Component {
   renderAlbumTiles(albums) {
     if (albums) {
       let arr = albums.map((tile) => (
+        <GridTile
+          key={'albumTile_'+ tile.id}
+          cols={1}
+          rows={1}
+          className="boxTile"
+
+          >
             <Tile
-              tileKey={'albumTile_'+ tile.id}
               title={tile.name}
               subtitle={tile.artist.name}
               imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
@@ -60,6 +66,7 @@ export default class AlbumsCollection extends Component {
               selectedTracks={this.props.selectedTracks}
               id={tile.id}
               dispatch={this.props.dispatch}/>
+            </GridTile>
 
       ))
       return arr;
@@ -85,7 +92,7 @@ export default class AlbumsCollection extends Component {
     return(
       <div>
          <MediaQuery query='(min-device-width: 560px)'>
-            <MediaQuery query='(max-width: 59px)'>
+            <MediaQuery query='(max-width: 559px)'>
                {this.renderGrid(2)}
             </MediaQuery>
             <MediaQuery query='(min-width: 560px)'>

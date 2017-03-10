@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { FloatingActionButton, FontIcon, CircularProgress } from 'material-ui'
-import { redA400 } from 'material-ui/styles/colors'
+import { redA700 } from 'material-ui/styles/colors'
 import * as ActionTypes from '../constants/ActionTypes'
 
 const style = {
@@ -48,7 +48,7 @@ export default class FloatingControls extends Component {
              size={57}
              thickness={3}
              style={style.progress}
-             color={redA400} />
+             color={redA700} />
          </FloatingActionButton>
          {/* {this.renderAddQueueButton()} */}
        </div>

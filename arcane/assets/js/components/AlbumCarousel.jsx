@@ -38,24 +38,26 @@ const settings = {
 const styles = {
    carouselDiv: {
       height: '26vh',
-      margin: '5vh',
+      paddingLeft: 35,
+      paddingRight:35
    },
    outerDiv: {
       display: 'block',
       margin: 'auto',
       width : 'inherit',
-      border: 'solid 3px'
+      border: 'solid 3px',
+      minHeight:'26vh'
    },
    innerElement: {
-      // height:'calc((100vh-64px)/6)',
-      height:'calc((100vh - 114px)/4)',
-      margin: 'auto',
-      width:'calc((100vh - 114px)/4)',
-      // height:'auto',
-      paddingTop: '10',
-      paddingBottom: '10',
-      paddingLeft: '5',
-      paddingRight: '5'
+    //  height:'auto',
+      minHeight:180,
+      height:'calc(95vw/8)',
+      // margin: 'auto',
+      // paddingTop: '0',
+      // paddingBottom: '0',
+      paddingLeft: 4,
+      paddingRight: 4
+      // padding:3
    }
 }
 
@@ -68,36 +70,29 @@ export default class AlbumCarousel extends Component {
      console.info("Selected!");
   }
    renderSliderItems(albums) {
-
-      // let items = [];
-      // console.info(albums);
         let items = albums ? albums.map((item) => (
           <div key={'album_carousel_item_'+ item.id} style={styles.innerElement}>
-             <Tile name={item.name} imgURL={item.artwork} tracks={[]} selectedTracks={[]} select={this.select} />
+            <Tile
+              title={item.name}
+              subtitle={item.artist.name}
+              imgURL={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
+              tracks={item.tracks}
+              select={this.props.select}
+              selectedTracks={this.props.selectedTracks}
+              id={item.id}
+              dispatch={this.props.dispatch}/>
           </div>)) : [<div></div>];
-            // <img
-            //   src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
-            //   style={styles.innerElement}/>
-
-        // if (Object.keys(this.props.list).length > 0) {
-        //    for (let key in this.props.list) {
-        //       let item = this.props.list[key];
-        //       items.push(<div key={"album_carousel_item_" + item.id}><img src={item.artwork ? item.artwork : url+'static/images/default-artwork.png'} style={styles.innerElement}/></div>)
-        //    }
-        // } else {
-        //    items.push(<div><img src="http://localhost:8000/static/images/default-artwork.png" /></div>);
-        // }
-        // console.info(items);
         return items;
 
    }
 
    render() {
      const {albums} = this.props;
+     console.log('Album Carousel : ', albums)
       return (
          <div style={styles.carouselDiv}>
             <Slider {...settings} style={styles.outerDiv}>
-               {this.renderSliderItems(albums.results)}
+               {this.renderSliderItems(albums.allAlbums.results)}
             </Slider>
          </div>
       );

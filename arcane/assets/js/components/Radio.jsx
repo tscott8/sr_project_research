@@ -10,7 +10,7 @@ const settings = {
    autoplay: false,
    autoplaySpeed: 1,
    pauseOnHover: true,
-   slidesToShow: 1,
+   slidesToShow: 3,
    slidesToScroll: 1,
    centerMode: true,
    fade: false,
@@ -70,7 +70,7 @@ export default class Radio extends Component  {
     }
   }
   handleHover() {this.setState({hover: true})}
-  handleLeave() {this.setState({hover: true})}
+  handleLeave() {this.setState({hover: false})}
   renderOverlay (track) {
     if (this.state.hover) {
       return (
@@ -116,7 +116,7 @@ export default class Radio extends Component  {
       return (
         <div style={styles.outerDiv}>
            <Slider {...settings}>
-             {this.renderSlides(tracks.results)}
+             {this.renderSlides(tracks.allTracks.results)}
           </Slider>
         </div>
       );

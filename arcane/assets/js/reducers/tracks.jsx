@@ -1,4 +1,4 @@
-import {GET_TRACKS, GET_ALBUM_TRACKS} from '../constants/ActionTypes';
+import {GET_TRACKS, GET_ALBUM_TRACKS, POST_TRACKS} from '../constants/ActionTypes';
 
 const initialState = {
    allTracks: [],
@@ -13,6 +13,8 @@ export default function tracks(state = initialState, action) {
       case GET_ALBUM_TRACKS:
          const albumTracks = action.tracks;
          return {...state, albumTracks};
+      case POST_TRACKS:
+         return state;
       default:
          return state;
    }

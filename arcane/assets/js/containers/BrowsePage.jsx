@@ -24,10 +24,10 @@ class BrowsePage extends Component {
       console.info("ablums in browse render: ", this.props.albums);
       return (
          <div style={{overflowY:'auto'}}>
-            <h3>New Releases</h3>
-            <BrowseCarousel list={albums} defaultImage={'static/images/default-artwork.png'} />
+            {/* <h3>New Releases</h3> */}
+            {/* <BrowseCarousel list={albums} defaultImage={'static/images/default-artwork.png'} /> */}
             <h3>Test Carousel with Tiles</h3>
-            <AlbumCarousel albums={albums} />
+            <AlbumCarousel albums={albums} dispatch={this.props.dispatch} />
             {/* <h3>Genres</h3>
             <BrowseCarousel list={genres} defaultImage={'static/images/default-artwork.png'} /> */}
             <h3>Artists</h3>

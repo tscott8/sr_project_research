@@ -7,40 +7,63 @@ import * as TrackActions from '../actions/TrackActions'
 
 const styles = {
    fab: {
-      float: 'right',
-      top:15,
+      // float: 'right',
+      bottom:10,
       right:15,
-      position:'relative',
+      position:'absolute',
       zIndex:1
    },
    title: {
+    //  float: 'left',
+    bottom:25,
+    // maxWidth:'75%',
+    whiteSpace:'no-wrap',
+    overflow:'hidden',
+    textOverflow:'clip',
+    left:15,
+    position:'absolute',
+    textShadow:'1px 1px black',
 
    },
+   subtitle: {
+     bottom:0,
+    //  maxWidth:'50%',
+     whiteSpace:'no-wrap',
+     overflow:'hidden',
+     textOverflow:'clip',
+     left:15,
+     position:'absolute',
+     textShadow:'1px 1px black',
+
+   }
 }
 
 class ListDialog extends Component {
    constructor(props) {
       super(props);
-      const { tracks } = this.props;
-      this.state= {albumTracks: tracks.albumTracks};
+      // const { dispatch } = this.props;
+      // dispatch(TrackActions.getAlbumTracks(this.props.id));
+      // const { tracks } = this.props;
+      // this.state= {albumTracks: tracks.albumTracks};
    }
-
 
    renderDialogTitle(tracks, title, subtitle) {
       if (tracks && tracks.results) {
          return (
-            <div style={{paddingTop:160}}>
-              <FloatingActionButton style={styles.fab}>
-                <FontIcon className="material-icons">play_arrow</FontIcon>
-              </FloatingActionButton>
               <CardTitle
-                // style={{padding:0}}
-                // titleStyle={{padding:0}}
-                // subtitleStyle={{padding:0}}
+                style={{padding:0, margin:0, paddingTop:160}}
+                titleStyle={styles.title}
+                subtitleStyle={styles.subtitle}
+
                 title={title}
-                subtitle={subtitle}
-              />
-            </div>
+                subtitle={subtitle}>
+                <FloatingActionButton
+                  style={styles.fab}
+                  >
+                  <FontIcon className="material-icons">play_arrow</FontIcon>
+                </FloatingActionButton>
+              </CardTitle>
+
          );
       } else {
          return (
@@ -66,9 +89,9 @@ class ListDialog extends Component {
            backgroundPosition:'center center',
            overflow:'hidden',
            textShadow:'1px 1px black',
-         height:250
+          //  height:250,
        }}
-           bodyStyle={{padding:0,margin:0}}
+           bodyStyle={{padding:0,margin:0, maxWidth:'100%'}}
            open={this.props.open}
            title={this.renderDialogTitle(tracks.albumTracks, title, subtitle)}
            onRequestClose={this.props.onClose}

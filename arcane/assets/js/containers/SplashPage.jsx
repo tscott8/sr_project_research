@@ -14,12 +14,20 @@ const styles = {
       width: '100%',
       height: '100%'
    },
-   button: {
+   link: {
       width: '100%',
       textAlign: 'center',
       position: 'absolute',
-      bottom: '0px',
-      marginBottom: '3vh'
+      bottom: 50,
+   },
+   button: {
+     boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+
+    //  boxShadow:'0px 0px 16px 4px  cyan'
+   },
+   label: {
+     fontSize: '1.5em'
+
    },
    name: {
       position: 'absolute',
@@ -35,25 +43,28 @@ export default class SplashPage extends Component {
       super(props);
    }
 
-   renderPhone() {
+   renderSplash(imgUrl) {
       return (
-         <div>
-            <img style={styles.img} src={host + 'static/images/audience-phone.jpg'} />
+        <div style={{background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ host + 'static/images/audience-'+imgUrl+'.jpg' + ') ',
+            backgroundSize: 'cover',
+            backgroundPosition:'center center',
+            overflow:'hidden',
+            textShadow:'1px 1px black',
+            zIndex:1,
+            height:'100vh',
+            width:'100vw'}}>
+            {/* <img style={styles.img} src={host + "static/images/audience-desktop.jpg" } /> */}
             <h1 style={styles.name}>ARCANE</h1>
-            <Link to={"/app/"} style={styles.button} >
-               <RaisedButton label="Let Go!" primary={true}  />
-            </Link>
-         </div>
-      );
-   }
+            <Link to={"/app/"} style={styles.link} >
+               <RaisedButton
+                 primary={true}
+                 label="Lets Go!"
+                 labelStyle={styles.label}
+                  // buttonStyle={styles.button}
+                  className='button-glow'
+                  // className='button-pulse'
 
-   renderDesktop() {
-      return (
-         <div>
-            <img style={styles.img} src={host + "static/images/audience-desktop.jpg" } />
-            <h1 style={styles.name}>ARCANE</h1>
-            <Link to={"/app/"} style={styles.button} >
-               <RaisedButton label="Let Go!" primary={true}  />
+               />
             </Link>
          </div>
       );
@@ -73,14 +84,14 @@ export default class SplashPage extends Component {
                <div>
                   <MediaQuery query='(min-device-width: 560px)'>
                      <MediaQuery query='(max-width: 59px)'>
-                        {this.renderPhone()}
+                        {this.renderSplash('phone')}
                      </MediaQuery>
                      <MediaQuery query='(min-width: 560px)'>
-                        {this.renderDesktop()}
+                        {this.renderSplash('desktop')}
                      </MediaQuery>
                   </MediaQuery>
                   <MediaQuery query='(max-device-width: 559px)'>
-                     {this.renderPhone()}
+                     {this.renderSplash('phone')}
                   </MediaQuery>
                </div>
             </MuiThemeProvider>

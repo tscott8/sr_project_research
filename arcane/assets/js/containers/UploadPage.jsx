@@ -42,7 +42,7 @@ class UploadPage extends Component {
    render() {
       return (
          <div>
-            <Uploader files={this.state.tracks} addTrack={this.addTrack.bind(this)}/>
+            <Uploader files={this.state.tracks} addTrack={this.addTrack.bind(this)} dispatch={this.props.dispatch}/>
          </div>
       );
    }

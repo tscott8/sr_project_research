@@ -5,28 +5,19 @@ import { Card, CardMedia, CardTitle, Dialog, FlatButton, FloatingActionButton, F
 import ListDialog from './ListDialog'
 
 const styles = {
-  card: {
-    width:'100%',
-    height:'100%',
-  },
-   cardButton: {
+   button: {
      width:'100%',
      height:'inherit',
      bottom:0,
-  //   backgroundColor:  'rgba(0, 0, 0, 0.7)',
      label: {
        width:'inherit',
        height:'100%',
-      //  maxHeight:'40%',
-        backgroundColor:  'rgba(0, 0, 0, 0.5)',
-        left:0,
-        bottom:0,
-        right:0,
-        position:'absolute',
-
+       backgroundColor:  'rgba(0, 0, 0, 0.6)',
+       left:0,
+       bottom:0,
+       right:0,
+       position:'absolute',
        lineHeight:1.3,
-      //  marginLeft:4,
-      //  marginRight:4,
        textOverflow:'clip',
        textShadow:'1px 1px black',
        overflow:'hidden',
@@ -57,7 +48,6 @@ const styles = {
    href: {
      color:'white',
      fontSize:'1.4rem',
-     textShadow:'1px 1px black',
      display:'block',
      maxHeight:'50%',
      overflow:'hidden',
@@ -90,14 +80,17 @@ export default class Tile extends Component {
 
    handleHover() {this.setState({hover: true})}
    handleLeave() {this.setState({hover: false})}
-   handleExpand = () => {this.setState({expanded: true});};
-   handleClose = () => {this.setState({expanded: false});}
-   handleExpandChange = (expanded) => {this.setState({expanded: !expanded});};
-   handleToggle = () => {
+   handleExpand = () => {
      const { dispatch } = this.props;
      dispatch(TrackActions.getAlbumTracks(this.props.id));
-     this.setState({expanded: !this.state.expanded});
-  };
+     this.setState({expanded: true});};
+   handleClose = () => {this.setState({expanded: false});}
+  //  handleExpandChange = (expanded) => {this.setState({expanded: !expanded});};
+  //  handleToggle = () => {
+  //    const { dispatch } = this.props;
+  //    dispatch(TrackActions.getAlbumTracks(this.props.id));
+  //    this.setState({expanded: !this.state.expanded});
+  // };
   // renderOverlay() {
   //   const { title, subtitle } = this.props;
   //   if (this.state.hover) {
@@ -113,26 +106,20 @@ export default class Tile extends Component {
   render()  {
     const { title, subtitle, imgURL } = this.props;
     return (
-      <GridTile
-        key={this.props.tileKey}
-        cols={1}
-        rows={1}
-        // style={{width:'calc(100vw/9)', height:'calc(100vw/9)'}}
-        >
           <RaisedButton
-            style={styles.cardButton}
+            style={styles.button}
             fullWidth={true}
-             buttonStyle={{padding:0, background: 'url('+ imgURL + ') ',
+             buttonStyle={{minHeight:180,padding:0, background: 'url('+ imgURL + ') ',
                     backgroundSize: 'cover', backgroundPosition:'center center'}}
             backgroundColor={'transparent'}
 
             //  expanded={this.state.expanded}
              onMouseEnter={this.handleHover.bind(this)}
              onMouseLeave={this.handleLeave.bind(this)}
-             onClick={this.handleToggle}
-             label={<div style={styles.cardButton.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
-             labelStyle={this.state.hover ? styles.cardButton.label : {display:'none'}}
-           />
+             onClick={this.handleExpand}
+             label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
+             labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
+           >
           <ListDialog
             title={title}
             subtitle={subtitle}
@@ -141,8 +128,9 @@ export default class Tile extends Component {
             open={this.state.expanded}
             onClose={this.handleClose}
             select={this.props.select }
-            selectedTracks={this.props.selectedTracks}/>
-       </GridTile>
+            selectedTracks={this.props.selectedTracks}
+          />
+       </RaisedButton>
 
     );
  }
