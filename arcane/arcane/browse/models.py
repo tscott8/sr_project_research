@@ -126,8 +126,12 @@ class Track(models.Model):
 
     def save(self, *args, **kwargs):
         if self.url:
-            path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
-                   ContentFile(self.url.file.read()))
+            path = os.path.join(settings.MEDIA_ROOT, 'tmp','temp.mp3')
+            with open(path, 'wb+') as destination
+                for chunk in self.url.chunks():
+                    destination.write(chunk)
+            # path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.mp3'),
+            #        ContentFile(self.url.file.read()))
             track = getTrackInfo(os.path.join(settings.MEDIA_ROOT, path))
             iTitle, iAlbum, iArtwork, iArtist, iGenre, iDuration, iLength, iOrder = track['title'], track['album'], track['artwork'], track['artist'], track['genre'], track['duration'], track['length'], track['order']
             iOrder = int(iOrder.split('/')[0]) if (iOrder != '0') else None
