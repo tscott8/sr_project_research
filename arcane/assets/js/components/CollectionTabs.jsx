@@ -5,6 +5,10 @@ import {GenresCollection, ArtistsCollection} from './Collections'
 import TracksCollection from './TracksCollection'
 import AlbumsCollection from './AlbumsCollection'
 // import ArtistsCollection from './ArtistsCollection'
+import * as GenreActions from '../actions/GenreActions'
+import * as TrackActions from '../actions/TrackActions'
+import * as ArtistActions from '../actions/ArtistActions'
+import * as AlbumActions from '../actions/AlbumActions'
 
 const styles = {
   headline: {
@@ -32,6 +36,11 @@ export default class CollectionTabs extends Component {
       slideIndex: 2,
       renderCount: false
     };
+    const { dispatch } = this.props;
+    dispatch(TrackActions.getTracks());
+    dispatch(AlbumActions.getAlbums());
+    dispatch(ArtistActions.getArtists());
+    dispatch(GenreActions.getGenres());
 
   }
   handleChange = (value) => {

@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     artists,
     albums,
     audio,
-    routing: routerReducer
+    routing: routerReducer,
 });
 
 export default rootReducer;
