@@ -21,18 +21,22 @@ export function getAlbumTracks(albumID) {
 export function uploadTracks(files) {
   let csrftoken = cookie.load('csrftoken');
   let fd = new FormData();
-  fd.append('data', files);
   fd.append('enctype', 'multipart/form-data')
-  console.log(fd)
-  return fetch('http://localhost:8000/api/list/', {
-    method: 'post',
+  files.forEach((file) =>{
+    fd.append('uploadfiles', file);
+  })
+  return fetch("http://localhost:8000/api/upload/", {
+    method: "post",
     headers: {
-    'Content-Type': 'multipart/form-data',
-    'X-CSRFToken': csrftoken
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryqeSHn9XydiiEWmbj",
+    "X-CSRFToken": csrftoken
     },
-    credentials: 'same-origin',
-    body: { 'data': fd }
-          }).then(response => response.json()).then(json => ({
+    credentials: "same-origin",
+    body:fd,
+    })
+    .then(response => response.json())
+    .then(json => ({
             type:types.POST_TRACKS,
             uploadFiles: json
           }));

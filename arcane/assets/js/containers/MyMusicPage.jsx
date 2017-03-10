@@ -3,11 +3,6 @@ import { FloatingActionButton, FontIcon, Snackbar } from 'material-ui'
 import { connect } from 'react-redux'
 import CollectionTabs  from '../components/CollectionTabs'
 
-import * as GenreActions from '../actions/GenreActions'
-import * as TrackActions from '../actions/TrackActions'
-import * as ArtistActions from '../actions/ArtistActions'
-import * as AlbumActions from '../actions/AlbumActions'
-
 const style = {
   fab: {
     position: 'absolute',
@@ -22,11 +17,11 @@ class MyMusic extends Component {
   constructor(props) {
     super(props);
     this.state = { selected: [], snackOpen:false, snackMessage: 'Added nada!' };
-    const { dispatch } = this.props;
-    dispatch(TrackActions.getTracks());
-    dispatch(AlbumActions.getAlbums());
-    dispatch(ArtistActions.getArtists());
-    dispatch(GenreActions.getGenres());
+    // const { dispatch } = this.props;
+    // dispatch(TrackActions.getTracks());
+    // dispatch(AlbumActions.getAlbums());
+    // dispatch(ArtistActions.getArtists());
+    // dispatch(GenreActions.getGenres());
   }
 
   addToSelected(items) {
