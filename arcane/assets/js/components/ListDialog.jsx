@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, ListItem, IconButton} from 'material-ui'
 import{ CardTitle} from 'material-ui/Card'
 import TracksCollection  from './TracksCollection'
+import AlbumsCollection  from './AlbumsCollection'
 import * as TrackActions from '../actions/TrackActions'
+import * as AlbumActions from '../actions/AlbumActions'
+
 
 const styles = {
    fab: {
@@ -47,8 +50,7 @@ class ListDialog extends Component {
       // this.state= {albumTracks: tracks.albumTracks};
    }
 
-   renderDialogTitle(tracks, title, subtitle) {
-      if (tracks && tracks.results) {
+   renderDialogTitle(title, subtitle) {
          return (
               <CardTitle
                 style={{padding:0, margin:0, paddingTop:160}}
@@ -65,22 +67,33 @@ class ListDialog extends Component {
               </CardTitle>
 
          );
-      } else {
-         return (
-            <div style={{paddingTop:160}}>
-               <h3>{title}</h3>
-               <FloatingActionButton style={styles.fab}>
-                  <FontIcon className="material-icons">play_arrow</FontIcon>
-               </FloatingActionButton>
-            </div>
-         );
-      }
-
    }
-
+   renderContent() {
+     const {type, tracks, albums} = this.props;
+     if (type === "album") {
+       return (
+         <TracksCollection
+           tracks={this.props.tracks.albumTracks}
+           select={this.props.select}
+           selectedTracks={this.props.selectedTracks}
+           noArt={true}
+        />
+       );
+     }
+    if (type === "artist") {
+      return (
+        <AlbumsCollection
+          albums={this.props.albums.artistAlbums}
+          select={this.props.select}
+          selectedTracks={this.props.selectedTracks}
+          dispatch={this.props.dispatch}
+       />
+      );
+    }
+   }
    render() {
-     const {tracks, title, subtitle, imgURL} = this.props;
-     if(tracks) {
+     const {tracks, albums, title, subtitle, imgURL} = this.props;
+     if(tracks || albums) {
       return (
          <Dialog
           //  contentStyle={{maxHeight:'80vh'}}
@@ -93,7 +106,7 @@ class ListDialog extends Component {
        }}
            bodyStyle={{padding:0,margin:0, maxWidth:'100%'}}
            open={this.props.open}
-           title={this.renderDialogTitle(tracks.albumTracks, title, subtitle)}
+           title={this.renderDialogTitle(title, subtitle)}
            onRequestClose={this.props.onClose}
            autoDetectWindowHeight={true}
            autoScrollBodyContent={true}
@@ -102,12 +115,8 @@ class ListDialog extends Component {
                       //  primary={true}
                       //  onTouchTap={this.props.onClose}/>}
            >
-           <TracksCollection
-             tracks={tracks.albumTracks}
-             select={this.props.select}
-             selectedTracks={this.props.selectedTracks}
-             noArt={true}
-          />
+             {this.renderContent()}
+
          </Dialog>
       );
    }
@@ -117,12 +126,14 @@ class ListDialog extends Component {
 
 ListDialog.propTypes = {
    dispatch: PropTypes.func.isRequired,
-   tracks: PropTypes.object.isRequired
+   tracks: PropTypes.object.isRequired,
+   albums: PropTypes.object.isRequired
+
 }
 
 function mapStateToProps(state) {
-   const { tracks } = state
-   return { tracks };
+   const { tracks, albums } = state
+   return { tracks, albums };
 }
 
 export default connect(mapStateToProps)(ListDialog);

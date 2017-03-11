@@ -18,12 +18,7 @@ export default class ArcaneDrawer extends Component  {
           docked={false}
           open={this.props.open}
           onRequestChange={this.props.onRequestChange}>
-          {/* <DrawerHeader onLeftIconButtonTouchTap={this.props.handleClose}/> */}
           <ArcaneMenu onClick={this.props.handleClose}/>
-          {/* <List>
-            <ListItem>A</ListItem>
-            <ListItem>Settings</ListItem>
-          </List> */}
         </Drawer>
       );
   }

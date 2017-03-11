@@ -46,7 +46,7 @@ def upload_album_artwork(instance, file):
 
 class Album(models.Model):
     name = models.CharField(max_length=50)
-    artist = models.ForeignKey(Artist, blank=True, null=True)
+    artist = models.ForeignKey(Artist, related_name='albums', blank=True, null=True)
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artwork = models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 

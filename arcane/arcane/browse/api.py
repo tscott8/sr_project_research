@@ -48,9 +48,11 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'artist', 'genre', 'artwork', 'tracks')
 
 class AlbumViewSet(viewsets.ModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)    
+    filter_fields = ('name', 'id', 'artist', 'genre')
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    filter_fields = ('name', 'id', 'artist', 'genre')
+    lookup_field = "id"
 
     def perform_create(self, serializer):
         serializer.save()

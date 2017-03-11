@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import * as TrackActions from '../actions/TrackActions'
+import * as AlbumActions from '../actions/AlbumActions'
+
 import { Card, CardMedia, CardTitle, Dialog, FlatButton, FloatingActionButton, FontIcon, RaisedButton, GridTile} from 'material-ui'
 import ListDialog from './ListDialog'
 
@@ -81,8 +83,8 @@ export default class Tile extends Component {
    handleHover() {this.setState({hover: true})}
    handleLeave() {this.setState({hover: false})}
    handleExpand = () => {
-     const { dispatch } = this.props;
-     dispatch(TrackActions.getAlbumTracks(this.props.id));
+     const { dispatch, type} = this.props;
+     type === "album" ? dispatch(TrackActions.getAlbumTracks(this.props.id)) : dispatch(AlbumActions.getArtistAlbums(this.props.id))
      this.setState({expanded: true});};
    handleClose = () => {this.setState({expanded: false});}
   //  handleExpandChange = (expanded) => {this.setState({expanded: !expanded});};
@@ -129,6 +131,7 @@ export default class Tile extends Component {
             onClose={this.handleClose}
             select={this.props.select }
             selectedTracks={this.props.selectedTracks}
+            type={this.props.type}
           />
        </RaisedButton>
 

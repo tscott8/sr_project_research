@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import {GenresCollection, ArtistsCollection} from './Collections'
+import {GenresCollection} from './Collections'
 import TracksCollection from './TracksCollection'
 import AlbumsCollection from './AlbumsCollection'
-// import ArtistsCollection from './ArtistsCollection'
+import ArtistsCollection from './ArtistsCollection'
 import * as GenreActions from '../actions/GenreActions'
 import * as TrackActions from '../actions/TrackActions'
 import * as ArtistActions from '../actions/ArtistActions'
@@ -100,7 +100,7 @@ export default class CollectionTabs extends Component {
 
     let contents = [
       <GenresCollection select={this.props.select} genres={this.props.genres}/>,
-      <ArtistsCollection select={this.props.select}  artists={this.props.artists} />,
+      <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists} dispatch={this.props.dispatch} />,
       <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums.allAlbums} dispatch={this.props.dispatch}/>,
       <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks}/>,
     ];

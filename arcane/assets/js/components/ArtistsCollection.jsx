@@ -43,15 +43,15 @@ const collectionStyles = {
 };
 
 
-export default class AlbumsCollection extends Component {
+export default class ArtistsCollection extends Component {
   constructor(props) {
     super(props);
   }
-  renderAlbumTiles(albums) {
-    if (albums) {
-      let arr = albums.map((tile) => (
+  renderArtistTiles(artists) {
+    if (artists) {
+      let arr = artists.map((tile) => (
         <GridTile
-          key={'albumTile_'+ tile.id}
+          key={'artistTile_'+ tile.id}
           cols={1}
           rows={1}
           className="boxTile"
@@ -59,14 +59,14 @@ export default class AlbumsCollection extends Component {
           >
             <Tile
               title={tile.name}
-              subtitle={tile.artist.name}
-              imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
-              tracks={tile.tracks}
+              subtitle={tile.genre.name}
+              imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
+              albums={tile.albums}
               select={this.props.select}
               selectedTracks={this.props.selectedTracks}
               id={tile.id}
               dispatch={this.props.dispatch}
-              type={'album'}/>
+              type={'artist'}/>
             </GridTile>
 
       ))
@@ -74,22 +74,22 @@ export default class AlbumsCollection extends Component {
     }
   }
   renderGrid (cols) {
-    const {albums} = this.props;
-    if(albums){
+    const {artists} = this.props;
+    if(artists){
     return(
       <div style={collectionStyles.root}>
       <GridList
         cols={cols}
         // cellHeight={'auto'}
         style={collectionStyles.gridList}>
-        {this.renderAlbumTiles(albums.results)}
+        {this.renderArtistTiles(artists.results)}
         </GridList>
       </div>
     );
   }
   }
   render() {
-    const {albums} = this.props;
+    const {artists} = this.props;
     return(
       <div>
          <MediaQuery query='(min-device-width: 560px)'>
