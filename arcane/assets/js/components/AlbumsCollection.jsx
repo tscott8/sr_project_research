@@ -93,14 +93,14 @@ export default class AlbumsCollection extends Component {
       <div>
          <MediaQuery query='(min-device-width: 560px)'>
             <MediaQuery query='(max-width: 559px)'>
-               {this.renderGrid(2)}
+               {this.renderGrid(4)}
             </MediaQuery>
             <MediaQuery query='(min-width: 560px)'>
                {this.renderGrid(8)}
             </MediaQuery>
          </MediaQuery>
          <MediaQuery query='(max-device-width: 559px)'>
-            {this.renderGrid(2)}
+            {this.renderGrid(4)}
          </MediaQuery>
       </div>
     );

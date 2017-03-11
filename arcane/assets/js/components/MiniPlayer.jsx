@@ -222,7 +222,7 @@ export default class MiniPlayer extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{maxHeight:'calc(100vh-64px)'}}>
         {this.renderNowPlaying()}
         {this.renderQueueList()}
       </div>

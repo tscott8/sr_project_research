@@ -87,7 +87,7 @@ export default class TracksCollection extends Component {
     if (!this.props.noArt && track) {
       return (
         <Avatar
-          style={{borderRadius:'10%'}}
+          style={{borderRadius:'0%'}}
           src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>
      );
     }

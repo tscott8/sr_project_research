@@ -9,6 +9,9 @@ import * as TrackActions from '../actions/TrackActions';
 
 
 const styles = {
+  paper: {
+    overflowY:'auto',
+  },
   dropzone: {
     height:'100%',
     width:'100%',
@@ -50,14 +53,19 @@ export default class Uploader extends Component  {
     this.setState({stepIndex: 1, stagedFiles: acceptedFiles});
   };
   handleSelect (rows) {
-    this.setState({confirmedFiles:rows})
+   this.setState({confirmedFiles:rows})
   }
   handleUpload = () => {
     const {stagedFiles, confirmedFiles} = this.state;
     console.log(stagedFiles)
     let uploadFiles = []
-    for (var i=0; i < confirmedFiles.length; i++) {
-         uploadFiles.push(stagedFiles[confirmedFiles[i]]);
+    if (confirmedFiles !== 'all') {
+      for (var i=0; i < confirmedFiles.length; i++) {
+           uploadFiles.push(stagedFiles[confirmedFiles[i]]);
+      }
+    }
+    else {
+      uploadFiles = stagedFiles;
     }
     console.info("Sending files: ", uploadFiles);
     // var file = uploadFiles[0];
@@ -91,7 +99,7 @@ export default class Uploader extends Component  {
       </TableRow>
       ))
       return (
-        <Table multiSelectable={true}  onRowSelection={this.handleSelect.bind(this)}>
+        <Table height={'75vh'} multiSelectable={true}  onRowSelection={this.handleSelect.bind(this)}>
           <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
@@ -152,7 +160,7 @@ export default class Uploader extends Component  {
   render() {
     const contentStyle = {margin: '0 16px'};
       return (
-        <div style={{width: '100%', maxWidth: 700, margin: 'auto', marginTop:10}}>
+        <div style={{width: '100%', maxWidth: 700, margin: 'auto', marginTop:10, maxHeight:'calc(100vh-64px)', overflowY:'auto'}}>
         <Stepper linear={false} activeStep={this.state.stepIndex}>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 0})}>
@@ -171,7 +179,7 @@ export default class Uploader extends Component  {
           </Step>
         </Stepper>
         <div style={contentStyle}>
-          <Paper>{this.getStepContent()}</Paper>
+          <Paper style={styles.paper}>{this.getStepContent()}</Paper>
           {this.renderActionButtons()}
         </div>
       </div>
