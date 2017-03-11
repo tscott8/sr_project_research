@@ -11,6 +11,7 @@ import * as TrackActions from '../actions/TrackActions';
 const styles = {
   paper: {
     overflowY:'auto',
+    maxHeight:'67vh'
   },
   dropzone: {
     height:'100%',
@@ -99,8 +100,8 @@ export default class Uploader extends Component  {
       </TableRow>
       ))
       return (
-        <Table height={'75vh'} multiSelectable={true}  onRowSelection={this.handleSelect.bind(this)}>
-          <TableHeader enableSelectAll={true}>
+        <Table multiSelectable={true}  onRowSelection={this.handleSelect.bind(this)}>
+          <TableHeader style={{position:'absolute'}} enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
             </TableRow>
