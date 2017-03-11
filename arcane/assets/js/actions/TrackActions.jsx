@@ -22,22 +22,21 @@ export function uploadTracks(files) {
   let csrftoken = cookie.load('csrftoken');
   let fd = new FormData();
   fd.append('enctype', 'multipart/form-data')
-  files.forEach((file) =>{
-    fd.append('uploadfiles', file);
-  })
+  files.forEach((file) => {
+     fd.append('uploadfiles', file, file.name)
+  });
   return fetch("http://localhost:8000/api/upload/", {
     method: "post",
     headers: {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryqeSHn9XydiiEWmbj",
     "X-CSRFToken": csrftoken
     },
     credentials: "same-origin",
     body:fd,
     })
-    .then(response => response.json())
-    .then(json => ({
+    .then(response => response.status)
+    .then(status => ({
             type:types.POST_TRACKS,
-            uploadFiles: json
+            status: status
           }));
         };

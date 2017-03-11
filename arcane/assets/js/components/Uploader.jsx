@@ -76,7 +76,6 @@ export default class Uploader extends Component  {
        return this.renderStaged();
      case 2:
        return (<CircularProgress size={80} thickness={5} />);
-;
      default:
        return 'You\'re a long way from home sonny jim!';
    }
