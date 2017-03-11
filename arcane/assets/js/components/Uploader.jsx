@@ -101,7 +101,7 @@ export default class Uploader extends Component  {
       ))
       return (
         <Table multiSelectable={true}  onRowSelection={this.handleSelect.bind(this)}>
-          <TableHeader style={{position:'absolute'}} enableSelectAll={true}>
+          <TableHeader enableSelectAll={true}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
             </TableRow>
