@@ -3,7 +3,8 @@ import Dropzone from 'react-dropzone';
 import { Step, Stepper, StepLabel, StepButton } from 'material-ui/Stepper';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-import {Paper, List, ListItem, Divider, FontIcon, FlatButton, RaisedButton, Checkbox, CircularProgress} from 'material-ui';
+import {Paper, List, ListItem, Divider, FontIcon, FlatButton, RaisedButton, Checkbox, CircularProgress, Snackbar} from 'material-ui';
+import cookie from 'react-cookie';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import * as TrackActions from '../actions/TrackActions';
 
@@ -33,7 +34,7 @@ export default class Uploader extends Component  {
       stagedFiles:[],
       confirmedFiles:[],
       stepIndex: 0,
-
+      snackOpen: false
     }
   }
   handleNext = () => {
@@ -56,6 +57,35 @@ export default class Uploader extends Component  {
   handleSelect (rows) {
    this.setState({confirmedFiles:rows})
   }
+
+  handleSnackClose = () => {
+    this.setState({
+      snackOpen: false,
+    });
+  }
+
+  uploadTracks(files) {
+     let csrftoken = cookie.load('csrftoken');
+     let fd = new FormData();
+     fd.append('enctype', 'multipart/form-data')
+     files.forEach((file) => {
+       fd.append('uploadfiles', file, file.name)
+     });
+     fetch("http://localhost:8000/api/upload/", {
+         method: "post",
+         headers: {
+         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+         "X-CSRFToken": csrftoken
+         },
+         credentials: "same-origin",
+         body:fd,
+         })
+         .then(response => response.status)
+         .then(status => (
+            this.setState({ stepIndex: 0, snackOpen: true })
+         ));
+  }
+
   handleUpload = () => {
     const {stagedFiles, confirmedFiles} = this.state;
     console.log(stagedFiles)
@@ -73,7 +103,8 @@ export default class Uploader extends Component  {
     // var fileReader = new FileReader();
     // fileReader.readAsArrayBuffer(file);
     const { dispatch } = this.props;
-    dispatch(TrackActions.uploadTracks(uploadFiles));
+    // dispatch(TrackActions.uploadFiles(uploadFiles));
+    this.uploadTracks(uploadFiles);
     this.setState({stagedFiles: [], confirmedFiles:[], stepIndex:2});
   }
 
@@ -183,6 +214,12 @@ export default class Uploader extends Component  {
           <Paper style={styles.paper}>{this.getStepContent()}</Paper>
           {this.renderActionButtons()}
         </div>
+        <Snackbar
+          open={this.state.snackOpen}
+          message="Files Uploaded"
+          autoHideDuration={4000}
+          onRequestClose={this.handleSnackClose}
+        />
       </div>
     );
   }
