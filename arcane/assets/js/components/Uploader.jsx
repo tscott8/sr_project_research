@@ -34,7 +34,8 @@ export default class Uploader extends Component  {
       stagedFiles:[],
       confirmedFiles:[],
       stepIndex: 0,
-      snackOpen: false
+      snackOpen: false,
+      message:''
     }
   }
   handleNext = () => {
@@ -105,7 +106,7 @@ export default class Uploader extends Component  {
     const { dispatch } = this.props;
     // dispatch(TrackActions.uploadFiles(uploadFiles));
     this.uploadTracks(uploadFiles);
-    this.setState({stagedFiles: [], confirmedFiles:[], stepIndex:2});
+    this.setState({message: stagedFiles.length + ' file(s) uploaded' ,stagedFiles: [], confirmedFiles:[], stepIndex:2});
   }
 
   getStepContent() {
@@ -216,7 +217,7 @@ export default class Uploader extends Component  {
         </div>
         <Snackbar
           open={this.state.snackOpen}
-          message="Files Uploaded"
+          message={this.state.message}
           autoHideDuration={4000}
           onRequestClose={this.handleSnackClose}
         />

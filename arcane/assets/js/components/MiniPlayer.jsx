@@ -4,72 +4,59 @@ import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import { DefaultControl, IconChangeControl, ColoredControl } from './PlaybackControls'
 const url = "http://localhost:8000/";
 
-const style={
-  root: {
+
+const style ={
+  container: {
+    height:280,
+    width:280,
+    position:'relative',
+    top:0,
+    right:0,
+    zIndex:1
   },
-  player: {
-    marginLeft:0,
-    paddingBottom:8,
-    textOverflow: 'clip',
-    controlDivider: {
-      marginLeft:4,
-      marginRight:4,
-    },
-    controlPack: {
-      textAlign:'center',
-      margin:'0',
-      padding:'0',
-      width:'100%',
-    },
-    slider: {
-      margin:'0',
-      padding:'0',
-    }
-  },
-  labelDivider: {
-    verticalAlign:'top',
+  titleContainer: {
     padding:0,
-    height:201
+    top:0,
+    position:'absolute',
+    width:'100%',
+
   },
   title: {
-    // fontSize:'1.8rem',
-    marginLeft:8,
-    marginRight:8,
     textAlign:'center',
     whiteSpace: 'nowrap',
     overflowX: 'hidden',
     textOverflow: 'clip',
-    padding:0,
-    lineHeight:1.2
-    },
-  artist: {
-    // fontSize:'1.4rem',
-    marginLeft:8,
-    marginRight:8,
-    textAlign:'center',
-    whiteSpace: 'nowrap',
-    overflowX: 'hidden',
-    textOverflow: 'clip',
-    padding:0,
-    lineHeight:1.1
   },
-  img: {
-    nowPlaying: {
-      flex: 1,
-      maxHeight:'calc((100vh-64px)/6)'
-    },
-    avatar: {
-      borderRadius:'0%',
-      // height:45,
-      // width:45
-    },
+  controlContainer: {
+    width:'100%',
+    position:'absolute',
+    bottom:0,
+    textAlign:'center',
+  },
+  slider: {
+      margin:'0',
+      padding:'0',
+  },
+  buttons: {
+    textAlign:'center'
+  },
+  playerArt: {
+    flex: 1,
+    height:280
+  },
+  queueArt: {
+    borderRadius:'0%',
   },
   queue: {
     paddingTop:0,
-    height:'55vh',
+    position:'absolute',
+    top:280,
+    maxWidth:280,
+
+    bottom:0,
     overflowY:'auto'
   }
-};
+}
 
 export default class MiniPlayer extends Component {
   constructor(props){
@@ -88,13 +75,12 @@ export default class MiniPlayer extends Component {
   componentWillReceiveProps() {
      const { onToggleRepeat, onPrevious, onPlay, onNext } = this.props;
      var newControlList = this.state.controlList;
-     //console.info(onPlay);
      newControlList[0].onClick = onToggleRepeat;
      newControlList[1].onClick = onPrevious;
      newControlList[2].onClick = onPlay;
      newControlList[3].onClick = onNext;
      this.setState({
-        controlList: newControlList
+        controlList: newControlList,
      });
   }
 
@@ -113,19 +99,6 @@ export default class MiniPlayer extends Component {
   }
 
   renderPlaybackButtons() {
-   //  let items = [];
-   //  //console.info(this.props.isPlaying)
-   //  for (let i = 0; i < this.state.controlList.length; i++) {
-   //       let item = this.state.controlList[i];
-   //       //console.info("Control list item " + i + ": ", item.onClick);
-   //       items.push(<span style={style.player.controlDivider}><PlaybackControl
-   //                    key={"miniControl" + i}
-   //                    icon={item.icon}
-   //                    tooltip={item.tooltip}
-   //                    onClick={item.onClick}
-   //                    isPlaying={this.props.isPlaying}/></span>);
-   //    }
-   //    return items;
       return (
          <div>
             <ColoredControl
@@ -151,11 +124,10 @@ export default class MiniPlayer extends Component {
       );
   }
   renderPlaybackControls() {
-     //console.info(this.props.percent);
     return(
-      <div style={style.player.controlPack}>
+      <div style={style.controlContainer}>
         <Slider
-          sliderStyle={style.player.slider}
+          sliderStyle={style.slider}
           defaultValue={0}
           value={this.props.percent}
           max={1}
@@ -178,7 +150,7 @@ export default class MiniPlayer extends Component {
             primaryText={track.name}
             secondaryText={track.artist.name}
             leftAvatar={<Avatar
-                          style={style.img.avatar}
+                          style={style.queueArt}
                           src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}
             rightIconButton={this.renderEQIcon(track)}/>
         </div>
@@ -186,33 +158,30 @@ export default class MiniPlayer extends Component {
     return (<List style={style.queue}>{q}</List>);
   }
 
-  renderOverlay() {
+  
+  renderOverlay () {
     let cur_song = this.getNowPlayingSong();
-    return(
-      <div style={style.player}>
-        {/* <div style={style.labelDivider}> */}
+      return (
+        <div id="player_overlay_container" style={style.container}>
           <CardTitle
-            style={style.labelDivider}
+            id="player_overlay_title"
+            style={style.titleContainer}
             titleStyle={style.title}
-            subtitleStyle={style.artist}
+            subtitleStyle={style.title}
             title={cur_song.name ? cur_song.name : null}
             subtitle={cur_song.artist.name ? cur_song.artist.name : null}/>
-          {/* <div style={style.title}>{cur_song.name ? cur_song.name : null}</div>
-          <div style={style.artist}>{cur_song.artist.name ? cur_song.artist.name : null}</div> */}
-        {/* </div> */}
-        {this.renderPlaybackControls()}
-      </div>
-    );
-  }
-
+              {this.renderPlaybackControls()}
+        </div>
+      );
+}
   renderNowPlaying() {
     let cur_song = this.getNowPlayingSong();
     return (
-      <Card>
+      <Card >
        <CardMedia
          overlay={cur_song ? this.renderOverlay() : null}>
          <img
-           style={style.img.nowPlaying}
+           style={style.playerArt}
            src={cur_song ? cur_song.album.artwork : url+'static/images/default-artwork.png'} />
        </CardMedia>
      </Card>
@@ -222,7 +191,7 @@ export default class MiniPlayer extends Component {
   }
   render() {
     return (
-      <div style={{maxHeight:'calc(100vh-64px)'}}>
+      <div >
         {this.renderNowPlaying()}
         {this.renderQueueList()}
       </div>
