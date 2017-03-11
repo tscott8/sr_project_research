@@ -46,13 +46,13 @@ def upload(request):
         for f in files:
             Track.objects.create(url=f)
         # Redirect to the track list after POST
-        return HttpResponseRedirect(reverse('list'))
+        return HttpResponseRedirect(reverse('upload'))
     else:
         form = UploadForm()  # A empty, unbound form
     tracks=Track.objects.all()
     # Render list page with the documents and the form
     return render(
         request,
-        'list',
+        'upload.html',
         {'tracks': tracks}
 )
