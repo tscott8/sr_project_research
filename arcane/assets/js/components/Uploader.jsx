@@ -31,11 +31,12 @@ export default class Uploader extends Component  {
   constructor(props){
     super(props);
     this.state = {
-      stagedFiles:[],
-      confirmedFiles:[],
+      stagedFiles: [],
+      confirmedFiles: [],
+      completed: 0,
       stepIndex: 0,
       snackOpen: false,
-      message:''
+      message:'',
     }
   }
   handleNext = () => {
@@ -81,7 +82,7 @@ export default class Uploader extends Component  {
          credentials: "same-origin",
          body:fd,
          })
-         .then(response => response.status)
+         .then(response => (response.status, console.log(response)))
          .then(status => (
             this.setState({ stepIndex: 0, snackOpen: true })
          ));
@@ -106,7 +107,7 @@ export default class Uploader extends Component  {
     const { dispatch } = this.props;
     // dispatch(TrackActions.uploadFiles(uploadFiles));
     this.uploadTracks(uploadFiles);
-    this.setState({message: stagedFiles.length + ' file(s) uploaded' ,stagedFiles: [], confirmedFiles:[], stepIndex:2});
+    this.setState({message: stagedFiles.length + ' file(s) uploaded' , tagedFiles: [], confirmedFiles:[], stepIndex:2});
   }
 
   getStepContent() {
@@ -116,7 +117,7 @@ export default class Uploader extends Component  {
      case 1:
        return this.renderStaged();
      case 2:
-       return (<CircularProgress size={80} thickness={5} />);
+       return (<div style={{textAlign:'center', padding:50}}><CircularProgress color={'cyan'} size={140} thickness={5} /></div>);
      default:
        return 'You\'re a long way from home sonny jim!';
    }
@@ -169,7 +170,7 @@ export default class Uploader extends Component  {
           primary={true}
           onTouchTap={this.handleUpload}
           // onClick={this.sendFiles}
-        />
+                 />
     }
     else if (stepIndex < 2) {
           action = <RaisedButton
@@ -194,16 +195,16 @@ export default class Uploader extends Component  {
     const contentStyle = {margin: '0 16px'};
       return (
         <div style={{width: '100%', maxWidth: 700, margin: 'auto', marginTop:10, maxHeight:'calc(100vh-64px)', overflowY:'auto'}}>
-        <Stepper linear={false} activeStep={this.state.stepIndex}>
-          <Step>
-            <StepButton onClick={() => this.setState({stepIndex: 0})}>
-              Choose
-            </StepButton>
-          </Step>
-          <Step>
-            <StepButton onClick={() => this.setState({stepIndex: 1})}>
-              Confirm
-            </StepButton>
+          <Stepper linear={true} activeStep={this.state.stepIndex}>
+            <Step>
+              <StepButton onClick={() => this.setState({stepIndex: 0})}>
+                Choose
+              </StepButton>
+            </Step>
+            <Step>
+              <StepButton onClick={() => this.setState({stepIndex: 1})}>
+                Confirm
+              </StepButton>
           </Step>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 2})}>

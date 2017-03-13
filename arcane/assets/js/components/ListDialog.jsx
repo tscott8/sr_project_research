@@ -87,6 +87,7 @@ class ListDialog extends Component {
           select={this.props.select}
           selectedTracks={this.props.selectedTracks}
           dispatch={this.props.dispatch}
+          cols={4}
        />
       );
     }
@@ -96,13 +97,13 @@ class ListDialog extends Component {
      if(tracks || albums) {
       return (
          <Dialog
-          //  contentStyle={{maxHeight:'80vh'}}
+           //  contentStyle={{maxHeight:'80vh'}}
            titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ imgURL + ') ',
-           backgroundSize: 'cover',
-           backgroundPosition:'center center',
-           overflow:'hidden',
-           textShadow:'1px 1px black',
-          //  height:250,
+             backgroundSize: 'cover',
+             backgroundPosition:'center center',
+             overflow:'hidden',
+             textShadow:'1px 1px black',
+             //  height:250,
        }}
            bodyStyle={{padding:0,margin:0, maxWidth:'100%'}}
            open={this.props.open}

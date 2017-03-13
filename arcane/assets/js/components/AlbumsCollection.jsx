@@ -23,23 +23,6 @@ const collectionStyles = {
     width:'100%',
     height:'100%',
   },
-  table: {
-    // maxHeight:'calc(100vh - 114px)',
-
-  },
-  artistTile: {
-    root:{
-    },
-    img:{
-      maxHeight:'calc(100vw/8)',
-      maxWidth: 'calc(100vw/8)',
-      minHeight:100,
-      minWidth: 100
-    },
-  },
-  href: {
-    color:'white'
-  }
 };
 
 
@@ -55,19 +38,18 @@ export default class AlbumsCollection extends Component {
           cols={1}
           rows={1}
           className="boxTile"
-
-          >
-            <Tile
-              title={tile.name}
-              subtitle={tile.artist.name}
-              imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
-              tracks={tile.tracks}
-              select={this.props.select}
-              selectedTracks={this.props.selectedTracks}
-              id={tile.id}
-              dispatch={this.props.dispatch}
-              type={'album'}/>
-            </GridTile>
+        >
+          <Tile
+            title={tile.name}
+            subtitle={tile.artist.name}
+            imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
+            tracks={tile.tracks}
+            select={this.props.select}
+            selectedTracks={this.props.selectedTracks}
+            id={tile.id}
+            dispatch={this.props.dispatch}
+            type={'album'}/>
+        </GridTile>
 
       ))
       return arr;
@@ -78,30 +60,29 @@ export default class AlbumsCollection extends Component {
     if(albums){
     return(
       <div style={collectionStyles.root}>
-      <GridList
-        cols={cols}
-        // cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderAlbumTiles(albums.results)}
+        <GridList
+          cols={cols}
+          // cellHeight={'auto'}
+          style={collectionStyles.gridList}>
+          {this.renderAlbumTiles(albums.results)}
         </GridList>
       </div>
     );
   }
   }
   render() {
-    const {albums} = this.props;
     return(
       <div>
-         <MediaQuery query='(min-device-width: 560px)'>
-            <MediaQuery query='(max-width: 559px)'>
-               {this.renderGrid(4)}
-            </MediaQuery>
-            <MediaQuery query='(min-width: 560px)'>
-               {this.renderGrid(8)}
-            </MediaQuery>
-         </MediaQuery>
-         <MediaQuery query='(max-device-width: 559px)'>
-            {this.renderGrid(4)}
+        <MediaQuery query='(min-device-width: 560px)'>
+          <MediaQuery query='(max-width: 559px)'>
+            {this.renderGrid(this.props.cols/2)}
+          </MediaQuery>
+          <MediaQuery query='(min-width: 560px)'>
+            {this.renderGrid(this.props.cols)}
+          </MediaQuery>
+        </MediaQuery>
+        <MediaQuery query='(max-device-width: 559px)'>
+          {this.renderGrid(this.props.cols/2)}
          </MediaQuery>
       </div>
     );

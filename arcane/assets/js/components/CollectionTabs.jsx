@@ -100,8 +100,8 @@ export default class CollectionTabs extends Component {
 
     let contents = [
       <GenresCollection select={this.props.select} genres={this.props.genres}/>,
-      <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists} dispatch={this.props.dispatch} />,
-      <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums.allAlbums} dispatch={this.props.dispatch}/>,
+      <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists} dispatch={this.props.dispatch} cols={8}/>,
+      <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums.allAlbums} dispatch={this.props.dispatch} cols={8}/>,
       <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks}/>,
     ];
     return contents[index];

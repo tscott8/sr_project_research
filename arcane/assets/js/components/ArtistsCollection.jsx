@@ -15,7 +15,6 @@ const collectionStyles = {
   root: {
     width:'100%',
     height:'100%'
-
   },
   gridList: {
     margin:0,
@@ -23,23 +22,6 @@ const collectionStyles = {
     width:'100%',
     height:'100%',
   },
-  table: {
-    // maxHeight:'calc(100vh - 114px)',
-
-  },
-  artistTile: {
-    root:{
-    },
-    img:{
-      maxHeight:'calc(100vw/8)',
-      maxWidth: 'calc(100vw/8)',
-      minHeight:100,
-      minWidth: 100
-    },
-  },
-  href: {
-    color:'white'
-  }
 };
 
 
@@ -56,18 +38,19 @@ export default class ArtistsCollection extends Component {
           rows={1}
           className="boxTile"
 
-          >
-            <Tile
-              title={tile.name}
-              subtitle={tile.genre.name}
-              imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
-              albums={tile.albums}
-              select={this.props.select}
-              selectedTracks={this.props.selectedTracks}
-              id={tile.id}
-              dispatch={this.props.dispatch}
-              type={'artist'}/>
-            </GridTile>
+        >
+          <Tile
+            title={tile.name}
+            subtitle={tile.genre.name}
+            imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
+            albums={tile.albums}
+            select={this.props.select}
+            selectedTracks={this.props.selectedTracks}
+            id={tile.id}
+            dispatch={this.props.dispatch}
+            type={'artist'}
+          />
+        </GridTile>
 
       ))
       return arr;
@@ -89,20 +72,19 @@ export default class ArtistsCollection extends Component {
   }
   }
   render() {
-    const {artists} = this.props;
     return(
       <div>
-         <MediaQuery query='(min-device-width: 560px)'>
-            <MediaQuery query='(max-width: 559px)'>
-               {this.renderGrid(4)}
-            </MediaQuery>
-            <MediaQuery query='(min-width: 560px)'>
-               {this.renderGrid(8)}
-            </MediaQuery>
-         </MediaQuery>
-         <MediaQuery query='(max-device-width: 559px)'>
-            {this.renderGrid(4)}
-         </MediaQuery>
+        <MediaQuery query='(min-device-width: 560px)'>
+          <MediaQuery query='(max-width: 559px)'>
+            {this.renderGrid(this.props.cols/2)}
+          </MediaQuery>
+          <MediaQuery query='(min-width: 560px)'>
+            {this.renderGrid(this.props.cols)}
+          </MediaQuery>
+        </MediaQuery>
+        <MediaQuery query='(max-device-width: 559px)'>
+          {this.renderGrid(this.props.cols/2)}
+        </MediaQuery>
       </div>
     );
   }
