@@ -82,10 +82,10 @@ export default class Uploader extends Component  {
          credentials: "same-origin",
          body:fd,
          })
-         .then(response => (response.status, console.log(response)))
-         .then(status => (
-            this.setState({ stepIndex: 0, snackOpen: true })
-         ));
+      .then(response => (response.status, console.log(response)))
+      .then(status => (
+         this.setState({ stepIndex: 0, snackOpen: true })
+      ));
   }
 
   handleUpload = () => {
@@ -107,7 +107,7 @@ export default class Uploader extends Component  {
     const { dispatch } = this.props;
     // dispatch(TrackActions.uploadFiles(uploadFiles));
     this.uploadTracks(uploadFiles);
-    this.setState({message: stagedFiles.length + ' file(s) uploaded' , tagedFiles: [], confirmedFiles:[], stepIndex:2});
+    this.setState({message: stagedFiles.length + ' file(s) uploaded' , stagedFiles: [], confirmedFiles:[], stepIndex:2});
   }
 
   getStepContent() {
