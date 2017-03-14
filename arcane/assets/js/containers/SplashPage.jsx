@@ -26,7 +26,9 @@ const styles = {
     //  boxShadow:'0px 0px 16px 4px  cyan'
    },
    label: {
-     fontSize: '1.5em'
+     fontSize: '1.5em',
+     color:theme.palette.primary1Color
+
 
    },
    name: {
@@ -52,16 +54,17 @@ export default class SplashPage extends Component {
             textShadow:'1px 1px black',
             zIndex:1,
             height:'100vh',
-            width:'100vw'}}>
-            {/* <img style={styles.img} src={host + "static/images/audience-desktop.jpg" } /> */}
-            <h1 style={styles.name}>ARCANE</h1>
-            <Link to={"/app/"} style={styles.link} >
-               <RaisedButton
-                 primary={true}
-                 label="Lets Go!"
-                 labelStyle={styles.label}
-                  // buttonStyle={styles.button}
-                  className='button-glow'
+        width:'100vw'}}>
+          {/* <img style={styles.img} src={host + "static/images/audience-desktop.jpg" } /> */}
+          <h1 style={styles.name}>ARCANE</h1>
+          <Link to={"/app/"} style={styles.link} >
+            <RaisedButton
+              // primary={true}
+              label="Lets Go!"
+              labelStyle={styles.label}
+              backgroundColor={theme.palette.primary2Color}
+              // buttonStyle={styles.button}
+              className='button-glow'
                   // className='button-pulse'
 
                />

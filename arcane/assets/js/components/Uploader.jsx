@@ -173,19 +173,19 @@ export default class Uploader extends Component  {
                  />
     }
     else if (stepIndex < 2) {
-      action = <FlatButton
-        label="Next"
-        // disabled={this.state.stepIndex === 2}
-        primary={true}
+          action = <FlatButton
+            label="Next"
+            // disabled={this.state.stepIndex === 2}
+            primary={true}
             onTouchTap={this.handleNext}
-          />
+                   />
     }
     return (
       <div style={{marginTop: 20}}>
-          <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            onTouchTap={this.handlePrev}
+        <FlatButton
+          label="Back"
+          disabled={stepIndex === 0}
+          onTouchTap={this.handlePrev}
             style={{marginRight: 12}}
           />
           {action}

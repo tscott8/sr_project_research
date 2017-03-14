@@ -16,7 +16,7 @@ const arcaneDark = {
       textColor: Colors.white,
       secondaryTextColor: fade(Colors.white, 0.7),
       alternateTextColor: Colors.redA700,
-      canvasColor: Colors.grey700,
+      canvasColor: Colors.grey800,
       borderColor: Colors.cyanA700,
       disabledColor: fade(Colors.darkBlack, 0.3),
       pickerHeaderColor: fade(Colors.darkBlack, 0.12),
@@ -37,7 +37,7 @@ const arcaneDark = {
    },
 
    raisedButton: {
-    // primaryColor:Colors.redA700,
+    primaryColor:Colors.redA700,
     primaryTextColor: Colors.fullBlack,
    },
    tableRow:{
