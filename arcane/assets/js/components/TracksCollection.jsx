@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import { FontIcon, Avatar, IconButton, IconMenu, Menu, MenuItem, Divider, List, ListItem} from 'material-ui'
-
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
 import Tile from './Tile'
+import theme from '../constants/material-ui-theme'
 const url = "http://localhost:8000/";
 
 const collectionStyles = {
@@ -107,7 +107,7 @@ export default class TracksCollection extends Component {
             <Divider/>
             <ListItem
               style={{paddingRight:0}}
-              innerDivStyle={{whiteSpace:'pre-line',paddingRight:0}}
+              innerDivStyle={{whiteSpace:'pre-line',paddingRight:0, textShadow:'1px 1px black'}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
@@ -132,7 +132,7 @@ export default class TracksCollection extends Component {
         listStyle={{paddingTop:0, paddingBottom:0, maxWidth:'100%'}}
         disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
-        selectedMenuItemStyle={{backgroundColor:'red'}}
+        selectedMenuItemStyle={{backgroundColor:theme.palette.alternateTextColor}}
         multiple={true}
         onChange={this.handleChange}
         value={this.props.selectedTracks ? this.props.selectedTracks : []}>

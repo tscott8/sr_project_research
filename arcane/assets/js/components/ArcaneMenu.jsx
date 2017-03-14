@@ -21,6 +21,7 @@ const gridStyle = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     height:'auto',
+    marginTop:3,
   },
   gridList: {
     width: '100%',
@@ -41,8 +42,7 @@ export default class ArcaneMenu extends Component {
             <GridTile
               key={tile.name}
               cols={tile.featured ? 2 : 1}
-              rows={tile.featured ? 2 : 1}
-              style={gridStyle.gridTile}>
+              rows={tile.featured ? 2 : 1}>
               <SquareButton
                 key={"menuTile" + tile.name}
                 name={tile.name}

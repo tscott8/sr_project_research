@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {GridTile, GridList,
-  FontIcon, Avatar, IconButton,
-  IconMenu, Menu, MenuItem,
-  List, ListItem, Divider} from 'material-ui'
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
-  from 'material-ui/Table';
-import SquareButton from './SquareButton'
+import {GridTile, GridList} from 'material-ui'
 import Tile from './Tile'
 import MediaQuery from 'react-responsive'
 

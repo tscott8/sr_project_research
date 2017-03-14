@@ -98,7 +98,7 @@ class ListDialog extends Component {
       return (
          <Dialog
            //  contentStyle={{maxHeight:'80vh'}}
-           titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ imgURL + ') ',
+           titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('+ imgURL + ') ',
              backgroundSize: 'cover',
              backgroundPosition:'center center',
              overflow:'hidden',
@@ -111,9 +111,9 @@ class ListDialog extends Component {
            onRequestClose={this.props.onClose}
            autoDetectWindowHeight={true}
            autoScrollBodyContent={true}
-          //  actions={<FlatButton
-                      //  label="Cancel"
-                      //  primary={true}
+           //  actions={<FlatButton
+           //  label="Cancel"
+           //  primary={true}
                       //  onTouchTap={this.props.onClose}/>}
            >
              {this.renderContent()}

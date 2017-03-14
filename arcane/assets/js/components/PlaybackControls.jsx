@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {FontIcon, FloatingActionButton, Slider, IconButton} from 'material-ui'
-import { redA700 } from 'material-ui/styles/colors'
+import theme from '../constants/material-ui-theme'
 const styles = {
    smallIcon: {
      width:20,
@@ -15,7 +15,7 @@ const styles = {
     //  color: 'rgb(213, 0, 0)'
    },
    coloredSmallIcon: {
-      color: redA700,
+    color: theme.palette.alternateTextColor,
      width:20,
      height:20,
      fontSize:20,

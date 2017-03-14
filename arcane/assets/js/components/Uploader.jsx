@@ -7,7 +7,7 @@ import {Paper, List, ListItem, Divider, FontIcon, FlatButton, RaisedButton, Chec
 import cookie from 'react-cookie';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import * as TrackActions from '../actions/TrackActions';
-
+import theme from '../constants/material-ui-theme'
 
 const styles = {
   paper: {
@@ -117,7 +117,7 @@ export default class Uploader extends Component  {
      case 1:
        return this.renderStaged();
      case 2:
-       return (<div style={{textAlign:'center', padding:50}}><CircularProgress color={'cyan'} size={140} thickness={5} /></div>);
+       return (<div style={{textAlign:'center', padding:50}}><CircularProgress color={theme.palette.accent1Color} size={140} thickness={5} /></div>);
      default:
        return 'You\'re a long way from home sonny jim!';
    }
@@ -164,19 +164,19 @@ export default class Uploader extends Component  {
     const {stepIndex, confirmedFiles} = this.state;
     let action = null;
     if ( stepIndex === 1 && confirmedFiles.length > 0) {
-        action = <RaisedButton
+        action = <FlatButton
           label="Upload"
           // disabled={this.state.stepIndex === 2}
-          primary={true}
+          secondary={true}
           onTouchTap={this.handleUpload}
           // onClick={this.sendFiles}
                  />
     }
     else if (stepIndex < 2) {
-          action = <RaisedButton
-            label="Next"
-            // disabled={this.state.stepIndex === 2}
-            primary={true}
+      action = <FlatButton
+        label="Next"
+        // disabled={this.state.stepIndex === 2}
+        primary={true}
             onTouchTap={this.handleNext}
           />
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {FontIcon, RaisedButton, GridList, GridTile} from 'material-ui'
+import {FontIcon, RaisedButton} from 'material-ui'
 import { Link } from 'react-router'
 
 const styles = {
@@ -53,10 +53,10 @@ export default class SquareButton extends Component {
   render() {
     return (
       <Link to={ "/app/" + this.props.url }>
-         <RaisedButton
-           href=""
-           target="_blank"
-           secondary={true}
+        <RaisedButton
+          href=""
+          target="_blank"
+          primary={true}
            onClick={this.props.onClick}
            style={styles.root}>
              {this.renderButtonGuts()}
