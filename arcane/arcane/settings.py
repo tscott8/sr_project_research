@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 
     # Project Apps
     'arcane.browse',
+    'arcane.users'
 ]
 SITE_ID = 1
 
