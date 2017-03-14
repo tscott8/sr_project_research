@@ -69,7 +69,7 @@ export default class TracksCollection extends Component {
   renderTrackItemMenu() {
     return(
       <IconMenu
-        style={{position: 'absolute', top:10, right:40}}
+        style={{top:12, right:36}}
         iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
         targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
@@ -101,13 +101,13 @@ export default class TracksCollection extends Component {
           <MenuItem
             key={'track_list_item_'+ track.id}
             animation={null}
-            // style={{overflowX:'hidden'}}
+            style={{padding:0}}
             innerDivStyle={{padding:0}}
             value={track}>
             <Divider/>
             <ListItem
-              // style={{}}
-              // innerDivStyle={{whiteSpace:'pre-line',}}
+              style={{paddingRight:0}}
+              innerDivStyle={{whiteSpace:'pre-line',paddingRight:0}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
@@ -129,7 +129,7 @@ export default class TracksCollection extends Component {
         desktop={false}
         // width={'inherit'}
         // style={{width:'100%'}}
-        listStyle={{paddingTop:0, paddingBottom:0, width:'100%'}}
+        listStyle={{paddingTop:0, paddingBottom:0, maxWidth:'100%'}}
         disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
         selectedMenuItemStyle={{backgroundColor:'red'}}
