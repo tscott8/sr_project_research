@@ -27,8 +27,6 @@ const styles = {
    },
    label: {
      fontSize: '1.5em',
-     color:theme.palette.primary1Color
-
 
    },
    name: {
@@ -59,17 +57,15 @@ export default class SplashPage extends Component {
           <h1 style={styles.name}>ARCANE</h1>
           <Link to={"/app/"} style={styles.link} >
             <RaisedButton
-              // primary={true}
+              primary={true}
               label="Lets Go!"
               labelStyle={styles.label}
-              backgroundColor={theme.palette.primary2Color}
               // buttonStyle={styles.button}
               className='button-glow'
-                  // className='button-pulse'
-
-               />
-            </Link>
-         </div>
+              // className='button-pulse'
+            />
+          </Link>
+        </div>
       );
    }
 

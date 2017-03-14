@@ -4,67 +4,64 @@ import { spacing, getMuiTheme } from 'material-ui/styles';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 
 const arcaneDark = {
-   spacing: spacing,
-   fontFamily: 'Aldrich, Open Sans, sans-serif',
-   palette: {
-      primary1Color: Colors.redA700,
-      primary2Color: Colors.grey800,
-      primary3Color: Colors.grey700,
-      accent1Color: Colors.cyanA700,
-      accent2Color: Colors.redA700,
-      accent3Color: Colors.grey700,
-      textColor: Colors.white,
-      secondaryTextColor: fade(Colors.white, 0.7),
-      alternateTextColor: Colors.redA700,
-      canvasColor: Colors.grey800,
-      borderColor: Colors.cyanA700,
-      disabledColor: fade(Colors.darkBlack, 0.3),
-      pickerHeaderColor: fade(Colors.darkBlack, 0.12),
-      clockCircleColor: fade(Colors.darkBlack, 0.07),
-      shadowColor: Colors.fullBlack,
-   },
-   slider: {
-      trackColor: Colors.transparent,
-      trackSize: 3,
-      trackColorSelected: fade(Colors.white, .3),
-      selectionColor: Colors.redA700,
-      handleColorZero: Colors.redA700,
-   },
-   drawer: {
-     width:280,
-    //  color:Colors.darkBlack
-     color:Colors.grey900
-   },
+  spacing: spacing,
+  fontFamily: 'Aldrich, Open Sans, sans-serif',
+  palette: {
+     primary1Color: Colors.grey900,
+     primary2Color: Colors.grey800,
+     primary3Color: Colors.grey700,
+     accent1Color: Colors.cyanA700,
+     accent2Color: Colors.redA700,
+     accent3Color: Colors.grey700,
 
-   raisedButton: {
-    primaryColor:Colors.redA700,
-    primaryTextColor: Colors.fullBlack,
-   },
-   tableRow:{
-     selectedColor:Colors.redA700
-   },
-   snackbar:{
-     backgroundColor:Colors.grey900
-   },
-   appBar: {
-     color:Colors.grey900
-    //  textColor:Colors.white,
-   },
-   tabs:{
-     backgroundColor:Colors.grey900
-   },
-   floatingActionButton: {
-     color:Colors.grey900
-   },
-   dialog: {
-     bodyColor: Colors.grey800
-   },
-   menuItem: {
-     hoverColor: fade(Colors.cyanA700, 0.3),
-   },
-   listItem: {
-     hoverColor: fade(Colors.cyanA700, 0.3),
-   },
+     textColor: Colors.white,
+     secondaryTextColor: fade(Colors.white, 0.7),
+     alternateTextColor: Colors.redA700,
+     canvasColor: Colors.grey800,
+     borderColor: Colors.cyanA700,
+     disabledColor: fade(Colors.darkBlack, 0.3),
+     pickerHeaderColor: fade(Colors.darkBlack, 0.12),
+     clockCircleColor: fade(Colors.darkBlack, 0.07),
+     shadowColor: Colors.fullBlack,
+
+  },
+  slider: {
+     trackColor: Colors.transparent,
+     trackSize: 3,
+     trackColorSelected: fade(Colors.white, .3),
+     selectionColor: Colors.redA700,
+     handleColorZero: Colors.redA700,
+  },
+  drawer: {
+    width:280,
+    color:Colors.grey900
+  },
+  iconButton: {
+   color: Colors.redA700
+  },
+  raisedButton: {
+   secondaryColor:Colors.redA700,
+   secondaryTextColor:Colors.fullBlack
+  },
+  tableRow:{
+    hoverColor:Colors.cyanA700,
+    selectedColor:Colors.redA700
+  },
+  snackbar:{
+    backgroundColor:Colors.grey900
+  },
+  appBar: {
+   //  textColor:Colors.white,
+  },
+  stepper: {
+    iconColor:Colors.redA700
+  },
+  menuItem: {
+    hoverColor: fade(Colors.cyanA700, 0.3),
+  },
+  listItem: {
+    hoverColor: fade(Colors.cyanA700, 0.3),
+  },
 
 };
 

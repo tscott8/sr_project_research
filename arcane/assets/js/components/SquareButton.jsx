@@ -56,7 +56,7 @@ export default class SquareButton extends Component {
         <RaisedButton
           href=""
           target="_blank"
-          primary={true}
+          secondary={true}
            onClick={this.props.onClick}
            style={styles.root}>
              {this.renderButtonGuts()}
