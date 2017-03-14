@@ -14,7 +14,7 @@ import {Paper} from 'material-ui'
 const appBody = {
   width:'100%',
   height:'100%',
-  background: theme.palette.primary2Color + ' repeat top center fixed',
+  background: theme.palette.canvasColor + ' repeat top center fixed',
   backgroundSize:'cover',
   position:'fixed'
 };

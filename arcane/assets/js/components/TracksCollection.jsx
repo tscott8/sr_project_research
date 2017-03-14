@@ -132,7 +132,7 @@ export default class TracksCollection extends Component {
         listStyle={{paddingTop:0, paddingBottom:0, maxWidth:'100%'}}
         disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
-        selectedMenuItemStyle={{backgroundColor:theme.palette.alternateTextColor}}
+        selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}
         multiple={true}
         onChange={this.handleChange}
         value={this.props.selectedTracks ? this.props.selectedTracks : []}>

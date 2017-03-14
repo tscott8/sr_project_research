@@ -50,9 +50,7 @@ const arcaneDark = {
   snackbar:{
     backgroundColor:Colors.grey900
   },
-  appBar: {
-   //  textColor:Colors.white,
-  },
+
   stepper: {
     iconColor:Colors.redA700
   },
@@ -71,10 +69,10 @@ const googlePlay = {
   borderRadius: 2,
   palette: {
     primary1Color: Colors.deepOrangeA700,
-    primary2Color: Colors.grey200,
-    primary3Color: Colors.grey400,
-    accent1Color: Colors.deepOrangeA700,
-    accent2Color: Colors.grey300,
+    primary2Color: Colors.deepOrangeA700,
+    primary3Color: Colors.grey600,
+    accent1Color: Colors.white,
+    accent2Color: Colors.deepOrangeA700,
     accent3Color: Colors.grey500,
     textColor: Colors.fullBlack,
     secondaryTextColor: fade(Colors.fullBlack, 0.54),
@@ -89,19 +87,25 @@ const googlePlay = {
   drawer: {
     width:280,
   },
-  // raisedButton: {
-  //   primaryColor:Colors.white,
-  //   primaryTextColor:Colors.deepOrangeA700,
-  // },
+  raisedButton: {
+    secondaryColor:Colors.white,
+    secondaryTextColor:Colors.deepOrangeA700,
+  },
+  appBar: {
+    textColor:Colors.white,
+  },
+  tabs: {
+    color:Colors.white
+  },
   menuItem: {
-    hoverColor:Colors.deepOrangeA700,
+    hoverColor:fade(Colors.deepOrangeA700,.3),
   },
   listItem:{
     hoverColor:fade(Colors.deepOrangeA700,.3),
   },
-   stepper: {
-     iconColor:fade(Colors.deepOrangeA700,.3),
-   }
+  //  stepper: {
+  //    iconColor:fade(Colors.deepOrangeA700,.3),
+  //  }
 };
 const spotify = {
   spacing: spacing,
@@ -139,10 +143,13 @@ const spotify = {
  listItem: {
    hoverColor: fade(Colors.green700, 0.3),
  },
-  // raisedButton: {
-  //   secondaryColor:Colors.white,
-  //   secondaryTextColor: Colors.deepOrangeA700,
-  //   disabledTextColor: Colors.deepOrangeA700,
+ snackbar:{
+   backgroundColor:Colors.darkBlack
+ },
+  raisedButton: {
+    secondaryColor:Colors.darkBlack,
+    secondaryTextColor: Colors.green700,
+  }
   // },
   // menuItem: {
   //   hoverColor:Colors.deepOrangeA700,
