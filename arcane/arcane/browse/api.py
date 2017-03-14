@@ -5,9 +5,10 @@ from rest_framework import routers, serializers, viewsets, filters
 from .models import Genre, Artist, Album, Track
 
 class GenreSerializer(serializers.HyperlinkedModelSerializer):
+    artists = serializers.StringRelatedField(many=True)
     class Meta:
         model = Genre
-        fields = ('id', 'name', 'color', 'icon')
+        fields = ('id', 'name', 'color', 'icon', 'artists')
 
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
@@ -20,15 +21,17 @@ class GenreViewSet(viewsets.ModelViewSet):
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     genre = GenreSerializer(read_only=True)
-
+    albums = serializers.StringRelatedField(many=True)
     class Meta:
         model = Artist
-        fields = ('id', 'name', 'genre', 'cover_photo')
+        fields = ('id', 'name', 'genre', 'cover_photo', 'albums')
 
 class ArtistViewSet(viewsets.ModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'id', 'genre')
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
-    filter_fields = ('name', 'id', 'genre')
+    lookup_field = "id"
 
     def perform_create(self, serializer):
         serializer.save()
@@ -37,18 +40,13 @@ class ArtistViewSet(viewsets.ModelViewSet):
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
     genre = GenreSerializer(read_only=True)
-    # tracks = TrackSerializer(read_only=True, many=True)
-    # tracks = serializers.StringRelatedField(read_only=True)
-    # tracks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    # genre = serializers.StringRelatedField()
-    # artist = serializers.StringRelatedField()
     tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Album
         fields = ('id', 'name', 'artist', 'genre', 'artwork', 'tracks')
 
 class AlbumViewSet(viewsets.ModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend,)    
+    filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'id', 'artist', 'genre')
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer

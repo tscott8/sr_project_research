@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import * as TrackActions from '../actions/TrackActions'
 import * as AlbumActions from '../actions/AlbumActions'
+import * as ArtistActions from '../actions/ArtistActions'
 
 import { Card, CardMedia, CardTitle, Dialog, FlatButton, FloatingActionButton, FontIcon, RaisedButton, GridTile} from 'material-ui'
 import ListDialog from './ListDialog'
@@ -84,7 +85,9 @@ export default class Tile extends Component {
    handleLeave() {this.setState({hover: false})}
    handleExpand = () => {
      const { dispatch, type} = this.props;
-     type === "album" ? dispatch(TrackActions.getAlbumTracks(this.props.id)) : dispatch(AlbumActions.getArtistAlbums(this.props.id))
+     if (type === "album") {dispatch(TrackActions.getAlbumTracks(this.props.id))}
+     if (type === "artist") {dispatch(AlbumActions.getArtistAlbums(this.props.id))}
+     if (type === "genre") {dispatch(ArtistActions.getGenreArtists(this.props.id))}
      this.setState({expanded: true});};
    handleClose = () => {this.setState({expanded: false});}
   //  handleExpandChange = (expanded) => {this.setState({expanded: !expanded});};
@@ -111,28 +114,28 @@ export default class Tile extends Component {
           <RaisedButton
             style={styles.button}
             fullWidth={true}
-             buttonStyle={{minHeight:180,padding:0, background: 'url('+ imgURL + ') ',
-                    backgroundSize: 'cover', backgroundPosition:'center center'}}
+            buttonStyle={{minHeight:180,padding:0, background: 'url('+ imgURL + ') ',
+            backgroundSize: 'cover', backgroundPosition:'center center'}}
             backgroundColor={'transparent'}
 
             //  expanded={this.state.expanded}
-             onMouseEnter={this.handleHover.bind(this)}
-             onMouseLeave={this.handleLeave.bind(this)}
-             onClick={this.handleExpand}
-             label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
-             labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
-           >
-          <ListDialog
-            title={title}
-            subtitle={subtitle}
-            imgURL={imgURL}
-            id={this.props.id}
-            open={this.state.expanded}
-            onClose={this.handleClose}
-            select={this.props.select }
-            selectedTracks={this.props.selectedTracks}
-            type={this.props.type}
-          />
+            onMouseEnter={this.handleHover.bind(this)}
+            onMouseLeave={this.handleLeave.bind(this)}
+            onClick={this.handleExpand}
+            label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
+            labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
+          >
+            <ListDialog
+              title={title}
+              subtitle={subtitle}
+              imgURL={imgURL}
+              id={this.props.id}
+              open={this.state.expanded}
+              onClose={this.handleClose}
+              select={this.props.select }
+              selectedTracks={this.props.selectedTracks}
+              type={this.props.type}
+            />
        </RaisedButton>
 
     );

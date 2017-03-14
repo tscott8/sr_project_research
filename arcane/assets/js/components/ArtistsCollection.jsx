@@ -54,15 +54,14 @@ export default class ArtistsCollection extends Component {
     const {artists} = this.props;
     if(artists){
     return(
-      <div style={collectionStyles.root}>
-      <GridList
-        cols={cols}
-        // cellHeight={'auto'}
-        style={collectionStyles.gridList}>
-        {this.renderArtistTiles(artists.results)}
+        <GridList
+          cols={cols}
+          // cellHeight={'auto'}
+          style={collectionStyles.gridList}
+        >
+          {this.renderArtistTiles(artists.results)}
         </GridList>
-      </div>
-    );
+        );
   }
   }
   render() {

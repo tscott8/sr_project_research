@@ -4,8 +4,11 @@ import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, L
 import{ CardTitle} from 'material-ui/Card'
 import TracksCollection  from './TracksCollection'
 import AlbumsCollection  from './AlbumsCollection'
+import ArtistsCollection  from './ArtistsCollection'
+
 import * as TrackActions from '../actions/TrackActions'
 import * as AlbumActions from '../actions/AlbumActions'
+import * as ArtistActions from '../actions/ArtistActions'
 
 
 const styles = {
@@ -44,10 +47,6 @@ const styles = {
 class ListDialog extends Component {
    constructor(props) {
       super(props);
-      // const { dispatch } = this.props;
-      // dispatch(TrackActions.getAlbumTracks(this.props.id));
-      // const { tracks } = this.props;
-      // this.state= {albumTracks: tracks.albumTracks};
    }
 
    renderDialogTitle(title, subtitle) {
@@ -77,7 +76,7 @@ class ListDialog extends Component {
            select={this.props.select}
            selectedTracks={this.props.selectedTracks}
            noArt={true}
-        />
+         />
        );
      }
     if (type === "artist") {
@@ -88,13 +87,25 @@ class ListDialog extends Component {
           selectedTracks={this.props.selectedTracks}
           dispatch={this.props.dispatch}
           cols={4}
-       />
+        />
+      );
+    }
+    if (type === "genre") {
+      console.log(this.props.artists.genreArtists)
+      return (
+        <ArtistsCollection
+          artists={this.props.artists.genreArtists}
+          select={this.props.select}
+          selectedTracks={this.props.selectedTracks}
+          dispatch={this.props.dispatch}
+          cols={4}
+        />
       );
     }
    }
    render() {
-     const {tracks, albums, title, subtitle, imgURL} = this.props;
-     if(tracks || albums) {
+     const {tracks, albums, genres, title, subtitle, imgURL, } = this.props;
+     if(tracks || albums || genres) {
       return (
          <Dialog
            //  contentStyle={{maxHeight:'80vh'}}
@@ -127,14 +138,14 @@ class ListDialog extends Component {
 
 ListDialog.propTypes = {
    dispatch: PropTypes.func.isRequired,
-   tracks: PropTypes.object.isRequired,
-   albums: PropTypes.object.isRequired
-
+   tracks:   PropTypes.object.isRequired,
+   albums:   PropTypes.object.isRequired,
+   artists:  PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
-   const { tracks, albums } = state
-   return { tracks, albums };
+   const { tracks, albums, artists} = state
+   return { tracks, albums, artists };
 }
 
 export default connect(mapStateToProps)(ListDialog);

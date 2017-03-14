@@ -16,7 +16,7 @@ const appBody = {
   height:'100%',
   background: theme.palette.canvasColor + ' repeat top center fixed',
   backgroundSize:'cover',
-  position:'fixed'
+  position:'fixed',
 };
 @connect(
   state => ({audio: state.audio}),

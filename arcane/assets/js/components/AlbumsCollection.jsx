@@ -16,6 +16,7 @@ const collectionStyles = {
     marginTop:2,
     width:'100%',
     height:'100%',
+    overflowY:'auto'
   },
 };
 
@@ -53,15 +54,15 @@ export default class AlbumsCollection extends Component {
     const {albums} = this.props;
     if(albums){
     return(
-      <div style={collectionStyles.root}>
+        // style={collectionStyles.root}>
         <GridList
           cols={cols}
           // cellHeight={'auto'}
-          style={collectionStyles.gridList}>
+          style={collectionStyles.gridList}
+        >
           {this.renderAlbumTiles(albums.results)}
         </GridList>
-      </div>
-    );
+        );
   }
   }
   render() {

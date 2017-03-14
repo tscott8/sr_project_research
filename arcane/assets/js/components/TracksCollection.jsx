@@ -107,7 +107,7 @@ export default class TracksCollection extends Component {
             <Divider/>
             <ListItem
               style={{paddingRight:0}}
-              innerDivStyle={{whiteSpace:'pre-line',paddingRight:0, textShadow:'1px 1px black'}}
+              innerDivStyle={{whiteSpace:'pre-line', paddingRight:0, textShadow:'1px 1px black'}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
@@ -124,23 +124,54 @@ export default class TracksCollection extends Component {
   render() {
     const {tracks} = this.props;
     return(
-      <Menu
-        autoWidth={true}
-        desktop={false}
-        // width={'inherit'}
-        // style={{width:'100%'}}
-        listStyle={{paddingTop:0, paddingBottom:0, maxWidth:'100%'}}
-        disableAutoFocus={true}
-        // menuItemStyle={{padding:0}}
-        selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}
-        multiple={true}
-        onChange={this.handleChange}
-        value={this.props.selectedTracks ? this.props.selectedTracks : []}>
-        {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
-        {this.renderTracksListItems(tracks.results)}
-
-      </Menu>
+      <div style={collectionStyles.root}>
+        <Menu
+          autoWidth={true}
+          desktop={false}
+          // width={'inherit'}
+          // style={{width:'100%'}}
+          listStyle={{paddingTop:0, paddingBottom:0, maxWidth:'100%'}}
+          disableAutoFocus={true}
+          // menuItemStyle={{padding:0}}
+          selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}
+          multiple={true}
+          onChange={this.handleChange}
+          value={this.props.selectedTracks ? this.props.selectedTracks : []}>
+          {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
+          {this.renderTracksListItems(tracks.results)}
+        </Menu>
+      </div>
     );
   }
 
 }
+
+// renderTracksTable() {
+//   const {tracks} = this.props;
+//   return(
+//       <Table height={'calc(100vh - 172px)'} multiSelectable={true}  onRowSelection={this.selectTracks.bind(this)}>
+//         <TableHeader enableSelectAll={true}>
+//           <TableRow>
+//             <TableHeaderColumn>Name</TableHeaderColumn>
+//             <TableHeaderColumn>Duration</TableHeaderColumn>
+//             <TableHeaderColumn>Artist</TableHeaderColumn>
+//             <TableHeaderColumn>Album</TableHeaderColumn>
+//             <TableHeaderColumn>Genre</TableHeaderColumn>
+//             <TableHeaderColumn>Play Count</TableHeaderColumn>
+//           </TableRow>
+//         </TableHeader>
+//         <TableBody
+//           displayRowCheckbox={false}
+//           deselectOnClickaway={false}
+//           preScanRows={false}
+//           stripedRows={true}
+//           style={collectionStyles.tbody}
+//           showRowHover={false}>
+//             {this.renderTracksRows(tracks.results)}
+//         </TableBody>
+//       </Table>
+//   );
+// }
+// render() {
+//   return (this.renderTracksList());
+// }

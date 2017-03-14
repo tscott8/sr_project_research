@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
+import {Paper} from 'material-ui'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import {GenresCollection} from './Collections'
+import GenresCollection from './GenresCollection'
 import TracksCollection from './TracksCollection'
 import AlbumsCollection from './AlbumsCollection'
 import ArtistsCollection from './ArtistsCollection'
@@ -11,6 +12,13 @@ import * as ArtistActions from '../actions/ArtistActions'
 import * as AlbumActions from '../actions/AlbumActions'
 
 const styles = {
+  root: {
+    margin:'auto',
+    maxHeight:'85vh',
+    maxWidth:'80vw',
+    marginTop:10,
+
+  },
   headline: {
     fontSize: 24,
     paddingTop: 16,
@@ -19,11 +27,12 @@ const styles = {
   },
   slide: {
     padding:0,
+    // maxHeight: 'inherit'
     maxHeight:'calc(100vh - 114px)',
     maxWidth:'100vw'
   },
   swipes: {
-    maxWidth:'100vw'
+    // maxWidth:'100vw'
 
     // maxHeight:'calc(100vh - 114px)',
   }
@@ -95,12 +104,12 @@ export default class CollectionTabs extends Component {
     const {tracks, artists, albums, genres} = this.props;
     const sortedTracks = tracks.allTracks.results ? this.sortByTag('name', tracks.allTracks.results) : [];
     const sortedAlbums = albums.allAlbums.results ? this.sortByTag('name', albums.allAlbums.results) : [];
-    const sortedArtists = artists.results ? this.sortByTag('name', artists.results) : [];
+    const sortedArtists = artists.allArtists.results ? this.sortByTag('name', artists.allArtists.results) : [];
     const sortedGenres = genres.results ? this.sortByTag('name', genres.results) : [];
 
     let contents = [
-      <GenresCollection select={this.props.select} genres={this.props.genres}/>,
-      <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists} dispatch={this.props.dispatch} cols={8}/>,
+      <GenresCollection select={this.props.select} selectedTracks={this.props.selectedTracks} genres={this.props.genres} dispatch={this.props.dispatch}   cols={8}/>,
+      <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists.allArtists} dispatch={this.props.dispatch} cols={8}/>,
       <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums.allAlbums} dispatch={this.props.dispatch} cols={8}/>,
       <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks}/>,
     ];
@@ -129,8 +138,8 @@ export default class CollectionTabs extends Component {
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}>
           {this.renderSlides()}
-      </SwipeableViews>
-    </div>
+        </SwipeableViews>
+      </div>
     );
   }
 }
