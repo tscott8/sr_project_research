@@ -91,7 +91,6 @@ class ListDialog extends Component {
       );
     }
     if (type === "genre") {
-      console.log(this.props.artists.genreArtists)
       return (
         <ArtistsCollection
           artists={this.props.artists.genreArtists}

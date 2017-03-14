@@ -28,6 +28,7 @@
    duration: 0,
    repeat: false,
    songs: [],
+   completedsongs: [],
    currentID: null,
    defaultSong: {
      "id": -1,
@@ -38,16 +39,18 @@
      "favorite": false
    }
  };
-
  function getSongIndex(songs, id) {
    return findIndex(songs, (o) => o.id === id);
  }
 
  function getAdjacentSong(songs, startIndex, direction) {
-    console.info(songs);
+    // console.info(songs);
    let nextIndex = startIndex + direction;
    nextIndex = nextIndex < 0 ? songs.length-1 : nextIndex > songs.length-1 ? 0 : nextIndex;
-   return songs[nextIndex].id;
+   let complete = songs.shift();
+
+   console.log(complete);
+   return songs[nextIndex-1].id;
  }
 
 function getAudioState(audio) {
@@ -64,9 +67,10 @@ function getAudioState(audio) {
  }
 
  function shuffle(array) {
-    console.info(array);
-     let counter = array.length;
-
+    // console.info(array);
+    let saved = [array.shift()];
+    console.log(saved)
+    let counter = array.length;
      // While there are elements in the array
      while (counter > 0) {
          // Pick a random index
@@ -80,16 +84,23 @@ function getAudioState(audio) {
          array[counter] = array[index];
          array[index] = temp;
      }
+     let merged = [];
+     if ( saved instanceof Array )
+        merged = saved.concat( array );
+    else
+      merged.push( array );
 
-     return array;
+    //  let merged = saved.concat(array);
+     console.log(merged)
+     return merged;
  }
 
 
  export default function audio(state = initialState, action) {
    switch (action.type) {
      case INITIALIZE:
-       //const songsArray = shuffle(sortBy(action.songs, ['id'])).slice(0,7);
-       const songsArray = sortBy(action.songs, ['id']);
+       const songsArray = shuffle(sortBy(action.songs, ['id'])).slice(0,7);
+      //  const songsArray = sortBy(action.songs, ['id']);
        return {...state, songs: songsArray, currentID: songsArray[0].id };
      case PLAY:
      case PAUSE:
@@ -127,7 +138,7 @@ function getAudioState(audio) {
      case TOGGLE_SHUFFLE:
        return {...state, isShuffling: !state.isShuffling, songs: shuffle(state.songs.map(clone)) };
      case ADD_TO_QUEUE:
-       return {...state, songs: action.songs };
+       return {...state, songs: state.songs.concat(action.songs) };
      default:
        return state
    }

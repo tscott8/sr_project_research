@@ -3,13 +3,20 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise'
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
-import {SET_TIME} from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes'
 const debugware = [];
 if (process.env.NODE_ENV !== 'production') {
   const createLogger = require('redux-logger');
   debugware.push(createLogger({
     collapsed: true,
-    predicate: (getState, action) => action.type !== SET_TIME
+    predicate: (getState, action) => (
+      action.type !== types.SET_TIME
+      && action.type !== types.SET_PROGRESS
+      && action.type !== types.UPDATE_VOLUME
+      && action.type !== types.INITIALIZE
+
+    )
+
   }));
 }
 

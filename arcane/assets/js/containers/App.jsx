@@ -89,6 +89,7 @@ export default class App extends Component {
   handleEnd = () => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.next(audio);
+    this.props.updateQueue(audio)
   }
 
   handleToggleLoop = () => {

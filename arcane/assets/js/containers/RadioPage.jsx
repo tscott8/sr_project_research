@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import Radio from '../components/Radio'
-import { TracksCollection } from '../components/Collections'
 import * as TrackActions from '../actions/TrackActions'
 import Tile from '../components/Tile'
 

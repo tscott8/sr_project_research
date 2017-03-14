@@ -56,6 +56,22 @@ export default class CollectionTabs extends Component {
     this.setState({
       slideIndex: value,
     });
+    // const { dispatch } = this.props;
+    // switch (value) {
+    //   case 0:
+    //     dispatch(GenreActions.getGenres());
+    //   case 1:
+    //     dispatch(ArtistActions.getArtists());
+    //   case 2:
+    //     dispatch(AlbumActions.getAlbums());
+    //   case 3:
+    //     dispatch(TrackActions.getTracks());
+    //     break;
+    //   default:
+    //     break;
+    //
+    // }
+
   };
   sortByTag (prop, arr) {
     prop = prop.split('.');
