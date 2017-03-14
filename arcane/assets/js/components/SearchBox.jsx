@@ -28,7 +28,7 @@ const fruit = [
   'Ugli fruit',
   'Watermelon',
 ];
-const SearchBox = ({isOpen, onClick}) => {
+const SearchBox = (props) => {
     const baseStyles = {
         open: {
             width:'inherit',
@@ -55,22 +55,22 @@ const SearchBox = ({isOpen, onClick}) => {
             display:'inline-flex'
         }
     };
-const textStyle = isOpen ? baseStyles.open : baseStyles.closed;
+const textStyle = props.isOpen ? baseStyles.open : baseStyles.closed;
 const divStyle = Object.assign({}, textStyle, baseStyles.frame);
     divStyle.width += baseStyles.icon.width + 5;
 return (
         <div id="searchBox" style={divStyle}>
           <AutoComplete
             id={'searchField'}
-            dataSource={fruit}
+            dataSource={props.dataSource.length > 0 ? props.dataSource : fruit}
             filter={AutoComplete.fuzzyFilter}
             fullWidth={true}
             style={textStyle}
             menuProps={{maxHeight:'75vh'}}/>
-            <IconButton
-              iconStyle={{color:'red'}} 
-              iconClassName="material-icons"
-              onClick={() => onClick()}>
+          <IconButton
+            iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
+            iconClassName="material-icons"
+            onClick={() => props.onClick()}>
             search
             </IconButton>
         </div>

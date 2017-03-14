@@ -13,8 +13,8 @@ const makeExpanding = (Target) => {
         render() {
             return (
                 <Target {...this.props}
-                        isOpen={this.state.isOpen}
-                        onClick={this.onClick}
+                  isOpen={this.state.isOpen}
+                  onClick={this.onClick}
                 />
             );
         }

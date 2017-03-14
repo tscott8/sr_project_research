@@ -10,15 +10,14 @@ import FloatingControls from '../components/FloatingControls'
 import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
-
+import {Paper} from 'material-ui'
 const appBody = {
   width:'100%',
   height:'100%',
-  background: 'rgb(70, 70, 70) repeat top center fixed',
+  background: theme.palette.primary2Color + ' repeat top center fixed',
   backgroundSize:'cover',
   position:'fixed'
 };
-
 @connect(
   state => ({audio: state.audio}),
   dispatch => bindActionCreators(AudioActions, dispatch)
@@ -121,37 +120,37 @@ export default class App extends Component {
      const currentPage = this.props.routes[this.props.routes.length-1].path
      return (
         <MuiThemeProvider muiTheme={theme}>
-          <div style={appBody}>
-             <Audio ref="audio"
-               autoplay={false}
-               source={song.url}
-               onProgress={this.handleProgress}
-               onTimeupdate={this.handleTimeupdate}
-               onError={this.handleError}
-               onEnded={this.handleEnd}
-               onLoadedData={this.handleLoadedData}
-               onCanPlay={this.handlePlay} />
+          <div style={appBody} >
+            <Audio ref="audio"
+              autoplay={false}
+              source={song.url}
+              onProgress={this.handleProgress}
+              onTimeupdate={this.handleTimeupdate}
+              onError={this.handleError}
+              onEnded={this.handleEnd}
+              onLoadedData={this.handleLoadedData}
+              onCanPlay={this.handlePlay} />
 
             <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
-               onNext={this.handleNext}
-               onPlay={this.handlePlay}
-               onPrevious={this.handlePrevious}
-               onToggleShuffle={this.handleToggleShuffle}
-               onToggleLoop={this.handleToggleLoop}
-               onSetTime={this.handleTrackClick}
-               percent={percent}
-               isPlaying={isPlaying}
-               isShuffling={isShuffling}
-               isLooping={isLooping}
-               queue={songs}
-               currentID = {currentID}/>
+              onNext={this.handleNext}
+              onPlay={this.handlePlay}
+              onPrevious={this.handlePrevious}
+              onToggleShuffle={this.handleToggleShuffle}
+              onToggleLoop={this.handleToggleLoop}
+              onSetTime={this.handleTrackClick}
+              percent={percent}
+              isPlaying={isPlaying}
+              isShuffling={isShuffling}
+              isLooping={isLooping}
+              queue={songs}
+              currentID = {currentID}/>
             {this.props.children}
             <FloatingControls
-               isPlaying={isPlaying}
-               onPlay={this.handlePlay}
-               onNext={this.handleNext}
-               percent={percent}
-              />
+              isPlaying={isPlaying}
+              onPlay={this.handlePlay}
+              onNext={this.handleNext}
+              percent={percent}
+            />
           </div>
         </MuiThemeProvider>
     );

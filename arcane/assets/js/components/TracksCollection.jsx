@@ -69,6 +69,7 @@ export default class TracksCollection extends Component {
   renderTrackItemMenu() {
     return(
       <IconMenu
+        style={{position: 'absolute', top:10, right:40}}
         iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
         targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
@@ -100,19 +101,21 @@ export default class TracksCollection extends Component {
           <MenuItem
             key={'track_list_item_'+ track.id}
             animation={null}
-            // style={{maxWidth:'100%'}}
-            innerDivStyle={{padding:0, position:'relative'}}
+            // style={{overflowX:'hidden'}}
+            innerDivStyle={{padding:0}}
             value={track}>
             <Divider/>
             <ListItem
-              style={{maxWidth:'99%'}}
-              innerDivStyle={{whiteSpace:'pre-line', }}
+              // style={{}}
+              // innerDivStyle={{whiteSpace:'pre-line',}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
+              // primaryText={<span style={{width:'75%', display:'block',}}>{track.name}</span>}
+              // secondaryText={<span style={{width:'75%', display:'block',paddingBottom:0}}>{track.artist.name + ' - ' + track.duration}</span>}
               rightIconButton={this.renderTrackItemMenu()}
               leftAvatar={this.renderArt(track)
-          }/>
+              }/>
           </MenuItem>
       ))
       return arr;
@@ -122,11 +125,11 @@ export default class TracksCollection extends Component {
     const {tracks} = this.props;
     return(
       <Menu
-        // autoWidth={true}
-        // desktop={false}
-        width={'100%'}
-        // style={{maxWidth:'100vw'}}
-        listStyle={{paddingTop:0, maxWidth:'100vw'}}
+        autoWidth={true}
+        desktop={false}
+        // width={'inherit'}
+        // style={{width:'100%'}}
+        listStyle={{paddingTop:0, paddingBottom:0, width:'100%'}}
         disableAutoFocus={true}
         // menuItemStyle={{padding:0}}
         selectedMenuItemStyle={{backgroundColor:'red'}}

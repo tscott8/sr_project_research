@@ -104,8 +104,8 @@ class ListDialog extends Component {
              overflow:'hidden',
              textShadow:'1px 1px black',
              //  height:250,
-       }}
-           bodyStyle={{padding:0,margin:0, maxWidth:'100%'}}
+           }}
+           bodyStyle={{padding:0,margin:0, width:'100%', overflowX:'hidden'}}
            open={this.props.open}
            title={this.renderDialogTitle(title, subtitle)}
            onRequestClose={this.props.onClose}

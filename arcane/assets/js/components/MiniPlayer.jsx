@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import {FontIcon, FloatingActionButton, Slider, IconButton, List, ListItem, Divider, Avatar} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import { DefaultControl, IconChangeControl, ColoredControl } from './PlaybackControls'
+import { fade } from 'material-ui/utils/colorManipulator'
+import {redA700, cyan700 } from 'material-ui/styles/colors'
+
 const url = "http://localhost:8000/";
 
 
@@ -138,7 +141,7 @@ export default class MiniPlayer extends Component {
   }
   renderEQIcon(track) {
     const {currentID} = this.props;
-    return(track.id === currentID ? <IconButton iconStyle={{color:'red'}} iconClassName="material-icons">equalizer</IconButton>
+    return(track.id === currentID ? <IconButton iconStyle={{color: redA700}} iconClassName="material-icons">equalizer</IconButton>
                                   : <IconButton iconClassName="material-icons">play_arrow</IconButton>);
   }
   renderQueueList() {
@@ -147,18 +150,19 @@ export default class MiniPlayer extends Component {
         <div>
           <Divider/>
           <ListItem
+            hoverColor={fade(cyan700, 0.3)}
             primaryText={track.name}
             secondaryText={track.artist.name}
             leftAvatar={<Avatar
-                          style={style.queueArt}
-                          src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}
+              style={style.queueArt}
+              src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>}
             rightIconButton={this.renderEQIcon(track)}/>
         </div>
     ))
     return (<List style={style.queue}>{q}</List>);
   }
 
-  
+
   renderOverlay () {
     let cur_song = this.getNowPlayingSong();
       return (

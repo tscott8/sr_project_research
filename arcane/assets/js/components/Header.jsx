@@ -1,40 +1,8 @@
 import React, { Component } from 'react'
-import { AppBar,Drawer,IconMenu, IconButton, DropdownMenu, AutoComplete, MenuItem} from 'material-ui'
+import { AppBar, Drawer} from 'material-ui'
 import ArcaneDrawer from './ArcaneDrawer'
 import NowPlayingDrawer from './NowPlayingDrawer'
-import SearchBox from './SearchBox'
-import makeExpanding from './ExpandingAnimation';
-
-const ExpandingSearchBox = makeExpanding(SearchBox);
-
-export class RightActions extends Component {
-  constructor(props){
-    super(props);
-  }
-    render() {
-      return (
-        <div>
-          <ExpandingSearchBox dataSource={[]}/>
-          <IconMenu
-            iconStyle={{color:'red'}}
-            iconButtonElement={<IconButton iconClassName="material-icons">person</IconButton>}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
-            <MenuItem primaryText="Profile" />
-            <MenuItem primaryText="Help" />
-            <MenuItem primaryText="Sign out" />
-          </IconMenu>
-          <IconButton
-            iconStyle={{color:'red'}}
-            onClick={this.props.drawerClick}
-            iconClassName="material-icons">queue_music</IconButton>
-        </div>
-
-      );
-    }
-}
-
-
+import RightActions from './RightActions';
 
 export default class Header extends Component  {
 

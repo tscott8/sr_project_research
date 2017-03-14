@@ -43,9 +43,9 @@ const collectionStyles = {
       minWidth: 100
     },
   },
-  href: {
-    color:'white'
-  }
+  // href: {
+  //   color:'white'
+  // }
 };
 export class GenresCollection extends Component {
   constructor(props) {
