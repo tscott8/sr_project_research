@@ -148,7 +148,9 @@ export default class MiniPlayer extends Component {
   renderQueueList() {
     const {queue} = this.props;
       let q = queue.map((track) => (
-        <div>
+        <div
+          key={'miniplayer_queue_track_'+track.id}
+        >
           <Divider/>
           <ListItem
             hoverColor={fade(theme.palette.accent1Color, 0.3)}

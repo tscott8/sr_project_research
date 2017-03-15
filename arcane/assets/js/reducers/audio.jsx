@@ -49,7 +49,7 @@
    nextIndex = nextIndex < 0 ? songs.length-1 : nextIndex > songs.length-1 ? 0 : nextIndex;
    let complete = songs.shift();
 
-   console.log(complete);
+  //  console.log(complete);
    return songs[nextIndex-1].id;
  }
 
@@ -68,7 +68,7 @@ function getAudioState(audio) {
 
  function shuffle(array) {
     // console.info(array);
-    let saved = [array.shift()];
+    let saved = array.shift();
     console.log(saved)
     let counter = array.length;
      // While there are elements in the array
@@ -84,15 +84,16 @@ function getAudioState(audio) {
          array[counter] = array[index];
          array[index] = temp;
      }
-     let merged = [];
-     if ( saved instanceof Array )
-        merged = saved.concat( array );
-    else
-      merged.push( array );
-
-    //  let merged = saved.concat(array);
-     console.log(merged)
-     return merged;
+     array.unshift(saved)
+    //  let merged = [];
+    //  if ( saved instanceof Array )
+    //     merged = saved.concat( array );
+    // else
+    //   merged.push( array );
+    //
+    // //  let merged = saved.concat(array);
+    //  console.log(merged)
+     return array;
  }
 
 
