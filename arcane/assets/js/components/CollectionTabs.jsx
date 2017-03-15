@@ -127,7 +127,7 @@ export default class CollectionTabs extends Component {
       <GenresCollection select={this.props.select} selectedTracks={this.props.selectedTracks} genres={this.props.genres} dispatch={this.props.dispatch}   cols={8}/>,
       <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists.allArtists} dispatch={this.props.dispatch} cols={8}/>,
       <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums.allAlbums} dispatch={this.props.dispatch} cols={8}/>,
-      <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks}/>,
+      <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks} dispatch={this.props.dispatch} />,
     ];
     return contents[index];
   }

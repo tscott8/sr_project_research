@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes';
 import cookie from 'react-cookie';
 
 
-const host = "http://localhost:8000/api/tracks";
+const host = "http://localhost:8000/api/tracks/";
 
 export function getTracks() {
   return fetch(host).then(response => response.json()).then(json => ({
@@ -40,3 +40,10 @@ export function uploadTracks(files) {
             status: status
           }));
         };
+
+export function getNextTracks(url) {
+   return fetch(url).then(response => response.json()).then(json => ({
+             type:types.GET_NEXT_TRACKS,
+             tracks: json
+           }));
+};

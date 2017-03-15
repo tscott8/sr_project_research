@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets, filters
 
 from .models import Settings, User, Login, Playlist
-from arcane.browse.api import TrackSerializer
+from arcane.browse.api import TrackSerializer, ArtistSerializer
 
 class SettingsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -20,6 +20,7 @@ class SettingsViewSet(viewsets.ModelViewSet):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     settings = SettingsSerializer(read_only=True)
+    artist = ArtistSerializer(read_only=True)
     class Meta:
         model = User
         fields = ('id', 'name', 'email', 'location', 'avatar', 'artist', 'settings')

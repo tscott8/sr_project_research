@@ -1,4 +1,4 @@
-import {GET_TRACKS, GET_ALBUM_TRACKS, POST_TRACKS} from '../constants/ActionTypes';
+import {GET_TRACKS, GET_NEXT_TRACKS, GET_ALBUM_TRACKS, POST_TRACKS} from '../constants/ActionTypes';
 
 const initialState = {
    allTracks: [],
@@ -6,10 +6,18 @@ const initialState = {
 };
 
 export default function tracks(state = initialState, action) {
+   let allTracks = []
    switch (action.type){
       case GET_TRACKS:
-         const allTracks = action.tracks;
+         allTracks = action.tracks;
          return {...state, allTracks};
+      case GET_NEXT_TRACKS:
+         let tracksArray = state.allTracks.results;
+         tracksArray = tracksArray.concat(action.tracks.results);
+         console.info(tracksArray);
+         allTracks = action.tracks;
+         allTracks.results = tracksArray;
+         return {...state, allTracks: allTracks};
       case GET_ALBUM_TRACKS:
          const albumTracks = action.tracks;
          return {...state, albumTracks};
