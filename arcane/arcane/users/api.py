@@ -26,9 +26,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'email', 'location', 'avatar', 'artist', 'settings')
 
 class UserViewSet(viewsets.ModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('id', 'name', 'email', 'artist')
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    filter_fields = ('id', 'name', 'email', 'artist')
+    lookup_field = "id"
 
     def perform_create(self, serializer):
         serializer.save()

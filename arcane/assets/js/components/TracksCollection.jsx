@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import { FontIcon, Avatar, IconButton, IconMenu, Menu, MenuItem, Divider, List, ListItem} from 'material-ui'
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
+import Waypoint from 'react-waypoint'
 import * as TrackActions from '../actions/TrackActions'
 import Tile from './Tile'
 import theme from '../constants/material-ui-theme'
@@ -149,9 +150,12 @@ export default class TracksCollection extends Component {
           {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
           {this.renderTracksListItems(tracks.results)}
         </Menu>
-        <IconButton iconClassName="material-icons" onClick={this.loadMore}
+        <Waypoint
+           onEnter={this.loadMore}
+           />
+        {/*<IconButton iconClassName="material-icons" onClick={this.loadMore}
            //disabled={this.props.tracks.next}
-           >expand_more</IconButton>
+           >expand_more</IconButton>*/}
       </div>
     );
   }
