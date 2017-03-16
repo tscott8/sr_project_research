@@ -79,7 +79,7 @@ export default class TracksCollection extends Component {
   renderTrackItemMenu() {
     return(
       <IconMenu
-        style={{top:12, right:36}}
+        style={{top:12, right:20}}
         iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
         targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
@@ -112,11 +112,11 @@ export default class TracksCollection extends Component {
             key={'track_list_item_'+ track.id}
             animation={null}
             style={{padding:0}}
-            innerDivStyle={{padding:0}}
+            innerDivStyle={{padding:0, maxWidth:'100vw'}}
             value={track}>
             <Divider/>
             <ListItem
-              style={{paddingRight:0}}
+              style={{paddingRight:0, width:'100%'}}
               innerDivStyle={{whiteSpace:'pre-line', paddingRight:0, textShadow:'1px 1px black'}}
               disabled={true}
               primaryText={track.name}
