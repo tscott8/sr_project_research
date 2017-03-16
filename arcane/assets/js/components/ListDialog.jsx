@@ -1,15 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, ListItem, IconButton} from 'material-ui'
 import{ CardTitle} from 'material-ui/Card'
 import TracksCollection  from './TracksCollection'
 import AlbumsCollection  from './AlbumsCollection'
 import ArtistsCollection  from './ArtistsCollection'
-
-import * as TrackActions from '../actions/TrackActions'
-import * as AlbumActions from '../actions/AlbumActions'
-import * as ArtistActions from '../actions/ArtistActions'
-import sortBy from 'lodash/sortBy';
 
 
 const styles = {
@@ -40,7 +34,7 @@ const styles = {
    }
 }
 
-class ListDialog extends Component {
+export default class ListDialog extends Component {
    constructor(props) {
       super(props);
    }
@@ -129,18 +123,3 @@ class ListDialog extends Component {
    }
  }
 }
-
-
-ListDialog.propTypes = {
-   dispatch: PropTypes.func.isRequired,
-   tracks:   PropTypes.object.isRequired,
-   albums:   PropTypes.object.isRequired,
-   artists:  PropTypes.object.isRequired
-}
-
-function mapStateToProps(state) {
-   const { tracks, albums, artists} = state
-   return { tracks, albums, artists };
-}
-
-export default connect(mapStateToProps)(ListDialog);

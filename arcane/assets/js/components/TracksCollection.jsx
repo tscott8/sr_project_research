@@ -32,7 +32,7 @@ export default class TracksCollection extends Component {
   renderTrackItemMenu() {
     return(
       <IconMenu
-        style={{top:12, right:20}}
+        style={{top:12, right:36}}
         iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
         targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
@@ -64,19 +64,20 @@ export default class TracksCollection extends Component {
   }
 
   renderTracksListItems(tracks) {
-    ListItem.defaultProps.disableTouchRipple=true;
+    // ListItem.defaultProps.disableTouchRipple=true;
     if (tracks) {
       let arr = tracks.map((track) => (
           <MenuItem
+            id={'tracks_collection_menu_item'+track.id}
             key={'track_list_item_'+ track.id}
             animation={null}
-            style={{padding:0}}
-            innerDivStyle={{padding:0, maxWidth:'100vw'}}
+            innerDivStyle={{padding:0, width:'100%'}}
             value={track}>
             <Divider/>
             <ListItem
+              id={'tracks_collection_menu_item_list_item'+track.id}
               // style={{paddingRight:0, width:'100%'}}
-              // innerDivStyle={{whiteSpace:'pre-line', paddingRight:0,}}
+              innerDivStyle={{whiteSpace:'pre-line'}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
@@ -93,11 +94,12 @@ export default class TracksCollection extends Component {
     return(
       <div style={{width:'100%',height:'100%'}}>
         <Menu
+          id={'tracks_collection_menu'}
           autoWidth={true}
-          desktop={false}
-          // width={'inherit'}
-          // style={{width:'100%'}}
-          listStyle={{paddingTop:0, paddingBottom:0, maxWidth:'100%'}}
+          // desktop={false}
+          // width={'100%'}
+          // style={{minWidth:'100% '}}
+          listStyle={{paddingTop:0, paddingBottom:0, paddingRight:0, margin:0, maxWidth:'100%'}}
           disableAutoFocus={true}
           // menuItemStyle={{padding:0}}
           selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}

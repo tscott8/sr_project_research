@@ -25,7 +25,7 @@ class MyMusic extends Component {
   }
 
   addToSelected(items) {
-    console.log('selected items:', items)
+    // console.log('selected items:', items)
     this.setState({
       selected: items
     });

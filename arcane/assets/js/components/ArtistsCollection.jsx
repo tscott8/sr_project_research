@@ -42,7 +42,7 @@ export default class ArtistsCollection extends Component {
     if(artists){
     return(
         <GridList
-          style={{margin:0, marginTop:2, width:'100%', height:'100%'}}
+          style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
           cols={cols}>
           {this.renderArtistTiles(artists.results)}
         </GridList>
