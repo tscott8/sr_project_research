@@ -82,9 +82,6 @@ class Album(models.Model):
     genre = models.ForeignKey(Genre, blank=True, null=True)
     artwork = models.ImageField(upload_to=upload_album_artwork, blank=True, null=True)
 
-    # def __str__(self):
-    #     return '%d: %s' % (self.id, self.name)
-
     def __str__(self):
         return self.name
 
@@ -148,8 +145,7 @@ class Track(models.Model):
     order = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        # unique_together = ('album', 'order')
-        ordering = ['order']
+        unique_together = ('album', 'order')
 
     def __str__(self):
         # return '%d: %s' % (self.id, self.name)

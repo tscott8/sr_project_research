@@ -17,7 +17,6 @@ const styles = {
     maxHeight:'85vh',
     maxWidth:'80vw',
     marginTop:10,
-
   },
   headline: {
     fontSize: 24,
@@ -26,16 +25,10 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    padding:0,
-    // maxHeight: 'inherit'
-    maxHeight:'calc(100vh - 114px)',
+    padding: 0,
+    height:'calc(100vh - 114px)',
     maxWidth:'100vw'
   },
-  swipes: {
-    // maxWidth:'100vw'
-
-    // maxHeight:'calc(100vh - 114px)',
-  }
 };
 export default class CollectionTabs extends Component {
 
@@ -73,23 +66,23 @@ export default class CollectionTabs extends Component {
     // }
 
   };
-  sortByTag (prop, arr) {
-    prop = prop.split('.');
-    var len = prop.length;
-
-    arr.sort(function (a, b) {
-        var i = 0;
-        while( i < len ) { a = a[prop[i]]; b = b[prop[i]]; i++; }
-        if (a < b) {
-            return -1;
-        } else if (a > b) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-    return arr;
-  }
+  // sortByTag (prop, arr) {
+  //   prop = prop.split('.');
+  //   var len = prop.length;
+  //
+  //   arr.sort(function (a, b) {
+  //       var i = 0;
+  //       while( i < len ) { a = a[prop[i]]; b = b[prop[i]]; i++; }
+  //       if (a < b) {
+  //           return -1;
+  //       } else if (a > b) {
+  //           return 1;
+  //       } else {
+  //           return 0;
+  //       }
+  //   });
+  //   return arr;
+  // }
   renderCount(countIndex) {
     const {genres,artists,albums,tracks} = this.props;
     let counts = [
@@ -117,24 +110,22 @@ export default class CollectionTabs extends Component {
   return tabs;
   }
   renderSlide(index) {
-    const {tracks, artists, albums, genres} = this.props;
-    const sortedTracks = tracks.allTracks.results ? this.sortByTag('name', tracks.allTracks.results) : [];
-    const sortedAlbums = albums.allAlbums.results ? this.sortByTag('name', albums.allAlbums.results) : [];
-    const sortedArtists = artists.allArtists.results ? this.sortByTag('name', artists.allArtists.results) : [];
-    const sortedGenres = genres.results ? this.sortByTag('name', genres.results) : [];
-
+    const {tracks, artists, albums, genres, select, selectedTracks, dispatch} = this.props;
     let contents = [
-      <GenresCollection select={this.props.select} selectedTracks={this.props.selectedTracks} genres={this.props.genres} dispatch={this.props.dispatch}   cols={8}/>,
-      <ArtistsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} artists={this.props.artists.allArtists} dispatch={this.props.dispatch} cols={8}/>,
-      <AlbumsCollection select={this.props.select} selectedTracks={this.props.selectedTracks} albums={this.props.albums.allAlbums} dispatch={this.props.dispatch} cols={8}/>,
-      <TracksCollection select={this.props.select} selectedTracks={this.props.selectedTracks} tracks={this.props.tracks.allTracks} dispatch={this.props.dispatch} />,
+      <GenresCollection select={select} selectedTracks={selectedTracks} genres={genres} dispatch={dispatch} cols={8}/>,
+      <ArtistsCollection select={select} selectedTracks={selectedTracks} artists={artists.allArtists} dispatch={dispatch} cols={8}/>,
+      <AlbumsCollection select={select} selectedTracks={selectedTracks} albums={albums.allAlbums} dispatch={dispatch} cols={8}/>,
+      <TracksCollection select={select} selectedTracks={selectedTracks} tracks={tracks.allTracks} dispatch={dispatch} />,
     ];
     return contents[index];
   }
   renderSlides() {
     let contents = [0,1,2,3];
     let slides = contents.map((slide) => (
-      <div  key ={slide} style={styles.slide}>
+      <div
+        id={'collection_slide_content_'+slide}
+        key={'collection_slide_content_'+slide}
+        style={styles.slide}>
         {this.renderSlide(slide)}
       </div>
     ))
@@ -144,13 +135,14 @@ export default class CollectionTabs extends Component {
     return (
       <div>
         <Tabs
+          id={"collection_tabs_header"}
           onChange={this.handleChange}
           value={this.state.slideIndex}>
           {this.renderTabs()}
         </Tabs>
 
         <SwipeableViews
-          style={styles.swipes}
+          id={'collection_swipe_views'}
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}>
           {this.renderSlides()}

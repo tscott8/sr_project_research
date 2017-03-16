@@ -5,44 +5,28 @@ import MediaQuery from 'react-responsive'
 
 const url = "http://localhost:8000/";
 
-const collectionStyles = {
-  root: {
-    width:'100%',
-    height:'100%'
-
-  },
-  gridList: {
-    margin:0,
-    marginTop:2,
-    width:'100%',
-    height:'100%',
-    overflowY:'auto'
-  },
-};
-
-
 export default class AlbumsCollection extends Component {
   constructor(props) {
     super(props);
   }
   renderAlbumTiles(albums) {
+    const {select, selectedTracks, dispatch} = this.props;
     if (albums) {
       let arr = albums.map((tile) => (
         <GridTile
+          className="boxTile"
           key={'albumTile_'+ tile.id}
           cols={1}
-          rows={1}
-          className="boxTile"
-        >
+          rows={1}>
           <Tile
             title={tile.name}
             subtitle={tile.artist.name}
             imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
             tracks={tile.tracks}
-            select={this.props.select}
-            selectedTracks={this.props.selectedTracks}
+            select={select}
+            selectedTracks={selectedTracks}
             id={tile.id}
-            dispatch={this.props.dispatch}
+            dispatch={dispatch}
             type={'album'}/>
         </GridTile>
 
@@ -53,31 +37,29 @@ export default class AlbumsCollection extends Component {
   renderGrid (cols) {
     const {albums} = this.props;
     if(albums){
-    return(
-        // style={collectionStyles.root}>
-        <GridList
-          cols={cols}
-          // cellHeight={'auto'}
-          style={collectionStyles.gridList}
-        >
-          {this.renderAlbumTiles(albums.results)}
-        </GridList>
-        );
-  }
+      return(
+          <GridList
+            style={{margin:0, marginTop:2, width:'100%', height:'100%', overflowY:'auto'}}
+            cols={cols}>
+            {this.renderAlbumTiles(albums.results)}
+          </GridList>
+          );
+    }
   }
   render() {
+    const {cols} = this.props;
     return(
-      <div>
+      <div style={{width:'100%',height:'100%'}}>
         <MediaQuery query='(min-device-width: 560px)'>
           <MediaQuery query='(max-width: 559px)'>
-            {this.renderGrid(this.props.cols/2)}
+            {this.renderGrid(cols/2)}
           </MediaQuery>
           <MediaQuery query='(min-width: 560px)'>
-            {this.renderGrid(this.props.cols)}
+            {this.renderGrid(cols)}
           </MediaQuery>
         </MediaQuery>
         <MediaQuery query='(max-device-width: 559px)'>
-          {this.renderGrid(this.props.cols/2)}
+          {this.renderGrid(cols/2)}
          </MediaQuery>
       </div>
     );

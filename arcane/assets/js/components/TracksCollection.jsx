@@ -6,38 +6,8 @@ import Waypoint from 'react-waypoint'
 import * as TrackActions from '../actions/TrackActions'
 import Tile from './Tile'
 import theme from '../constants/material-ui-theme'
+
 const url = "http://localhost:8000/";
-
-const collectionStyles = {
-  root: {
-    width:'100%',
-    height:'100%'
-
-  },
-  gridList: {
-    margin:0,
-    marginTop:2,
-    width:'100%',
-    height:'100%',
-  },
-  table: {
-    // maxHeight:'calc(100vh - 114px)',
-
-  },
-  artistTile: {
-    root:{
-    },
-    img:{
-      maxHeight:'calc(100vw/8)',
-      maxWidth: 'calc(100vw/8)',
-      minHeight:100,
-      minWidth: 100
-    },
-  },
-  href: {
-    color:'white'
-  }
-};
 
 export default class TracksCollection extends Component {
   constructor(props) {
@@ -48,31 +18,14 @@ export default class TracksCollection extends Component {
   }
 
   handleChange = (event, value) => {
-    this.props.select ? this.props.select(value) : console.log('No select function prop');
-  }
-
-  sortTracks (prop, arr) {
-    prop = prop.split('.');
-    var len = prop.length;
-
-    arr.sort(function (a, b) {
-        var i = 0;
-        while( i < len ) { a = a[prop[i]]; b = b[prop[i]]; i++; }
-        if (a < b) {
-            return -1;
-        } else if (a > b) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-    return arr;
+    const {select} = this.props;
+    select ? select(value) : console.log('No select function prop');
   }
 
   loadMore = () => {
-     console.info(this.props);
-     if (this.props.tracks.next) {
-        this.props.dispatch(TrackActions.getNextTracks(this.props.tracks.next));
+     const {tracks,dispatch} = this.props;
+     if (tracks.next) {
+        dispatch(TrackActions.getNextTracks(tracks.next));
      }
   }
 
@@ -95,7 +48,8 @@ export default class TracksCollection extends Component {
     );
   }
   renderArt(track) {
-    if (!this.props.noArt && track) {
+    const {noArt} = this.props;
+    if (!noArt && track) {
       return (
         <Avatar
           style={{borderRadius:'0%'}}
@@ -116,13 +70,11 @@ export default class TracksCollection extends Component {
             value={track}>
             <Divider/>
             <ListItem
-              style={{paddingRight:0, width:'100%'}}
+              // style={{paddingRight:0, width:'100%'}}
               innerDivStyle={{whiteSpace:'pre-line', paddingRight:0, textShadow:'1px 1px black'}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
-              // primaryText={<span style={{width:'75%', display:'block',}}>{track.name}</span>}
-              // secondaryText={<span style={{width:'75%', display:'block',paddingBottom:0}}>{track.artist.name + ' - ' + track.duration}</span>}
               rightIconButton={this.renderTrackItemMenu()}
               leftAvatar={this.renderArt(track)
               }/>
@@ -132,9 +84,9 @@ export default class TracksCollection extends Component {
     }
   }
   render() {
-    const {tracks} = this.props;
+    const {tracks, selectedTracks} = this.props;
     return(
-      <div style={collectionStyles.root}>
+      <div style={{width:'100%',height:'100%'}}>
         <Menu
           autoWidth={true}
           desktop={false}
@@ -146,16 +98,13 @@ export default class TracksCollection extends Component {
           selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}
           multiple={true}
           onChange={this.handleChange}
-          value={this.props.selectedTracks ? this.props.selectedTracks : []}>
+          value={selectedTracks ? selectedTracks : []}>
           {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
           {this.renderTracksListItems(tracks.results)}
         </Menu>
         <Waypoint
-           onEnter={this.loadMore}
-           />
-        {/*<IconButton iconClassName="material-icons" onClick={this.loadMore}
-           //disabled={this.props.tracks.next}
-           >expand_more</IconButton>*/}
+          onEnter={this.loadMore}
+        />
       </div>
     );
   }
