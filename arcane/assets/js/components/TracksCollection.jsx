@@ -56,6 +56,11 @@ export default class TracksCollection extends Component {
           src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>
      );
     }
+    if (noArt && track) {
+      return (
+        <Avatar style={{backgroundColor:'transparent', color:'white'}}>{track.order}</Avatar>
+      );
+    }
   }
 
   renderTracksListItems(tracks) {
@@ -71,13 +76,13 @@ export default class TracksCollection extends Component {
             <Divider/>
             <ListItem
               // style={{paddingRight:0, width:'100%'}}
-              innerDivStyle={{whiteSpace:'pre-line', paddingRight:0, textShadow:'1px 1px black'}}
+              // innerDivStyle={{whiteSpace:'pre-line', paddingRight:0,}}
               disabled={true}
               primaryText={track.name}
               secondaryText={track.artist.name + ' - ' + track.duration}
               rightIconButton={this.renderTrackItemMenu()}
-              leftAvatar={this.renderArt(track)
-              }/>
+              leftAvatar={this.renderArt(track)}
+            />
           </MenuItem>
       ))
       return arr;

@@ -140,13 +140,17 @@ export default class CollectionTabs extends Component {
           value={this.state.slideIndex}>
           {this.renderTabs()}
         </Tabs>
-
-        <SwipeableViews
+        <div style={{overflowY:'auto', overflowX:'hidden', height:'calc(100vh - 114px)'}}>
+          <div id={'collection_slide_content_'+this.state.slideIndex} style={styles.slide}>
+            {this.renderSlide(this.state.slideIndex)}
+          </div>
+        </div>
+        {/* <SwipeableViews
           id={'collection_swipe_views'}
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}>
           {this.renderSlides()}
-        </SwipeableViews>
+        </SwipeableViews> */}
       </div>
     );
   }

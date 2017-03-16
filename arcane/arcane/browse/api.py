@@ -24,7 +24,8 @@ class GenreViewSet(viewsets.ModelViewSet):
 
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
-    genre = GenreSerializer(read_only=True)
+    # genre = GenreSerializer(read_only=True)
+    genre=serializers.StringRelatedField(read_only=True)
     albums = serializers.StringRelatedField(many=True)
     class Meta:
         model = Artist
@@ -44,8 +45,10 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
-    artist = ArtistSerializer(read_only=True)
-    genre = GenreSerializer(read_only=True)
+    # artist = ArtistSerializer(read_only=True)
+    # genre = GenreSerializer(read_only=True)
+    artist=serializers.StringRelatedField(read_only=True)
+    genre=serializers.StringRelatedField(read_only=True)
     tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Album
@@ -66,7 +69,8 @@ class AlbumViewSet(viewsets.ModelViewSet):
 
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
-    genre = GenreSerializer(read_only=True)
+    # genre = GenreSerializer(read_only=True)
+    genre=serializers.StringRelatedField(read_only=True)
     album = AlbumSerializer(read_only=True)
 
     class Meta:
@@ -76,10 +80,11 @@ class TrackSerializer(serializers.HyperlinkedModelSerializer):
 class TrackViewSet(viewsets.ModelViewSet):
     serializer_class = TrackSerializer
     queryset = Track.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter,)
+    filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter, filters.SearchFilter,)
     filter_fields = ('album', 'id', 'name', 'genre')
     ordering_fields = ('order', 'name','album','artist','genre','id')
     ordering = ('name',)
+    search_fields = ('name',)
     lookup_field = "id"
 
     # def filter_queryset(self, queryset):

@@ -20,7 +20,7 @@ export default class AlbumsCollection extends Component {
           rows={1}>
           <Tile
             title={tile.name}
-            subtitle={tile.artist.name}
+            subtitle={tile.artist}
             imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
             tracks={tile.tracks}
             select={select}
@@ -39,7 +39,7 @@ export default class AlbumsCollection extends Component {
     if(albums){
       return(
           <GridList
-            style={{margin:0, marginTop:2, width:'100%', height:'100%', overflowY:'auto'}}
+            style={{margin:0, marginTop:2, width:'100%', height:'100%'}}
             cols={cols}>
             {this.renderAlbumTiles(albums.results)}
           </GridList>

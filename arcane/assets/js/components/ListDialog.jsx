@@ -122,7 +122,7 @@ class ListDialog extends Component {
            //  primary={true}
            //  onTouchTap={onClose}/>}
          >
-           {this.renderContent()}
+           <div> {this.renderContent()}</div>
 
          </Dialog>
       );

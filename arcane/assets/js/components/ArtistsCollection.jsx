@@ -22,7 +22,7 @@ export default class ArtistsCollection extends Component {
         >
           <Tile
             title={tile.name}
-            subtitle={tile.genre.name}
+            subtitle={tile.genre}
             imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
             albums={tile.albums}
             select={select}
@@ -42,7 +42,7 @@ export default class ArtistsCollection extends Component {
     if(artists){
     return(
         <GridList
-          style={{margin:0, marginTop:2, width:'100%', height:'calc(100vh-114px)', overflowY:'auto'}}
+          style={{margin:0, marginTop:2, width:'100%', height:'100%'}}
           cols={cols}>
           {this.renderArtistTiles(artists.results)}
         </GridList>
