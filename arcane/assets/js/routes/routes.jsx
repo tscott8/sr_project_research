@@ -10,6 +10,7 @@ import Browse from '../containers/BrowsePage'
 import About from '../containers/AboutPage'
 import SplashPage from '../containers/SplashPage'
 import Settings from '../containers/SettingsPage'
+import ProfilePage from '../containers/ProfilePage'
 
 export default (
    <Route path="/" component={SplashPage}>
@@ -21,6 +22,7 @@ export default (
          <Route path="browse" component={Browse} />
          <Route path="about" component={About} />
          <Route path="settings" component={Settings} />
+         <Route path="profile" component={ProfilePage} />
          <Route path="*" component={SplashPage} />
       </Route>
       <Route path="*" component={SplashPage} />

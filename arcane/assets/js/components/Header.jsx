@@ -4,6 +4,9 @@ import ArcaneDrawer from './ArcaneDrawer'
 import NowPlayingDrawer from './NowPlayingDrawer'
 import RightActions from './RightActions';
 
+
+const host = 'http://localhost:8000/api/search/'
+
 export default class Header extends Component  {
 
   constructor(props){
@@ -11,7 +14,8 @@ export default class Header extends Component  {
     this.state = {
       leftOpen:false,
       rightOpen:false,
-      searching:false
+      searching:false,
+      dataSource: []
     };
   }
   handleSearchClick() { this.setState({searching: !this.state.searching}); }
@@ -19,6 +23,14 @@ export default class Header extends Component  {
   handleRightToggle() { this.setState({rightOpen: !this.state.rightOpen}); }
   handleLeftClose() { this.setState({leftOpen: false}); }
   handleRightClose() { this.setState({rightOpen: false}); }
+  getSearchResults = (query) => {
+     fetch(host + "?query=" + query)
+     .then(response => response.json())
+     .then(json => (this.setState({
+        dataSource: json.results
+     }), console.log(json.results)))
+
+  }
 
   render() {
       return (
@@ -52,6 +64,8 @@ export default class Header extends Component  {
                 <RightActions
                   searching={this.state.searching}
                   searchClick={this.handleSearchClick.bind(this)}
+                  dataSource={this.state.dataSource}
+                  onUpdate={this.getSearchResults}
                   drawerClick={this.handleRightToggle.bind(this)}/>}
               iconStyleRight={{maxWidth:'66vw'}}
             />
