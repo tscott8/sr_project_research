@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import * as TrackActions from '../actions/TrackActions'
 import * as AlbumActions from '../actions/AlbumActions'
 import * as ArtistActions from '../actions/ArtistActions'
-
-import { Card, CardMedia, CardTitle, Dialog, FlatButton, FloatingActionButton, FontIcon, RaisedButton, GridTile} from 'material-ui'
+import { RaisedButton } from 'material-ui'
 import ListDialog from './ListDialog'
 
 const styles = {
@@ -38,7 +37,7 @@ const styles = {
      maxHeight:'calc(100vw/8)',
      maxWidth: 'calc(100vw/8)',
      minHeight: 100,
-     minWidth: 100,
+     minWidth: 100
    },
    fab: {
       float: 'right',
@@ -55,7 +54,6 @@ const styles = {
      maxHeight:'50%',
      overflow:'hidden',
      whiteSpace:'no-wrap'
-
    },
    hrefsub: {
      color:'gray',
@@ -65,8 +63,6 @@ const styles = {
      maxHeight:'50%',
      overflow:'hidden',
      whiteSpace:'no-wrap'
-
-
    }
 }
 
@@ -74,113 +70,45 @@ const styles = {
 class Tile extends Component {
    constructor(props) {
       super(props);
-
       this.state = {
          expanded: false,
          hover:false
       }
    }
-
-   handleHover() {this.setState({hover: true})}
-   handleLeave() {this.setState({hover: false})}
+   handleHover = () => {this.setState({hover: true})}
+   handleLeave = () => {this.setState({hover: false})}
    handleExpand = () => {
      const { dispatch, type} = this.props;
      if (type === "album") {dispatch(TrackActions.getAlbumTracks(this.props.id))}
      if (type === "artist") {dispatch(AlbumActions.getArtistAlbums(this.props.id))}
      if (type === "genre") {dispatch(ArtistActions.getGenreArtists(this.props.id))}
      this.setState({expanded: true});};
-   handleClose = () => {this.setState({expanded: false});}
-  //  handleExpandChange = (expanded) => {this.setState({expanded: !expanded});};
-  //  handleToggle = () => {
-  //    const { dispatch } = this.props;
-  //    dispatch(TrackActions.getAlbumTracks(this.props.id));
-  //    this.setState({expanded: !this.state.expanded});
-  // };
-  // renderOverlay() {
-  //   const { title, subtitle } = this.props;
-  //   if (this.state.hover) {
-  //     return (
-  //       <FlatButton
-  //        style={styles.cardButton}
-  //        onClick={this.handleToggle}
-  //        label={<div><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
-  //        labelStyle={styles.cardButton.label}/>
-  //     );
-  //   }
-  // }
-  render()  {
-    const { title, subtitle, imgURL } = this.props;
-    return (
-          <RaisedButton
-            style={styles.button}
-            fullWidth={true}
-            buttonStyle={{minHeight:180,padding:0, background: 'url('+ imgURL + ') ',
-            backgroundSize: 'cover', backgroundPosition:'center center'}}
-            backgroundColor={'transparent'}
 
-            //  expanded={this.state.expanded}
-            onMouseEnter={this.handleHover.bind(this)}
-            onMouseLeave={this.handleLeave.bind(this)}
-            onClick={this.handleExpand}
-            label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
-            labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
-          >
-            <ListDialog
-              title={title}
-              subtitle={subtitle}
-              imgURL={imgURL}
-              id={this.props.id}
-              open={this.state.expanded}
-              onClose={this.handleClose}
-              select={this.props.select }
-              selectedTracks={this.props.selectedTracks}
-              tracks={this.props.tracks}
-              albums={this.props.albums}
-              artists={this.props.artists}
-              type={this.props.type}
-            />
+   handleClose = () => {this.setState({expanded: false});}
+   render()  {
+     const { title, subtitle, imgURL } = this.props;
+     return (
+       <RaisedButton
+         backgroundColor={'transparent'}
+         buttonStyle={{minHeight:180,padding:0, background: 'url('+ imgURL + ') ',
+         backgroundSize: 'cover', backgroundPosition:'center center'}}
+         fullWidth
+         label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
+         labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
+         onClick={this.handleExpand}
+         onMouseEnter={this.handleHover}
+         onMouseLeave={this.handleLeave}
+         style={styles.button}
+       >
+         <ListDialog
+           {...this.props}
+           onRequestClose={this.handleClose}
+           open={this.state.expanded}
+         />
        </RaisedButton>
 
     );
  }
-  //  render2() {
-  //     const { title, subtitle, imgURL } = this.props;
-  //     return (
-  //        <div>
-  //           <Card style={styles.card}
-  //              expandable={true}
-  //              expanded={this.state.expanded}
-  //              initiallyExpanded={false}
-  //              onExpandChange={this.handleExpandChange}
-  //              onMouseEnter={this.handleHover.bind(this)}
-  //              onMouseLeave={this.handleLeave.bind(this)}
-  //              >
-   //
-  //              <CardMedia
-  //               overlayContentStyle={{padding:0}}
-  //               overlay={this.renderOverlay()
-  //                 // <FlatButton
-  //                 //  style={styles.cardButton}
-  //                 //  onClick={this.handleToggle}
-  //                 //  label={this.renderOverlay()}
-  //                 //  labelStyle={styles.cardButton.label}/>
-  //               }>
-  //               <img style={styles.img} src={imgURL} />
-  //              </CardMedia>
-  //           </Card>
-  //           <ListDialog
-  //             title={title}
-  //             subtitle={subtitle}
-  //             imgURL={imgURL}
-  //             id={this.props.id}
-  //             open={this.state.expanded}
-  //             onClose={this.handleClose}
-  //             select={this.props.select }
-  //             selectedTracks={this.props.selectedTracks}/>
-  //        </div>
-   //
-  //     );
-  //  }
 }
 Tile.propTypes = {
    dispatch: PropTypes.func.isRequired,

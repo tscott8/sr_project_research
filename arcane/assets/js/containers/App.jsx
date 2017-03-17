@@ -11,6 +11,7 @@ import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
 import {Paper} from 'material-ui'
+
 const appBody = {
   width:'100%',
   height:'100%',
@@ -24,39 +25,32 @@ const appBody = {
 )
 
 export default class App extends Component {
-
-
    componentDidMount() {
-       // Initialize DOM Audio and retrieve
+    // Initialize DOM Audio and retrieve
     this.props.updateVolume(ReactDOM.findDOMNode(this.refs.audio), this.props.audio.volume);
     this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));
     this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));
     this.props.retrieveSongs(this.props.isShuffling);
   }
-
-  handleProgress = () => {
-    this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));
-  }
-
-  handleTimeupdate = () => {
-    this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));
-  }
-
-  handleError = (e) => {
-    this.props.setError(ReactDOM.findDOMNode(this.refs.audio));
-  }
+  handleProgress = () => { this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));}
+  handleTimeUpdate = () => { this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));}
+  handleError = (e) => { this.props.setError(ReactDOM.findDOMNode(this.refs.audio));}
+  handleVolumeChange = (volume) => { this.props.updateVolume(ReactDOM.findDOMNode(this.refs.audio), volume);}
+  handleToggleFavorite = () => { this.props.toggleFavorite();}
+  handleToggleRepeat = () => { this.props.toggleRepeat();}
+  handleToggleShuffle = () => { this.props.toggleShuffle();}
+  handleTrackClick = (percent) => { this.props.updatePosition(ReactDOM.findDOMNode(this.refs.audio), percent);}
+  handleToggleLoop = () => { this.props.toggleLoop(ReactDOM.findDOMNode(this.refs.audio));}
 
   handlePlay = () => {
-     console.info("Handling Play request");
+    console.info("Handling Play request");
     this.props.play(ReactDOM.findDOMNode(this.refs.audio));
   }
 
   handleNext = () => {
-     console.info("Handling Next request");
+    console.info("Handling Next request");
     const audio = ReactDOM.findDOMNode(this.refs.audio);
-    if (!this.props.audio.isRepeating) {
-       this.props.next(audio);
-    }
+    if (!this.props.audio.isRepeating) { this.props.next(audio);}
     this.props.play(audio);
   }
 
@@ -66,42 +60,17 @@ export default class App extends Component {
     this.props.play(audio);
   }
 
-  handleVolumeChange = (volume) => {
-    this.props.updateVolume(ReactDOM.findDOMNode(this.refs.audio), volume);
-  }
-
-  handleToggleFavorite = () => {
-    this.props.toggleFavorite();
-  }
-
-  handleToggleRepeat = () => {
-    this.props.toggleRepeat();
-  }
-
-  handleToggleShuffle = () => {
-     this.props.toggleShuffle();
- }
-
-  handleTrackClick = (percent) => {
-    this.props.updatePosition(ReactDOM.findDOMNode(this.refs.audio), percent);
-  }
-
   handleEnd = () => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.next(audio);
     this.props.updateQueue(audio)
   }
 
-  handleToggleLoop = () => {
-    this.props.toggleLoop(ReactDOM.findDOMNode(this.refs.audio));
-  }
-
   handleLoadedData = () => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
-    if (this.props.audio.isRepeating) {
-      this.props.play(audio);
-    }
+    if (this.props.audio.isRepeating) { this.props.play(audio);}
   }
+
   pushToQueue = (songs) => {
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     this.props.addToQueue(songs)
@@ -111,7 +80,7 @@ export default class App extends Component {
   render() {
       const {
         volume, isPlaying, percent, isFavorite, progress, error,
-        duration, isRepeating, songs, currentID, autoplay, isLooping,
+        duration, isRepeating, songs, currentID, autoPlay, isLooping,
         isShuffling
       } = this.props.audio;
 
@@ -119,38 +88,41 @@ export default class App extends Component {
       if (song === undefined) song = this.props.audio.defaultSong;
 
      const currentPage = this.props.routes[this.props.routes.length-1].path
+     let audioProps = {
+       onNext: this.handleNext,
+       onPlay: this.handlePlay,
+       onPrevious: this.handlePrevious,
+       onToggleShuffle: this.handleToggleShuffle,
+       onToggleLoop: this.handleToggleLoop,
+       onSetTime: this.handleTrackClick,
+       percent: percent,
+       isPlaying: isPlaying,
+       isShuffling: isShuffling,
+       isLooping: isLooping,
+       queue: songs,
+       currentID: currentID,
+     }
      return (
         <MuiThemeProvider muiTheme={theme}>
           <div style={appBody} >
-            <Audio ref="audio"
-              autoplay={false}
-              source={song.url}
+            <Audio
+              ref="audio"
+              autoPlay={false}
+              src={song.url}
               onProgress={this.handleProgress}
-              onTimeupdate={this.handleTimeupdate}
+              onTimeUpdate={this.handleTimeUpdate}
               onError={this.handleError}
               onEnded={this.handleEnd}
               onLoadedData={this.handleLoadedData}
-              onCanPlay={this.handlePlay} />
-
-            <Header currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
-              onNext={this.handleNext}
-              onPlay={this.handlePlay}
-              onPrevious={this.handlePrevious}
-              onToggleShuffle={this.handleToggleShuffle}
-              onToggleLoop={this.handleToggleLoop}
-              onSetTime={this.handleTrackClick}
-              percent={percent}
-              isPlaying={isPlaying}
-              isShuffling={isShuffling}
-              isLooping={isLooping}
-              queue={songs}
-              currentID = {currentID}/>
+              // onCanPlay={this.handlePlay}
+            />
+            <Header
+              {...audioProps}
+              currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
+            />
             {this.props.children}
             <FloatingControls
-              isPlaying={isPlaying}
-              onPlay={this.handlePlay}
-              onNext={this.handleNext}
-              percent={percent}
+              {...audioProps}
             />
           </div>
         </MuiThemeProvider>

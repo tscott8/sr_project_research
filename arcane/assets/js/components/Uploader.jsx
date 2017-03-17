@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import { Step, Stepper, StepLabel, StepButton } from 'material-ui/Stepper';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-import {Paper, List, ListItem, Divider, FontIcon, FlatButton, RaisedButton, Checkbox, CircularProgress, Snackbar} from 'material-ui';
+import {Paper, FlatButton,  CircularProgress, Snackbar} from 'material-ui';
 import cookie from 'react-cookie';
-import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import * as TrackActions from '../actions/TrackActions';
+// import ExpandTransition from 'material-ui/internal/ExpandTransition';
+// import * as TrackActions from '../actions/TrackActions';
 import theme from '../constants/material-ui-theme'
 
 const styles = {
@@ -37,7 +37,7 @@ const styles = {
     textAlign:'center',
     display: 'flex',
     justifyContent: 'center',
-    flexDirection: 'row',
+    flexDirection: 'row'
   }
 };
 export default class Uploader extends Component  {
@@ -50,7 +50,7 @@ export default class Uploader extends Component  {
       completed: 0,
       stepIndex: 0,
       snackOpen: false,
-      message:'',
+      message:''
     }
   }
   handleNext = () => {
@@ -94,7 +94,7 @@ export default class Uploader extends Component  {
          "X-CSRFToken": csrftoken
          },
          credentials: "same-origin",
-         body:fd,
+         body:fd
          })
       .then(response => (response.status, console.log(response)))
       .then(status => (
@@ -115,11 +115,7 @@ export default class Uploader extends Component  {
       uploadFiles = stagedFiles;
     }
     console.info("Sending files: ", uploadFiles);
-    // var file = uploadFiles[0];
-    // var fileReader = new FileReader();
-    // fileReader.readAsArrayBuffer(file);
-    const { dispatch } = this.props;
-    // dispatch(TrackActions.uploadFiles(uploadFiles));
+    // const { dispatch } = this.props;
     this.uploadTracks(uploadFiles);
     this.setState({message: stagedFiles.length + ' file(s) uploaded' , stagedFiles: [], confirmedFiles:[], stepIndex:2});
   }
@@ -131,7 +127,12 @@ export default class Uploader extends Component  {
      case 1:
        return this.renderStaged();
      case 2:
-       return (<div style={styles.spinner}><CircularProgress color={theme.palette.accent1Color} size={300} thickness={5} /></div>);
+       return (<div style={styles.spinner}>
+         <CircularProgress
+           color={theme.palette.accent1Color}
+           size={300}
+           thickness={5}
+         /></div>);
      default:
        return 'You\'re a long way from home sonny jim!';
    }
@@ -141,14 +142,16 @@ export default class Uploader extends Component  {
     const {stagedFiles} = this.state;
     if (stagedFiles) {
     let listItems = stagedFiles.map((file) => (
-      <TableRow
-        key={'uploaded_'+ stagedFiles.indexOf(file)}>
+      <TableRow key={'uploaded_'+ stagedFiles.indexOf(file)}>
         <TableRowColumn>{ file.name }</TableRowColumn>
       </TableRow>
       ))
       return (
-        <Table multiSelectable={true}  onRowSelection={this.handleSelect.bind(this)}>
-          <TableHeader enableSelectAll={true}>
+        <Table
+          multiSelectable
+          onRowSelection={this.handleSelect.bind(this)}
+        >
+          <TableHeader enableSelectAll>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
             </TableRow>
@@ -156,7 +159,7 @@ export default class Uploader extends Component  {
           <TableBody
             deselectOnClickaway={false}
             stripedRows={true}>
-              {listItems}
+            {listItems}
           </TableBody>
         </Table>
       );
@@ -180,7 +183,7 @@ export default class Uploader extends Component  {
     if ( stepIndex === 1 && confirmedFiles !=="none") {
         action = <FlatButton
           label="Upload"
-          // disabled={this.state.confirmedFiles.length < 1}
+          disabled={this.state.confirmedFiles.length < 1}
           secondary={true}
           onTouchTap={this.handleUpload}
           // onClick={this.sendFiles}

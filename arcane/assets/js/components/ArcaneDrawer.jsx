@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import {Divider, Drawer, AppBar, FontIcon, List, ListItem} from 'material-ui'
+import React from 'react'
+import {Drawer} from 'material-ui'
 import ArcaneMenu from './ArcaneMenu'
 
 const drawerStyle = {
@@ -7,19 +7,16 @@ const drawerStyle = {
   top:'64px',
   overflowY:'auto'
 };
-export default class ArcaneDrawer extends Component  {
-  constructor(props){
-    super(props);
-  }
-  render() {
-      return (
-        <Drawer
-          containerStyle={drawerStyle}
-          docked={false}
-          open={this.props.open}
-          onRequestChange={this.props.onRequestChange}>
-          <ArcaneMenu onClick={this.props.handleClose}/>
-        </Drawer>
-      );
-  }
+
+const ArcaneDrawer = (props) => {
+  return (
+    <Drawer
+      {...props}
+      containerStyle={drawerStyle}
+      docked={false}
+    >
+      <ArcaneMenu onClick={props.onClose} />
+    </Drawer>
+    );
 }
+export default ArcaneDrawer;

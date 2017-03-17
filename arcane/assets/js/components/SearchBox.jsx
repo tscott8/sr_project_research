@@ -1,6 +1,6 @@
 import React from 'react';
-import {AutoComplete, IconButton, FontIcon} from 'material-ui'
-import SearchIcon from 'material-ui/svg-icons/action/search';
+import {AutoComplete, IconButton} from 'material-ui'
+// import SearchIcon from 'material-ui/svg-icons/action/search';
 
 
 const fruit = [
@@ -27,7 +27,7 @@ const fruit = [
   'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
   'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
   'Ugli fruit',
-  'Watermelon',
+  'Watermelon'
 ];
 const SearchBox = (props) => {
 
@@ -38,7 +38,7 @@ const SearchBox = (props) => {
             maxWidth:'50vw'
         },
         closed: {
-            width: 0,
+            width: 0
         },
         smallIcon: {
             width: 30,
@@ -49,7 +49,7 @@ const SearchBox = (props) => {
             height: 40,
             padding: 5,
             top: 7,
-            float:'right',
+            float:'right'
         },
         frame: {
             float:'left',
@@ -60,31 +60,31 @@ const SearchBox = (props) => {
    const textStyle = props.isOpen ? baseStyles.open : baseStyles.closed;
    const divStyle = Object.assign({}, textStyle, baseStyles.frame);
        divStyle.width += baseStyles.icon.width + 5;
-
    const dataSourceConfig = {
          text: 'name',
-         value: 'id',
+         value: 'id'
        };
-
-
    return (
-        <div id="searchBox" style={divStyle}>
-          <AutoComplete
-            id={'searchField'}
-            dataSource={props.dataSource ? props.dataSource : fruit}
-            dataSourceConfig={dataSourceConfig}
-            filter={AutoComplete.fuzzyFilter}
-            fullWidth={true}
-            style={textStyle}
-            onUpdateInput={props.onUpdate}
-            menuProps={{maxHeight:'75vh'}}/>
-          <IconButton
-            iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
-            iconClassName="material-icons"
-            onClick={() => props.onClick()}>
-            search
-            </IconButton>
-        </div>
+     <div
+       id="searchBox"
+       style={divStyle}
+     >
+       <AutoComplete
+         dataSource={props.dataSource ? props.dataSource : fruit}
+         dataSourceConfig={dataSourceConfig}
+         filter={AutoComplete.fuzzyFilter}
+         fullWidth
+         id={'searchField'}
+         menuProps={{maxHeight:'75vh'}}
+         onUpdateInput={props.onUpdate}
+         style={textStyle}
+       />
+       <IconButton
+         iconClassName="material-icons"
+         iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
+         onClick={() => props.onClick()}
+       >search</IconButton>
+     </div>
     );
 };
 export default SearchBox;

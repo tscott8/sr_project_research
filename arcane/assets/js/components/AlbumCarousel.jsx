@@ -9,13 +9,13 @@ const responsiveSettings = [
       breakpoint: 560,
       settings: {
          slidesToShow: 3
-      },
+      }
    },
    {
       breakpoint: 770,
       settings: {
          slidesToShow: 4
-      },
+      }
    },
    {
       breakpoint: 1060,
@@ -70,18 +70,23 @@ export default class AlbumCarousel extends Component {
      console.info("Selected!");
   }
    renderSliderItems(albums) {
-        let items = albums ? albums.map((item) => (
-          <div key={'album_carousel_item_'+ item.id} style={styles.innerElement}>
-            <Tile
-              title={item.name}
-              subtitle={item.artist}
-              imgURL={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
-              tracks={item.tracks}
-              select={this.props.select}
-              selectedTracks={this.props.selectedTracks}
-              id={item.id}
-              dispatch={this.props.dispatch}/>
-          </div>)) : [<div></div>];
+      let items = albums ? albums.map((item) => (
+        <div
+          key={'album_carousel_item_'+ item.id}
+          style={styles.innerElement}
+        >
+          <Tile
+            {...this.props}
+            // dispatch={this.props.dispatch}
+            id={item.id}
+            imgURL={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
+            // select={this.props.select}
+            // selectedTracks={this.props.selectedTracks}
+            subtitle={item.artist}
+            title={item.name}
+            tracks={item.tracks}
+          />
+        </div>)) : [<div key={'album_carousel_item_empty'} />];
         return items;
 
    }
@@ -89,12 +94,15 @@ export default class AlbumCarousel extends Component {
    render() {
      const {albums} = this.props;
      console.log('Album Carousel : ', albums)
-      return (
-         <div style={styles.carouselDiv}>
-            <Slider {...settings} style={styles.outerDiv}>
-               {this.renderSliderItems(albums.allAlbums.results)}
-            </Slider>
-         </div>
+     return (
+       <div style={styles.carouselDiv}>
+         <Slider
+           {...settings}
+           style={styles.outerDiv}
+         >
+           {this.renderSliderItems(albums.allAlbums.results)}
+         </Slider>
+       </div>
       );
    }
 }

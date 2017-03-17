@@ -5,19 +5,17 @@ const makeExpanding = (Target) => {
             super(props);
             this.state = {isOpen: false};
         }
-
-        onClick = () => {
-            this.setState({isOpen: !this.state.isOpen});
-        };
+        handleOnClick = () => { this.setState({isOpen: !this.state.isOpen}); };
 
         render() {
-            return (
-                <Target {...this.props}
-                  isOpen={this.state.isOpen}
-                  onClick={this.onClick}
-                />
-            );
-        }
+          return (
+            <Target
+              {...this.props}
+              isOpen={this.state.isOpen}
+              onClick={this.handleOnClick}
+            />
+          );
+      }
     }
 };
 export default makeExpanding;

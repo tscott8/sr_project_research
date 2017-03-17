@@ -24,7 +24,7 @@ class MyMusic extends Component {
     // dispatch(GenreActions.getGenres());
   }
 
-  addToSelected(items) {
+  addToSelected = (items) => {
     // console.log('selected items:', items)
     this.setState({
       selected: items
@@ -64,22 +64,23 @@ class MyMusic extends Component {
       return (
         <div>
           <CollectionTabs
-             dispatch={dispatch}
-               genres={genres}
-               tracks={tracks}
-               artists={artists}
-               albums={albums}
-               select={this.addToSelected.bind(this)}
-               selectedTracks={this.state.selected}
-               />
-           {this.renderAddQueueButton()}
-           <Snackbar
-             open={this.state.snackOpen}
-             message={this.state.snackMessage}
-             action="undo"
-             autoHideDuration={this.state.autoHideDuration}
-             onActionTouchTap={this.handleActionTouchTap}
-             onRequestClose={this.handleRequestClose}
+            {...this.props}
+            // dispatch={dispatch}
+            //    genres={genres}
+            //    tracks={tracks}
+            //    artists={artists}
+            //    albums={albums}
+            select={this.addToSelected}
+            selectedTracks={this.state.selected}
+          />
+          {this.renderAddQueueButton()}
+          <Snackbar
+            open={this.state.snackOpen}
+            message={this.state.snackMessage}
+            action="undo"
+            autoHideDuration={this.state.autoHideDuration}
+            onActionTouchTap={this.handleActionTouchTap}
+            onRequestClose={this.handleRequestClose}
            />
         </div>
       );

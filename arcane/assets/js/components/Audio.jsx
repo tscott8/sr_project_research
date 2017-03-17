@@ -7,24 +7,24 @@ import forEach from 'lodash/forEach';
 export default class Audio extends React.Component {
 
     static propTypes = {
-        autoplay: React.PropTypes.bool,
-        preload: React.PropTypes.bool,
-        source: React.PropTypes.string,
-        loop: React.PropTypes.bool,
-        volume: React.PropTypes.number,
-        onTimeupdate: React.PropTypes.func,
+        autoPlay: React.PropTypes.bool,
+        // loop: React.PropTypes.bool,
         onError: React.PropTypes.func,
+        // onEnded: React.PropTypes.func,
         onProgress: React.PropTypes.func,
-        onEnded: React.PropTypes.func
+        onTimeUpdate: React.PropTypes.func,
+        // preload: React.PropTypes.bool,
+        src: React.PropTypes.string
+        // volume: React.PropTypes.number
     };
 
     static defaultProps = {
-        autoplay: false,
+        autoPlay: false,
         preload: true,
-        source: "",
+        src: "",
         loop: false,
         volume: .8,
-        onTimeupdate: null,
+        onTimeUpdate: null,
         onError: null,
         onProgress: null,
         onEnded: null
@@ -32,16 +32,30 @@ export default class Audio extends React.Component {
 
     constructor(props) {
         super(props)
-
         this.state = {
             listeners: []
         };
+    }
+    componentDidMount() {
+        this.addListener('timeupdate', this.props.onTimeUpdate);
+        this.addListener('progress', this.props.onProgress);
+        this.addListener('error', this.props.onError);
+        this.addListener('ended', this.props.onEnded);
+        this.addListener('loadeddata', this.props.onLoadedData);
+    }
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.autoPlay === true && this.props.autoPlay === false) {
+        this.audio.play();
+      }
+    }
+
+    componentWillUnmount() {
+        this.removeAllListeners();
     }
 
     get audio() {
         if (!this.refs)
             return {};
-
         return ReactDOM.findDOMNode(this.refs.audio);
     }
 
@@ -54,35 +68,17 @@ export default class Audio extends React.Component {
     }
 
     addListener = (event, func) => {
-        var audio = ReactDOM.findDOMNode(this.refs.audio);
+        let audio = ReactDOM.findDOMNode(this.refs.audio);
         audio.addEventListener(event, partialRight(this.handler, func));
         this.state.listeners.push({event: event, func: func});
     }
 
     removeAllListeners = () => {
-        var audio = ReactDOM.findDOMNode(this.refs.audio);
+        let audio = ReactDOM.findDOMNode(this.refs.audio);
         forEach(this.state.listeners, (obj) => {
             audio.removeEventListener(obj.event, obj.func);
         })
         this.state.listeners = [];
-    }
-
-    componentDidMount() {
-        this.addListener('timeupdate', this.props.onTimeupdate);
-        this.addListener('progress', this.props.onProgress);
-        this.addListener('error', this.props.onError);
-        this.addListener('ended', this.props.onEnded);
-        this.addListener('loadeddata', this.props.onLoadedData);
-    }
-
-    componentWillUnmount() {
-        this.removeAllListeners();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.autoplay === true && this.props.autoplay === false) {
-            this.audio.play();
-        }
     }
 
     togglePlay = () => {
@@ -105,18 +101,19 @@ export default class Audio extends React.Component {
     }
 
     render() {
-        return(
-            <audio
-                ref="audio"
-                preload={this.props.preload}
-                volume={this.props.volume}
-                controls={false}
-                crossOrigin="anonymous"
-                autoPlay={this.props.autoplay}
-                loop={this.props.loop}
-                src={this.props.source}
-                //onCanPlay={this.props.onCanPlay}
-                />
+      return(
+        <audio
+          {...this.props}
+          crossOrigin="anonymous"
+          // src={this.props.src}
+          ref="audio"
+          // preload={this.props.preload}
+          // volume={this.props.volume}
+          // controls={false}
+          // autoPlay={this.props.autoPlay}
+          // loop={this.props.loop}
+          //onCanPlay={this.props.onCanPlay}
+        />
         )
     }
 

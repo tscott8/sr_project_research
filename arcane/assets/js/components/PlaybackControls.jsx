@@ -1,24 +1,22 @@
 import React, { Component } from 'react'
-import {FontIcon, FloatingActionButton, Slider, IconButton} from 'material-ui'
+import {IconButton} from 'material-ui'
 import theme from '../constants/material-ui-theme'
 const styles = {
    smallIcon: {
      width:20,
      height:20,
-     fontSize:20,
-    //  color: 'rgb(213, 0, 0)'
+     fontSize:20
    },
    mediumIcon: {
      width:40,
      height:40,
-     fontSize:40,
-    //  color: 'rgb(213, 0, 0)'
+     fontSize:40
    },
    coloredSmallIcon: {
     color: theme.palette.alternateTextColor,
      width:20,
      height:20,
-     fontSize:20,
+     fontSize:20
    },
    largeIcon: {
      width:60,
@@ -35,8 +33,7 @@ const styles = {
      width:45,
      height:45,
      padding:2,
-     verticalAlign:'bottom',
-
+     verticalAlign:'bottom'
    },
    large: {
      width: 65,
@@ -48,61 +45,50 @@ const styles = {
    }
 };
 
-export class IconChangeControl extends Component {
-   constructor(props) {
-      super(props);
-   }
+const IconChangeControl = (props) => {
+  return (
+     <IconButton
+       //  {...props}
+       hoveredStyle={styles.hover}
+       iconClassName="material-icons"
+       iconStyle={styles.mediumIcon}
+       style={styles.medium}
+       onClick={props.onClick}
+     >
+       {!props.flag ? props.icon1 : props.icon2}
+     </IconButton>
+  );
+};
+export {IconChangeControl};
 
-   render() {
-      return (
-         <IconButton
-           iconClassName="material-icons"
-           style={styles.medium}
-           iconStyle={styles.mediumIcon}
-           onClick={this.props.onClick}
-           hoveredStyle={styles.hover}>
-           {!this.props.flag ? this.props.icon1 : this.props.icon2}
-         </IconButton>
-      );
-
-   }
+const ColoredControl = (props) => {
+  return (
+    <IconButton
+      // {...props}
+      hoveredStyle={styles.hover}
+      iconClassName="material-icons"
+      iconStyle={!props.flag ? styles.smallIcon : styles.coloredSmallIcon}
+      onClick={props.onClick}
+      style={styles.small}
+    >
+      {props.icon}
+    </IconButton>
+  );
 }
+export {ColoredControl};
 
-export class ColoredControl extends Component {
-   constructor(props) {
-      super(props);
-   }
-
-   render() {
-      return (
-         <IconButton
-           iconClassName="material-icons"
-           style={styles.small}
-           iconStyle={!this.props.flag ? styles.smallIcon : styles.coloredSmallIcon}
-           onClick={this.props.onClick}
-           hoveredStyle={styles.hover}>
-           {this.props.icon}
-         </IconButton>
-      );
-   }
+const DefaultControl = (props) => {
+  return(
+    <IconButton
+      // {...props}
+      hoveredStyle={styles.hover}
+      iconClassName="material-icons"
+      iconStyle={styles.smallIcon}
+      onClick={props.onClick}
+      style={styles.small}
+    >
+      {props.icon}
+    </IconButton>
+  );
 }
-
-export class DefaultControl extends Component {
-   constructor(props){
-    super(props);
-
-   }
-
-   render(){
-      return(
-        <IconButton
-          iconClassName="material-icons"
-          style={styles.small}
-          iconStyle={styles.smallIcon}
-          onClick={this.props.onClick}
-          hoveredStyle={styles.hover}>
-          {this.props.icon}
-        </IconButton>
-      );
-   }
-}
+export {DefaultControl};

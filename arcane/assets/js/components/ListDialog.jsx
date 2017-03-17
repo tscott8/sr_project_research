@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, ListItem, IconButton} from 'material-ui'
+import React, { Component } from 'react'
+import { Dialog, FloatingActionButton, FontIcon} from 'material-ui'
 import{ CardTitle} from 'material-ui/Card'
 import TracksCollection  from './TracksCollection'
 import AlbumsCollection  from './AlbumsCollection'
 import ArtistsCollection  from './ArtistsCollection'
-
 
 const styles = {
    fab: {
@@ -20,8 +19,7 @@ const styles = {
     textOverflow:'clip',
     left:15,
     position:'absolute',
-    textShadow:'1px 1px black',
-
+    textShadow:'1px 1px black'
    },
    subtitle: {
      bottom:0,
@@ -30,7 +28,7 @@ const styles = {
      textOverflow:'clip',
      left:15,
      position:'absolute',
-     textShadow:'1px 1px black',
+     textShadow:'1px 1px black'
    }
 }
 
@@ -38,44 +36,41 @@ export default class ListDialog extends Component {
    constructor(props) {
       super(props);
    }
+   shouldComponentUpdate () {
+        return true;
+    }
 
    renderDialogTitle(title, subtitle) {
-         return (
-              <CardTitle
-                style={{padding:0, margin:0, paddingTop:160}}
-                titleStyle={styles.title}
-                subtitleStyle={styles.subtitle}
-
-                title={title}
-                subtitle={subtitle}>
-                <FloatingActionButton
-                  style={styles.fab}
-                  >
-                  <FontIcon className="material-icons">play_arrow</FontIcon>
-                </FloatingActionButton>
-              </CardTitle>
-
-         );
+     return (
+       <CardTitle
+         style={{padding:0, margin:0, paddingTop:160}}
+         subtitle={subtitle}
+         subtitleStyle={styles.subtitle}
+         title={title}
+         titleStyle={styles.title}
+       >
+         <FloatingActionButton style={styles.fab}>
+           <FontIcon className="material-icons">play_arrow</FontIcon>
+         </FloatingActionButton>
+       </CardTitle>
+     );
    }
    renderContent() {
-     const {type, tracks, albums, artists, genres, select, selectedTracks, dispatch} = this.props;
+     const {type, tracks, albums, artists, genres} = this.props;
      if (type === "album") {
        return (
          <TracksCollection
-           tracks={tracks.albumTracks}
-           select={select}
-           selectedTracks={selectedTracks}
+           {...this.props}
            noArt={true}
+           tracks={tracks.albumTracks}
          />
        );
      }
     if (type === "artist") {
       return (
         <AlbumsCollection
+          {...this.props}
           albums={albums.artistAlbums}
-          select={select}
-          selectedTracks={selectedTracks}
-          dispatch={dispatch}
           cols={4}
         />
       );
@@ -83,42 +78,37 @@ export default class ListDialog extends Component {
     if (type === "genre") {
       return (
         <ArtistsCollection
+          {...this.props}
           artists={artists.genreArtists}
-          select={select}
-          selectedTracks={selectedTracks}
-          dispatch={dispatch}
           cols={4}
         />
       );
     }
    }
    render() {
-     const {tracks, albums, genres, title, subtitle, imgURL, open, onClose } = this.props;
+     const {tracks, albums, genres, title, subtitle, imgURL} = this.props;
      if(tracks || albums || genres) {
       return (
-         <Dialog
-           //  contentStyle={{maxHeight:'80vh'}}
-           titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('+ imgURL + ') ',
+        <Dialog
+          {...this.props}
+          autoDetectWindowHeight
+          autoScrollBodyContent
+          bodyStyle={{padding:0,margin:0, width:'100%', overflowX:'hidden'}}
+          title={this.renderDialogTitle(title, subtitle)}
+          titleStyle={{padding:0,background: 'linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('+ imgURL + ') ',
              backgroundSize: 'cover',
              backgroundPosition:'center center',
              overflow:'hidden',
-             textShadow:'1px 1px black',
+             textShadow:'1px 1px black'
              //  height:250,
-           }}
-           bodyStyle={{padding:0,margin:0, width:'100%', overflowX:'hidden'}}
-           open={open}
-           title={this.renderDialogTitle(title, subtitle)}
-           onRequestClose={onClose}
-           autoDetectWindowHeight={true}
-           autoScrollBodyContent={true}
-           //  actions={<FlatButton
-           //  label="Cancel"
-           //  primary={true}
-           //  onTouchTap={onClose}/>}
-         >
-           <div> {this.renderContent()}</div>
+          }}
+          //  actions={<FlatButton
+          //  label="Cancel"
+          //  primary={true}
+          //  onTouchTap={onClose}/>}
+        > <div> {this.renderContent()}</div>
 
-         </Dialog>
+        </Dialog>
       );
    }
  }

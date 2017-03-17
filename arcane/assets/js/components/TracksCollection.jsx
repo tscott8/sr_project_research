@@ -23,7 +23,7 @@ export default class TracksCollection extends Component {
   }
 
   loadMore = () => {
-     const {tracks,dispatch} = this.props;
+     const {tracks, dispatch} = this.props;
      if (tracks.next) {
         dispatch(TrackActions.getNextTracks(tracks.next));
      }
@@ -106,7 +106,6 @@ export default class TracksCollection extends Component {
           multiple={true}
           onChange={this.handleChange}
           value={selectedTracks ? selectedTracks : []}>
-          {/* {this.renderTracksListItems(this.sortTracks( 'artist.name', tracks.results))} */}
           {this.renderTracksListItems(tracks.results)}
         </Menu>
         <Waypoint

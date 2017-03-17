@@ -49,11 +49,10 @@ export default class FloatingControls extends Component {
               thickness={3}
               style={style.progress}
               color={theme.palette.alternateTextColor}
-              // color={redA700}
             />
           </FloatingActionButton>
-         {/* {this.renderAddQueueButton()} */}
-       </div>
+          {/* {this.renderAddQueueButton()} */}
+        </div>
       );
    }
 }

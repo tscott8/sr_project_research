@@ -10,25 +10,22 @@ export default class ArtistsCollection extends Component {
     super(props);
   }
   renderArtistTiles(artists) {
-    const {select, selectedTracks, dispatch} = this.props;
+    // const {select, selectedTracks, dispatch} = this.props;
     if (artists) {
       let arr = artists.map((tile) => (
         <GridTile
-          key={'artistTile_'+ tile.id}
-          cols={1}
-          rows={1}
           className="boxTile"
-
+          cols={1}
+          key={'artistTile_'+ tile.id}
+          rows={1}
         >
           <Tile
-            title={tile.name}
-            subtitle={tile.genre}
-            imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
+            {...this.props}
             albums={tile.albums}
-            select={select}
-            selectedTracks={selectedTracks}
             id={tile.id}
-            dispatch={dispatch}
+            imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
+            subtitle={tile.genre}
+            title={tile.name}
             type={'artist'}
           />
         </GridTile>
@@ -38,12 +35,13 @@ export default class ArtistsCollection extends Component {
     }
   }
   renderGrid (cols) {
-    const {artists} = this.props;
+    const { artists } = this.props;
     if(artists){
-    return(
+      return(
         <GridList
+          cols={cols}
           style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
-          cols={cols}>
+        >
           {this.renderArtistTiles(artists.results)}
         </GridList>
         );
