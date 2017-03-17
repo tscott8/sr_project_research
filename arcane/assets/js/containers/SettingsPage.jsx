@@ -49,12 +49,19 @@ export default class Settings extends Component {
    constructor(props) {
       super(props);
       this.state = {
-        explicit: false
+        explicit:false,
+        theme: 'ARCANE DARK'
       }
    }
    onChange = (e) => {
-     console.log(e)
+    //  console.log(e.target.value)
      this.setState({[e.target.id]:e.target.value})}
+   onSelect (e,i,val) {
+     this.setState({[this.key]:val})
+   }
+   onToggle = (e, val) => {
+     console.log(e.target.value, val)
+     this.setState({[e.target.id]:val})}
 
    renderTextField(item) {
      return (
@@ -71,7 +78,7 @@ export default class Settings extends Component {
    }
    renderSelectField(item) {
      let options = item.options.map((option) => (
-       <MenuItem value={option} primaryText={option}/>
+       <MenuItem key={item.options.indexOf(option)} value={option} primaryText={option}/>
      ))
      return (
        <SelectField
@@ -79,9 +86,9 @@ export default class Settings extends Component {
          name={item.key}
          type={item.type}
          fullWidth={true}
-         value={item.defaultValue}
+         value={this.state[item.key] ? this.state[item.key] : item.defaultValue}
          floatingLabelText={item.label}
-         onChange={this.onChange}
+         onChange={this.onSelect.bind(this,item)}
        >
          {options}
        </SelectField>
@@ -107,11 +114,17 @@ export default class Settings extends Component {
         );
       }
       if(setting.type === 'toggle') {
-        const {[&setting.key]} = this.state
+        // const {[@setting.key]} = this.state
+        console.info(this.state[setting.key])
          return (
            <div key={section+'_settings_'+setting.key}>
-             <Toggle labelPosition="left"
-               label={setting.label.toUpperCase()} id={setting.key} toggled={[&setting.key]} onToggle={this.onChange}/>
+             <Toggle
+               labelPosition="left"
+               label={setting.label.toUpperCase()}
+               id={setting.key}
+               toggled={this.state[setting.key]}
+               onToggle={this.onToggle}
+             />
            </div>
          );
        }
