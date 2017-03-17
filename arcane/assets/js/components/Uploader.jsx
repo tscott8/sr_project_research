@@ -12,9 +12,8 @@ import theme from '../constants/material-ui-theme'
 const styles = {
   paper: {
     overflowY:'auto',
-    height:'67vh',
+    minHeight:'60vh',
     backgroundColor:theme.palette.primary3Color
-
   },
   dropzone: {
     height:'100%',
@@ -25,9 +24,21 @@ const styles = {
       height:'100%',
       width:'100%',
       margin:0,
-      bottom:0
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column'
     }
   },
+  spinner: {
+    padding:'10%',
+    height:'100%',
+    width:'100%',
+    margin:0,
+    textAlign:'center',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  }
 };
 export default class Uploader extends Component  {
 
@@ -120,7 +131,7 @@ export default class Uploader extends Component  {
      case 1:
        return this.renderStaged();
      case 2:
-       return (<div style={{textAlign:'center', padding:50}}><CircularProgress color={theme.palette.accent1Color} size={140} thickness={5} /></div>);
+       return (<div style={styles.spinner}><CircularProgress color={theme.palette.accent1Color} size={300} thickness={5} /></div>);
      default:
        return 'You\'re a long way from home sonny jim!';
    }
@@ -166,10 +177,10 @@ export default class Uploader extends Component  {
   renderActionButtons() {
     const {stepIndex, confirmedFiles} = this.state;
     let action = null;
-    if ( stepIndex === 1 && confirmedFiles.length > 0) {
+    if ( stepIndex === 1 && confirmedFiles !=="none") {
         action = <FlatButton
           label="Upload"
-          // disabled={this.state.stepIndex === 2}
+          // disabled={this.state.confirmedFiles.length < 1}
           secondary={true}
           onTouchTap={this.handleUpload}
           // onClick={this.sendFiles}
@@ -178,7 +189,8 @@ export default class Uploader extends Component  {
     else if (stepIndex < 2) {
           action = <FlatButton
             label="Next"
-            // disabled={this.state.stepIndex === 2}
+            disabled={this.state.confirmedFiles === "none" && this.state.stepIndex === 1}
+            labelStyle={this.state.stepIndex !== 1 ? {color:'red'} : {}}
             primary={true}
             onTouchTap={this.handleNext}
                    />
@@ -197,7 +209,7 @@ export default class Uploader extends Component  {
   render() {
     const contentStyle = {margin: '0 16px'};
       return (
-        <div style={{width: '100%', maxWidth: 700, margin: 'auto', marginTop:10, maxHeight:'calc(100vh-64px)', overflowY:'auto'}}>
+        <div style={{width: '100%', maxWidth: '75vw', margin: 'auto', marginTop:10, maxHeight:'calc(100vh-64px)', overflowY:'auto'}}>
           <Stepper linear={true} activeStep={this.state.stepIndex}>
             <Step>
               <StepButton onClick={() => this.setState({stepIndex: 0})}>
