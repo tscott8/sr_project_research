@@ -8,7 +8,7 @@ const ExpandingSearchBox = muiThemeable()(makeExpanding(SearchBox));
 
 const RightActions = (props) => (
         <div>
-          <ExpandingSearchBox dataSource={[]}/>
+          <ExpandingSearchBox dataSource={props.dataSource} onUpdate={props.onUpdate}/>
           <IconMenu
             iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
             iconButtonElement={<IconButton iconClassName="material-icons">person</IconButton>}

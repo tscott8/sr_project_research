@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url, include
-from arcane.browse.views import list, upload
+from arcane.browse.views import List, Upload, Search
 from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
 from . import views, api
@@ -15,8 +15,9 @@ router.register(r'genres', api.GenreViewSet)
 router.register(r'tracks', api.TrackViewSet)
 
 urlpatterns = [
-    url(r'^list/$', list, name='list'),
-    url(r'^upload/$', upload, name='upload'),
+    url(r'^list/$', List.as_view()),
+    url(r'^upload/$', Upload.as_view()),
+    url(r'^search/$', Search.as_view()),
     url('^schema/$', schema_view),
     url(r'^', include(router.urls)),
 ]

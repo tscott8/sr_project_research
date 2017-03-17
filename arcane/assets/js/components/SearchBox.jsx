@@ -2,6 +2,7 @@ import React from 'react';
 import {AutoComplete, IconButton, FontIcon} from 'material-ui'
 import SearchIcon from 'material-ui/svg-icons/action/search';
 
+
 const fruit = [
   'Apple', 'Apricot', 'Avocado',
   'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
@@ -29,6 +30,7 @@ const fruit = [
   'Watermelon',
 ];
 const SearchBox = (props) => {
+
     const baseStyles = {
         open: {
             width:'inherit',
@@ -55,17 +57,26 @@ const SearchBox = (props) => {
             display:'inline-flex'
         }
     };
-const textStyle = props.isOpen ? baseStyles.open : baseStyles.closed;
-const divStyle = Object.assign({}, textStyle, baseStyles.frame);
-    divStyle.width += baseStyles.icon.width + 5;
-return (
+   const textStyle = props.isOpen ? baseStyles.open : baseStyles.closed;
+   const divStyle = Object.assign({}, textStyle, baseStyles.frame);
+       divStyle.width += baseStyles.icon.width + 5;
+
+   const dataSourceConfig = {
+         text: 'name',
+         value: 'id',
+       };
+
+
+   return (
         <div id="searchBox" style={divStyle}>
           <AutoComplete
             id={'searchField'}
-            dataSource={props.dataSource.length > 0 ? props.dataSource : fruit}
+            dataSource={props.dataSource ? props.dataSource : fruit}
+            dataSourceConfig={dataSourceConfig}
             filter={AutoComplete.fuzzyFilter}
             fullWidth={true}
             style={textStyle}
+            onUpdateInput={props.onUpdate}
             menuProps={{maxHeight:'75vh'}}/>
           <IconButton
             iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
