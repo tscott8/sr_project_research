@@ -74,7 +74,7 @@ export default class AlbumCarousel extends Component {
           <div key={'album_carousel_item_'+ item.id} style={styles.innerElement}>
             <Tile
               title={item.name}
-              subtitle={item.artist.name}
+              subtitle={item.artist}
               imgURL={item.artwork ? item.artwork : url+'static/images/default-artwork.png'}
               tracks={item.tracks}
               select={this.props.select}

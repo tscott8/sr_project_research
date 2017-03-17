@@ -12,7 +12,9 @@ import theme from '../constants/material-ui-theme'
 const styles = {
   paper: {
     overflowY:'auto',
-    maxHeight:'67vh'
+    height:'67vh',
+    backgroundColor:theme.palette.primary3Color
+
   },
   dropzone: {
     height:'100%',
@@ -22,7 +24,8 @@ const styles = {
       padding:'10%',
       height:'100%',
       width:'100%',
-      margin:0
+      margin:0,
+      bottom:0
     }
   },
 };

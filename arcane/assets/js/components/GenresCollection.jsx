@@ -6,18 +6,6 @@ import MediaQuery from 'react-responsive'
 
 const url = "http://localhost:8000/";
 
-const collectionStyles = {
-  root: {
-    width:'100%',
-    height:'100%'
-  },
-  gridList: {
-    margin:0,
-    marginTop:2,
-    width:'100%',
-    height:'100%',
-  },
-};
 export default class GenresCollection extends Component {
   constructor(props) {
     super(props);
@@ -31,8 +19,7 @@ export default class GenresCollection extends Component {
           key={'genreTile_'+ tile.id}>
           <Tile
             title={tile.name}
-            // subtitle={tile.artist.name}
-            imgURL={tile.icon ? tile.icon : <FontIcon className='material-icons'>build</FontIcon>}
+            imgURL={tile.icon ? tile.icon : url+'static/images/hip_hop.png'}
             artists={tile.artists}
             select={this.props.select}
             selectedTracks={this.props.selectedTracks}
@@ -44,15 +31,34 @@ export default class GenresCollection extends Component {
       return arr;
     }
   }
-  render() {
+  renderGrid (cols) {
     const {genres} = this.props;
+    if(genres){
     return(
         <GridList
-          cols={8}
-          // cellHeight={'auto'}
-          style={collectionStyles.gridList}>
+          style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
+          cols={cols}>
           {this.renderGenreTiles(genres.results)}
         </GridList>
+        );
+  }
+  }
+  render() {
+    const {cols} = this.props;
+    return(
+        <div style={{width:'100%',height:'100%'}}>
+          <MediaQuery query='(min-device-width: 560px)'>
+            <MediaQuery query='(max-width: 559px)'>
+              {this.renderGrid(cols/2)}
+            </MediaQuery>
+            <MediaQuery query='(min-width: 560px)'>
+              {this.renderGrid(cols)}
+            </MediaQuery>
+          </MediaQuery>
+          <MediaQuery query='(max-device-width: 559px)'>
+            {this.renderGrid(cols/2)}
+          </MediaQuery>
+        </div>
     );
   }
 }

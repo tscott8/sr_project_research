@@ -9,7 +9,7 @@ export function getAlbums() {
           }));
         };
 export function getArtistAlbums(artistID) {
-   return fetch(host+'?artist='+artistID).then(response => response.json()).then(json => ({
+   return fetch(host+'?artist='+artistID+'&ordering=name').then(response => response.json()).then(json => ({
              type:types.GET_ARTIST_ALBUMS,
              albums: json
            }));

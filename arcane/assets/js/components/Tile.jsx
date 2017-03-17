@@ -71,7 +71,7 @@ const styles = {
 }
 
 
-export default class Tile extends Component {
+class Tile extends Component {
    constructor(props) {
       super(props);
 
@@ -134,6 +134,9 @@ export default class Tile extends Component {
               onClose={this.handleClose}
               select={this.props.select }
               selectedTracks={this.props.selectedTracks}
+              tracks={this.props.tracks}
+              albums={this.props.albums}
+              artists={this.props.artists}
               type={this.props.type}
             />
        </RaisedButton>
@@ -179,3 +182,16 @@ export default class Tile extends Component {
   //     );
   //  }
 }
+Tile.propTypes = {
+   dispatch: PropTypes.func.isRequired,
+   tracks:   PropTypes.object.isRequired,
+   albums:   PropTypes.object.isRequired,
+   artists:  PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+   const { tracks, albums, artists} = state
+   return { tracks, albums, artists };
+}
+
+export default connect(mapStateToProps)(Tile);

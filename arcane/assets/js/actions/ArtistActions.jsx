@@ -9,7 +9,7 @@ export function getArtists() {
           }));
         };
 export function getGenreArtists(genreID) {
-   return fetch(host+'?genre='+genreID).then(response => response.json()).then(json => ({
+   return fetch(host+'?genre='+genreID+'&ordering=name').then(response => response.json()).then(json => ({
              type:types.GET_GENRE_ARTISTS,
              artists: json
            }));

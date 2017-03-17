@@ -1,28 +1,20 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { Dialog, FloatingActionButton, FlatButton, FontIcon, Subheader,Avatar, ListItem, IconButton} from 'material-ui'
 import{ CardTitle} from 'material-ui/Card'
 import TracksCollection  from './TracksCollection'
 import AlbumsCollection  from './AlbumsCollection'
 import ArtistsCollection  from './ArtistsCollection'
 
-import * as TrackActions from '../actions/TrackActions'
-import * as AlbumActions from '../actions/AlbumActions'
-import * as ArtistActions from '../actions/ArtistActions'
-
 
 const styles = {
    fab: {
-      // float: 'right',
       bottom:10,
       right:15,
       position:'absolute',
       zIndex:1
    },
    title: {
-    //  float: 'left',
     bottom:25,
-    // maxWidth:'75%',
     whiteSpace:'no-wrap',
     overflow:'hidden',
     textOverflow:'clip',
@@ -33,18 +25,16 @@ const styles = {
    },
    subtitle: {
      bottom:0,
-    //  maxWidth:'50%',
      whiteSpace:'no-wrap',
      overflow:'hidden',
      textOverflow:'clip',
      left:15,
      position:'absolute',
      textShadow:'1px 1px black',
-
    }
 }
 
-class ListDialog extends Component {
+export default class ListDialog extends Component {
    constructor(props) {
       super(props);
    }
@@ -68,13 +58,13 @@ class ListDialog extends Component {
          );
    }
    renderContent() {
-     const {type, tracks, albums} = this.props;
+     const {type, tracks, albums, artists, genres, select, selectedTracks, dispatch} = this.props;
      if (type === "album") {
        return (
          <TracksCollection
-           tracks={this.props.tracks.albumTracks}
-           select={this.props.select}
-           selectedTracks={this.props.selectedTracks}
+           tracks={tracks.albumTracks}
+           select={select}
+           selectedTracks={selectedTracks}
            noArt={true}
          />
        );
@@ -82,10 +72,10 @@ class ListDialog extends Component {
     if (type === "artist") {
       return (
         <AlbumsCollection
-          albums={this.props.albums.artistAlbums}
-          select={this.props.select}
-          selectedTracks={this.props.selectedTracks}
-          dispatch={this.props.dispatch}
+          albums={albums.artistAlbums}
+          select={select}
+          selectedTracks={selectedTracks}
+          dispatch={dispatch}
           cols={4}
         />
       );
@@ -93,17 +83,17 @@ class ListDialog extends Component {
     if (type === "genre") {
       return (
         <ArtistsCollection
-          artists={this.props.artists.genreArtists}
-          select={this.props.select}
-          selectedTracks={this.props.selectedTracks}
-          dispatch={this.props.dispatch}
+          artists={artists.genreArtists}
+          select={select}
+          selectedTracks={selectedTracks}
+          dispatch={dispatch}
           cols={4}
         />
       );
     }
    }
    render() {
-     const {tracks, albums, genres, title, subtitle, imgURL, } = this.props;
+     const {tracks, albums, genres, title, subtitle, imgURL, open, onClose } = this.props;
      if(tracks || albums || genres) {
       return (
          <Dialog
@@ -116,35 +106,20 @@ class ListDialog extends Component {
              //  height:250,
            }}
            bodyStyle={{padding:0,margin:0, width:'100%', overflowX:'hidden'}}
-           open={this.props.open}
+           open={open}
            title={this.renderDialogTitle(title, subtitle)}
-           onRequestClose={this.props.onClose}
+           onRequestClose={onClose}
            autoDetectWindowHeight={true}
            autoScrollBodyContent={true}
            //  actions={<FlatButton
            //  label="Cancel"
            //  primary={true}
-                      //  onTouchTap={this.props.onClose}/>}
-           >
-             {this.renderContent()}
+           //  onTouchTap={onClose}/>}
+         >
+           <div> {this.renderContent()}</div>
 
          </Dialog>
       );
    }
  }
 }
-
-
-ListDialog.propTypes = {
-   dispatch: PropTypes.func.isRequired,
-   tracks:   PropTypes.object.isRequired,
-   albums:   PropTypes.object.isRequired,
-   artists:  PropTypes.object.isRequired
-}
-
-function mapStateToProps(state) {
-   const { tracks, albums, artists} = state
-   return { tracks, albums, artists };
-}
-
-export default connect(mapStateToProps)(ListDialog);
