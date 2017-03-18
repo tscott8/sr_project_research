@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { FloatingActionButton, FontIcon, Snackbar } from 'material-ui'
 import { connect } from 'react-redux'
 import CollectionTabs  from '../components/CollectionTabs'
+import * as AudioActions from '../actions/AudioActions'
 
 const style = {
   fab: {
@@ -30,10 +31,10 @@ class MyMusic extends Component {
       selected: items
     });
   }
-  pushToQueue() {
-    // const { dispatch } = this.props;
+  pushToQueue = () => {
+    const { dispatch } = this.props;
     console.log('IN PUSH TO QUEUE', this.state.selected)
-    // this.props.pushToQueue(this.state.selected[0]);
+    dispatch(AudioActions.addToQueue(this.state.selected));
     this.setState({snackOpen:true, snackMessage:'Added '+this.state.selected.length+' items to the queue',selected:[]})
     // this.setState({selected:[]})
   }

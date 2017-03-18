@@ -21,7 +21,7 @@
    isFavorite: false,
    isRepeating: false,
    isLooping: false,
-   isShuffling: false,
+   isShuffling: true,
    percent: 0,
    volume: 65,
    progress: {},
@@ -127,7 +127,10 @@ function getAudioState(audio) {
      case TOGGLE_SHUFFLE:
        return {...state, isShuffling: !state.isShuffling, songs: shuffle(state.songs.map(clone)) };
      case ADD_TO_QUEUE:
-       return {...state, songs: state.songs.concat(action.songs) };
+        let newSongs = state.songs.map(clone);
+        newSongs = newSongs.concat(action.songs);
+        console.info("IN audio ADD_TO_QUEUE", action.songs);
+       return {...state, songs: newSongs };
      default:
        return state
    }
