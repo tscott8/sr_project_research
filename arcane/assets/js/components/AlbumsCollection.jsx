@@ -9,7 +9,7 @@ export default class AlbumsCollection extends Component {
   constructor(props) {
     super(props);
   }
-  renderAlbumTiles(albums) {
+  renderAlbumTiles(albums, cols) {
     if (albums) {
       let arr = albums.map((tile) => (
         <GridTile
@@ -20,6 +20,7 @@ export default class AlbumsCollection extends Component {
         >
           <Tile
             {...this.props}
+            cols={cols}
             id={tile.id}
             imgURL={tile.artwork ? tile.artwork : url+'static/images/default-artwork.png'}
             subtitle={tile.artist}
@@ -38,9 +39,10 @@ export default class AlbumsCollection extends Component {
       return(
         <GridList
           cols={cols}
+          cellHeight={'auto'}
           style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
         >
-          {this.renderAlbumTiles(albums.results)}
+          {this.renderAlbumTiles(albums.results, cols)}
         </GridList>
       );
     }

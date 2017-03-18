@@ -10,7 +10,7 @@ export default class GenresCollection extends Component {
   constructor(props) {
     super(props);
   }
-  renderGenreTiles(genres) {
+  renderGenreTiles(genres, cols) {
     if (genres) {
       let arr = genres.map((tile) => (
         <GridTile
@@ -20,6 +20,7 @@ export default class GenresCollection extends Component {
         >
           <Tile
             {...this.props}
+            cols={cols}
             artists={tile.artists}
             id={tile.id}
             imgURL={tile.icon ? tile.icon : url+'static/images/hip_hop.png'}
@@ -37,9 +38,10 @@ export default class GenresCollection extends Component {
     return(
       <GridList
         cols={cols}
+        cellHeight={'auto'}
         style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
       >
-        {this.renderGenreTiles(genres.results)}
+        {this.renderGenreTiles(genres.results, cols)}
       </GridList>
     );
   }

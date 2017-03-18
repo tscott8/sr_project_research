@@ -10,6 +10,10 @@ const styles = {
    button: {
      width:'100%',
      height:'inherit',
+     minHeight:'calc(100vw/8)',
+    //  minWidth:'calc(100vw/8)',
+
+    //  minWidth:180,
      bottom:0,
      label: {
        width:'inherit',
@@ -24,8 +28,13 @@ const styles = {
        textShadow:'1px 1px black',
        overflow:'hidden',
        labelText:{
-         top:70,
-         bottom:70,
+        //  top:'35%',
+        //  bottom:'35%',
+        height:'100%',
+        width:'100%',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
          left:0,
          right:0,
          padding:4,
@@ -76,7 +85,7 @@ class Tile extends Component {
      return (
        <RaisedButton
          backgroundColor={'transparent'}
-         buttonStyle={{minHeight:'100%', padding:0, background: 'url('+ imgURL + ') ',
+         buttonStyle={{padding:0, background: 'url('+ imgURL + ') ',
          backgroundSize: 'cover', backgroundPosition:'center center'}}
          fullWidth
          label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
@@ -84,7 +93,13 @@ class Tile extends Component {
          onClick={this.handleExpand}
          onMouseEnter={this.handleHover}
          onMouseLeave={this.handleLeave}
-         style={ styles.button }
+         //  style={ styles.button }
+         style={{
+           width:'100%',
+           height:'inherit',
+           minHeight:'calc(100vw/'+this.props.cols+')',
+           bottom:0
+         }}
        >
          <ListDialog
            {...this.props}
