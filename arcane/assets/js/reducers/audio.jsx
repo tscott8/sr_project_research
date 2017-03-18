@@ -21,7 +21,7 @@
    isFavorite: false,
    isRepeating: false,
    isLooping: false,
-   isShuffling: false,
+   isShuffling: true,
    percent: 0,
    volume: 65,
    progress: {},

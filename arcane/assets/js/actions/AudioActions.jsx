@@ -104,6 +104,10 @@ export function toggleShuffle() {
    return { type: types.TOGGLE_SHUFFLE }
 }
 
+export function setAutoPlay(value) {
+   return { type: types.TOGGLE_SHUFFLE, value }
+}
+
 export function addToQueue(songs) {
    console.info("IN AUDIO ACTIONS ADD TO QUEUE", songs)
   return { type: types.ADD_TO_QUEUE, songs}

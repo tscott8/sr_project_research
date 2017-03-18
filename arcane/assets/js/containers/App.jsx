@@ -24,6 +24,13 @@ const appBody = {
 )
 
 export default class App extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         autoPlay: false
+      }
+   }
+
   componentDidMount() {
     // Initialize DOM Audio and retrieve
     this.props.updateVolume(ReactDOM.findDOMNode(this.refs.audio), this.props.audio.volume);
@@ -44,13 +51,13 @@ export default class App extends Component {
   handlePlay = () => {
     console.info("Handling Play request");
     this.props.play(ReactDOM.findDOMNode(this.refs.audio));
+    this.setState({autoPlay: true});
   }
 
   handleNext = () => {
     console.info("Handling Next request");
     const audio = ReactDOM.findDOMNode(this.refs.audio);
     if (!this.props.audio.isRepeating) { this.props.next(audio);}
-    this.props.play(audio);
   }
 
   handlePrevious = () => {
@@ -106,7 +113,7 @@ export default class App extends Component {
           <div style={appBody} >
             <Audio
               ref="audio"
-              autoPlay={false}
+              autoPlay={this.state.autoPlay}
               src={song.url}
               onProgress={this.handleProgress}
               onTimeUpdate={this.handleTimeUpdate}
