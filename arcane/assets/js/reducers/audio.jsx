@@ -47,10 +47,10 @@
     // console.info(songs);
    let nextIndex = startIndex + direction;
    nextIndex = nextIndex < 0 ? songs.length-1 : nextIndex > songs.length-1 ? 0 : nextIndex;
-   let complete = songs.shift();
+  //  let complete = songs.shift();
 
   //  console.log(complete);
-   return songs[nextIndex-1].id;
+   return songs[nextIndex].id;
  }
 
 function getAudioState(audio) {
