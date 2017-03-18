@@ -85,8 +85,11 @@ class Tile extends Component {
      return (
        <RaisedButton
          backgroundColor={'transparent'}
-         buttonStyle={{padding:0, background: 'url('+ imgURL + ') ',
-         backgroundSize: 'cover', backgroundPosition:'center center'}}
+         buttonStyle={{padding:0,
+           background: 'url('+ imgURL + ') ',
+           backgroundSize: 'cover',
+           backgroundPosition:'center center',
+         }}
          fullWidth
          label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
          labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
@@ -96,8 +99,9 @@ class Tile extends Component {
          //  style={ styles.button }
          style={{
            width:'100%',
-           height:'inherit',
-           minHeight:'calc(100vw/'+this.props.cols+')',
+           height:'100%',
+            minHeight:'calc(100vh/'+ 4 +')',
+           //  minWidth:'calc(100vh/'+ 4 +')',
            bottom:0
          }}
        >
