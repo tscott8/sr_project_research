@@ -32,7 +32,7 @@ export function uploadTracks(files) {
     "X-CSRFToken": csrftoken
     },
     credentials: "same-origin",
-    body:fd,
+    body:fd
     })
     .then(response => response.status)
     .then(status => ({

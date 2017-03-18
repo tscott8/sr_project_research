@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -7,17 +7,16 @@ import theme from "../constants/material-ui-theme"
 import Audio from '../components/Audio'
 import Header from "../components/Header"
 import FloatingControls from '../components/FloatingControls'
-import * as ActionTypes from '../constants/ActionTypes'
+// import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
-import {Paper} from 'material-ui'
 
 const appBody = {
   width:'100%',
   height:'100%',
   background: theme.palette.canvasColor + ' repeat top center fixed',
   backgroundSize:'cover',
-  position:'fixed',
+  position:'fixed'
 };
 @connect(
   state => ({audio: state.audio}),
@@ -25,7 +24,7 @@ const appBody = {
 )
 
 export default class App extends Component {
-   componentDidMount() {
+  componentDidMount() {
     // Initialize DOM Audio and retrieve
     this.props.updateVolume(ReactDOM.findDOMNode(this.refs.audio), this.props.audio.volume);
     this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));

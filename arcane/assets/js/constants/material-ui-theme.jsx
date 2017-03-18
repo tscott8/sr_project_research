@@ -13,7 +13,6 @@ const arcaneDark = {
      accent1Color: Colors.cyanA700,
      accent2Color: Colors.redA700,
      accent3Color: Colors.grey700,
-
      textColor: Colors.white,
      secondaryTextColor: fade(Colors.white, 0.7),
      alternateTextColor: Colors.redA700,
@@ -22,15 +21,14 @@ const arcaneDark = {
      disabledColor: fade(Colors.darkBlack, 0.3),
      pickerHeaderColor: fade(Colors.darkBlack, 0.12),
      clockCircleColor: fade(Colors.darkBlack, 0.07),
-     shadowColor: Colors.fullBlack,
-
+     shadowColor: Colors.fullBlack
   },
   slider: {
      trackColor: Colors.transparent,
      trackSize: 3,
      trackColorSelected: fade(Colors.white, .3),
      selectionColor: Colors.redA700,
-     handleColorZero: Colors.redA700,
+     handleColorZero: Colors.redA700
   },
   drawer: {
     width:280,
@@ -55,12 +53,11 @@ const arcaneDark = {
     iconColor:Colors.redA700
   },
   menuItem: {
-    hoverColor: fade(Colors.cyanA700, 0.3),
+    hoverColor: fade(Colors.cyanA700, 0.3)
   },
   listItem: {
-    hoverColor: fade(Colors.cyanA700, 0.3),
-  },
-
+    hoverColor: fade(Colors.cyanA700, 0.3)
+  }
 };
 
 const googlePlay = {
@@ -82,27 +79,27 @@ const googlePlay = {
     disabledColor: fade(Colors.darkBlack, 0.3),
     pickerHeaderColor: Colors.deepOrangeA700,
     clockCircleColor: fade(Colors.darkBlack, 0.07),
-    shadowColor: Colors.fullBlack,
+    shadowColor: Colors.fullBlack
   },
   drawer: {
-    width:280,
+    width:280
   },
   raisedButton: {
     secondaryColor:Colors.white,
-    secondaryTextColor:Colors.deepOrangeA700,
+    secondaryTextColor:Colors.deepOrangeA700
   },
   appBar: {
-    textColor:Colors.white,
+    textColor:Colors.white
   },
   tabs: {
     color:Colors.white
   },
   menuItem: {
-    hoverColor:fade(Colors.deepOrangeA700,.3),
+    hoverColor:fade(Colors.deepOrangeA700,.3)
   },
   listItem:{
-    hoverColor:fade(Colors.deepOrangeA700,.3),
-  },
+    hoverColor:fade(Colors.deepOrangeA700,.3)
+  }
   //  stepper: {
   //    iconColor:fade(Colors.deepOrangeA700,.3),
   //  }
@@ -125,30 +122,30 @@ const spotify = {
    borderColor: fade(Colors.fullWhite, 0.3),
    disabledColor: fade(Colors.fullWhite, 0.3),
    pickerHeaderColor: fade(Colors.fullWhite, 0.12),
-   clockCircleColor: fade(Colors.fullWhite, 0.12),
+   clockCircleColor: fade(Colors.fullWhite, 0.12)
  },
  drawer: {
-   width:280,
+   width:280
  },
  slider: {
     trackColor: Colors.transparent,
     trackSize: 3,
     trackColorSelected: fade(Colors.white, .3),
     selectionColor: Colors.green700,
-    handleColorZero: Colors.green700,
+    handleColorZero: Colors.green700
  },
  menuItem: {
-   hoverColor: fade(Colors.green700, 0.3),
+   hoverColor: fade(Colors.green700, 0.3)
  },
  listItem: {
-   hoverColor: fade(Colors.green700, 0.3),
+   hoverColor: fade(Colors.green700, 0.3)
  },
  snackbar:{
    backgroundColor:Colors.darkBlack
  },
   raisedButton: {
     secondaryColor:Colors.darkBlack,
-    secondaryTextColor: Colors.green700,
+    secondaryTextColor: Colors.green700
   }
   // },
   // menuItem: {

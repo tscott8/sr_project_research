@@ -52,7 +52,8 @@ class MyMusic extends Component {
       return(
         <FloatingActionButton
           onClick={this.pushToQueue.bind(this)}
-          style={style.fab} >
+          style={style.fab}
+        >
           <FontIcon className="material-icons">queue</FontIcon>
         </FloatingActionButton>
       );
@@ -60,28 +61,22 @@ class MyMusic extends Component {
   }
 
   render() {
-    const { genres, tracks, artists, albums, dispatch } = this.props;
       return (
         <div>
           <CollectionTabs
             {...this.props}
-            // dispatch={dispatch}
-            //    genres={genres}
-            //    tracks={tracks}
-            //    artists={artists}
-            //    albums={albums}
             select={this.addToSelected}
             selectedTracks={this.state.selected}
           />
           {this.renderAddQueueButton()}
           <Snackbar
-            open={this.state.snackOpen}
-            message={this.state.snackMessage}
             action="undo"
             autoHideDuration={this.state.autoHideDuration}
+            message={this.state.snackMessage}
             onActionTouchTap={this.handleActionTouchTap}
             onRequestClose={this.handleRequestClose}
-           />
+            open={this.state.snackOpen}
+          />
         </div>
       );
   }

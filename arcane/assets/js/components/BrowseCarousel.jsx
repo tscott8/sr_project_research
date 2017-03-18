@@ -37,7 +37,7 @@ const settings = {
 
 const styles = {
    carouselDiv: {
-      height: '26vh',
+      // maxHeight: '26vh',
       paddingLeft: 35,
       paddingRight:35
           // margin: '5vh',
@@ -46,8 +46,7 @@ const styles = {
       display: 'block',
       margin: 'auto',
       width : 'inherit',
-      border: 'solid 3px',
-      minHeight:'26vh'
+      // border: 'solid 3px',
    },
    innerElement: {
       // // height:'calc((100vh-64px)/6)',
@@ -58,19 +57,10 @@ const styles = {
       // paddingTop: '10',
       // paddingBottom: '10',
       // paddingLeft: '5',
-      // paddingRight: '5'
-      innerElement: {
-       //  height:'auto',
-         minHeight:180,
-         height:'calc(95vw/8)',
-         // margin: 'auto',
-         // paddingTop: '0',
-         // paddingBottom: '0',
-         paddingLeft: 4,
-         paddingRight: 4
-         // padding:3
+      // paddingRight: '5'',
+
+         height:'20vh'
       }
-   }
 }
 
 export default class BrowseCarousel extends Component {
@@ -86,18 +76,21 @@ export default class BrowseCarousel extends Component {
     if (type === "album")
       props = {
         imgURL: item.artwork ? item.artwork : url+'static/images/default-artwork.png',
+        title:item.name,
         subtitle: item.artist,
         tracks: item.tracks
       };
     if (type === "artist")
       props = {
         imgURL: item.cover_photo ? item.cover_photo : url+'static/images/default-avatar.png',
+        title:item.name,
         subtitle: item.genre,
         albums: item.albums
       }
     if (type === "genre")
       props = {
         imgURL: item.icon ? item.icon : url+'static/images/hip_hop.png',
+        title:item.name,
         subtitle: null,
         artists: item.artists
       }
@@ -107,20 +100,18 @@ export default class BrowseCarousel extends Component {
      const {type} = this.props;
      let items = list ? list.map((item) => (
        <div
+         className="boxTile"
          key={'browse_carousel_item_'+ item.id}
          style={styles.innerElement}
        >
          <Tile
-           {...this.getProps(type, item)}
            {...this.props}
+           {...this.getProps(type, item)}
            id={item.id}
-           title={item.name}
-           // select={select}
-           // selectedTracks={selectedTracks}
-           // dispatch={dispatch}
            type={type}
          />
-       </div>)) : [<div key={'browse_carousel_item_empty'} />];
+       </div>
+     )) : [<div key={'browse_carousel_item_empty'} />];
         return items;
    }
 
