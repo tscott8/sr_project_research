@@ -52,7 +52,7 @@ class Upload(View):
         for f in files:
             Track.objects.create(url=f)
         # Redirect to the track list after POST
-        return HttpResponseRedirect(reverse('upload'))
+        # return HttpResponseRedirect(reverse('upload'))
 
     def get(self, request):
         form = UploadForm()  # A empty, unbound form

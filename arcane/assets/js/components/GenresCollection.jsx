@@ -14,6 +14,7 @@ export default class GenresCollection extends Component {
     if (genres) {
       let arr = genres.map((tile) => (
         <GridTile
+          className="boxTile"
           cols={1}
           key={'genreTile_'+ tile.id}
           rows={1}

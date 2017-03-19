@@ -12,7 +12,7 @@ import theme from '../constants/material-ui-theme'
 const styles = {
   paper: {
     overflowY:'auto',
-    minHeight:'60vh',
+    height:'60vh',
     backgroundColor:theme.palette.primary3Color
   },
   dropzone: {
@@ -30,7 +30,7 @@ const styles = {
     }
   },
   spinner: {
-    padding:'10%',
+    padding:'5%',
     height:'100%',
     width:'100%',
     margin:0,

@@ -80,7 +80,7 @@ export default class ListDialog extends Component {
         <ArtistsCollection
           {...this.props}
           artists={artists.genreArtists}
-          cols={2}
+          cols={4}
         />
       );
     }
