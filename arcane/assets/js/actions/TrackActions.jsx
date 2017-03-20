@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes';
 import cookie from 'react-cookie';
 
 
-const host = "http://localhost:8000/api/tracks";
+const host = "http://localhost:8000/api/tracks/";
 
 export function getTracks() {
   return fetch(host).then(response => response.json()).then(json => ({
@@ -14,6 +14,14 @@ export function getTracks() {
 export function getAlbumTracks(albumID) {
    return fetch(host+'?album='+albumID+'&ordering=order').then(response => response.json()).then(json => ({
              type:types.GET_ALBUM_TRACKS,
+             tracks: json
+           }));
+         };
+
+
+export function getArtistTracks(artistID) {
+   return fetch(host+'?artist='+artistID+'&ordering=order').then(response => response.json()).then(json => ({
+             type:types.GET_ARTIST_TRACKS,
              tracks: json
            }));
          };

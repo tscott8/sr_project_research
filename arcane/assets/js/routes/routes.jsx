@@ -22,7 +22,7 @@ export default (
          <Route path="browse" component={Browse} />
          <Route path="about" component={About} />
          <Route path="settings" component={Settings} />
-         <Route path="profile" component={ProfilePage} />
+         <Route path="profile/:id" component={ProfilePage} />
          <Route path="*" component={SplashPage} />
       </Route>
       <Route path="*" component={SplashPage} />

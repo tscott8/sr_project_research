@@ -4,17 +4,11 @@ import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import Slider from 'react-slick'
 
 const settings = {
-   dots: false,
-   infinite: true,
-   arrows: true,
-   autoPlay: false,
-   autoPlaySpeed: 1,
-   pauseOnHover: true,
+   infinite: false,
+   arrows: false,
    slidesToShow: 3,
    slidesToScroll: 1,
    centerMode: true,
-   fade: false,
-   adaptiveHeight: true
 }
 
 const styles = {

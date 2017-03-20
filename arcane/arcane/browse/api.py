@@ -81,7 +81,7 @@ class TrackViewSet(viewsets.ModelViewSet):
     serializer_class = TrackSerializer
     queryset = Track.objects.all()
     filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter, filters.SearchFilter,)
-    filter_fields = ('album', 'id', 'name', 'genre')
+    filter_fields = ('album', 'id', 'name', 'genre', 'artist')
     ordering_fields = ('order', 'name','album','artist','genre','id')
     ordering = ('name',)
     search_fields = ('name',)
