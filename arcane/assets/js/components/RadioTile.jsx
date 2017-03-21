@@ -6,68 +6,10 @@ import * as ArtistActions from '../actions/ArtistActions'
 import { RaisedButton, IconButton, GridTile} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 
-// const styles = {
-//    button: {
-//      width:'100%',
-//      height:'inherit',
-//      minHeight:'calc(100vw/8)',
-//     //  minWidth:'calc(100vw/8)',
-//
-//     //  minWidth:180,
-//      bottom:0,
-//      label: {
-//        width:'inherit',
-//        height:'100%',
-//        backgroundColor:  'rgba(0, 0, 0, 0.6)',
-//        left:0,
-//        bottom:0,
-//        right:0,
-//        position:'absolute',
-//        lineHeight:1.3,
-//        textOverflow:'clip',
-//        textShadow:'1px 1px black',
-//        overflow:'hidden',
-//        labelText:{
-//         //  top:'35%',
-//         //  bottom:'35%',
-//         height:'100%',
-//         width:'100%',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         flexDirection: 'column',
-//          left:0,
-//          right:0,
-//          padding:4,
-//          position:'absolute'
-//        }
-//      }
-//    },
-//    href: {
-//      color:'white',
-//      fontSize:'1.4rem',
-//      display:'block',
-//      maxHeight:'50%',
-//      overflow:'hidden',
-//      whiteSpace:'no-wrap'
-//    },
-//    hrefsub: {
-//      color:'gray',
-//      fontSize:'1.2rem',
-//      display:'block',
-//      textOverflow:'clip',
-//      maxHeight:'50%',
-//      overflow:'hidden',
-//      whiteSpace:'no-wrap'
-//    }
-// }
-
 const styles = {
   root: {
     width:'100%',
     height:'inherit',
-    // maxWidth:'80vh',
-    // maxHeight:'80vh'
-    // minHeight:'calc(100vw/8)',
   },
   overlay: {
     width:'inherit',
@@ -175,6 +117,8 @@ class RadioTile extends Component {
            maxHeight:'90vw',
            marginLeft: 'auto',
            marginRight: 'auto',
+           marginTop:'auto',
+           marginBottom:'auto',
            padding:0,
            background: 'url('+ imgURL + ') ',
            backgroundSize: 'cover',

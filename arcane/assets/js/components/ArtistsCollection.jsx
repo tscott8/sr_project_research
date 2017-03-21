@@ -41,7 +41,7 @@ export default class ArtistsCollection extends Component {
       return(
         <GridList
           cols={cols}
-          cellHeight={'auto'}
+          cellHeight={200}
           style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
         >
           {this.renderArtistTiles(artists.results,cols)}

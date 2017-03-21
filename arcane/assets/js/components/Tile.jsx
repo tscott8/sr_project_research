@@ -10,10 +10,8 @@ const styles = {
    button: {
      width:'100%',
      height:'inherit',
-     minHeight:'calc(100vw/8)',
-    //  minWidth:'calc(100vw/8)',
-
-    //  minWidth:180,
+    //  height:'100%',
+    //  minHeight:'calc(100vh/4)',
      bottom:0,
      label: {
        width:'inherit',
@@ -99,14 +97,16 @@ class Tile extends Component {
          onClick={this.handleExpand}
          onMouseEnter={this.handleHover}
          onMouseLeave={this.handleLeave}
-         //  style={ styles.button }
-         style={{
-           width:'100%',
-           height:'100%',
-            minHeight:'calc(100vh/'+ 4 +')',
-           //  minWidth:'calc(100vh/'+ 4 +')',
-           bottom:0
-         }}
+         style={ styles.button }
+         //  style={{
+         //
+         //    width:'100%',
+         //    height:'100%',
+         //     // minHeight:'calc(100vw/8)',
+         //     // maxHeight:'calc(100vw/4)',
+         //    //  maxHeight:'calc(100vw/4)',
+         //    bottom:0
+         //  }}
        >
          <ListDialog
            {...this.props}

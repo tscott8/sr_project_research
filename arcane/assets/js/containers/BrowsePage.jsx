@@ -29,8 +29,14 @@ class BrowsePage extends Component {
 
       // console.info("ablums in browse render: ", this.props.albums);
       return (
-         <Paper style={{maxHeight:'calc(100vh-64px)'}}>
-           <h3>New Releases</h3>
+         <div style={{
+           maxHeight:'calc(100vh-64px)',
+           overflowY:'auto',
+           maxWidth:'90%',
+           marginLeft:'auto',
+           marginRight:'auto'
+         }}>
+           {/* <h3>New Releases</h3> */}
            {/* <h3>Test Carousel with Tiles</h3>
            <AlbumCarousel albums={albums} dispatch={this.props.dispatch} /> */}
            <h3>Genres</h3>
@@ -58,7 +64,7 @@ class BrowsePage extends Component {
              selectedTracks={this.state.selected}
              type={'album'}
            />
-         </Paper>
+         </div>
       );
    }
 }

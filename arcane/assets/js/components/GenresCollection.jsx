@@ -39,7 +39,7 @@ export default class GenresCollection extends Component {
     return(
       <GridList
         cols={cols}
-        cellHeight={'auto'}
+        cellHeight={200}
         style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
       >
         {this.renderGenreTiles(genres.results, cols)}

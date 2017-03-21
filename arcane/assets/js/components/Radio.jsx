@@ -8,7 +8,7 @@ const url = "http://localhost:8000/";
 const settings = {
    dots: false,
    infinite: false,
-   arrows: true,
+   arrows: false,
    autoPlay: false,
    slidesToShow: 1,
    slidesToScroll: 1,
@@ -20,13 +20,19 @@ const settings = {
 }
 
 const styles = {
-   outerDiv: {
-      display: 'block',
+   outerDiv:  {
+     display: 'flex',
+     flexDirection:'column',
+     justifyContent:'center',
+      // position:'absolute',
+      top:0,
+      bottom:0,
+      // width:'100%',
       maxWidth:'60%',
-      margin: 'auto',
-      marginTop:'5vh',
-      marginBottom:'5vh'
-     },
+      marginLeft:'auto',
+      marginRight:'auto',
+      marginTop:'2%'
+   },
    innerDiv: {
     }
 }
@@ -46,6 +52,7 @@ export default class Radio extends Component  {
   if (tracks) {
     let arr = tracks.map((tile) => (
       <div key={'radio_card_'+ tile.id}
+
       >
         <RadioTile
 
