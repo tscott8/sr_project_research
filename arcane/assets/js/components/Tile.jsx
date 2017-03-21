@@ -91,7 +91,10 @@ class Tile extends Component {
            backgroundPosition:'center center',
          }}
          fullWidth
-         label={<div style={styles.button.label.labelText}><a style={styles.href}>{title}</a> <a style={styles.hrefsub}> {subtitle}</a></div>}
+         label={
+           <div style={styles.button.label.labelText}>
+             <a style={styles.href}>{title}</a>
+             <a style={styles.hrefsub}>{subtitle}</a></div>}
          labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
          onClick={this.handleExpand}
          onMouseEnter={this.handleHover}

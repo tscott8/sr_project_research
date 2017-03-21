@@ -85,30 +85,15 @@
   animation: pulse 2s infinite;
 }
 .boxTile {
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
+  position: relative;
+   display: inline-block;
+   border-radius: 5px;
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+   border-radius: 5px;
+   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .boxTile::after {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-/*.box {
-  position: relative;
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.box::after {
   content: "";
   border-radius: 5px;
   position: absolute;
@@ -121,7 +106,7 @@
   opacity: 0;
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}*/
+}
 
 .boxTile:hover {
   z-index: 1;
