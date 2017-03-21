@@ -15,7 +15,7 @@ export default function tracks(state = initialState, action) {
       case GET_NEXT_TRACKS:
          let tracksArray = state.allTracks.results;
          tracksArray = tracksArray.concat(action.tracks.results);
-         console.info(tracksArray);
+        //  console.info(tracksArray);
          allTracks = action.tracks;
          allTracks.results = tracksArray;
          return {...state, allTracks: allTracks};
