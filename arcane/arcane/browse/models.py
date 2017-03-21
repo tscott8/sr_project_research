@@ -14,114 +14,9 @@ from PIL import Image
 from io import BytesIO
 import requests
 import re
-genre_tree = {
-    'Alternative': [
-        'Alternative',
-        'Art Punk',
-        'Alternative Rock',
-        'College Rock',
-        'Crossover Thrash',
-        'Crust Punk',
-        'Experimental Rock',
-        'Folk Punk',
-        'Goth',
-        'Gothic Rock',
-        'Grunge',
-        'Hardcore Punk',
-        'Hard Rock',
-        'Indie Rock',
-        'Lo-fi',
-        'New Wave',
-        'Progressive Rock',
-        'Punk',
-        'Shoegaze',
-        'Steampunk'
-    ],
-    'Blues':[
-        'Blues',
-        'Acoustic Blues',
-        'Chicago Blues',
-        'Classic Blues',
-        'Contemporary Blues',
-        'Country Blues',
-        'Delta Blues',
-        'Electric Blues',
-        'Ragtime Blues'
-    ],
-    'Classical':[],
-    'Country':[],
-    'Dance':[
-        'Dance',
-        'Club',
-        'Club Dance',
-        'Breakcore',
-        'Breakbeat',
-        'Breakstep',
-        'Brostep',
-        'Chillstep',
-        'Deep House',
-        'Dubstep',
-        'EDM',
-        'Dance Electronic',
-        'Electro House',
-        'Electroswing',
-        'Exercise',
-        'Future Garage',
-        'Garage',
-        'Glitch Hop',
-        'Glitch Pop',
-        'Grime',
-        'Hardcore',
-        'Hard Dance',
-        'Hi-NRG',
-        'Eurodance',
-        'Horrorcore',
-        'House',
-        'Jackin House',
-        'Jungle',
-        'Drum’n’bass',
-        'Liquid Dub',
-        'Regstep',
-        'Speedcore',
-        'Techno',
-        'Trance',
-        'Trap'
-    ],
-    'Electronic':[
-        'Electronic',
-        '2-Step ',
-        'Ambient',
-        'Bassline',
-        'Chillwave',
-        'Chiptune',
-        'Crunk',
-        'Downtempo',
-        'Drum & Bass',
-        'Electro',
-        'Electro-swing',
-        'Electronica',
-        'Electronic Rock',
-        'Hardstyle',
-        'IDM/Experimental',
-        'Industrial',
-        'Trip Hop ',
-    ],
-    'Hip-Hop/Rap':[
-        'Hip Hop',
-        'Rap'
-    ],
-    'Jazz':[],
-    'Metal':[],
-    'New Age':[],
-    'Pop':[],
-    'R&B/Soul':[],
-    'Reggae':[],
-    'Rock':[],
-    'Folk':[],
-    'Soundtrack':[],
-    'Vocal':[],
-    'World':[],
-}
+from arcane.browse.helpers import Genre_Helpers
+
+
 
 def upload_genre_icon(instance, file):
     return "genres/" + slugify(instance.name) + "/icons/" + file
@@ -148,25 +43,27 @@ def save_resize_image(image_to_resize, size, path_to_save):
     return
 
 def get_genre_icon(genre):
+    G = Genre_Helpers(os.path.join('static' , 'images' ,'genres'))
+    genre_tree = G.genre_tree
     temp = genre.split('/')
-    print('\n\n',temp)
+    # print('\n\n',temp)
     for i in temp:
         g = re.sub(r'([^\s\w]|_)+', ' ', i)
-        print(g, '\n\n')
-        if any(g in s for s in genre_tree['Hip-Hop/Rap']):
-            return os.path.join('static' , 'images' , 'hip_hop.jpg')
-        if any(g in s for s in genre_tree['Dance']):
-            return os.path.join('static' , 'images' , 'edm.jpg')
-        if any(g in s for s in genre_tree['Electronic']):
-            return os.path.join('static' , 'images' , 'electronic.jpg')
-        if any(g in s for s in genre_tree['Folk']):
-            return os.path.join('static' , 'images' , 'folk.jpg')
-        if any(g in s for s in genre_tree['Jazz']):
-            return os.path.join('static' , 'images' , 'jazz.jpg')
-        if any(g in s for s in genre_tree['Rock']):
-            return os.path.join('static' , 'images' , 'rock.jpg')
-        if any(g in s for s in genre_tree['Metal']):
-            return os.path.join('static' , 'images' , 'metal.jpg')
+        # print(g, '\n\n')
+        if any(g in s for s in genre_tree['Hip Hop Rap']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'hip_hop.jpg')
+        if any(g in s for s in genre_tree['Dance']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'dance.jpg')
+        if any(g in s for s in genre_tree['Electronic']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'electronic.jpg')
+        if any(g in s for s in genre_tree['Folk']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'folk.jpg')
+        if any(g in s for s in genre_tree['Jazz']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'jazz.jpg')
+        if any(g in s for s in genre_tree['Rock']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'rock.jpg')
+        if any(g in s for s in genre_tree['Metal']['sub_genres']):
+            return os.path.join('static' , 'images' ,'genres', 'metal.jpg')
     return None
 
 def save_genre_icon(genre, path):
@@ -206,17 +103,6 @@ def snag_artist_photo(artist):
     image_request_result = requests.get(img_url)
     print('Cover Photo Downloaded...')
     save_resize_image(image_request_result.content, 600, path)
-    # image = Image.open(BytesIO(image_request_result.content))
-    # width, height = image.size
-    # max_size = [600, 600]
-    # # resize image
-    # print('Saving Cover Photo...')
-    # if width > 600 or height > 600:
-    #     image.thumbnail(max_size)
-    # image_io = BytesIO()
-    # image.save(image_io, format='JPEG')
-    # # save image
-    # default_storage.save(path, ContentFile(image_io.getvalue()))
     print('Cover Photo Saved...')
     return ("artists/" + slugify(artist) + "/images/profile.jpg")
 
@@ -266,30 +152,13 @@ def get_track_info(filename):
         'size': os.stat(filename).st_size,
         'bpm': short_tags.get('bpm', ['0'])[0]
     }
-    # if artwork is 'No Artwork':
-    #     print('No Artwork Found... Downloading Now...')
-    #     path = default_storage.save(os.path.join(settings.MEDIA_ROOT,'tmp','temp.jpg'))
-    #     cmd = " ".join(["sacad", "\""+track_info['artist']+"\"",  "\""+track_info['album']+"\"", "600",  path])
-    #     call(cmd)
-    #     try:
-    #         f = open(path, 'rb')
-    #         track_info['artwork'] = f.read()
-    #         f.close()
-    #         print('Artwork Downloaded...')
-    #     except:
-    #         print('Unable to Download Artwork.. ')
-    #     path = default_storage.delete(os.path.join(settings.MEDIA_ROOT,'tmp','temp.jpg'))
     return track_info
-
-
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, unique=True)
     color = models.CharField(max_length=7, default='#D50000')
     icon = models.ImageField(upload_to=upload_genre_icon, blank=True, null=True)
 
-    # def __str__(self):
-    #     return '%d: %s' % (self.id, self.name)
     def __str__(self):
         return self.name
 
@@ -299,7 +168,8 @@ class Genre(models.Model):
     def save(self, *args, **kwargs):
         # temp = self.name.strip("',/\n")
         if not self.icon:
-            icon_path = get_genre_icon(self.name)
+            icon_path = get_genre_icon2(self.name)
+            print(icon_path)
             self.icon = save_genre_icon(self.name, icon_path)
         super(Genre, self).save(*args, **kwargs)
 
