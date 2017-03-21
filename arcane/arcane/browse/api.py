@@ -1,8 +1,18 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets, filters
+from rest_framework import routers, serializers, viewsets, filters, pagination
 
 from .models import Genre, Artist, Album, Track
+
+class TileResultsSetPagination(pagination.PageNumberPagination):
+    page_size = 25
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+class ListResultsSetPagination(pagination.PageNumberPagination):
+    page_size = 15
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 class GenreSerializer(serializers.HyperlinkedModelSerializer):
     artists = serializers.StringRelatedField(many=True)
@@ -16,8 +26,9 @@ class GenreViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     filter_fields = ('name', 'id')
     ordering_fields = ('name','color')
-    ordering=('name')
+    ordering = ('name')
     lookup_field = "id"
+    pagination_class = TileResultsSetPagination
 
     def perform_create(self, serializer):
         serializer.save()
@@ -25,7 +36,7 @@ class GenreViewSet(viewsets.ModelViewSet):
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     # genre = GenreSerializer(read_only=True)
-    genre=serializers.StringRelatedField(read_only=True)
+    genre = serializers.StringRelatedField(read_only=True)
     albums = serializers.StringRelatedField(many=True)
     class Meta:
         model = Artist
@@ -37,8 +48,9 @@ class ArtistViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     filter_fields = ('name', 'id', 'genre')
     ordering_fields = ('name','genre')
-    ordering=('name')
+    ordering = ('name')
     lookup_field = "id"
+    pagination_class =TileResultsSetPagination
 
     def perform_create(self, serializer):
         serializer.save()
@@ -47,8 +59,8 @@ class ArtistViewSet(viewsets.ModelViewSet):
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     # artist = ArtistSerializer(read_only=True)
     # genre = GenreSerializer(read_only=True)
-    artist=serializers.StringRelatedField(read_only=True)
-    genre=serializers.StringRelatedField(read_only=True)
+    artist = serializers.StringRelatedField(read_only=True)
+    genre = serializers.StringRelatedField(read_only=True)
     tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Album
@@ -62,6 +74,7 @@ class AlbumViewSet(viewsets.ModelViewSet):
     ordering_fields = ('name','artist','genre','id')
     ordering = ('name',)
     lookup_field = "id"
+    pagination_class =TileResultsSetPagination
 
     def perform_create(self, serializer):
         serializer.save()
@@ -70,7 +83,7 @@ class AlbumViewSet(viewsets.ModelViewSet):
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
     artist = ArtistSerializer(read_only=True)
     # genre = GenreSerializer(read_only=True)
-    genre=serializers.StringRelatedField(read_only=True)
+    genre = serializers.StringRelatedField(read_only=True)
     album = AlbumSerializer(read_only=True)
 
     class Meta:
@@ -86,6 +99,7 @@ class TrackViewSet(viewsets.ModelViewSet):
     ordering = ('name',)
     search_fields = ('name',)
     lookup_field = "id"
+    pagination_class = ListResultsSetPagination
 
     # def filter_queryset(self, queryset):
     #     queryset = super(TrackViewSet, self).filter_queryset(queryset)

@@ -14,3 +14,9 @@ export function getArtistAlbums(artistID) {
              albums: json
            }));
          };
+export function getNextAlbums(url) {
+  return fetch(url).then(response => response.json()).then(json => ({
+            type:types.GET_NEXT_ALBUMS,
+            albums: json
+          }));
+};

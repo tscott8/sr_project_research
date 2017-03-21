@@ -46,10 +46,8 @@ def get_genre_icon(genre):
     G = Genre_Helpers(os.path.join('static' , 'images' ,'genres'))
     genre_tree = G.genre_tree
     temp = genre.split('/')
-    # print('\n\n',temp)
     for i in temp:
         g = re.sub(r'([^\s\w]|_)+', ' ', i)
-        # print(g, '\n\n')
         if any(g in s for s in genre_tree['Hip Hop Rap']['sub_genres']):
             return os.path.join('static' , 'images' ,'genres', 'hip_hop.jpg')
         if any(g in s for s in genre_tree['Dance']['sub_genres']):
@@ -67,10 +65,8 @@ def get_genre_icon(genre):
     return None
 
 def save_genre_icon(genre, path):
-    # path = os.path.join('static' , 'images' , 'hip_hop.jpg')
     if not path:
         return None
-
     data = "No Icon"
     try:
         f = open(path, 'rb')
@@ -79,13 +75,9 @@ def save_genre_icon(genre, path):
         print('Icon Found...')
     except:
         print('No Icon... ')
-
     path = os.path.join(settings.MEDIA_ROOT, 'genres' , slugify(genre) , 'icons', 'icon.jpg')
     save_resize_image(data, 600, path)
-    # default_storage.save(path, ContentFile(data))
     return ("genres/" + slugify(genre) + "/icons/icon.jpg")
-
-
 
 def snag_artist_photo(artist):
     print('No Cover Photo Found... Downloading Now...')
@@ -167,9 +159,8 @@ class Genre(models.Model):
 
     def save(self, *args, **kwargs):
         # temp = self.name.strip("',/\n")
-        if not self.icon:
-            icon_path = get_genre_icon2(self.name)
-            print(icon_path)
+        if not self.icon and self.name is not "No Genre":
+            icon_path = get_genre_icon(self.name)
             self.icon = save_genre_icon(self.name, icon_path)
         super(Genre, self).save(*args, **kwargs)
 
@@ -186,7 +177,7 @@ class Artist(models.Model):
         return '%d: %s' % (self.id, self.name)
 
     def save(self, *args, **kwargs):
-        if not self.cover_photo and self.cover_photo is not "No Artist":
+        if not self.cover_photo and self.name is not "No Artist":
             self.cover_photo = snag_artist_photo(self.name)
         super(Artist, self).save(*args, **kwargs)
 
