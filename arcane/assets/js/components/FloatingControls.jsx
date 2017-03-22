@@ -9,7 +9,8 @@ const style = {
    right: '0',
    bottom: '0',
    marginBottom: '5vh',
-   marginRight: '5vh'
+   marginRight: '5vh',
+  zIndex:1
  },
 
    progress: {

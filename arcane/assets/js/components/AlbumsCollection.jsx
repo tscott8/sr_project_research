@@ -50,7 +50,7 @@ export default class AlbumsCollection extends Component {
         <div>
           <GridList
             cols={cols}
-            cellHeight={200}
+            // cellHeight={200}
             style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
           >
             {this.renderAlbumTiles(albums.results, cols)}

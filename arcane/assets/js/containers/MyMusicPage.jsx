@@ -10,7 +10,8 @@ const style = {
     left: '0',
     bottom: '0',
     marginBottom: '5vh',
-    marginLeft: '5vh'
+    marginLeft: '5vh',
+    zIndex:1
   },
 }
 class MyMusic extends Component {

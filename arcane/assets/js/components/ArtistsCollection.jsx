@@ -18,6 +18,7 @@ export default class ArtistsCollection extends Component {
           cols={1}
           key={'artistTile_'+ tile.id}
           rows={1}
+          // style={{minWidth:}}
         >
           <Tile
             {...this.props}
@@ -41,7 +42,7 @@ export default class ArtistsCollection extends Component {
       return(
         <GridList
           cols={cols}
-          cellHeight={200}
+          // cellHeight={170}
           style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
         >
           {this.renderArtistTiles(artists.results,cols)}
