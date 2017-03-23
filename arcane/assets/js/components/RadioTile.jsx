@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import * as TrackActions from '../actions/TrackActions'
-import * as AlbumActions from '../actions/AlbumActions'
-import * as ArtistActions from '../actions/ArtistActions'
-import { RaisedButton, IconButton, GridTile} from 'material-ui'
-import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
+// import * as TrackActions from '../actions/TrackActions'
+// import * as AlbumActions from '../actions/AlbumActions'
+// import * as ArtistActions from '../actions/ArtistActions'
+import { IconButton } from 'material-ui'
+import { CardTitle} from 'material-ui/Card'
 
 const styles = {
   root: {
@@ -48,8 +48,7 @@ const styles = {
            right:0,
            width:'100%',
            textShadow:'1px 1px black',
-           whiteSpace:'no-wrap',
-
+           whiteSpace:'no-wrap'
           },
           subtitle: {
             bottom:0,
@@ -58,13 +57,11 @@ const styles = {
             width:'100%',
             textOverflow:'clip',
             textShadow:'1px 1px black',
-            whiteSpace:'no-wrap',
-
+            whiteSpace:'no-wrap'
           }
         }
-    },
-  },
-
+    }
+  }
 }
 class RadioTile extends Component {
    constructor(props) {
@@ -77,55 +74,62 @@ class RadioTile extends Component {
    handleLeave = () => {this.setState({hover: false})}
 
    renderOverlay () {
-      const { title, subtitle } = this.props;
+      const { title, subtitle} = this.props;
       if (this.state.hover) {
        return (
-         <div id="overlay_container" style={styles.overlay} >
+         <div
+           id="overlay_container"
+           style={styles.overlay}
+         >
            <div style={styles.overlay.topActions}>
              <IconButton iconClassName="material-icons">check</IconButton>
              <IconButton
-               style={{float:'right'}}
-               iconClassName="material-icons"
                hoveredStyle={{color:'red'}}
+               iconClassName="material-icons"
+               style={{float:'right'}}
              >close</IconButton>
            </div>
            <div style={styles.overlay.bottomActions}>
-             {/* <div id={'gar'+title} style={{display: 'flex',
-               justifyContent: 'center',
-             flexDirection: 'column'}}> */}
-             <CardTitle style={styles.overlay.bottomActions.label}
-               title={title}
-               titleStyle={styles.overlay.bottomActions.label.title}
+             <CardTitle
+               style={styles.overlay.bottomActions.label}
                subtitle={subtitle}
                subtitleStyle={styles.overlay.bottomActions.label.subtitle}
+               title={title}
+               titleStyle={styles.overlay.bottomActions.label.title}
              />
-             <IconButton style={styles.overlay.bottomActions.button} iconClassName="material-icons">more_vert</IconButton>
-             {/* </div> */}
+             <IconButton
+               iconClassName="material-icons"
+               style={styles.overlay.bottomActions.button}
+             >more_vert</IconButton>
            </div>
          </div>
        );
      }
     }
    render()  {
-     const { imgURL } = this.props;
+     const { imgURL, className } = this.props;
      return (
        <div
+         className={className}
+         onMouseEnter={this.handleHover}
+         onMouseLeave={this.handleLeave}
          style={{
            height:'80vh',
            width: '80vh',
            maxWidth:'90vw',
            maxHeight:'90vw',
+           margin:20,
            marginLeft: 'auto',
            marginRight: 'auto',
-           marginTop:'auto',
-           marginBottom:'auto',
+           //  marginTop:'auto',
+           //  marginBottom:'auto',
            padding:0,
            background: 'url('+ imgURL + ') ',
            backgroundSize: 'cover',
            backgroundPosition:'center center',
-         }}
-         onMouseEnter={this.handleHover}
-         onMouseLeave={this.handleLeave}>
+           borderRadius:1
+
+         }}>
          <div style={styles.root}>{this.renderOverlay()}</div>
          </div>
 
