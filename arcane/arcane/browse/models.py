@@ -181,6 +181,18 @@ class Artist(models.Model):
             self.cover_photo = snag_artist_photo(self.name)
         super(Artist, self).save(*args, **kwargs)
 
+
+class ArtistSummary(models.Model):
+    artist = models.ForeignKey(Artist, related_name='summary', blank=False, null=False)
+    summary = models.TextField()
+
+    def __str__(self):
+        return self.id
+
+    def __unicode__(self):
+        return self.id
+
+
 class Album(models.Model):
     name = models.CharField(max_length=50)
     artist = models.ForeignKey(Artist, related_name='albums', blank=True, null=True, on_delete=models.CASCADE)

@@ -1,8 +1,8 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets, filters, pagination
-
-from .models import Genre, Artist, Album, Track
+from rest_framework_extensions.mixins import NestedViewSetMixin
+from .models import Genre, Artist, ArtistSummary, Album, Track
 
 class TileResultsSetPagination(pagination.PageNumberPagination):
     page_size = 25
@@ -42,7 +42,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
         model = Artist
         fields = ('id', 'name', 'genre', 'cover_photo', 'albums')
 
-class ArtistViewSet(viewsets.ModelViewSet):
+class ArtistViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ArtistSerializer
     queryset = Artist.objects.all()
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
@@ -51,6 +51,24 @@ class ArtistViewSet(viewsets.ModelViewSet):
     ordering = ('name')
     lookup_field = "id"
     pagination_class =TileResultsSetPagination
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class ArtistSummarySerializer(serializers.HyperlinkedModelSerializer):
+    artist = serializers.PrimaryKeyRelatedField(queryset=Artist.objects.all())
+    class Meta:
+        model = ArtistSummary
+        fields = ('id', 'artist', 'summary')
+
+
+class ArtistSummaryViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    serializer_class = ArtistSummarySerializer
+    queryset = ArtistSummary.objects.all().select_related('artist')
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('id', 'artist')
+    lookup_field = 'id'
 
     def perform_create(self, serializer):
         serializer.save()
@@ -111,5 +129,6 @@ class TrackViewSet(viewsets.ModelViewSet):
 def router_register(router):
     router.register(r'users', AlbumViewSet)
     router.register(r'users', ArtistViewSet)
+    router.register(r'users', ArtistSummaryViewSet)
     router.register(r'users', GenreViewSet)
     router.register(r'users', TrackViewSet)
