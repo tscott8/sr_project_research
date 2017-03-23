@@ -16,21 +16,9 @@ class RadioPage extends Component {
    }
 
    render() {
-     const {audio} = this.props;
-     console.log('IN RADIO Page', audio)
+     console.log('IN RADIO Page', this.props)
 
-      return (
-         <div>
-           <Radio tracks={audio}/>
-           {/* <TracksCollection tracks={this.props.tracks}/>, */}
-            {/* <Tile
-              name={"Test"}
-              imgURL={url+'static/images/default-artwork.png'}
-              tracks={this.props.tracks}
-              select={this.props.select}
-              selectedTracks={this.props.selectedTracks}/> */}
-         </div>
-      );
+      return (<Radio tracks={this.props.audio}/>);
    }
 }
 

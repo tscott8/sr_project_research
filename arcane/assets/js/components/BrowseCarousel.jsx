@@ -26,41 +26,32 @@ const responsiveSettings = [
 ]
 
 const settings = {
-   dots: false,
+   dots: true,
    infinite: true,
    arrows: true,
    slidesToShow: 8,
-   slidesToScroll: 3,
+   slidesToScroll: 8,
    centerMode: false,
+   adaptiveHeight: true,
+   focusOnSelect: true,
+   centerPadding: 10,
    responsive: responsiveSettings
 }
 
 const styles = {
-   carouselDiv: {
-      // maxHeight: '26vh',
-      paddingLeft: 35,
-      paddingRight:35
-          // margin: '5vh',
-   },
    outerDiv: {
-      display: 'block',
-      margin: 'auto',
-      width : 'inherit',
+    //  marginLeft: 35,
+    //  marginRight: 35,
+      // display: 'block',
+      // margin: 'auto',
+      // width : 'inherit',
       // border: 'solid 3px',
+      maxWidth: 500
    },
    innerElement: {
-      // // height:'calc((100vh-64px)/6)',
-      // height:'calc((100vh - 114px)/4)',
-      // margin: 'auto',
-      // width:'calc((100vh - 114px)/4)',
-      // // height:'auto',
-      // paddingTop: '10',
-      // paddingBottom: '10',
-      // paddingLeft: '5',
-      // paddingRight: '5'',
-
-         height:'20vh'
-      }
+     margin: 2,
+     height: 200
+   }
 }
 
 export default class BrowseCarousel extends Component {
@@ -119,14 +110,12 @@ export default class BrowseCarousel extends Component {
      const {list} = this.props;
      console.log('In BrowseCarousel render', this.props)
      return (
-       <div style={styles.carouselDiv}>
          <Slider
            {...settings}
            style={styles.outerDiv}
          >
            {this.renderSliderItems(list.results)}
          </Slider>
-       </div>
       );
    }
 }

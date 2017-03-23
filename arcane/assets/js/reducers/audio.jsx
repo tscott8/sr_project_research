@@ -29,7 +29,7 @@
    repeat: false,
    songs: [],
    completedsongs: [],
-   currentIndex: null,
+   currentID: null,
    defaultSong: {
      "id": -1,
      "album": "",
