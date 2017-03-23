@@ -56,6 +56,15 @@ export default class Radio extends Component  {
   handleHover() {this.setState({hover: true})}
   handleLeave() {this.setState({hover: false})}
 
+  getArtwork(track) {
+     console.log("IN getArtwork ", track);
+     if (track) {
+        return track.album.artwork;
+     } else {
+        return url + 'static/images/default-artwork.png';
+     }
+ }
+
   renderSlides(tracks) {
      console.info(tracks);
      if (tracks.length > 0) {
@@ -66,6 +75,7 @@ export default class Radio extends Component  {
              {...this.props}
              id={tile ? tile.id : -1}
              imgURL={tile && tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
+             // imgURL={this.getArtwork(tile)}
              subtitle={tile ? tile.artist.name : 'No Artist'}
              title={ tile ? tile.name : -1}
            />
@@ -82,8 +92,8 @@ export default class Radio extends Component  {
     const {tracks} = this.props;
     let list = tracks.completed.map(clone);
     list.push(tracks.currentlyPlaying);
-    list.concat(tracks.upcoming);
-    console.info("IN radio RENDER", list);
+    console.log("IN radio RENDER upcoming", tracks.upcoming);
+    list = list.concat(tracks.upcoming);
       return (
         <div
           style={styles.outerDiv}
