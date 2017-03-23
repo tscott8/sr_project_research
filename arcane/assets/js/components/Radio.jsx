@@ -49,9 +49,7 @@ export default class Radio extends Component  {
   componentDidUpdate(prevProps, nextState) {
      console.info("Radio component updated!");
      console.info("RADIO UPDATING", prevProps);
-     if (prevProps.tracks.currentID != this.props.tracks.currentID){
-        this.refs.radioSlider.slickGoTo(this.props.tracks.currentID)
-     }
+     this.refs.radioSlider.slickGoTo(this.props.tracks.completed.length);
  }
 
   handleHover() {this.setState({hover: true})}
@@ -61,14 +59,14 @@ export default class Radio extends Component  {
      console.info(tracks);
      if (tracks.length > 0) {
        let arr = tracks.map((tile) => (
-         <div key={'radio_card_'+ tile.id}
+         <div key={'radio_card_' + (tile === null ? -1 : tile.id)}
          >
            <RadioTile
              {...this.props}
-             id={tile.id}
-             imgURL={tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
-             subtitle={tile.artist.name}
-             title={tile.name}
+             id={tile ? tile.id : -1}
+             imgURL={tile && tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
+             subtitle={tile ? tile.artist.name : 'No Artist'}
+             title={ tile ? tile.name : -1}
            />
          </div>
        ))
@@ -81,12 +79,15 @@ export default class Radio extends Component  {
 
   render() {
     const {tracks} = this.props;
+    let list = tracks.completed;
+    list.push(tracks.currentlyPlaying);
+    list.concat(tracks.upcoming);
       return (
         <div
           style={styles.outerDiv}
         >
           <Slider {...settings} ref="radioSlider">
-             {this.renderSlides(tracks.songs)}
+             {this.renderSlides(list)}
           </Slider>
         </div>
       );

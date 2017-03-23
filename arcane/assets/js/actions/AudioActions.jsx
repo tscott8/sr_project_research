@@ -87,8 +87,8 @@ export function updatePosition(audio, percent) {
   return { type: types.UPDATE_POSITION, audio }
 }
 
-export function toggleFavorite(id) {
-  return { type: types.TOGGLE_FAVORITE, id }
+export function toggleFavorite() {
+  return { type: types.TOGGLE_FAVORITE }
 }
 
 export function toggleRepeat() {

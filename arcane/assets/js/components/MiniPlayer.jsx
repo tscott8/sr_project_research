@@ -89,12 +89,13 @@ export default class MiniPlayer extends Component {
   }
 
   getNowPlayingSong() {
-    const {currentID, queue} = this.props;
-    let lookup = [];
-    for (let i = 0, len = queue.length; i < len; i++) {
-        lookup[queue[i].id] = queue[i];
-    }
-    return lookup[currentID]
+    const { queue } = this.props; // CHANGED
+   //  let lookup = [];
+   //  for (let i = 0, len = queue.length; i < len; i++) {
+   //      lookup[queue[i].id] = queue[i];
+   //  }
+   //  return lookup[currentID]
+    return queue.length > 0 ? queue[0] : null
   }
 
   renderPlaybackButtons() {
@@ -143,26 +144,27 @@ export default class MiniPlayer extends Component {
   }
   renderEQIcon(track) {
     const {currentID} = this.props;
-    return(track.id === currentID ? <IconButton iconStyle={{color: theme.palette.alternateTextColor}} iconClassName="material-icons">equalizer</IconButton>
+    return( track && track.id === currentID ? <IconButton iconStyle={{color: theme.palette.alternateTextColor}} iconClassName="material-icons">equalizer</IconButton>
                                   : <IconButton iconClassName="material-icons">play_arrow</IconButton>);
   }
   renderQueueList() {
     const {queue} = this.props;
+   //  console.info(queue);
       let q = queue.map((track) => (
         <div
-          id={'miniplayer_queue_track_'+track.id}
-          key={'miniplayer_queue_track_'+track.id}>
+          id={'miniplayer_queue_track_' + (track === null ? '-1' : track.id) }
+          key={'miniplayer_queue_track_' + (track === null ? '-1' : track.id) }>
           <Divider />
           <ListItem
             hoverColor={fade(theme.palette.accent1Color, 0.3)}
             leftAvatar={
               <Avatar
-                src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}
+                src={track && track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}
                 style={style.queueArt}
               />}
-            primaryText={track.name}
+            primaryText={track ? track.name : "No Name"}
             rightIconButton={this.renderEQIcon(track)}
-            secondaryText={track.artist.name}
+            secondaryText={track && track.artist ? track.artist.name : "No Artist Name"}
           />
         </div>
     ))

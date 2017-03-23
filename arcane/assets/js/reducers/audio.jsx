@@ -27,9 +27,9 @@
    progress: {},
    duration: 0,
    repeat: false,
-   songs: [],
-   completedsongs: [],
-   currentID: null,
+   upcoming: [],           // CHANGED
+   completed: [],          // CHANGED
+   currentlyPlaying: null, // CHANGED
    defaultSong: {
      "id": -1,
      "album": "",
@@ -39,19 +39,7 @@
      "favorite": false
    }
  };
- function getSongIndex(songs, id) {
-   return findIndex(songs, (o) => o.id === id);
- }
 
- function getAdjacentSong(songs, startIndex, direction) {
-    // console.info(songs);
-   let nextIndex = startIndex + direction;
-   nextIndex = nextIndex < 0 ? songs.length-1 : nextIndex > songs.length-1 ? 0 : nextIndex;
-  //  let complete = songs.shift();
-
-  //  console.log(complete);
-   return songs[nextIndex].id;
- }
 
 function getAudioState(audio) {
    var test = {
@@ -88,23 +76,38 @@ function getAudioState(audio) {
  export default function audio(state = initialState, action) {
    switch (action.type) {
      case INITIALIZE:
-       const songsArray = shuffle(action.songs);
+       let songsArray = shuffle(action.songs);
+       console.info("IN audio INITIALIZE", songsArray)
+       let firstSong = songsArray.shift(); // CHANGED
       //  const songsArray = sortBy(action.songs, ['id']);
-       return {...state, songs: songsArray, currentID: songsArray[0].id };
+       return {...state, currentlyPlaying: firstSong, upcoming: songsArray }; // CHANGED
      case PLAY:
      case PAUSE:
      case ERROR:
        return {...state, ...getAudioState(action.audio) };
      case NEXT:
+       let newUpcoming = audio.upcoming; // CHANGED
+       let nextSong = newUpcoming.shift(); // CHANGED
+       let newCompleted = audio.completed; // CHANGED
+       newCompleted.push(audio.currentlyPlaying); // CHANGED
        return {
          ...state,
-         currentID: getAdjacentSong(state.songs, getSongIndex(state.songs, state.currentID), 1),
+         upcoming: nextUpcoming, // CHANGED
+         currentlyPlaying: nextSong, // CHANGED
+         completed: nextCompleted, // CHANGED
          ...getAudioState(action.audio)
        };
      case PREVIOUS:
+        let prevUpcoming = audio.upcoming; // CHANGED
+        let prevCompleted = audio.completed; // CHANGED
+        let prevSong = audio.completed.pop(); // CHANGED
+        console.info("IN audio PREVIOUS unshift");
+        prevUpcoming.unshift(audio.currentlyPlaying); // CHANGED
        return {
          ...state,
-         currentID: getAdjacentSong(state.songs, getSongIndex(state.songs, state.currentID), -1),
+         upcoming: prevUpcoming, // CHANGED
+         completed: prevCompleted, // CHANGED
+         currentlyPlaying: prevSong, // CHANGED
          ...getAudioState(action.audio)
        };
      case UPDATE_VOLUME:
@@ -116,22 +119,22 @@ function getAudioState(audio) {
      case SET_PROGRESS:
        return {...state, ...getAudioState(action.audio) };
      case TOGGLE_FAVORITE:
-       const songs = state.songs.map(clone);
-       const song = find(songs, {id: state.currentID});
-       song.favorite = !song.favorite;
-       return {...state, songs };
+         let currentSong = state.currentSong; // CHANGED
+         currentSong.favorite = !currentSong.favorite; // CHANGED
+       return {...state, currentSong: currentSong }; // CHANGED
      case TOGGLE_REPEAT:
        return {...state, isRepeating: !state.isRepeating };
      case TOGGLE_LOOP:
        return {...state, ...getAudioState(action.audio) };
      case TOGGLE_SHUFFLE:
-       return {...state, isShuffling: !state.isShuffling, songs: shuffle(state.songs.map(clone)) };
+       return {...state, isShuffling: !state.isShuffling, upcoming: shuffle(state.upcoming.map(clone)) }; // CHANGED
      case ADD_TO_QUEUE:
-        let newSongs = state.songs.map(clone);
-        newSongs = newSongs.concat(action.songs);
-        console.info("IN audio ADD_TO_QUEUE", action.songs);
-       return {...state, songs: newSongs };
+        let upcoming = state.upcoming.map(clone); // CHANGED
+        upcoming = upcoming.concat(action.songs); // CHANGED
+        console.info("IN audio ADD_TO_QUEUE", action.songs); // CHANGED
+       return {...state, upcoming: upcoming }; // CHANGED
      default:
+        console.info("IN audio DEFAULT", state);
        return state
    }
  }
