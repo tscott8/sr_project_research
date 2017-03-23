@@ -12,8 +12,8 @@ const styles = {
     height:'inherit',
   },
   overlay: {
-    width:'inherit',
-    height:'100%',
+    width:'100%',
+    height:'inherit',
     backgroundColor:  'rgba(0, 0, 0, 0.6)',
     left:0,
     bottom:0,
@@ -114,23 +114,20 @@ class RadioTile extends Component {
          onMouseEnter={this.handleHover}
          onMouseLeave={this.handleLeave}
          style={{
-           height:'80vh',
-           width: '80vh',
-           maxWidth:'90vw',
-           maxHeight:'90vw',
-           margin:20,
-           marginLeft: 'auto',
-           marginRight: 'auto',
-           //  marginTop:'auto',
-           //  marginBottom:'auto',
+            height:'100%',
+            width:'100%',
+            minHeight:'60vh',
+            minWidth:'60vh',
+            maxHeight: 'calc(100vh - 144px)',
+            maxWidth:'calc(100vh - 144px)',
+
            padding:0,
            background: 'url('+ imgURL + ') ',
            backgroundSize: 'cover',
            backgroundPosition:'center center',
-           borderRadius:1
-
          }}>
-         <div style={styles.root}>{this.renderOverlay()}</div>
+         {this.renderOverlay()}
+         {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
          </div>
 
     );
