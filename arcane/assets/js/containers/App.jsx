@@ -10,6 +10,7 @@ import FloatingControls from '../components/FloatingControls'
 // import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
+import clone from 'lodash/clone';
 
 const appBody = {
   width:'100%',
@@ -38,6 +39,8 @@ export default class App extends Component {
     this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));
     this.props.retrieveSongs(this.props.isShuffling);
   }
+
+
   handleProgress = () => { this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));}
   handleTimeUpdate = () => { this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));}
   handleError = (e) => { this.props.setError(ReactDOM.findDOMNode(this.refs.audio));}
@@ -86,12 +89,17 @@ export default class App extends Component {
   render() {
       const {
         volume, isPlaying, percent, isFavorite, progress, error,
-        duration, isRepeating, songs, currentID, autoPlay, isLooping,
+        duration, isRepeating, currentlyPlaying, autoPlay, isLooping, // CHANGED
         isShuffling
       } = this.props.audio;
 
-      let song = find(songs, (o) => o.id === currentID);
-      if (song === undefined) song = this.props.audio.defaultSong;
+      let song = currentlyPlaying; // CHANGED
+      if (song === null) {
+         song = this.props.audio.defaultSong;
+      }
+
+      let queue = this.props.audio.upcoming.map(clone); // CHANGED
+      queue.unshift(currentlyPlaying); // CHANGED
 
      const currentPage = this.props.routes[this.props.routes.length-1].path
      let audioProps = {
@@ -105,8 +113,8 @@ export default class App extends Component {
        isPlaying: isPlaying,
        isShuffling: isShuffling,
        isLooping: isLooping,
-       queue: songs,
-       currentID: currentID,
+       currentlyPlaying: currentlyPlaying,
+       queue: queue, // CHANGED
      }
      return (
         <MuiThemeProvider muiTheme={theme}>

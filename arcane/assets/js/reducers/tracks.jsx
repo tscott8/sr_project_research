@@ -1,5 +1,7 @@
 import {GET_TRACKS, GET_NEXT_TRACKS, GET_ALBUM_TRACKS, GET_ARTIST_TRACKS, POST_TRACKS} from '../constants/ActionTypes';
 
+import clone from 'lodash/clone';
+
 const initialState = {
    allTracks: [],
    albumTracks: [],
@@ -13,7 +15,7 @@ export default function tracks(state = initialState, action) {
          allTracks = action.tracks;
          return {...state, allTracks};
       case GET_NEXT_TRACKS:
-         let tracksArray = state.allTracks.results;
+         let tracksArray = state.allTracks.results.map(clone);
          tracksArray = tracksArray.concat(action.tracks.results);
         //  console.info(tracksArray);
          allTracks = action.tracks;
