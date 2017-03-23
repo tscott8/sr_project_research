@@ -46,7 +46,8 @@ const style ={
     height:280
   },
   queueArt: {
-    borderRadius:'0%'
+    // borderRadius:'0%'
+    borderRadius:1
   },
   queue: {
     paddingTop:0,

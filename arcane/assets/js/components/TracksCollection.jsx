@@ -52,7 +52,7 @@ export default class TracksCollection extends Component {
     if (!noArt && track) {
       return (
         <Avatar
-          style={{borderRadius:'0%'}}
+          style={{borderRadius:1}}
           src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>
      );
     }

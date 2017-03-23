@@ -9,3 +9,4 @@ coreapi
 pillow
 mutagen
 sacad
+drf-extensions
