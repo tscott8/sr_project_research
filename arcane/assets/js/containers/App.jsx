@@ -10,6 +10,7 @@ import FloatingControls from '../components/FloatingControls'
 // import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
+import clone from 'lodash/clone';
 
 const appBody = {
   width:'100%',
@@ -89,7 +90,7 @@ export default class App extends Component {
       const {
         volume, isPlaying, percent, isFavorite, progress, error,
         duration, isRepeating, currentlyPlaying, autoPlay, isLooping, // CHANGED
-        isShuffling // CHANGED
+        isShuffling
       } = this.props.audio;
 
       let song = currentlyPlaying; // CHANGED
@@ -97,7 +98,7 @@ export default class App extends Component {
          song = this.props.audio.defaultSong;
       }
 
-      let queue = this.props.audio.upcoming; // CHANGED
+      let queue = this.props.audio.upcoming.map(clone); // CHANGED
       queue.unshift(currentlyPlaying); // CHANGED
 
      const currentPage = this.props.routes[this.props.routes.length-1].path

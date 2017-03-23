@@ -86,10 +86,10 @@ function getAudioState(audio) {
      case ERROR:
        return {...state, ...getAudioState(action.audio) };
      case NEXT:
-       let newUpcoming = audio.upcoming; // CHANGED
-       let nextSong = newUpcoming.shift(); // CHANGED
-       let newCompleted = audio.completed; // CHANGED
-       newCompleted.push(audio.currentlyPlaying); // CHANGED
+       let nextUpcoming = state.upcoming.map(clone); // CHANGED
+       let nextSong = nextUpcoming.shift(); // CHANGED
+       let nextCompleted = state.completed.map(clone); // CHANGED
+       nextCompleted.push(state.currentlyPlaying); // CHANGED
        return {
          ...state,
          upcoming: nextUpcoming, // CHANGED
@@ -98,11 +98,11 @@ function getAudioState(audio) {
          ...getAudioState(action.audio)
        };
      case PREVIOUS:
-        let prevUpcoming = audio.upcoming; // CHANGED
-        let prevCompleted = audio.completed; // CHANGED
-        let prevSong = audio.completed.pop(); // CHANGED
-        console.info("IN audio PREVIOUS unshift");
-        prevUpcoming.unshift(audio.currentlyPlaying); // CHANGED
+        let prevUpcoming = state.upcoming.map(clone); // CHANGED
+        prevUpcoming.unshift(state.currentlyPlaying);
+        let prevCompleted = state.completed.map(clone); // CHANGED
+        let prevSong = prevCompleted.pop(); // CHANGED
+      //   console.info("IN audio PREVIOUS unshift");
        return {
          ...state,
          upcoming: prevUpcoming, // CHANGED
@@ -111,6 +111,7 @@ function getAudioState(audio) {
          ...getAudioState(action.audio)
        };
      case UPDATE_VOLUME:
+      //  console.info("IN audio UPDATE_VOLUME", state);
        return {...state, volume: action.volume };
      case SET_TIME:
        return {...state, ...getAudioState(action.audio) };
@@ -134,7 +135,7 @@ function getAudioState(audio) {
         console.info("IN audio ADD_TO_QUEUE", action.songs); // CHANGED
        return {...state, upcoming: upcoming }; // CHANGED
      default:
-        console.info("IN audio DEFAULT", state);
+      //   console.info("IN audio DEFAULT", state);
        return state
    }
  }

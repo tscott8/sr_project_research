@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {FlatButton, IconButton, ListItem} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import Slider from 'react-slick'
+import clone from 'lodash/clone';
 import RadioTile from './RadioTile'
 const url = "http://localhost:8000/";
 
@@ -79,9 +80,10 @@ export default class Radio extends Component  {
 
   render() {
     const {tracks} = this.props;
-    let list = tracks.completed;
+    let list = tracks.completed.map(clone);
     list.push(tracks.currentlyPlaying);
     list.concat(tracks.upcoming);
+    console.info("IN radio RENDER", list);
       return (
         <div
           style={styles.outerDiv}
