@@ -16,10 +16,9 @@ class RadioPage extends Component {
    }
 
    render() {
-     const {tracks} = this.props;
      console.log('IN RADIO Page', this.props)
 
-      return (<Radio tracks={this.props.tracks}/>);
+      return (<Radio tracks={this.props.audio}/>);
    }
 }
 
@@ -29,10 +28,10 @@ RadioPage.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { tracks, albums } = state
+  const { tracks, albums, audio } = state
 
   return {
-     tracks
+     tracks, audio
   }
 }
 

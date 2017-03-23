@@ -45,39 +45,48 @@ export default class Radio extends Component  {
       hover:false
     }
   }
+
+  componentDidUpdate(prevProps, nextState) {
+     console.info("Radio component updated!");
+     console.info("RADIO UPDATING", prevProps);
+     if (prevProps.tracks.currentID != this.props.tracks.currentID){
+        this.refs.radioSlider.slickGoTo(this.props.tracks.currentID)
+     }
+ }
+
   handleHover() {this.setState({hover: true})}
   handleLeave() {this.setState({hover: false})}
 
   renderSlides(tracks) {
-  if (tracks) {
-    let arr = tracks.map((tile) => (
-      <div key={'radio_card_'+ tile.id}
+     console.info(tracks);
+     if (tracks.length > 0) {
+       let arr = tracks.map((tile) => (
+         <div key={'radio_card_'+ tile.id}
+         >
+           <RadioTile
+             {...this.props}
+             id={tile.id}
+             imgURL={tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
+             subtitle={tile.artist.name}
+             title={tile.name}
+           />
+         </div>
+       ))
+       return arr;
+     }
+     else {
+       return (<div></div>);
+     }
+  }
 
-      >
-        <RadioTile
-
-          {...this.props}
-          id={tile.id}
-          imgURL={tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
-          subtitle={tile.artist.name}
-          title={tile.name}
-        />
-      </div>
-    ))
-    return arr;
-  }
-  else {
-    return (<div><h2>Nothin to see here!</h2></div>);
-  }
-  }
   render() {
     const {tracks} = this.props;
       return (
         <div
           style={styles.outerDiv}
         >
-          <Slider {...settings}>
-             {this.renderSlides(tracks.allTracks.results)}
+          <Slider {...settings} ref="radioSlider">
+             {this.renderSlides(tracks.songs)}
           </Slider>
         </div>
       );
