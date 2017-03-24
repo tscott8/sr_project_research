@@ -58,7 +58,7 @@ export default class TracksCollection extends Component {
     }
     if (noArt && track) {
       return (
-        <Avatar style={{backgroundColor:'transparent', color:'white'}}>{track.order}</Avatar>
+        <Avatar style={{backgroundColor:'transparent', color:theme.palette.textColor}}>{track.order}</Avatar>
       );
     }
   }

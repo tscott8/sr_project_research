@@ -91,11 +91,6 @@ export default class MiniPlayer extends Component {
 
   getNowPlayingSong() {
     const { queue } = this.props; // CHANGED
-   //  let lookup = [];
-   //  for (let i = 0, len = queue.length; i < len; i++) {
-   //      lookup[queue[i].id] = queue[i];
-   //  }
-   //  return lookup[currentID]
     return queue.length > 0 ? queue[0] : null
   }
 
@@ -145,7 +140,7 @@ export default class MiniPlayer extends Component {
   }
   renderEQIcon(track) {
     const {currentID} = this.props;
-    return( track && track.id === currentID ? <IconButton iconStyle={{color: theme.palette.alternateTextColor}} iconClassName="material-icons">equalizer</IconButton>
+    return( track && track.id === this.getNowPlayingSong().id ? <IconButton iconStyle={{color: theme.palette.alternateTextColor}} iconClassName="material-icons">equalizer</IconButton>
                                   : <IconButton iconClassName="material-icons">play_arrow</IconButton>);
   }
   renderQueueList() {

@@ -123,12 +123,10 @@ class RadioTile extends Component {
            backgroundSize: 'cover',
            backgroundPosition:'center center',
          }}>
-         <div  style={{
-            height:'100%',
-         width:'100%',}}        className={className}
-         >
-           {this.renderOverlay()}</div>
-           {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
+         <div  style={{height:'100%', width:'100%'}} className={className}>
+           {this.renderOverlay()}
+         </div>
+         {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
        </Paper>
 
     );

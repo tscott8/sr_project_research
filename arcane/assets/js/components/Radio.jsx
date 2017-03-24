@@ -96,12 +96,13 @@ export default class Radio extends Component  {
        return (<div></div>);
      }
   }
-  renderPreview(item) {
+  renderPreview(item, style,className) {
     if (item && item.id) {
       return(
-        <div style = {{height:300, width:300}}>
+        <div style={style}>
           <RadioTile
             {...this.props}
+            className={className ? className : null}
             id={item ? item.id : -1}
             imgURL={item && item.album.artwork ? item.album.artwork : url+'static/images/default-artwork.png'}
             subtitle={item ? item.artist.name : 'No Artist'}
@@ -118,23 +119,35 @@ export default class Radio extends Component  {
     list = list.concat(tracks.upcoming);
     let leftPreview = tracks.completed ? tracks.completed[tracks.completed.length-1] : null;
     let rightPreview = tracks.upcoming ? tracks.upcoming[0] : null;
+    let currentlyPlaying = tracks.currentlyPlaying ? tracks.currentlyPlaying : null;
     console.log('leftPreview', leftPreview)
       return (
         <div style={{
-          display:'flex', flexDirection:'row', justifyContent:'center',
+          display:'flex', flexDirection:'row', justifyContent:'space-between',
         width:'100vw', height:'calc(100vh - 64px)', paddingLeft:40,paddingRight:40 }}>
-          <div style={{ right:0, display:'flex', flexDirection:'column', justifyContent:'center'}}>
-            {this.renderPreview(leftPreview)}
+          <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+            {this.renderPreview(leftPreview, {height:300, width:300}, null)}
           </div>
-          <div style={styles.outerDiv}>
+          <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+            {this.renderPreview(currentlyPlaying, {
+               display:'flex',
+               flexDirection:'column',
+               justifyContent:'center',
+               height: 'calc(100vh - 124px)',
+              width:'calc(100vh - 124px)',
+            },
+              "button-pulse"
+            )}
+          </div>
+          {/* <div style={styles.outerDiv}>
             <Slider
               className="slickSlider"
               {...settings} ref="radioSlider">
               {this.renderSlides(list)}
             </Slider>
-          </div>
+          </div> */}
           <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-            {this.renderPreview(rightPreview)}
+            {this.renderPreview(rightPreview, {height:300, width:300}, null)}
           </div>
 
         </div>
