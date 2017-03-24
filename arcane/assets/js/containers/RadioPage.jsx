@@ -18,13 +18,14 @@ class RadioPage extends Component {
    render() {
    //   console.log('IN RADIO Page', this.props)
 
-      return (<Radio tracks={this.props.audio}/>);
-   }
-}
+      return (<Radio isPlaying={this.props.audio.isPlaying} tracks={this.props.audio}/>);
 
+    }
+}
 RadioPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  tracks: PropTypes.object.isRequired
+  tracks: PropTypes.object.isRequired,
+  audio: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

@@ -95,7 +95,7 @@ class Tile extends Component {
              <a style={styles.hrefsub}>{subtitle}</a></div>}
          labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
          onClick={this.handleExpand}
-         onMouseEnter={this.handleHover}
+         onMouseOver={this.handleHover}
          onMouseLeave={this.handleLeave}
          style={ styles.button }
          //  style={{

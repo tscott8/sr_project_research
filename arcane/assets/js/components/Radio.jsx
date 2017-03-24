@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import {FlatButton, IconButton, ListItem, Paper} from 'material-ui'
-import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import Slider from 'react-slick'
 import clone from 'lodash/clone';
 import RadioTile from './RadioTile'
@@ -41,67 +39,60 @@ const styles = {
 export default class Radio extends Component  {
   constructor(props){
     super(props);
-    this.state= {
-      hover:false
-    }
   }
 
-  componentDidUpdate(prevProps, nextState) {
+  // componentDidUpdate(prevProps, nextState) {
    //   console.info("Radio component updated!");
    //   console.info("RADIO UPDATING", prevProps);
-     this.refs.radioSlider.slickGoTo(this.props.tracks.completed.length);
- }
+    //  this.refs.radioSlider.slickGoTo(this.props.tracks.completed.length);
+ // }
 
-  handleHover() {this.setState({hover: true})}
-  handleLeave() {this.setState({hover: false})}
-
-  getPulse(track) {
-    if (this.props.tracks.currentlyPlaying && track.id === this.props.tracks.currentlyPlaying.id){
-          return "button-pulse"
-      }
-    else {
-      return null
-    }
-  }
-  getImg(tile) {
-    return tile && tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'
-  }
-  renderSlides(tracks) {
-   //   console.log(tracks.currentlyPlaying);
-     if (tracks.length > 0) {
-       let arr = tracks.map((tile) => (
-         <div
-           key={'radio_card_' + (tile === null ? -1 : tile.id)}
-           style={{
-              display:'flex',
-              flexDirection:'column',
-              justifyContent:'center',
-              height: 'calc(100vh - 124px)',
-              width:'calc(100vh - 124px)',
-           }}
-         >
-           <RadioTile
-             {...this.props}
-             className={this.getPulse(tile)}
-             id={tile ? tile.id : -1}
-             imgURL={tile && tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
-             subtitle={tile ? tile.artist.name : 'No Artist'}
-             title={ tile ? tile.name : -1}
-           />
-         </div>
-       ))
-       return arr;
-     }
-     else {
-       return (<div></div>);
-     }
-  }
+  // getPulse(track) {
+  //   if (this.props.tracks.currentlyPlaying && track.id === this.props.tracks.currentlyPlaying.id){
+  //         return "button-pulse"
+  //     }
+  //   else {
+  //     return null
+  //   }
+  // }
+  // renderSlides(tracks) {
+  //  //   console.log(tracks.currentlyPlaying);
+  //    if (tracks.length > 0) {
+  //      let arr = tracks.map((tile) => (
+  //        <div
+  //          key={'radio_card_' + (tile === null ? -1 : tile.id)}
+  //          style={{
+  //             display:'flex',
+  //             flexDirection:'column',
+  //             justifyContent:'center',
+  //             height: 'calc(100vh - 124px)',
+  //             width:'calc(100vh - 124px)',
+  //          }}
+  //        >
+  //          <RadioTile
+  //            {...this.props}
+  //            className={this.getPulse(tile)}
+  //            id={tile ? tile.id : -1}
+  //            imgURL={tile && tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'}
+  //            subtitle={tile ? tile.artist.name : 'No Artist'}
+  //            title={ tile ? tile.name : -1}
+  //          />
+  //        </div>
+  //      ))
+  //      return arr;
+  //    }
+  //    else {
+  //      return (<div></div>);
+  //    }
+  // }
   renderPreview(item, style,className) {
     if (item && item.id) {
       return(
         <div style={style}>
           <RadioTile
             {...this.props}
+            liked
+            // disliked
             className={className ? className : null}
             id={item ? item.id : -1}
             imgURL={item && item.album.artwork ? item.album.artwork : url+'static/images/default-artwork.png'}
@@ -120,7 +111,6 @@ export default class Radio extends Component  {
     let leftPreview = tracks.completed ? tracks.completed[tracks.completed.length-1] : null;
     let rightPreview = tracks.upcoming ? tracks.upcoming[0] : null;
     let currentlyPlaying = tracks.currentlyPlaying ? tracks.currentlyPlaying : null;
-    console.log('leftPreview', leftPreview)
       return (
         <div style={{
           display:'flex', flexDirection:'row', justifyContent:'space-between',
@@ -136,7 +126,7 @@ export default class Radio extends Component  {
                height: 'calc(100vh - 124px)',
               width:'calc(100vh - 124px)',
             },
-              "button-pulse"
+              this.props.isPlaying ? "button-pulse" : ""
             )}
           </div>
           {/* <div style={styles.outerDiv}>

@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 // import * as TrackActions from '../actions/TrackActions'
 // import * as AlbumActions from '../actions/AlbumActions'
 // import * as ArtistActions from '../actions/ArtistActions'
-import { IconButton, Paper } from 'material-ui'
-import { CardTitle} from 'material-ui/Card'
+import { IconButton, IconMenu, MenuItem, Divider, Paper } from 'material-ui'
+import { CardTitle } from 'material-ui/Card'
 
 const styles = {
   root: {
     width:'100%',
-    height:'inherit',
+    height:'inherit'
   },
   overlay: {
     width:'100%',
@@ -82,11 +82,17 @@ class RadioTile extends Component {
            style={styles.overlay}
          >
            <div style={styles.overlay.topActions}>
-             <IconButton iconClassName="material-icons">check</IconButton>
+             <IconButton
+               hoveredStyle={{color:'green'}}
+               iconClassName="material-icons"
+               iconStyle={this.props.liked ? {backgroundColor:'green', borderRadius:'50%'} : {} }
+
+             >check</IconButton>
              <IconButton
                hoveredStyle={{color:'red'}}
                iconClassName="material-icons"
                style={{float:'right'}}
+               iconStyle={this.props.disliked ? {backgroundColor:'red', borderRadius:'50%'} : {} }
              >close</IconButton>
            </div>
            <div style={styles.overlay.bottomActions}>
@@ -97,10 +103,24 @@ class RadioTile extends Component {
                title={title}
                titleStyle={styles.overlay.bottomActions.label.title}
              />
-             <IconButton
+             {/* <IconButton
                iconClassName="material-icons"
                style={styles.overlay.bottomActions.button}
-             >more_vert</IconButton>
+             >more_vert</IconButton> */}
+             <IconMenu
+               style={styles.overlay.bottomActions.button}
+               iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
+               targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}>
+               <MenuItem primaryText="Start radio" />
+               <MenuItem primaryText="Play next" />
+               <Divider/>
+               <MenuItem primaryText="Add to queue" />
+               <MenuItem primaryText="Add to playlist" />
+               <Divider/>
+               <MenuItem primaryText="Artist info" />
+               <MenuItem primaryText="Album info" />
+             </IconMenu>
            </div>
          </div>
        );
@@ -110,7 +130,7 @@ class RadioTile extends Component {
      const { imgURL, className } = this.props;
      return (
        <Paper
-         onMouseEnter={this.handleHover}
+         onMouseOver={this.handleHover}
          onMouseLeave={this.handleLeave}
          zDepth={3}
          style={{
@@ -123,7 +143,7 @@ class RadioTile extends Component {
            backgroundSize: 'cover',
            backgroundPosition:'center center',
          }}>
-         <div  style={{height:'100%', width:'100%'}} className={className}>
+         <div  style={{height:'100%', width:'100%', borderRadius:.1}} className={className}>
            {this.renderOverlay()}
          </div>
          {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
