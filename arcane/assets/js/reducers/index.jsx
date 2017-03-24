@@ -6,6 +6,7 @@ import artists from './artists';
 import albums from './albums';
 import audio from './audio';
 import profile from './profile';
+import theme from './theme';
 import { routerReducer } from 'react-router-redux'
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     albums,
     audio,
     profile,
+    theme,
     routing: routerReducer,
 });
 

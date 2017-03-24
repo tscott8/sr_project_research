@@ -3,6 +3,14 @@ import * as Colors from 'material-ui/styles/colors';
 import { spacing, getMuiTheme } from 'material-ui/styles';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 
+export const themeEnum = {
+   ARCANE_DARK: 0,
+   ARCANE_LIGHT: 1,
+   SPOTIFY: 2,
+   GOOGLE_PLAY: 3,
+   PANDORA: 4
+}
+
 const arcaneDark = {
   spacing: spacing,
   fontFamily: 'Aldrich, Open Sans, sans-serif',
@@ -156,5 +164,7 @@ const spotify = {
   //  }
 };
 
+export const themes = [arcaneDark, null, spotify, googlePlay, null];
+
 //Theme must be wrapped in funciton getMuiTheme
-export default getMuiTheme(arcaneDark );
+export default getMuiTheme(arcaneDark);

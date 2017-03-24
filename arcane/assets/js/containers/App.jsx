@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import theme from "../constants/material-ui-theme"
+import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles'
+import { themeEnum, themes } from '../constants/material-ui-theme'
+//import theme from "../constants/material-ui-theme"
 import Audio from '../components/Audio'
 import Header from "../components/Header"
 import FloatingControls from '../components/FloatingControls'
@@ -12,15 +13,10 @@ import * as AudioActions from '../actions/AudioActions'
 import find from 'lodash/find'
 import clone from 'lodash/clone';
 
-const appBody = {
-  width:'100%',
-  height:'100%',
-  background: theme.palette.canvasColor + ' repeat top center fixed',
-  backgroundSize:'cover',
-  position:'fixed'
-};
+console.info(themeEnum);
+
 @connect(
-  state => ({audio: state.audio}),
+  state => ({audio: state.audio, theme: state.theme}),
   dispatch => bindActionCreators(AudioActions, dispatch)
 )
 
@@ -31,6 +27,7 @@ export default class App extends Component {
          autoPlay: false
       }
    }
+
 
   componentDidMount() {
     // Initialize DOM Audio and retrieve
@@ -116,9 +113,16 @@ export default class App extends Component {
        currentlyPlaying: currentlyPlaying,
        queue: queue, // CHANGED
      }
+   //   console.info(this.state.currentTheme);
      return (
-        <MuiThemeProvider muiTheme={theme}>
-          <div style={appBody} >
+        <MuiThemeProvider muiTheme={getMuiTheme(this.props.theme.currentTheme)}>
+          <div style={{
+               width:'100%',
+               height:'100%',
+               background: this.props.theme.currentTheme.palette.canvasColor + ' repeat top center fixed',
+               backgroundSize:'cover',
+               position:'fixed'
+             }} >
             <Audio
               ref="audio"
               autoPlay={this.state.autoPlay}

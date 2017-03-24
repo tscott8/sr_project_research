@@ -44,8 +44,8 @@ export default class Radio extends Component  {
   }
 
   componentDidUpdate(prevProps, nextState) {
-     console.info("Radio component updated!");
-     console.info("RADIO UPDATING", prevProps);
+   //   console.info("Radio component updated!");
+   //   console.info("RADIO UPDATING", prevProps);
      this.refs.radioSlider.slickGoTo(this.props.tracks.completed.length);
  }
 
@@ -61,7 +61,7 @@ export default class Radio extends Component  {
     }
   }
   renderSlides(tracks) {
-     console.log(tracks.currentlyPlaying);
+   //   console.log(tracks.currentlyPlaying);
      if (tracks.length > 0) {
        let arr = tracks.map((tile) => (
          <div

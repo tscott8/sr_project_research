@@ -12,6 +12,7 @@ export const GET_ARTIST_PROFILE = "GET_ARTIST_PROFILE";
 export const GET_ARTIST_MEMBERS = "GET_ARTIST_MEMBERS";
 export const GET_NEXT_ALBUMS = "GET_NEXT_ALBUMS";
 
+export const CHANGE_THEME = "CHANGE_THEME";
 
 export const INITIALIZE = 'INITIALIZE'
 export const PLAY = 'PLAY'
