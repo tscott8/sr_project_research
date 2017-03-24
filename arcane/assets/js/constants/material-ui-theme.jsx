@@ -68,6 +68,51 @@ const arcaneDark = {
   }
 };
 
+const arcaneLight = {
+  spacing: spacing,
+  fontFamily: 'Roboto, sans-serif',
+  borderRadius: 2,
+  palette: {
+    primary1Color: Colors.redA700,
+    primary2Color: Colors.redA700,
+    primary3Color: Colors.grey600,
+    accent1Color: Colors.white,
+    accent2Color: Colors.redA700,
+    accent3Color: Colors.grey500,
+    textColor: Colors.fullBlack,
+    secondaryTextColor: fade(Colors.fullBlack, 0.54),
+    alternateTextColor: Colors.white,
+    canvasColor: Colors.white,
+    borderColor: Colors.redA700,
+    disabledColor: fade(Colors.darkBlack, 0.3),
+    pickerHeaderColor: Colors.redA700,
+    clockCircleColor: fade(Colors.darkBlack, 0.07),
+    shadowColor: Colors.fullBlack
+  },
+  drawer: {
+    width:280
+  },
+  raisedButton: {
+    secondaryColor:Colors.cyanA700,
+    secondaryTextColor:Colors.redA700
+  },
+  appBar: {
+    textColor:Colors.white
+  },
+  tabs: {
+    color:Colors.cyanA700
+  },
+  menuItem: {
+    hoverColor:fade(Colors.cyanA700,.3)
+  },
+  listItem:{
+    hoverColor:fade(Colors.cyanA700,.3)
+  }
+  //  stepper: {
+  //    iconColor:fade(Colors.deepOrangeA700,.3),
+  //  }
+};
+
 const googlePlay = {
   spacing: spacing,
   fontFamily: 'Roboto, sans-serif',
@@ -164,7 +209,52 @@ const spotify = {
   //  }
 };
 
-export const themes = [arcaneDark, null, spotify, googlePlay, null];
+const pandora = {
+  spacing: spacing,
+  fontFamily: 'Roboto, sans-serif',
+  borderRadius: 2,
+  palette: {
+    primary1Color: Colors.blue800,
+    primary2Color: Colors.blue800,
+    primary3Color: Colors.grey600,
+    accent1Color: Colors.white,
+    accent2Color: Colors.blue800,
+    accent3Color: Colors.grey500,
+    textColor: Colors.fullBlack,
+    secondaryTextColor: fade(Colors.fullBlack, 0.54),
+    alternateTextColor: Colors.white,
+    canvasColor: Colors.blue600,
+    borderColor: Colors.lightBlue400,
+    disabledColor: fade(Colors.darkBlack, 0.3),
+    pickerHeaderColor: Colors.blue800,
+    clockCircleColor: fade(Colors.darkBlack, 0.07),
+    shadowColor: Colors.fullBlack
+  },
+  drawer: {
+    width:280
+  },
+  raisedButton: {
+    secondaryColor:Colors.white,
+    secondaryTextColor:Colors.blue900
+  },
+  appBar: {
+    textColor:Colors.white
+  },
+  tabs: {
+    color:Colors.white
+  },
+  menuItem: {
+    hoverColor:fade(Colors.blue800,.3)
+  },
+  listItem:{
+    hoverColor:fade(Colors.blue800,.3)
+  }
+  //  stepper: {
+  //    iconColor:fade(Colors.deepOrangeA700,.3),
+  //  }
+};
+
+export const themes = [arcaneDark, arcaneLight, spotify, googlePlay, pandora];
 
 //Theme must be wrapped in funciton getMuiTheme
 export default getMuiTheme(arcaneDark);
