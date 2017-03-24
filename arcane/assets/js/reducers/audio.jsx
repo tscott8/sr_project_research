@@ -77,7 +77,7 @@ function getAudioState(audio) {
    switch (action.type) {
      case INITIALIZE:
        let songsArray = shuffle(action.songs);
-       console.info("IN audio INITIALIZE", songsArray)
+      //  console.info("IN audio INITIALIZE", songsArray)
        let firstSong = songsArray.shift(); // CHANGED
       //  const songsArray = sortBy(action.songs, ['id']);
        return {...state, currentlyPlaying: firstSong, upcoming: songsArray }; // CHANGED

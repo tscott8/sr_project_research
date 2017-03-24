@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { List, ListItem, Avatar, Paper, TextField, SelectField, MenuItem} from 'material-ui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { redA700, fullWhite } from 'material-ui/styles/colors'
 import theme from '../constants/material-ui-theme'
 import MediaQuery from 'react-responsive'
 import Toggle from 'material-ui/Toggle';
+
+import * as ThemeActions from '../actions/ThemeActions'
+import { themeEnum } from '../constants/material-ui-theme'
 
 const styles = {
   profileSection: {
@@ -45,7 +49,7 @@ const appSettings = [
   ];
 
 
-export default class Settings extends Component {
+class Settings extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -57,11 +61,35 @@ export default class Settings extends Component {
     //  console.log(e.target.value)
      this.setState({[e.target.id]:e.target.value})}
    onSelect (e,i,val) {
+      const { dispatch } = this.props;
+      switch(val) {
+         case "ARCANE DARK":
+            dispatch(ThemeActions.changeTheme(themeEnum.ARCANE_DARK))
+            break;
+         case "ARCANE LIGHT":
+            dispatch(ThemeActions.changeTheme(themeEnum.ARCANE_LIGHT))
+            break;
+         case "PANDORA":
+            dispatch(ThemeActions.changeTheme(themeEnum.PANDORA))
+            break;
+         case "SPOTIFY":
+            dispatch(ThemeActions.changeTheme(themeEnum.SPOTIFY))
+            break;
+         case "GOOGLE PLAY":
+            dispatch(ThemeActions.changeTheme(themeEnum.GOOGLE_PLAY))
+            break;
+         case "CUSTOM":
+            dispatch(ThemeActions.changeTheme(themeEnum.CUSTOM))
+            break;
+         default:
+            break;
+      }
      this.setState({[this.key]:val})
    }
    onToggle = (e, val) => {
      console.log(e.target.value, val)
-     this.setState({[e.target.id]:val})}
+     this.setState({[e.target.id]:val})
+  }
 
    renderTextField(item) {
      return (
@@ -88,7 +116,7 @@ export default class Settings extends Component {
          fullWidth={true}
          value={this.state[item.key] ? this.state[item.key] : item.defaultValue}
          floatingLabelText={item.label}
-         onChange={this.onSelect.bind(this,item)}
+         onChange={this.onSelect.bind(this)}
        >
          {options}
        </SelectField>
@@ -155,5 +183,19 @@ export default class Settings extends Component {
          </Paper>
        </div>
          );
-         }
-         }
+   }
+}
+
+Settings.propTypes = {
+   dispatch: PropTypes.func.isRequired,
+   theme: PropTypes.object.isRequired
+}
+
+//TODO Add theme change to Settings
+function mapStateToProps(state) {
+   const { theme } = state
+
+   return { theme }
+}
+
+export default connect(mapStateToProps)(Settings);
