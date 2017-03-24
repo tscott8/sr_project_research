@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {FlatButton, IconButton, ListItem} from 'material-ui'
+import {FlatButton, IconButton, ListItem, Paper} from 'material-ui'
 import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card'
 import Slider from 'react-slick'
 import clone from 'lodash/clone';
@@ -31,7 +31,7 @@ const styles = {
       maxWidth:'calc(100vh - 64px)',
       marginLeft:'auto',
       marginRight:'auto',
-      padding:20
+      padding:30
    },
    innerDiv: {
     }
@@ -76,10 +76,8 @@ export default class Radio extends Component  {
               display:'flex',
               flexDirection:'column',
               justifyContent:'center',
-
               height: 'calc(100vh - 124px)',
               width:'calc(100vh - 124px)',
-
            }}
          >
            <RadioTile
@@ -98,20 +96,35 @@ export default class Radio extends Component  {
        return (<div></div>);
      }
   }
-
+  renderPreview(item) {
+    if (item && item.id) {
+      return(
+        <div style = {{height:300, width:300}}>
+          <RadioTile
+            {...this.props}
+            id={item ? item.id : -1}
+            imgURL={item && item.album.artwork ? item.album.artwork : url+'static/images/default-artwork.png'}
+            subtitle={item ? item.artist.name : 'No Artist'}
+            title={ item ? item.name : -1}/>
+        </div>
+      );
+    }
+  }
   render() {
     const {tracks} = this.props;
     let list = tracks.completed.map(clone);
     list.push(tracks.currentlyPlaying);
     // console.log("IN radio RENDER upcoming", tracks.upcoming);
     list = list.concat(tracks.upcoming);
+    let leftPreview = tracks.completed ? tracks.completed[tracks.completed.length-1] : null;
+    let rightPreview = tracks.upcoming ? tracks.upcoming[0] : null;
+    console.log('leftPreview', leftPreview)
       return (
         <div style={{
           display:'flex', flexDirection:'row', justifyContent:'center',
-          width:'100vw', height:'calc(100vh - 64px)', paddingLeft:40,paddingRight:40
-        }}>
-          <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-            <div style = {{marginLeft:'auto',marginRight:'auto', bottom:0, height:300, width:300, backgroundColor:'blue'}}></div>
+        width:'100vw', height:'calc(100vh - 64px)', paddingLeft:40,paddingRight:40 }}>
+          <div style={{ right:0, display:'flex', flexDirection:'column', justifyContent:'center'}}>
+            {this.renderPreview(leftPreview)}
           </div>
           <div style={styles.outerDiv}>
             <Slider
@@ -121,7 +134,7 @@ export default class Radio extends Component  {
             </Slider>
           </div>
           <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-            <div style = {{marginLeft:'auto',marginRight:'auto', bottom:0, height:300, width:300, backgroundColor:'blue'}}></div>
+            {this.renderPreview(rightPreview)}
           </div>
 
         </div>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // import * as TrackActions from '../actions/TrackActions'
 // import * as AlbumActions from '../actions/AlbumActions'
 // import * as ArtistActions from '../actions/ArtistActions'
-import { IconButton } from 'material-ui'
+import { IconButton, Paper } from 'material-ui'
 import { CardTitle} from 'material-ui/Card'
 
 const styles = {
@@ -109,26 +109,27 @@ class RadioTile extends Component {
    render()  {
      const { imgURL, className } = this.props;
      return (
-       <div
-         className={className}
+       <Paper
          onMouseEnter={this.handleHover}
          onMouseLeave={this.handleLeave}
+         zDepth={3}
          style={{
             height:'100%',
             width:'100%',
-            minHeight:'60vh',
-            minWidth:'60vh',
             maxHeight: 'calc(100vh - 144px)',
             maxWidth:'calc(100vh - 144px)',
-
            padding:0,
            background: 'url('+ imgURL + ') ',
            backgroundSize: 'cover',
            backgroundPosition:'center center',
          }}>
-         {this.renderOverlay()}
-         {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
-         </div>
+         <div  style={{
+            height:'100%',
+         width:'100%',}}        className={className}
+         >
+           {this.renderOverlay()}</div>
+           {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
+       </Paper>
 
     );
  }
