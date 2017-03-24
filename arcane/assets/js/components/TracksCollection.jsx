@@ -1,9 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import { FontIcon, Avatar, IconButton, IconMenu, Menu, MenuItem, Divider, List, ListItem} from 'material-ui'
+import React, {Component} from 'react';
+import {Avatar,  Menu, MenuItem, Divider,  ListItem} from 'material-ui'
 // import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Waypoint from 'react-waypoint'
 import * as TrackActions from '../actions/TrackActions'
-// import Tile from './Tile'
 import theme from '../constants/material-ui-theme'
 import TrackMenu from './TrackMenu'
 const url = "http://localhost:8000/";
@@ -28,31 +27,32 @@ export default class TracksCollection extends Component {
      }
   }
 
-  renderTrackItemMenu() {
-    return(
-      <IconMenu
-        style={{top:12, right:36}}
-        iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
-        targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
-        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
-        <MenuItem primaryText="Start radio" />
-        <MenuItem primaryText="Play next" />
-        <Divider/>
-        <MenuItem primaryText="Add to queue" />
-        <MenuItem primaryText="Add to playlist" />
-        <Divider/>
-        <MenuItem primaryText="Artist info" />
-        <MenuItem primaryText="Album info" />
-      </IconMenu>
-    );
-  }
+  // renderTrackItemMenu() {
+  //   return(
+  //     <IconMenu
+  //       style={{top:12, right:36}}
+  //       iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
+  //       targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
+  //       anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
+  //       <MenuItem primaryText="Start radio" />
+  //       <MenuItem primaryText="Play next" />
+  //       <Divider/>
+  //       <MenuItem primaryText="Add to queue" />
+  //       <MenuItem primaryText="Add to playlist" />
+  //       <Divider/>
+  //       <MenuItem primaryText="Artist info" />
+  //       <MenuItem primaryText="Album info" />
+  //     </IconMenu>
+  //   );
+  // }
   renderArt(track) {
     const {noArt} = this.props;
     if (!noArt && track) {
       return (
         <Avatar
+          src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}
           style={{borderRadius:1}}
-          src={track.album.artwork ? track.album.artwork : url+'static/images/default-artwork.png'}/>
+        />
      );
     }
     if (noArt && track) {
@@ -66,25 +66,29 @@ export default class TracksCollection extends Component {
     // ListItem.defaultProps.disableTouchRipple=true;
     if (tracks) {
       let arr = tracks.map((track) => (
-          <MenuItem
-            id={'tracks_collection_menu_item'+track.id}
-            key={'track_list_item_'+ track.id}
-            animation={null}
-            innerDivStyle={{padding:0, width:'100%'}}
-            value={track}>
-            <Divider/>
-            <ListItem
-              id={'tracks_collection_menu_item_list_item'+track.id}
-              // style={{paddingRight:0, width:'100%'}}
-              innerDivStyle={{whiteSpace:'pre-line'}}
-              disabled={true}
-              primaryText={track.name}
-              secondaryText={track.artist.name + ' - ' + track.duration}
-              // rightIconButton={this.renderTrackItemMenu()}
-              rightIconButton={<TrackMenu {...this.props} id={track.id} name={track.name}/>}
-              leftAvatar={this.renderArt(track)}
-            />
-          </MenuItem>
+        <MenuItem
+          animation={null}
+          id={'tracks_collection_menu_item'+track.id}
+          innerDivStyle={{padding:0, width:'100%'}}
+          key={'track_list_item_'+ track.id}
+          value={track}
+        >
+          <Divider />
+          <ListItem
+            disabled
+            id={'tracks_collection_menu_item_list_item'+track.id}
+            innerDivStyle={{whiteSpace:'pre-line'}}
+            leftAvatar={this.renderArt(track)}
+            primaryText={track.name}
+            rightIconButton={
+              <TrackMenu
+                {...this.props}
+                id={track.id}
+                name={track.name}
+              />}
+            secondaryText={track.artist.name + ' - ' + track.duration}
+          />
+        </MenuItem>
       ))
       return arr;
     }
@@ -94,23 +98,18 @@ export default class TracksCollection extends Component {
     return(
       <div style={{width:'100%',height:'100%'}}>
         <Menu
+          autoWidth
+          disableAutoFocus
           id={'tracks_collection_menu'}
-          autoWidth={true}
-          // desktop={false}
-          // width={'100%'}
-          // style={{minWidth:'100% '}}
           listStyle={{paddingTop:0, paddingBottom:0, paddingRight:0, margin:0, maxWidth:'100%'}}
-          disableAutoFocus={true}
-          // menuItemStyle={{padding:0}}
-          selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}
-          multiple={true}
+          multiple
           onChange={this.handleChange}
-          value={selectedTracks ? selectedTracks : []}>
+          selectedMenuItemStyle={{backgroundColor:theme.palette.accent2Color}}
+          value={selectedTracks ? selectedTracks : []}
+        >
           {this.renderTracksListItems(tracks.results)}
         </Menu>
-        <Waypoint
-          onEnter={this.loadMore}
-        />
+        <Waypoint onEnter={this.loadMore} />
       </div>
     );
   }
