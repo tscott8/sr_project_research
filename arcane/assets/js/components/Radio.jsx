@@ -14,7 +14,9 @@ const settings = {
    slidesToShow: 1,
    slidesToScroll: 1,
    centerMode: true,
+   centerPadding: '10px',
    fade: false,
+   variableWidth:true,
    adaptiveHeight: true,
    focusOnSelect: true
 }
@@ -23,12 +25,13 @@ const styles = {
      display: 'flex',
      flexDirection:'column',
      justifyContent:'center',
-      top:0,
       bottom:0,
-      maxWidth:'60%',
+      height: 'calc(100vh - 64px)',
+      width: '100vw',
+      maxWidth:'calc(100vh - 64px)',
       marginLeft:'auto',
       marginRight:'auto',
-      marginTop:'1%'
+      padding:20
    },
    innerDiv: {
     }
@@ -60,13 +63,24 @@ export default class Radio extends Component  {
       return null
     }
   }
+  getImg(tile) {
+    return tile && tile.album.artwork ? tile.album.artwork : url+'static/images/default-artwork.png'
+  }
   renderSlides(tracks) {
    //   console.log(tracks.currentlyPlaying);
      if (tracks.length > 0) {
        let arr = tracks.map((tile) => (
          <div
            key={'radio_card_' + (tile === null ? -1 : tile.id)}
+           style={{
+              display:'flex',
+              flexDirection:'column',
+              justifyContent:'center',
 
+              height: 'calc(100vh - 124px)',
+              width:'calc(100vh - 124px)',
+
+           }}
          >
            <RadioTile
              {...this.props}
@@ -92,12 +106,24 @@ export default class Radio extends Component  {
     // console.log("IN radio RENDER upcoming", tracks.upcoming);
     list = list.concat(tracks.upcoming);
       return (
-        <div
-          style={styles.outerDiv}
-        >
-          <Slider {...settings} ref="radioSlider">
-             {this.renderSlides(list)}
-          </Slider>
+        <div style={{
+          display:'flex', flexDirection:'row', justifyContent:'center',
+          width:'100vw', height:'calc(100vh - 64px)', paddingLeft:40,paddingRight:40
+        }}>
+          <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+            <div style = {{marginLeft:'auto',marginRight:'auto', bottom:0, height:300, width:300, backgroundColor:'blue'}}></div>
+          </div>
+          <div style={styles.outerDiv}>
+            <Slider
+              className="slickSlider"
+              {...settings} ref="radioSlider">
+              {this.renderSlides(list)}
+            </Slider>
+          </div>
+          <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+            <div style = {{marginLeft:'auto',marginRight:'auto', bottom:0, height:300, width:300, backgroundColor:'blue'}}></div>
+          </div>
+
         </div>
       );
   }
