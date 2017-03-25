@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import {TextField, Paper, RaisedButton, FlatButton} from 'material-ui'
+import {TextField, Paper, RaisedButton, FlatButton, Dialog} from 'material-ui'
 import theme from '../constants/material-ui-theme'
 
 const formItems = [  {'key': 'username','label':'username', 'type':'email', 'defaultValue': 'tscott8@arcane.fm',},
@@ -7,20 +7,21 @@ const formItems = [  {'key': 'username','label':'username', 'type':'email', 'def
 
 const styles = {
   formContainer:{
-    maxWidth:'60vw',
     display:'flex',
     flexDirection:'column',
-    justifyContent:'center'},
-  formFields:{padding:20, width:'100%'},
+    justifyContent:'space-between'},
+  formFields:{width:'100%'},
   underlineStyle:{borderColor:theme.palette.textColor},
   formActions:{
     display:'flex',
-    flexDirection:'row-reverse',
-    justifyContent:'flex-start',
-    marginTop:14},
+    flexDirection:'row',
+    justifyContent:'space-around',
+    borderColor:'transparent',
+    paddingBottom:24
+  },
   button:{},
 }
-export default class LoginForm extends Component {
+export default class LoginModal extends Component {
 
   constructor(props) {
     super(props);
@@ -71,38 +72,46 @@ export default class LoginForm extends Component {
     }
   }
   handleLogin = () => {
-    if (this.state.valid)
-      alert('dispatch login(', this.state.username, ', ', this.state.password, ')')
-    else
-      alert('username and/or password are invalid')
+    this.props.onRequestClose();
+    alert('dispatch login(', this.state.username, ', ', this.state.password,')');
   }
-
+  handleJoin = () => {alert('open sign up form!')}
+  renderActions() {
+    const {username_errors, password_errors}=this.state;
+    return (
+      <div id={'login_form_actions'} style={styles.formActions}>
+        <FlatButton
+          id={'login_form_submit'}
+          label="Login"
+          secondary
+          disabled={username_errors.length > 0 || password_errors.length > 0}
+          onTouchTap={this.handleLogin}
+        />
+        <FlatButton
+          id={'login_form_join'}
+          label="Join Us"
+          onTouchTap={this.handleJoin}
+        />
+      </div>
+    );
+  }
   render() {
     const {username_errors, password_errors}=this.state;
     return(
-      <div id={"login_form_container"} style={styles.formContainer}
-      >
-        <div id={'login_form_fields'} style={styles.formFields}>
-          <TextField
-            id={'login_form_username'}
-            name={'login_form_username'}
-            type={'email'}
-            errorText={username_errors.length>0 ? username_errors.join(', '): null}
-            fullWidth={true}
-            floatingLabelText={'Username'}
-            onChange={this.checkUsername}
-          />
-          <TextField
-            id={'login_form_password'}
-            name={'login_form_password'}
-            type={'password'}
-            errorText={password_errors.length>0 ? password_errors.join(', '): null}
-            fullWidth={true}
-            floatingLabelText={'Password'}
-            onChange={this.verifyPassword}
-          />
-        </div>
-        <div id={'login_form_actions'} style={styles.formActions}>
+      <Dialog
+        {...this.props}
+        modal
+        autoDetectWindowHeight
+        autoScrollBodyContent
+        title={null}
+        id={"login_form_container"}
+        // style={styles.formContainer}
+        actions={
+          [ <FlatButton
+            id={'login_form_join'}
+            label="Join Us"
+            onTouchTap={this.handleJoin}
+            />,
           <FlatButton
             id={'login_form_submit'}
             label="Login"
@@ -110,9 +119,31 @@ export default class LoginForm extends Component {
             disabled={username_errors.length > 0 || password_errors.length > 0}
             onTouchTap={this.handleLogin}
           />
-        </div>
-
-      </div>
+          ]
+        }
+        actionsContainerStyle={styles.formActions}
+      >
+        <TextField
+          id={'login_form_username'}
+          name={'login_form_username'}
+          type={'email'}
+          errorText={username_errors.length>0 ? username_errors.join(', '): null}
+          fullWidth={true}
+          floatingLabelText={'Username'}
+          value={this.state.username}
+          onChange={this.checkUsername}
+        />
+        <TextField
+          id={'login_form_password'}
+          name={'login_form_password'}
+          type={'password'}
+          errorText={password_errors.length>0 ? password_errors.join(', '): null}
+          fullWidth={true}
+          floatingLabelText={'Password'}
+          value={this.state.password}
+          onChange={this.verifyPassword}
+        />
+      </Dialog>
     );
   }
 }

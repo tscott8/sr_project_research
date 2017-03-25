@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { RaisedButton } from 'material-ui'
+import { RaisedButton, Dialog } from 'material-ui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { redA700, fullWhite } from 'material-ui/styles/colors'
 import theme from '../constants/material-ui-theme'
 import MediaQuery from 'react-responsive'
+import LoginModal from '../components/LoginModal'
 
 const host = "http://localhost:8000/"
 
@@ -41,6 +42,9 @@ const styles = {
 export default class SplashPage extends Component {
    constructor(props) {
       super(props);
+      this.state = {
+        open:false
+      }
    }
 
    renderSplash(imgUrl) {
@@ -53,19 +57,20 @@ export default class SplashPage extends Component {
             zIndex:1,
             height:'100vh',
         width:'100vw'}}>
-          {/* <img style={styles.img} src={host + "static/images/audience-desktop.jpg" } /> */}
           <h1 style={styles.name}>ARCANE</h1>
-          <Link to={"/app/"} style={styles.link} >
+          <div style={styles.link}>
+            {/* <Link to={"/app/"} style={styles.link} > */}
             <RaisedButton
               primary={true}
               label="Lets Go!"
               labelStyle={styles.label}
-              // buttonStyle={styles.button}
               className='button-glow'
-              // className='button-pulse'
+              onClick={() => {this.setState({open:true})}}
             />
-          </Link>
-        </div>
+            {/* </Link> */}
+          </div>
+          <LoginModal {...this.props} onRequestClose={() => {this.setState({open:false})}} open={this.state.open}/>
+            </div>
       );
    }
 
@@ -74,7 +79,7 @@ export default class SplashPage extends Component {
       if (this.props.children) {
          return (
             <div>
-               {this.props.children}
+              {this.props.children}
             </div>
          );
       } else {
