@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import {TextField, Paper, RaisedButton, FlatButton, Dialog} from 'material-ui'
 import theme from '../constants/material-ui-theme'
+import { Link } from 'react-router'
 
 const formItems = [  {'key': 'username','label':'username', 'type':'email', 'defaultValue': 'tscott8@arcane.fm',},
   {'key': 'password','label':'Password', 'type':'password', 'defaultValue': 'password123', 'onChange':''},]
@@ -76,24 +77,18 @@ export default class LoginModal extends Component {
     alert('dispatch login(', this.state.username, ', ', this.state.password,')');
   }
   handleJoin = () => {alert('open sign up form!')}
-  renderActions() {
+
+  formHasErrors () {
     const {username_errors, password_errors}=this.state;
-    return (
-      <div id={'login_form_actions'} style={styles.formActions}>
-        <FlatButton
-          id={'login_form_submit'}
-          label="Login"
-          secondary
-          disabled={username_errors.length > 0 || password_errors.length > 0}
-          onTouchTap={this.handleLogin}
-        />
-        <FlatButton
-          id={'login_form_join'}
-          label="Join Us"
-          onTouchTap={this.handleJoin}
-        />
-      </div>
-    );
+    if (username_errors.length > 0 || password_errors.length > 0) {
+      return true;
+    }
+    else
+      return false;
+  }
+  renderLink() {
+    if (!this.formHasErrors())
+      return <Link to={"/app/"}/>
   }
   render() {
     const {username_errors, password_errors}=this.state;
@@ -114,9 +109,10 @@ export default class LoginModal extends Component {
             />,
           <FlatButton
             id={'login_form_submit'}
-            label="Login"
+            containerElement={this.renderLink()}
+            label={"Login"}
             secondary
-            disabled={username_errors.length > 0 || password_errors.length > 0}
+            disabled={this.formHasErrors()}
             onTouchTap={this.handleLogin}
           />
           ]
@@ -127,20 +123,20 @@ export default class LoginModal extends Component {
           id={'login_form_username'}
           name={'login_form_username'}
           type={'email'}
-          errorText={username_errors.length>0 ? username_errors.join(', '): null}
+          errorText={username_errors.length > 0 ? username_errors.join(', '): null}
           fullWidth={true}
           floatingLabelText={'Username'}
-          value={this.state.username}
+          // value={this.state.username}
           onChange={this.checkUsername}
         />
         <TextField
           id={'login_form_password'}
           name={'login_form_password'}
           type={'password'}
-          errorText={password_errors.length>0 ? password_errors.join(', '): null}
+          errorText={password_errors.length >0 ? password_errors.join(', '): null}
           fullWidth={true}
           floatingLabelText={'Password'}
-          value={this.state.password}
+          // value={this.state.password}
           onChange={this.verifyPassword}
         />
       </Dialog>

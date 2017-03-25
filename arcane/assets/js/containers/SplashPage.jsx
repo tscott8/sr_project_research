@@ -59,7 +59,7 @@ export default class SplashPage extends Component {
         width:'100vw'}}>
           <h1 style={styles.name}>ARCANE</h1>
           <div style={styles.link}>
-            {/* <Link to={"/app/"} style={styles.link} > */}
+
             <RaisedButton
               primary={true}
               label="Lets Go!"
@@ -67,10 +67,9 @@ export default class SplashPage extends Component {
               className='button-glow'
               onClick={() => {this.setState({open:true})}}
             />
-            {/* </Link> */}
           </div>
           <LoginModal {...this.props} onRequestClose={() => {this.setState({open:false})}} open={this.state.open}/>
-            </div>
+        </div>
       );
    }
 
