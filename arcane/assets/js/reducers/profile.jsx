@@ -1,8 +1,9 @@
-import { GET_ARTIST_PROFILE, GET_ARTIST_MEMBERS } from '../constants/ActionTypes';
+import { GET_ARTIST_PROFILE, GET_ARTIST_MEMBERS, GET_ARTIST_SUMMARIES } from '../constants/ActionTypes';
 
 const initialState = {
    artist: {},
-   members: []
+   members: [],
+   summaries: []
 };
 
 export default function profile(state = initialState, action) {
@@ -11,6 +12,8 @@ export default function profile(state = initialState, action) {
          return {...state, artist: action.profile}
       case GET_ARTIST_MEMBERS:
          return {...state, members: action.members}
+      case GET_ARTIST_SUMMARIES:
+         return {...state, summaries: action.summaries}
       default:
          return state;
    }

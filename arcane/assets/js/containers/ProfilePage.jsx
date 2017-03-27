@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Paper, Tabs, Tab } from 'material-ui'
+import { Paper, Tabs, Tab, Avatar, FontIcon } from 'material-ui'
 import theme from '../constants/material-ui-theme'
+import Slider from 'react-slick'
 
 import AlbumsCollection from '../components/AlbumsCollection'
 import TracksCollection from '../components/TracksCollection'
@@ -51,18 +52,57 @@ class ProfilePage extends Component {
       const { dispatch } = this.props;
       dispatch(ProfileActions.getArtistProfile(this.props.params.id));
       dispatch(ProfileActions.getArtistMembers(this.props.params.id));
+      dispatch(ProfileActions.getArtistSummaries(this.props.params.id));
       dispatch(AlbumActions.getArtistAlbums(this.props.params.id));
       dispatch(TrackActions.getArtistTracks(this.props.params.id));
    }
 
-   handleChange = (value) => { this.setState({ tabIndex: value});};
+   handleChange = (value) => { this.setState({ tabIndex: value});}
+
+   renderMemberList(members) {
+      console.info("IN profilepage RENDERMEMBERLIST",members)
+      if (members.length > 0) {
+         let arr = members.map((member) => {
+            if (member.avatar) {
+               return (<div>
+                  <Avatar
+                     src={member.avatar}
+                     size={260}
+                     />
+                  {member.name}
+               </div>);
+            } else {
+               return (<div>
+                  <Avatar
+                     icon={<FontIcon className="material-icons">person</FontIcon>}
+                     size={160}
+                     />
+               </div>);
+            }
+         });
+         return arr;
+      } else {
+         return <div></div>
+      }
+   }
+
+   renderSummaries(summaries) {
+      console.info(summaries);
+      let arr = summaries.map((summary) => (
+         <p>{summary.summary}</p>
+      ))
+      return arr;
+   }
 
    renderTab(index) {
-      const { albums, tracks } = this.props;
+      const { albums, tracks, profile } = this.props;
       const tabContents = [
          <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Members</p>
+            {this.renderSummaries(profile.summaries)}
+            <h4>Members</h4>
+            <Slider>
+               {this.renderMemberList(profile.members)}
+            </Slider>
          </div>,
          <AlbumsCollection
             {...this.props}
