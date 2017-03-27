@@ -86,17 +86,17 @@ export default class App extends Component {
   render() {
       const {
         volume, isPlaying, percent, isFavorite, progress, error,
-        duration, isRepeating, currentlyPlaying, autoPlay, isLooping, // CHANGED
+        duration, isRepeating, currentlyPlaying, autoPlay, isLooping,
         isShuffling
       } = this.props.audio;
 
-      let song = currentlyPlaying; // CHANGED
+      let song = currentlyPlaying;
       if (song === null) {
          song = this.props.audio.defaultSong;
       }
 
-      let queue = this.props.audio.upcoming.map(clone); // CHANGED
-      queue.unshift(currentlyPlaying); // CHANGED
+      let queue = this.props.audio.upcoming.map(clone);
+      queue.unshift(currentlyPlaying);
 
      const currentPage = this.props.routes[this.props.routes.length-1].path
      let audioProps = {
@@ -111,7 +111,7 @@ export default class App extends Component {
        isShuffling: isShuffling,
        isLooping: isLooping,
        currentlyPlaying: currentlyPlaying,
-       queue: queue, // CHANGED
+       queue: queue, 
      }
    //   console.info(this.state.currentTheme);
      return (
