@@ -14,17 +14,17 @@ import ProfilePage from '../containers/ProfilePage'
 
 export default (
    <Route path="/" component={SplashPage}>
-      <Route path="/app/" component={App} >
-         <IndexRoute component={LandingPage} />
-         <Route path="upload" component={Upload} />
-         <Route path="radio" component={Radio} />
-         <Route path="my_music" component={MyMusic} />
-         <Route path="browse" component={Browse} />
-         <Route path="about" component={About} />
-         <Route path="settings" component={Settings} />
-         <Route path="profile/:id" component={ProfilePage} />
-         <Route path="*" component={SplashPage} />
-      </Route>
-      <Route path="*" component={SplashPage} />
+     <Route path="/app/" component={App} >
+       <IndexRoute component={Browse} />
+       <Route path="upload" component={Upload} />
+       <Route path="radio" component={Radio} />
+       <Route path="my_music" component={MyMusic} />
+       <Route path="browse" component={Browse} />
+       <Route path="about" component={About} />
+       <Route path="settings" component={Settings} />
+       <Route path="profile/:id" component={ProfilePage} />
+       {/* <Route path="*" component={SplashPage} /> */}
+     </Route>
+     <Route path="*" component={SplashPage} />
    </Route>
 );
