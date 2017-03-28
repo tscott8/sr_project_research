@@ -26,32 +26,35 @@ const responsiveSettings = [
 ]
 
 const settings = {
-   dots: true,
+   dots: false,
    infinite: true,
    arrows: true,
    slidesToShow: 8,
-   slidesToScroll: 8,
+   slidesToScroll: 4,
    centerMode: false,
-   adaptiveHeight: true,
-   focusOnSelect: true,
-   centerPadding: 10,
+   autoplay:true,
+   autoplaySpeed: 5000,
+   speed:2500,
+   useCSS:true,
    responsive: responsiveSettings
 }
 
 const styles = {
-   outerDiv: {
-    //  marginLeft: 35,
-    //  marginRight: 35,
-      // display: 'block',
-      // margin: 'auto',
-      // width : 'inherit',
-      // border: 'solid 3px',
-      maxWidth: 500
-   },
-   innerElement: {
-     margin: 2,
-     height: 200
-   }
+  outerDiv:  {
+    marginBottom:20,
+    height: 'calc((100vh - 64px) * .33 )',
+     minHeight: 'calc((100vh - 64px) * .25 )',
+     width: '100%'
+  },
+  label:{
+    margin:0,
+    position:'relative',
+    top:20,
+    left:5,
+    color:'white',
+    textShadow:'1px 1px 1px black',
+    zIndex:1
+  }
 }
 
 export default class BrowseCarousel extends Component {
@@ -93,7 +96,7 @@ export default class BrowseCarousel extends Component {
        <div
          className="boxTile"
          key={'browse_carousel_item_'+ item.id}
-         style={styles.innerElement}
+         style={{paddingLeft:2.5, paddingRight:2.5, borderRadius:2}}
        >
          <Tile
            {...this.props}
@@ -107,15 +110,19 @@ export default class BrowseCarousel extends Component {
    }
 
    render() {
-     const {list} = this.props;
+     const {list, label} = this.props;
      console.log('In BrowseCarousel render', this.props)
      return (
+       <div style={styles.outerDiv} >
+         <h3 style={styles.label}>{label}</h3>
          <Slider
+           className="slickSlider"
            {...settings}
-           style={styles.outerDiv}
-         >
+           >
            {this.renderSliderItems(list.results)}
          </Slider>
+       </div>
+
       );
    }
 }
