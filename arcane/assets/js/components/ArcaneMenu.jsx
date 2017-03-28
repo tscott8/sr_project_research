@@ -6,7 +6,7 @@ import SquareButton from './SquareButton'
 
 const menuList = [
   { "name": "Browse", "icon": "subscriptions", "url":"browse"},
-  { "name": "Playlists", "icon": "subject", "url":"playlists" },
+  { "name": "Playlists", "icon": "subject", "url":"playlists/1" },
   { "name": "Upload", "icon": "cloud_upload", "url": "upload" },
   { "name": "Radio", "icon": "radio", "url": "radio"},
   { "name": "My Music", "icon": "library_music", "url": "my_music"},
