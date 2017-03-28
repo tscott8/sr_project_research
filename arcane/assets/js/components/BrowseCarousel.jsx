@@ -26,7 +26,7 @@ const responsiveSettings = [
 ]
 
 const settings = {
-   dots: true,
+   dots: false,
    infinite: true,
    arrows: true,
    slidesToShow: 8,
@@ -96,7 +96,7 @@ export default class BrowseCarousel extends Component {
        <div
          className="boxTile"
          key={'browse_carousel_item_'+ item.id}
-         style={{paddingLeft:2.5, paddingRight:2.5}}
+         style={{paddingLeft:2.5, paddingRight:2.5, borderRadius:2}}
        >
          <Tile
            {...this.props}

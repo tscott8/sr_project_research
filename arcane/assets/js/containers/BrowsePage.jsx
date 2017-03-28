@@ -3,75 +3,72 @@ import { connect } from 'react-redux'
 
 // import AlbumCarousel from '../components/AlbumCarousel'
 import * as GenreActions from '../actions/GenreActions'
-import * as TrackActions from '../actions/TrackActions'
+// import * as TrackActions from '../actions/TrackActions'
 import * as ArtistActions from '../actions/ArtistActions'
 import * as AlbumActions from '../actions/AlbumActions'
 import BrowseCarousel from '../components/BrowseCarousel'
-import {Paper} from 'material-ui'
 class BrowsePage extends Component {
    constructor(props) {
       super(props);
-      this.state = { selected: [], snackOpen:false, snackMessage: 'Added nada!' };
+      this.state = {
+        selected: [],
+        snackOpen:false,
+        snackMessage: 'Added nada!'
+      };
       const { dispatch } = this.props;
-      dispatch(TrackActions.getTracks());
+      // dispatch(TrackActions.getTracks());
       dispatch(AlbumActions.getAlbums());
       dispatch(ArtistActions.getArtists());
       dispatch(GenreActions.getGenres());
    }
    addToSelected(items) {
-     // console.log('selected items:', items)
      this.setState({
        selected: items
      });
    }
    render() {
-     const { genres, tracks, artists, albums } = this.props;
-
-      // console.info("ablums in browse render: ", this.props.albums);
+      const { genres, artists, albums } = this.props;
       return (
-
-           <div style={{  height:'calc(100vh - 64px)',               overflowY:'auto',
-             width:'100vw',
-             padding:10
-           }}
-             //  s
-           >
-             <BrowseCarousel
-               {...this.props}
-               label={"New Releases"}
-               list={albums.allAlbums}
-               select={this.addToSelected.bind(this)}
-               selectedTracks={this.state.selected}
-               type={'album'}
-             />
-             <BrowseCarousel
-               {...this.props}
-               label={"Genres"}
-               list={genres}
-               select={this.addToSelected.bind(this)}
-               selectedTracks={this.state.selected}
-               type={'genre'}
-             />
-
-
-             <BrowseCarousel
-               {...this.props}
-               label={"Artists"}
-               list={artists.allArtists}
-               select={this.addToSelected.bind(this)}
-               selectedTracks={this.state.selected}
-               type={'artist'}
-             />
-             {/* <h3>Albums</h3> */}
-             <BrowseCarousel
-               {...this.props}
-               label={"Albums"}
-               list={albums.allAlbums}
-               select={this.addToSelected.bind(this)}
-               selectedTracks={this.state.selected}
-               type={'album'}
-             />
-           </div>
+        <div style={{
+          height:'calc(100vh - 64px)',
+          overflowY:'auto',
+          width:'100vw',
+          padding:10
+        }}
+        >
+          <BrowseCarousel
+            {...this.props}
+            label={"New Releases"}
+            list={albums.allAlbums}
+            select={this.addToSelected.bind(this)}
+            selectedTracks={this.state.selected}
+            type={'album'}
+          />
+          <BrowseCarousel
+            {...this.props}
+            label={"Genres"}
+            list={genres}
+            select={this.addToSelected.bind(this)}
+            selectedTracks={this.state.selected}
+            type={'genre'}
+          />
+          <BrowseCarousel
+            {...this.props}
+            label={"Artists"}
+            list={artists.allArtists}
+            select={this.addToSelected.bind(this)}
+            selectedTracks={this.state.selected}
+            type={'artist'}
+          />
+          <BrowseCarousel
+            {...this.props}
+            label={"Albums"}
+            list={albums.allAlbums}
+            select={this.addToSelected.bind(this)}
+            selectedTracks={this.state.selected}
+            type={'album'}
+          />
+        </div>
       );
    }
 }
