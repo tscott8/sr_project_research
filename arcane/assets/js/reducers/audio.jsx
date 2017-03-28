@@ -55,7 +55,7 @@ function getAudioState(audio) {
  }
 
  function shuffle(array) {
-    let saved = array.shift();
+    // let saved = array.shift();
     let counter = array.length;
      // While there are elements in the array
      while (counter > 0) {
@@ -68,7 +68,7 @@ function getAudioState(audio) {
          array[counter] = array[index];
          array[index] = temp;
      }
-     array.unshift(saved)
+    //  array.unshift(saved)
      return array;
  }
 
