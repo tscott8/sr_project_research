@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 import os
 
@@ -42,13 +44,18 @@ class Settings(models.Model):
 
 def upload_user_avatar(instance, file):
     name, extension = os.path.splitext(file)
-    return "/users/" + slugify(instance.id) + "/avatar" + extension
+    print(extension)
+    # subpath = "avatar" + extension
+    # path = os.path.join(settings.MEDIA_ROOT, "users", slugify(instance.id), subpath)
+    # default_storage.save(path, ContentFile)
+    return "users/" + slugify(instance.id) + "/avatar" + extension
 
-class User(models.Model):
-    name = models.CharField(max_length=124)
-    email = models.EmailField()
+class Listener(models.Model):
+    # name = models.CharField(max_length=124)
+    # email = models.EmailField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=3, default='USA')
-    avatar = models.ImageField(upload_to=upload_user_avatar, height_field=124, width_field=124, blank=True, null=True)
+    avatar = models.ImageField(upload_to=upload_user_avatar, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
     settings = models.ForeignKey(Settings, blank=False, null=False, default=1)
 
@@ -58,22 +65,22 @@ class User(models.Model):
     def __unicode__(self):
         return '%d: %s' % (self.id, self.name)
 
-class Login(models.Model):
-    username = models.CharField(max_length=124)
-    password = models.CharField(max_length=124)
-    user = models.ForeignKey(User, blank=False, null=False)
-
-    def __str__(self):
-        return self.username
-
-    def __unicode__(self):
-        return '%d: %s' % (self.id, self.name)
+# class Login(models.Model):
+#     username = models.CharField(max_length=124)
+#     password = models.CharField(max_length=124)
+#     user = models.ForeignKey(User, blank=False, null=False)
+#
+#     def __str__(self):
+#         return self.username
+#
+#     def __unicode__(self):
+#         return '%d: %s' % (self.id, self.name)
 
 
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    user = models.ForeignKey(User, blank=False, null=False)
+    user = models.ForeignKey(Listener, blank=False, null=False)
     tracks = models.ManyToManyField(Track, symmetrical=False)
 
     def __str__(self):

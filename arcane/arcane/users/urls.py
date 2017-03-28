@@ -10,7 +10,7 @@ schema_view = get_schema_view(title="Arcane API")
 router = DefaultRouter()
 router.register(r'settings', api.SettingsViewSet)
 router.register(r'users', api.UserViewSet)
-router.register(r'login', api.LoginViewSet)
+# router.register(r'login', api.LoginViewSet)
 router.register(r'playlists', api.PlaylistViewSet)
 
 urlpatterns = [
