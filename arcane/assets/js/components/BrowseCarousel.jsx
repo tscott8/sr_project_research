@@ -111,14 +111,13 @@ export default class BrowseCarousel extends Component {
 
    render() {
      const {list, label} = this.props;
-     console.log('In BrowseCarousel render', this.props)
      return (
        <div style={styles.outerDiv} >
          <h3 style={styles.label}>{label}</h3>
          <Slider
            className="slickSlider"
            {...settings}
-           >
+         >
            {this.renderSliderItems(list.results)}
          </Slider>
        </div>
