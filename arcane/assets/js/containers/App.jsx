@@ -4,16 +4,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles'
 import { themeEnum, themes } from '../constants/material-ui-theme'
-//import theme from "../constants/material-ui-theme"
 import Audio from '../components/Audio'
 import Header from "../components/Header"
 import FloatingControls from '../components/FloatingControls'
-// import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
-import find from 'lodash/find'
 import clone from 'lodash/clone';
-
-console.info(themeEnum);
 
 @connect(
   state => ({audio: state.audio, theme: state.theme}),
@@ -84,66 +79,56 @@ export default class App extends Component {
   }
 
   render() {
-      const {
-        volume, isPlaying, percent, isFavorite, progress, error,
-        duration, isRepeating, currentlyPlaying, autoPlay, isLooping,
-        isShuffling
-      } = this.props.audio;
+    const { volume, isPlaying, percent, isFavorite, progress, error,
+            duration, isRepeating, currentlyPlaying, autoPlay, isLooping,
+            isShuffling } = this.props.audio;
 
-      let song = currentlyPlaying;
-      if (song === null) {
-         song = this.props.audio.defaultSong;
-      }
-
-      let queue = this.props.audio.upcoming.map(clone);
-      queue.unshift(currentlyPlaying);
-
-     const currentPage = this.props.routes[this.props.routes.length-1].path
-     let audioProps = {
-       onNext: this.handleNext,
-       onPlay: this.handlePlay,
-       onPrevious: this.handlePrevious,
-       onToggleShuffle: this.handleToggleShuffle,
-       onToggleLoop: this.handleToggleLoop,
-       onSetTime: this.handleTrackClick,
-       percent: percent,
-       isPlaying: isPlaying,
-       isShuffling: isShuffling,
-       isLooping: isLooping,
-       currentlyPlaying: currentlyPlaying,
-       queue: queue, 
-     }
-   //   console.info(this.state.currentTheme);
-     return (
-        <MuiThemeProvider muiTheme={getMuiTheme(this.props.theme.currentTheme)}>
-          <div style={{
-               width:'100%',
-               height:'100%',
-               background: this.props.theme.currentTheme.palette.canvasColor + ' repeat top center fixed',
-               backgroundSize:'cover',
-               position:'fixed'
-             }} >
-            <Audio
-              ref="audio"
-              autoPlay={this.state.autoPlay}
-              src={song.url}
-              onProgress={this.handleProgress}
-              onTimeUpdate={this.handleTimeUpdate}
-              onError={this.handleError}
-              onEnded={this.handleEnd}
-              onLoadedData={this.handleLoadedData}
-              // onCanPlay={this.handlePlay}
-            />
-            <Header
-              {...audioProps}
-              currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
-            />
-            {this.props.children}
-            <FloatingControls
-              {...audioProps}
-            />
-          </div>
-        </MuiThemeProvider>
+    let song = currentlyPlaying;
+    if (song === null) { song = this.props.audio.defaultSong; }
+    let queue = this.props.audio.upcoming.map(clone);
+    queue.unshift(currentlyPlaying);
+    const currentPage = this.props.routes[this.props.routes.length-1].path
+    let audioProps = {
+      onNext: this.handleNext,
+      onPlay: this.handlePlay,
+      onPrevious: this.handlePrevious,
+      onToggleShuffle: this.handleToggleShuffle,
+      onToggleLoop: this.handleToggleLoop,
+      onSetTime: this.handleTrackClick,
+      percent: percent,
+      isPlaying: isPlaying,
+      isShuffling: isShuffling,
+      isLooping: isLooping,
+      currentlyPlaying: currentlyPlaying,
+      queue: queue,
+    }
+    return (
+      <MuiThemeProvider muiTheme={getMuiTheme(this.props.theme.currentTheme)}>
+        <div style={{
+          width:'100%',
+          height:'100%',
+          background: this.props.theme.currentTheme.palette.canvasColor + ' repeat top center fixed',
+          backgroundSize:'cover',
+          position:'fixed'
+        }} >
+          <Audio
+            autoPlay={this.state.autoPlay}
+            onEnded={this.handleEnd}
+            onError={this.handleError}
+            onLoadedData={this.handleLoadedData}
+            onProgress={this.handleProgress}
+            onTimeUpdate={this.handleTimeUpdate}
+            ref="audio"
+            src={song.url}
+            // onCanPlay={this.handlePlay}
+          />
+          <Header {...audioProps}
+            currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
+          />
+          {this.props.children}
+          <FloatingControls {...audioProps} />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

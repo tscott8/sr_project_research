@@ -19,16 +19,13 @@ const styles = {
       width: '100%',
       textAlign: 'center',
       position: 'absolute',
-      bottom: 50,
+      bottom: 50
    },
    button: {
-     boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
-
-    //  boxShadow:'0px 0px 16px 4px  cyan'
+     boxShadow: '0 1px 2px rgba(0,0,0,0.15)'
    },
    label: {
-     fontSize: '1.5em',
-
+     fontSize: '1.5em'
    },
    name: {
       position: 'absolute',
@@ -40,66 +37,68 @@ const styles = {
 }
 
 export default class SplashPage extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-        open:false
-      }
-   }
+  constructor(props) {
+    super(props);
+    this.state = { open:false }
+  }
 
-   renderSplash(imgUrl) {
+  renderSplash(imgUrl) {
+    return (
+      <div style={{
+        background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ host + 'static/images/audience-'+imgUrl+'.jpg' + ') ',
+        backgroundSize: 'cover',
+        backgroundPosition:'center center',
+        overflow:'hidden',
+        textShadow:'1px 1px black',
+        zIndex:1,
+        height:'100vh',
+        width:'100vw'
+      }}
+      ><h1 style={styles.name}>{"ARCANE"}</h1>
+        <div style={styles.link}>
+          <RaisedButton
+            className='button-glow'
+            label="Lets Go!"
+            labelStyle={styles.label}
+            onClick={() => {this.setState({open:true})}}
+            primary
+          />
+        </div>
+        <LoginModal
+          {...this.props}
+          onRequestClose={() => {this.setState({open:false})}}
+          open={this.state.open}
+        />
+      </div>
+    );
+  }
+
+  render() {
+
+    if (this.props.children) {
       return (
-        <div style={{background: 'linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('+ host + 'static/images/audience-'+imgUrl+'.jpg' + ') ',
-            backgroundSize: 'cover',
-            backgroundPosition:'center center',
-            overflow:'hidden',
-            textShadow:'1px 1px black',
-            zIndex:1,
-            height:'100vh',
-        width:'100vw'}}>
-          <h1 style={styles.name}>ARCANE</h1>
-          <div style={styles.link}>
-
-            <RaisedButton
-              primary={true}
-              label="Lets Go!"
-              labelStyle={styles.label}
-              className='button-glow'
-              onClick={() => {this.setState({open:true})}}
-            />
-          </div>
-          <LoginModal {...this.props} onRequestClose={() => {this.setState({open:false})}} open={this.state.open}/>
+        <div>
+          {this.props.children}
         </div>
       );
-   }
-
-   render() {
-      //console.info(this.props.children);
-      if (this.props.children) {
-         return (
-            <div>
-              {this.props.children}
-            </div>
-         );
-      } else {
-         return (
-            <MuiThemeProvider muiTheme={theme} >
-               <div>
-                  <MediaQuery query='(min-device-width: 560px)'>
-                     <MediaQuery query='(max-width: 59px)'>
-                        {this.renderSplash('phone')}
-                     </MediaQuery>
-                     <MediaQuery query='(min-width: 560px)'>
-                        {this.renderSplash('desktop')}
-                     </MediaQuery>
-                  </MediaQuery>
-                  <MediaQuery query='(max-device-width: 559px)'>
-                     {this.renderSplash('phone')}
-                  </MediaQuery>
-               </div>
-            </MuiThemeProvider>
-         );
-      }
-
-   }
+    } else {
+      return (
+        <MuiThemeProvider muiTheme={theme} >
+          <div>
+            <MediaQuery query='(min-device-width: 560px)'>
+              <MediaQuery query='(max-width: 59px)'>
+                {this.renderSplash('phone')}
+              </MediaQuery>
+              <MediaQuery query='(min-width: 560px)'>
+                {this.renderSplash('desktop')}
+              </MediaQuery>
+            </MediaQuery>
+            <MediaQuery query='(max-device-width: 559px)'>
+              {this.renderSplash('phone')}
+            </MediaQuery>
+          </div>
+        </MuiThemeProvider>
+      );
+    }
+  }
 }

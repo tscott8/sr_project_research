@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Uploader from '../components/Uploader'
-import * as TrackActions from '../actions/TrackActions'
-
+// import * as TrackActions from '../actions/TrackActions'
 
 class Track {
    constructor() {
@@ -18,34 +17,27 @@ class Track {
 
 
 class UploadPage extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         tracks: []
-      }
-      const { dispatch } = this.props;
-   }
+  constructor(props) {
+    super(props);
+    this.state = { tracks: [] }
+  }
 
-   addTrack(track) {
-      console.info(track);
-      let newTrack = new Track();
-      newTrack.url = track;
-      // this.setState({
-      //    tracks: this.state.tracks.push(newTrack)
-      // });
-   }
+  addTrack(track) {
+    console.info(track);
+    let newTrack = new Track();
+    newTrack.url = track;
+  }
 
-   submit() {
-
-   }
-
-   render() {
-      return (
-         <div>
-            <Uploader  addTrack={this.addTrack.bind(this)} dispatch={this.props.dispatch}/>
-         </div>
-      );
-   }
+  render() {
+    return (
+       <div>
+         <Uploader
+           addTrack={this.addTrack.bind(this)}
+           dispatch={this.props.dispatch}
+         />
+       </div>
+    );
+  }
 }
 
 UploadPage.propTypes = {

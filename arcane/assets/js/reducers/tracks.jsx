@@ -5,7 +5,7 @@ import clone from 'lodash/clone';
 const initialState = {
    allTracks: [],
    albumTracks: [],
-   artistTracks: [],
+   artistTracks: []
 };
 
 export default function tracks(state = initialState, action) {
