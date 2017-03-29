@@ -30,6 +30,7 @@
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
     "react-addons-update": "^15.4.2",
+    "react-color": "^2.11.4",
     "react-cookie": "^1.0.4",
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.10.0",
