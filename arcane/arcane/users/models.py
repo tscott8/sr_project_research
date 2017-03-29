@@ -60,7 +60,7 @@ class Listener(models.Model):
     settings = models.ForeignKey(Settings, blank=False, null=False, default=1)
 
     def __str__(self):
-        return self.name
+        return self.user.first_name + self.user.last_name
 
     def __unicode__(self):
         return '%d: %s' % (self.id, self.name)
@@ -80,7 +80,7 @@ class Listener(models.Model):
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    user = models.ForeignKey(Listener, blank=False, null=False)
+    user = models.OneToOneField(Listener, blank=False, null=False)
     tracks = models.ManyToManyField(Track, symmetrical=False)
 
     def __str__(self):
