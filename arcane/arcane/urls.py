@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.views import generic
+from .views import CustomObtainAuthToken
 
 favicon_view = RedirectView.as_view(url='/static/images/favicon.png', permanent=True)
 
@@ -26,6 +27,7 @@ urlpatterns = [
     # url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('arcane.browse.urls')),
+    url(r'^api/auth/', CustomObtainAuthToken.as_view()),
     url(r'^api/users/', include('arcane.users.urls')),
     url(r'^favicon\.ico$', favicon_view),
     url(r'^app/', generic.TemplateView.as_view(template_name='app.html')),
