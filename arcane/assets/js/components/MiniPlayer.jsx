@@ -90,7 +90,7 @@ export default class MiniPlayer extends Component {
   }
 
   getNowPlayingSong() {
-    const { queue } = this.props; // CHANGED
+    const { queue } = this.props; 
     return queue.length > 0 ? queue[0] : null
   }
 

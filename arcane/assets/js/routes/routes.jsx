@@ -11,6 +11,7 @@ import About from '../containers/AboutPage'
 import SplashPage from '../containers/SplashPage'
 import Settings from '../containers/SettingsPage'
 import ProfilePage from '../containers/ProfilePage'
+import PlaylistsPage from '../containers/PlaylistsPage'
 
 export default (
    <Route path="/" component={SplashPage}>
@@ -23,6 +24,7 @@ export default (
        <Route path="about" component={About} />
        <Route path="settings" component={Settings} />
        <Route path="profile/:id" component={ProfilePage} />
+       <Route path="playlists/:id" component={PlaylistsPage} />
        {/* <Route path="*" component={SplashPage} /> */}
      </Route>
      <Route path="*" component={SplashPage} />

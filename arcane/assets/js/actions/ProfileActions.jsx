@@ -12,10 +12,20 @@ export function getArtistProfile(id) {
 }
 
 export function getArtistMembers(id) {
-   return fetch(host + "/users/users/?artist=" + id)
+   //return fetch(host + "/users/users/?artist=" + id)
+   return fetch(host + "/users/users/")
    .then(response => response.json())
    .then(json => ({
       type: types.GET_ARTIST_MEMBERS,
       members: json.results
    }));
+}
+
+export function getArtistSummaries(id) {
+   return fetch(host + "/artists/" + id + "/summary/")
+   .then(response => response.json())
+   .then(json => ({
+      type: types.GET_ARTIST_SUMMARIES,
+      summaries: json.results
+   }))
 }

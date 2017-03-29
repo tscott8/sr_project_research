@@ -1,8 +1,9 @@
 from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets, filters
 
-from .models import Settings, User, Login, Playlist
+from .models import Settings, Listener, Playlist #, Login
 from arcane.browse.api import TrackSerializer, ArtistSerializer
+from arcane.browse.models import Artist, Track
 
 class SettingsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -19,42 +20,47 @@ class SettingsViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    settings = SettingsSerializer(read_only=True)
-    artist = ArtistSerializer(read_only=True)
+    settings = serializers.PrimaryKeyRelatedField(queryset=Settings.objects.all())
+    artist = serializers.PrimaryKeyRelatedField(queryset=Artist.objects.all())
     class Meta:
-        model = User
-        fields = ('id', 'name', 'email', 'location', 'avatar', 'artist', 'settings')
+        model = Listener
+        fields = ('id', 'location', 'avatar', 'artist', 'settings')
 
 class UserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id', 'name', 'email', 'artist')
-    queryset = User.objects.all()
+    filter_fields = ('id', 'artist')
+    queryset = Listener.objects.all()
     serializer_class = UserSerializer
     lookup_field = "id"
 
     def perform_create(self, serializer):
         serializer.save()
-
-class LoginSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Login
-        fields = ('id', 'username', 'user')
-
-class LoginViewSet(viewsets.ModelViewSet):
-    queryset = Login.objects.all()
-    serializer_class = LoginSerializer
-    filter_fields = ('id', 'username', 'user')
-
-    def perform_create(self, serializer):
-        serializer.save()
+#
+# class LoginSerializer(serializers.HyperlinkedModelSerializer):
+#     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+#     class Meta:
+#         model = Login
+#         fields = ('id', 'username', 'user', 'password')
+#
+# class LoginViewSet(viewsets.ModelViewSet):
+#     filter_backends = (filters.DjangoFilterBackend,)
+#     filter_fields = ('id', 'username', 'user')
+#     queryset = Login.objects.all()
+#     serializer_class = LoginSerializer
+#     lookup_field = "id"
+#
+#     def perform_create(self, serializer):
+#         serializer.save()
 
 class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
-    tracks = TrackSerializer(read_only=True)
+    tracks = serializers.PrimaryKeyRelatedField(queryset=Track.objects.all())
+    user = serializers.PrimaryKeyRelatedField(queryset=Listener.objects.all())
     class Meta:
         model = Playlist
         fields = ('id', 'name', 'user', 'tracks')
 
 class PlaylistViewSet(viewsets.ModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
     filter_fields = ('id', 'user')

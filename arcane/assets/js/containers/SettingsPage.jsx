@@ -78,9 +78,9 @@ class Settings extends Component {
          case "GOOGLE PLAY":
             dispatch(ThemeActions.changeTheme(themeEnum.GOOGLE_PLAY))
             break;
-         case "CUSTOM":
-            dispatch(ThemeActions.changeTheme(themeEnum.CUSTOM))
-            break;
+         // case "CUSTOM":
+         //    dispatch(ThemeActions.changeTheme(themeEnum.CUSTOM))
+         //    break;
          default:
             break;
       }
