@@ -12,7 +12,7 @@ export default class AlbumsCollection extends Component {
     super(props);
   }
 
-  loadMore = () => {
+  handleLoadMore = () => {
      const {albums, dispatch} = this.props;
      if (albums.next) {
         dispatch(AlbumActions.getNextAlbums(albums.next));
@@ -56,7 +56,7 @@ export default class AlbumsCollection extends Component {
             {this.renderAlbumTiles(albums.results, cols)}
           </GridList>
           <Waypoint
-            onEnter={this.loadMore}
+            onEnter={this.handleLoadMore}
           />
         </div>
       );

@@ -21,8 +21,8 @@ export default class GenresCollection extends Component {
         >
           <Tile
             {...this.props}
-            cols={cols}
             artists={tile.artists}
+            cols={cols}
             id={tile.id}
             imgURL={tile.icon ? tile.icon : url+'static/images/hip_hop.png'}
             title={tile.name}
@@ -39,7 +39,6 @@ export default class GenresCollection extends Component {
     return(
       <GridList
         cols={cols}
-        // cellHeight={170}
         style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
       >
         {this.renderGenreTiles(genres.results, cols)}

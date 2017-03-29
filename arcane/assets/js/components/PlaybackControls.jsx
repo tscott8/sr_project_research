@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {IconButton} from 'material-ui'
 import theme from '../constants/material-ui-theme'
+
 const styles = {
    smallIcon: {
      width:20,
@@ -47,16 +48,16 @@ const styles = {
 
 const IconChangeControl = (props) => {
   return (
-     <IconButton
-       //  {...props}
-       hoveredStyle={styles.hover}
-       iconClassName="material-icons"
-       iconStyle={styles.mediumIcon}
-       style={styles.medium}
-       onClick={props.onClick}
-     >
-       {!props.flag ? props.icon1 : props.icon2}
-     </IconButton>
+    <IconButton
+      //  {...props}
+      hoveredStyle={styles.hover}
+      iconClassName="material-icons"
+      iconStyle={styles.mediumIcon}
+      onClick={props.onClick}
+      style={styles.medium}
+    >
+      {!props.flag ? props.icon1 : props.icon2}
+    </IconButton>
   );
 };
 export {IconChangeControl};

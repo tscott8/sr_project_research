@@ -86,7 +86,7 @@ class Tile extends Component {
          buttonStyle={{padding:0,
            background: 'url('+ imgURL + ') ',
            backgroundSize: 'cover',
-           backgroundPosition:'center center',
+           backgroundPosition:'center center'
          }}
          fullWidth
          label={
@@ -95,9 +95,9 @@ class Tile extends Component {
              <a style={styles.hrefsub}>{subtitle}</a></div>}
          labelStyle={this.state.hover ? styles.button.label : {display:'none'}}
          onClick={this.handleExpand}
-         onMouseOver={this.handleHover}
          onMouseLeave={this.handleLeave}
-         style={ styles.button }
+         onMouseOver={this.handleHover}
+         style={styles.button}
          //  style={{
          //
          //    width:'100%',

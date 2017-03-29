@@ -80,21 +80,20 @@ class RadioTile extends Component {
          <div
            id="overlay_container"
            style={styles.overlay}
-         >
-           <div style={styles.overlay.topActions}>
-             <IconButton
-               hoveredStyle={{color:'green'}}
-               iconClassName="material-icons"
-               iconStyle={this.props.liked ? {backgroundColor:'green', borderRadius:'50%'} : {} }
+         ><div style={styles.overlay.topActions}>
+           <IconButton
+             hoveredStyle={{color:'green'}}
+             iconClassName="material-icons"
+             iconStyle={this.props.liked ? {backgroundColor:'green', borderRadius:'50%'} : {}}
 
-             >check</IconButton>
-             <IconButton
-               hoveredStyle={{color:'red'}}
-               iconClassName="material-icons"
-               style={{float:'right'}}
-               iconStyle={this.props.disliked ? {backgroundColor:'red', borderRadius:'50%'} : {} }
-             >close</IconButton>
-           </div>
+           >{"check"}</IconButton>
+           <IconButton
+             hoveredStyle={{color:'red'}}
+             iconClassName="material-icons"
+             iconStyle={this.props.disliked ? {backgroundColor:'red', borderRadius:'50%'} : {}}
+             style={{float:'right'}}
+           >{"close"}</IconButton>
+         </div>
            <div style={styles.overlay.bottomActions}>
              <CardTitle
                style={styles.overlay.bottomActions.label}
@@ -108,16 +107,18 @@ class RadioTile extends Component {
                style={styles.overlay.bottomActions.button}
              >more_vert</IconButton> */}
              <IconMenu
+               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+               iconButtonElement={
+                 <IconButton iconClassName="material-icons">{"more_vert"}</IconButton>
+               }
                style={styles.overlay.bottomActions.button}
-               iconButtonElement={<IconButton iconClassName="material-icons">more_vert</IconButton>}
                targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}>
-               <MenuItem primaryText="Start radio" />
+             ><MenuItem primaryText="Start radio" />
                <MenuItem primaryText="Play next" />
-               <Divider/>
+               <Divider />
                <MenuItem primaryText="Add to queue" />
                <MenuItem primaryText="Add to playlist" />
-               <Divider/>
+               <Divider />
                <MenuItem primaryText="Artist info" />
                <MenuItem primaryText="Album info" />
              </IconMenu>
@@ -130,23 +131,23 @@ class RadioTile extends Component {
      const { imgURL, className } = this.props;
      return (
        <Paper
-         onMouseOver={this.handleHover}
          onMouseLeave={this.handleLeave}
-         zDepth={3}
+         onMouseOver={this.handleHover}
          style={{
-            height:'100%',
-            width:'100%',
-            maxHeight: 'calc(100vh - 144px)',
-            maxWidth:'calc(100vh - 144px)',
+           height:'100%',
+           width:'100%',
+           maxHeight: 'calc(100vh - 144px)',
+           maxWidth:'calc(100vh - 144px)',
            padding:0,
            background: 'url('+ imgURL + ') ',
            backgroundSize: 'cover',
-           backgroundPosition:'center center',
-         }}>
-         <div  style={{height:'100%', width:'100%', borderRadius:.1}} className={className}>
-           {this.renderOverlay()}
-         </div>
-         {/* <div style={styles.root}>{this.renderOverlay()}</div> */}
+           backgroundPosition:'center center'
+         }}
+         zDepth={3}
+       ><div
+         className={className}
+         style={{height:'100%', width:'100%', borderRadius:.1}}
+        >{this.renderOverlay()}</div>
        </Paper>
 
     );

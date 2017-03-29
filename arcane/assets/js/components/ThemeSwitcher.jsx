@@ -1,25 +1,23 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Dialog, Paper, TextField, SelectField, MenuItem, Divider} from 'material-ui'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { redA700, fullWhite } from 'material-ui/styles/colors'
+import { Dialog, Paper, SelectField, MenuItem, Divider} from 'material-ui'
 import theme from '../constants/material-ui-theme'
-import MediaQuery from 'react-responsive'
 import {SwatchesPicker} from 'react-color'
 import * as ThemeActions from '../actions/ThemeActions'
 import { themeEnum } from '../constants/material-ui-theme'
 import { spacing, getMuiTheme } from 'material-ui/styles';
 
 const styles = {
-    paper: {
+  paper: {
     overflowY:'auto',
     minHeight:'60vh',
     backgroundColor:theme.palette.primary3Color
-  },
+  }
 };
 
 const fields = [
   {'key': 'theme', 'label':'Theme', 'type':'select', 'defaultValue': 'ARCANE DARK', 'options':['ARCANE DARK','ARCANE LIGHT', 'PANDORA', 'SPOTIFY', 'GOOGLE PLAY', 'CUSTOM']}]
+
 const customFields = [
    {'key':'primary1Color', 'label':'Primary 1 Color', 'type':'picker', 'defaultValue':'#000000'},
    {'key':'primary2Color', 'label':'Primary 2 Color', 'type':'picker', 'defaultValue':'#000000'},
@@ -105,7 +103,7 @@ class ThemeSwitcher extends Component {
         disabledColor: this.state.disabledColor,
         pickerHeaderColor: this.state.pickerHeaderColor,
         clockCircleColor: this.state.clockCircleColor,
-        shadowColor: this.state.shadowColor,
+        shadowColor: this.state.shadowColor
       }
     };
     let newTheme = getMuiTheme(theme);
@@ -119,11 +117,10 @@ class ThemeSwitcher extends Component {
            <div style={{display:'flex', flexDirection:'column', justifyContent:'center', float:'left'}}>{item.label}</div>
            <div style={{float:'right'}}>
              <SwatchesPicker
-
+               color={this.state.background}
                id={item.key}
                name={item.key}
-               color={ this.state.background }
-               onChangee={ this.handleChange }
+               onChange={this.handleChange}
              />
            </div>
          </div>
@@ -133,43 +130,43 @@ class ThemeSwitcher extends Component {
    }
    renderSelectField(item) {
      let options = item.options.map((option) => (
-       <MenuItem key={item.options.indexOf(option)} value={option} primaryText={option}/>
+       <MenuItem
+         key={item.options.indexOf(option)}
+         primaryText={option}
+         value={option}
+       />
      ))
      return (
        <SelectField
+         floatingLabelText={item.label}
+         fullWidth
          id={item.key}
          name={item.key}
-         type={item.type}
-         fullWidth={true}
-         value={this.state[item.key] ? this.state[item.key] : item.defaultValue}
-         floatingLabelText={item.label}
          onChange={this.onSelect.bind(this)}
-       >
-         {options}
-       </SelectField>
+         type={item.type}
+         value={this.state[item.key] ? this.state[item.key] : item.defaultValue}
+       >{options}</SelectField>
      );
    }
+
    renderSettingInput(setting) {
     //  console.log(setting)
      if(setting.type !== 'picker') {
         return (
-          <div key={'theme_settings_'+setting.key}
-            // disabled={true}
-          >
+          <div key={'theme_settings_'+setting.key}>
             {this.renderSelectField(setting)}
           </div>
         );
       }
       else {
         return (
-          <div key={'theme_settings_'+setting.key}
-            // disabled={true}
-          >
+          <div key={'theme_settings_'+setting.key}>
             {this.renderPickerField(setting)}
           </div>
         );
       }
    }
+
    renderSettings(collection) {
      let map = collection.map((setting) => (
           this.renderSettingInput(setting)
@@ -183,8 +180,11 @@ class ThemeSwitcher extends Component {
             <Paper style={styles.paper}>*/}
            {this.renderSettings(fields)}
 
-           <Dialog autoDetectWindowHeight
-             autoScrollBodyContent open={this.state.open} onRequestClose={this.handleClose}>
+           <Dialog
+             autoDetectWindowHeight
+             autoScrollBodyContent
+             open={this.state.open}
+             onRequestClose={this.handleClose}>
              {this.renderSettings(customFields)}
            </Dialog>
          {/*</Paper>*/}

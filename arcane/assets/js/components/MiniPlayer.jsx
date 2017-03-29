@@ -46,7 +46,6 @@ const style ={
     height:280
   },
   queueArt: {
-    // borderRadius:'0%'
     borderRadius:1
   },
   queue: {
@@ -60,6 +59,7 @@ const style ={
 }
 
 export default class MiniPlayer extends Component {
+
   constructor(props){
     super(props);
     this.state = {
@@ -81,16 +81,16 @@ export default class MiniPlayer extends Component {
      newControlList[2].onClick = onPlay;
      newControlList[3].onClick = onNext;
      newControlList[4].onClick = onToggleShuffle;
-     this.setState({ controlList: newControlList});
+     this.setState({ controlList: newControlList });
   }
 
   handleSlideClick = (event, value) => {
-     console.info("Value in handle slide:", value);
+    //  console.info("Value in handle slide:", value);
      this.props.onSetTime(value);
   }
 
   getNowPlayingSong() {
-    const { queue } = this.props; 
+    const { queue } = this.props;
     return queue.length > 0 ? queue[0] : null
   }
 
@@ -124,6 +124,7 @@ export default class MiniPlayer extends Component {
       </div>
       );
   }
+
   renderPlaybackControls() {
     return(
       <div style={style.controlContainer}>
@@ -138,18 +139,29 @@ export default class MiniPlayer extends Component {
       </div>
     );
   }
+
   renderEQIcon(track) {
-    const {currentID} = this.props;
-    return( track && track.id === this.getNowPlayingSong().id ? <IconButton iconStyle={{color: theme.palette.alternateTextColor}} iconClassName="material-icons">equalizer</IconButton>
-                                  : <IconButton iconClassName="material-icons">play_arrow</IconButton>);
+    return(
+      track && track.id === this.getNowPlayingSong().id
+      ? <IconButton
+        iconClassName="material-icons"
+        iconStyle={{color: theme.palette.alternateTextColor}}
+        >
+        {"equalizer"}</IconButton>
+      : <IconButton
+        iconClassName="material-icons"
+        >
+        {"play_arrow"}</IconButton>);
   }
+
   renderQueueList() {
     const {queue} = this.props;
    //  console.info(queue);
       let q = queue.map((track) => (
         <div
-          id={'miniplayer_queue_track_' + (track === null ? '-1' : track.id) }
-          key={'miniplayer_queue_track_' + (track === null ? '-1' : track.id) }>
+          id={'miniplayer_queue_track_' + (track === null ? '-1' : track.id)}
+          key={'miniplayer_queue_track_' + (track === null ? '-1' : track.id)}
+        >
           <Divider />
           <ListItem
             hoverColor={fade(theme.palette.accent1Color, 0.3)}
@@ -166,7 +178,6 @@ export default class MiniPlayer extends Component {
     ))
     return (<List style={style.queue}>{q}</List>);
   }
-
 
   renderOverlay () {
     let cur_song = this.getNowPlayingSong();
@@ -187,6 +198,7 @@ export default class MiniPlayer extends Component {
         </div>
       );
   }
+
   renderNowPlaying() {
     let cur_song = this.getNowPlayingSong();
     return (
@@ -200,6 +212,7 @@ export default class MiniPlayer extends Component {
       </Card>
     );
   }
+
   render() {
     return (
       <div >

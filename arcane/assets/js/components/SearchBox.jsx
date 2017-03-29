@@ -1,7 +1,5 @@
 import React from 'react';
 import {AutoComplete, IconButton} from 'material-ui'
-// import SearchIcon from 'material-ui/svg-icons/action/search';
-
 
 const fruit = [
   'Apple', 'Apricot', 'Avocado',
@@ -29,6 +27,7 @@ const fruit = [
   'Ugli fruit',
   'Watermelon'
 ];
+
 const SearchBox = (props) => {
 
     const baseStyles = {
@@ -68,22 +67,21 @@ const SearchBox = (props) => {
      <div
        id="searchBox"
        style={divStyle}
-     >
-       <AutoComplete
-         dataSource={props.dataSource ? props.dataSource : fruit}
-         dataSourceConfig={dataSourceConfig}
-         filter={AutoComplete.fuzzyFilter}
-         fullWidth
-         id={'searchField'}
-         menuProps={{maxHeight:'75vh'}}
-         onUpdateInput={props.onUpdate}
-         style={textStyle}
-       />
+     ><AutoComplete
+       dataSource={props.dataSource ? props.dataSource : fruit}
+       dataSourceConfig={dataSourceConfig}
+       filter={AutoComplete.fuzzyFilter}
+       fullWidth
+       id={'searchField'}
+       menuProps={{maxHeight:'75vh'}}
+       onUpdateInput={props.onUpdate}
+       style={textStyle}
+      />
        <IconButton
          iconClassName="material-icons"
          iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
          onClick={() => props.onClick()}
-       >search</IconButton>
+       >{"search"}</IconButton>
      </div>
     );
 };

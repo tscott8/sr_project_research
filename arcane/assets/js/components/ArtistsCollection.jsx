@@ -10,7 +10,6 @@ export default class ArtistsCollection extends Component {
     super(props);
   }
   renderArtistTiles(artists,cols) {
-    // const {select, selectedTracks, dispatch} = this.props;
     if (artists) {
       let arr = artists.map((tile) => (
         <GridTile
@@ -18,12 +17,11 @@ export default class ArtistsCollection extends Component {
           cols={1}
           key={'artistTile_'+ tile.id}
           rows={1}
-          // style={{minWidth:}}
         >
           <Tile
             {...this.props}
-            cols={cols}
             albums={tile.albums}
+            cols={cols}
             id={tile.id}
             imgURL={tile.cover_photo ? tile.cover_photo : url+'static/images/default-avatar.png'}
             subtitle={tile.genre}
@@ -42,7 +40,6 @@ export default class ArtistsCollection extends Component {
       return(
         <GridList
           cols={cols}
-          // cellHeight={170}
           style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
         >
           {this.renderArtistTiles(artists.results,cols)}

@@ -30,6 +30,8 @@
     "react/jsx-indent-props": [1,2],
     "react/forbid-component-props": 0,
     "react/prop-types": 0,
+    "react/no-set-state": 0,
+    "react/jsx-handler-names": 0,
   },
   "parser": "babel-eslint",
   "plugins": [

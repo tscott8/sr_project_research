@@ -54,6 +54,11 @@ const styles = {
     color:'white',
     textShadow:'1px 1px 1px black',
     zIndex:1
+  },
+  sliderItem: {
+    paddingLeft:2.5,
+    paddingRight:2.5,
+    borderRadius:2
   }
 }
 
@@ -65,7 +70,6 @@ export default class BrowseCarousel extends Component {
      console.info("Selected!");
   }
   getProps(type, item) {
-    // console.log(type, item)
     let props = {};
     if (type === "album")
       props = {
@@ -96,7 +100,7 @@ export default class BrowseCarousel extends Component {
        <div
          className="boxTile"
          key={'browse_carousel_item_'+ item.id}
-         style={{paddingLeft:2.5, paddingRight:2.5, borderRadius:2}}
+         style={styles.sliderItem}
        >
          <Tile
            {...this.props}
@@ -112,11 +116,10 @@ export default class BrowseCarousel extends Component {
    render() {
      const {list, label} = this.props;
      return (
-       <div style={styles.outerDiv} >
+       <div style={styles.outerDiv}>
          <h3 style={styles.label}>{label}</h3>
-         <Slider
+         <Slider {...settings}
            className="slickSlider"
-           {...settings}
          >
            {this.renderSliderItems(list.results)}
          </Slider>

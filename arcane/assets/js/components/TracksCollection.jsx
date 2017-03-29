@@ -11,7 +11,7 @@ export default class TracksCollection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTracks: [],
+      selectedTracks: []
     }
   }
 
