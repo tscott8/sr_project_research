@@ -19,7 +19,7 @@ const styles = {
     flexDirection:'row',
     justifyContent:'space-around',
     borderColor:'transparent',
-    paddingBottom:24
+    paddingTop:24,
   },
   button:{}
 }
@@ -74,6 +74,8 @@ export default class SignUpForm extends Component {
     if(item !== this.state.password) {
       this.setState({password_errors: ['passwords do not match']})
     }
+    else
+      this.setState({password_errors: []})
   }
   handleJoin= () => {
     this.props.onRequestClose();
@@ -89,24 +91,26 @@ export default class SignUpForm extends Component {
     if (!(email && password && first_name && last_name && birth_date)) { return true; }
     else { return false; }
   }
-  getActions () {
-    return [
-      <FlatButton
-        id={'join_form_cancel'}
-        key={'join_form_cancel'}
-        label="Cancel"
-        onTouchTap={this.props.onRequestClose}
-      />,
-      <FlatButton
-        containerElement={this.renderLink()}
-        disabled={this.formHasErrors() || this.formIsEmpty()}
-        id={'join_form_submit'}
-        key={'join_form_submit'}
-        label={"Join Arcane"}
-        onTouchTap={this.handleJoin}
-        secondary
-      />
-  ];
+  renderActions () {
+    return (
+      <div style={styles.formActions}>
+        <FlatButton
+          id={'join_form_cancel'}
+          key={'join_form_cancel'}
+          label="Cancel"
+          onTouchTap={this.props.onRequestClose}
+        />
+        <FlatButton
+          containerElement={this.renderLink()}
+          disabled={this.formHasErrors() || this.formIsEmpty()}
+          id={'join_form_submit'}
+          key={'join_form_submit'}
+          label={"Join Arcane"}
+          onTouchTap={this.handleJoin}
+          secondary
+        />
+      </div>
+  );
   }
   renderLink () {
     if (!this.formHasErrors() && !this.formIsEmpty())
@@ -115,75 +119,68 @@ export default class SignUpForm extends Component {
   render() {
     const {email_errors, password_errors, first_name_errors, last_name_errors}=this.state;
     return(
-        <Dialog
-          {...this.props}
-          actions={this.getActions()}
-          actionsContainerStyle={styles.formActions}
-          autoDetectWindowHeight
-          autoScrollBodyContent
-          id={"join_form_container"}
-          title={null}
-        >
-          <TextField
-            errorText={first_name_errors.length > 0 ? first_name_errors.join(', '): null}
-            floatingLabelText={'First Name'}
-            fullWidth
-            hintText={'Johnny'}
-            id={'first_name'}
-            name={'first_name'}
-            onChange={this.checkField}
-            type={'text'}
-          />
-          <TextField
-            errorText={last_name_errors.length >0 ? last_name_errors.join(', '): null}
-            floatingLabelText={'Last Name'}
-            fullWidth
-            hintText={'Lingo'}
-            id={'last_name'}
-            name={'last_name'}
-            onChange={this.checkField}
-            type={'text'}
-          />
-          <TextField
-            floatingLabelText={'Birth Date'}
-            fullWidth
-            hintText={'10/30/1991'}
-            id={'birth_date'}
-            name={'birth_date'}
-            onChange={this.checkField}
-            type={'text'}
-          />
-          <TextField
-            errorText={email_errors.length > 0 ? email_errors.join(', '): null}
-            floatingLabelText={'Email (this will be your username)'}
-            fullWidth
-            hintText={'user.name@arcane.fm'}
-            id={'email'}
-            name={'email'}
-            onChange={this.checkField}
-            type={'email'}
-            // value={this.state.username}
-          />
-          <TextField
-            errorText={password_errors.length >0 ? password_errors.join(', '): null}
-            floatingLabelText={'Password (must be at least 8 characters)'}
-            fullWidth
-            id={'password'}
-            name={'password'}
-            onChange={this.verifyPassword}
-            type={'password'}
-          />
-          <TextField
-            errorText={password_errors.length >0 ? password_errors.join(', '): null}
-            floatingLabelText={'Confirm Password (re-type your password)'}
-            fullWidth
-            id={'confirm_pass'}
-            name={'confirm_pass'}
-            onChange={this.confirmPassword}
-            type={'password'}
-          />
+      <div>
 
-      </Dialog>
+        <TextField
+          errorText={first_name_errors.length > 0 ? first_name_errors.join(', '): null}
+          floatingLabelText={'First Name'}
+          fullWidth
+          hintText={'Johnny'}
+          id={'first_name'}
+          name={'first_name'}
+          onChange={this.checkField}
+          type={'text'}
+        />
+        <TextField
+          errorText={last_name_errors.length >0 ? last_name_errors.join(', '): null}
+          floatingLabelText={'Last Name'}
+          fullWidth
+          hintText={'Lingo'}
+          id={'last_name'}
+          name={'last_name'}
+          onChange={this.checkField}
+          type={'text'}
+        />
+        <TextField
+          floatingLabelText={'Birth Date'}
+          fullWidth
+          hintText={'10/30/1991'}
+          id={'birth_date'}
+          name={'birth_date'}
+          onChange={this.checkField}
+          type={'text'}
+        />
+        <TextField
+          errorText={email_errors.length > 0 ? email_errors.join(', '): null}
+          floatingLabelText={'Email (this will be your username)'}
+          fullWidth
+          hintText={'user.name@arcane.fm'}
+          id={'email'}
+          name={'email'}
+          onChange={this.checkField}
+          type={'email'}
+          // value={this.state.username}
+        />
+        <TextField
+          errorText={password_errors.length >0 ? password_errors.join(', '): null}
+          floatingLabelText={'Password (must be at least 8 characters)'}
+          fullWidth
+          id={'password'}
+          name={'password'}
+          onChange={this.verifyPassword}
+          type={'password'}
+        />
+        <TextField
+          errorText={password_errors.length >0 ? password_errors.join(', '): null}
+          floatingLabelText={'Confirm Password (re-type your password)'}
+          fullWidth
+          id={'confirm_pass'}
+          name={'confirm_pass'}
+          onChange={this.confirmPassword}
+          type={'password'}
+        />
+        {this.renderActions()}
+      </div>
     );
   }
 }

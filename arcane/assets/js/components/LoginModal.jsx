@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import {TextField, FlatButton, Dialog} from 'material-ui'
 import theme from '../constants/material-ui-theme'
 import { Link } from 'react-router'
+import SignUpForm from '../components/SignUpForm'
 
 const styles = {
   formContainer:{
@@ -19,7 +20,7 @@ const styles = {
     flexDirection:'row',
     justifyContent:'space-around',
     borderColor:'transparent',
-    paddingBottom:24
+    paddingTop:24,
   },
   button:{}
 }
@@ -65,7 +66,7 @@ export default class LoginModal extends Component {
     this.props.onRequestClose();
     alert('dispatch login(' + this.state.username + ', ' + this.state.password + ')');
   }
-  handleJoin = () => { alert('open sign up form!') }
+  handleJoin = () => {this.setState({createUser:true})};
 
   formHasErrors () {
     const {username_errors, password_errors} = this.state;
@@ -77,61 +78,79 @@ export default class LoginModal extends Component {
     if (username.length < 1 || password.length < 1) { return true; }
     else { return false; }
   }
-  getActions () {
-    return [
-      <FlatButton
-        id={'login_form_join'}
-        key={'login_form_join'}
-        label="Join Us"
-        onTouchTap={this.handleJoin}
-      />,
-      <FlatButton
-        containerElement={this.renderLink()}
-        disabled={this.formHasErrors()}
-        id={'login_form_submit'}
-        key={'login_form_submit'}
-        label={"Login"}
-        onTouchTap={this.handleLogin}
-        secondary
-      />
-  ];
+  renderActions () {
+    return (
+      <div style={styles.formActions}>
+        <FlatButton
+          id={'login_form_join'}
+          key={'login_form_join'}
+          label="Join Us"
+          onTouchTap={this.handleJoin}
+        />
+        <FlatButton
+          containerElement={this.renderLink()}
+          disabled={this.formHasErrors()}
+          id={'login_form_submit'}
+          key={'login_form_submit'}
+          label={"Login"}
+          onTouchTap={this.handleLogin}
+          secondary
+        />
+        </div>
+      );
   }
   renderLink () {
     if (!this.formHasErrors() && !this.formIsEmpty())
       return <Link to={"/app/"} />
   }
-  render() {
+  renderContents () {
     const {username_errors, password_errors}=this.state;
+
+    if (this.state.createUser) {
+      return (
+        <SignUpForm {...this.props} />
+      )
+    }
+    else {
+      return(
+        <div>
+          <TextField
+            errorText={username_errors.length > 0 ? username_errors.join(', '): null}
+            floatingLabelText={'Username'}
+            fullWidth
+            id={'login_form_username'}
+            name={'login_form_username'}
+            onChange={this.checkUsername}
+            type={'email'}
+            // value={this.state.username}
+          />
+          <TextField
+            errorText={password_errors.length >0 ? password_errors.join(', '): null}
+            floatingLabelText={'Password'}
+            fullWidth
+            id={'login_form_password'}
+            name={'login_form_password'}
+            onChange={this.verifyPassword}
+            type={'password'}
+          />
+          {this.renderActions()}
+        </div>
+      )
+    }
+
+  }
+  render() {
     return(
       <Dialog
         {...this.props}
-        actions={this.getActions()}
-        actionsContainerStyle={styles.formActions}
+        actions={null}
+        // actionsContainerStyle={styles.formActions}
         autoDetectWindowHeight
         autoScrollBodyContent
         id={"login_form_container"}
-        modal
         title={null}
       >
-        <TextField
-          errorText={username_errors.length > 0 ? username_errors.join(', '): null}
-          floatingLabelText={'Username'}
-          fullWidth
-          id={'login_form_username'}
-          name={'login_form_username'}
-          onChange={this.checkUsername}
-          type={'email'}
-          // value={this.state.username}
-        />
-        <TextField
-          errorText={password_errors.length >0 ? password_errors.join(', '): null}
-          floatingLabelText={'Password'}
-          fullWidth
-          id={'login_form_password'}
-          name={'login_form_password'}
-          onChange={this.verifyPassword}
-          type={'password'}
-        />
+        {this.renderContents()}
       </Dialog>
     );
   }
