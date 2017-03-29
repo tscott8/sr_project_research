@@ -177,17 +177,17 @@ class ThemeSwitcher extends Component {
     return map;
    }
    render() {
-     return(
-       <div style={{width: '100%', maxWidth: '75vw', margin: 'auto', marginTop:10, maxHeight:'calc(100vh-64px)', overflowY:'auto'}}>
-         <Paper style={styles.paper}>
-
+     return (
+         <div>
+            {/*<div style={{width: '100%', maxWidth: '75vw', margin: 'auto', marginTop:10, maxHeight:'calc(100vh-64px)', overflowY:'auto'}}>
+            <Paper style={styles.paper}>*/}
            {this.renderSettings(fields)}
 
            <Dialog autoDetectWindowHeight
              autoScrollBodyContent open={this.state.open} onRequestClose={this.handleClose}>
              {this.renderSettings(customFields)}
            </Dialog>
-         </Paper>
+         {/*</Paper>*/}
        </div>
          );
    }

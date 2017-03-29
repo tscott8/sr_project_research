@@ -9,6 +9,7 @@ import Toggle from 'material-ui/Toggle';
 
 import * as ThemeActions from '../actions/ThemeActions'
 import { themeEnum } from '../constants/material-ui-theme'
+import ThemeSwitcher from '../components/ThemeSwitcher'
 
 const styles = {
   profileSection: {
@@ -176,6 +177,9 @@ class Settings extends Component {
                {this.renderSettings(profileSettings,'profile')}
              </div>
 
+           </div>
+           <div>
+             <ThemeSwitcher />
            </div>
            <div style={styles.appSection}>
              {this.renderSettings(appSettings, 'app')}
