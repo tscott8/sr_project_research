@@ -12,52 +12,39 @@ const style = {
     marginBottom: '5vh',
     marginLeft: '5vh',
     zIndex:1
-  },
+  }
 }
 class MyMusic extends Component {
 
   constructor(props) {
     super(props);
     this.state = { selected: [], snackOpen:false, snackMessage: 'Added nada!' };
-    // const { dispatch } = this.props;
-    // dispatch(TrackActions.getTracks());
-    // dispatch(AlbumActions.getAlbums());
-    // dispatch(ArtistActions.getArtists());
-    // dispatch(GenreActions.getGenres());
-  }
+    }
 
   addToSelected = (items) => {
-    // console.log('selected items:', items)
     this.setState({
       selected: items
     });
   }
+
   pushToQueue = () => {
     const { dispatch } = this.props;
-    console.log('IN PUSH TO QUEUE', this.state.selected)
+    // console.log('IN PUSH TO QUEUE', this.state.selected)
     dispatch(AudioActions.addToQueue(this.state.selected));
     this.setState({snackOpen:true, snackMessage:'Added '+this.state.selected.length+' items to the queue',selected:[]})
-    // this.setState({selected:[]})
   }
-  handleActionTouchTap = () => {
-   this.setState({
-     snackOpen: false,
-   });
-  };
-  handleRequestClose = () => {
-   this.setState({
-     snackOpen: false,
-   });
-  };
+
+  handleActionTouchTap = () => { this.setState({ snackOpen: false }); };
+
+  handleRequestClose = () =>  {this.setState({ snackOpen: false }); };
+
   renderAddQueueButton() {
     if (this.state.selected.length > 0) {
       return(
         <FloatingActionButton
           onClick={this.pushToQueue.bind(this)}
           style={style.fab}
-        >
-          <FontIcon className="material-icons">queue</FontIcon>
-        </FloatingActionButton>
+        ><FontIcon className="material-icons">{"queue"}</FontIcon></FloatingActionButton>
       );
     }
   }

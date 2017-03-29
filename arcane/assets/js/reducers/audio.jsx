@@ -10,10 +10,10 @@
    TOGGLE_SHUFFLE, ADD_TO_QUEUE
  } from '../constants/ActionTypes'
 
- import find from 'lodash/find';
- import findIndex from 'lodash/findIndex';
- import sortBy from 'lodash/sortBy';
- import indexOf from 'lodash/indexOf';
+ // import find from 'lodash/find';
+ // import findIndex from 'lodash/findIndex';
+ // import sortBy from 'lodash/sortBy';
+ // import indexOf from 'lodash/indexOf';
  import clone from 'lodash/clone';
 
  const initialState = {
@@ -42,7 +42,7 @@
 
 
 function getAudioState(audio) {
-   var test = {
+   let test = {
      isPlaying: !audio.paused,
      percent: audio.currentTime / audio.duration,
      progress: audio.buffered,

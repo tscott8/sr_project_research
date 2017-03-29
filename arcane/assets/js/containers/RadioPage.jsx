@@ -1,12 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-
 import Radio from '../components/Radio'
 import * as TrackActions from '../actions/TrackActions'
-import Tile from '../components/Tile'
-
-const url = "http://localhost:8000/";
-
 
 class RadioPage extends Component {
    constructor(props) {
@@ -16,10 +11,12 @@ class RadioPage extends Component {
    }
 
    render() {
-   //   console.log('IN RADIO Page', this.props)
-
-      return (<Radio isPlaying={this.props.audio.isPlaying} tracks={this.props.audio}/>);
-
+      return (
+        <Radio
+          isPlaying={this.props.audio.isPlaying}
+          tracks={this.props.audio}
+        />
+      );
     }
 }
 RadioPage.propTypes = {
@@ -29,7 +26,7 @@ RadioPage.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { tracks, albums, audio } = state
+  const { tracks, audio } = state
 
   return {
      tracks, audio

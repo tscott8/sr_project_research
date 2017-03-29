@@ -4,17 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles'
 import { themeEnum, themes } from '../constants/material-ui-theme'
-//import theme from "../constants/material-ui-theme"
 import Audio from '../components/Audio'
 import Header from "../components/Header"
 import FloatingControls from '../components/FloatingControls'
-// import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
 import * as ProfileActions from '../actions/ProfileActions'
-import find from 'lodash/find'
 import clone from 'lodash/clone';
-
-console.info(themeEnum);
 
 @connect(
   state => ({audio: state.audio, theme: state.theme, profile: state.profile}),
@@ -119,7 +114,7 @@ export default class App extends Component {
        currentlyPlaying: currentlyPlaying,
        queue: queue,
      }
-   //   console.info(this.state.currentTheme);
+
      return (
         <MuiThemeProvider muiTheme={getMuiTheme(this.props.theme.currentTheme)}>
           <div style={{
