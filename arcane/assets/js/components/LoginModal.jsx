@@ -1,7 +1,12 @@
-import React , {Component} from 'react';
+import React , {Component, PropTypes} from 'react';
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+import cookie from 'react-cookie'
 import {TextField, FlatButton, Dialog} from 'material-ui'
 import theme from '../constants/material-ui-theme'
 import { Link } from 'react-router'
+
+import * as ProfileActions from '../actions/ProfileActions'
 
 const styles = {
   formContainer:{
@@ -23,7 +28,7 @@ const styles = {
   },
   button:{}
 }
-export default class LoginModal extends Component {
+class LoginModal extends Component {
 
   constructor(props) {
     super(props);
@@ -37,16 +42,16 @@ export default class LoginModal extends Component {
   checkSpecialChars = (string) => {
     let format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
     let test = format.test(string)
-    console.log(test)
+   //  console.log(test)
     return !test
   }
   checkLength = (string, length) => {
     let test = string.length >= length ? true : false;
-    console.log('length', test)
+   //  console.log('length', test)
     return test
   }
   checkUsername = (e) => {
-    console.log('checking user exists...')
+   //  console.log('checking user exists...')
     let u = e.target.value;
     if (u.length < 1) { this.setState({username_errors:['required field']}) }
     else if (u.length > 0 && !this.checkSpecialChars(u)) { // and check if not in db
@@ -54,16 +59,50 @@ export default class LoginModal extends Component {
     } else { this.setState({username:u, username_errors:[]}) }
   }
   verifyPassword = (e) => {
-    console.log('verifying password with username...')
+   //  console.log('verifying password with username...')
     let p = e.target.value;
     if (p.length < 1) { this.setState({password_errors:['required field']}) }
     else if (p.length > 0 && (!this.checkLength(p, 8) || !this.checkSpecialChars(p))) { // and check if not in db
       this.setState({password:p, password_errors:['invalid password']})
     } else { this.setState({password:p, password_errors:[]}) }
   }
+
   handleLogin = () => {
-    this.props.onRequestClose();
-    alert('dispatch login(' + this.state.username + ', ' + this.state.password + ')');
+   let csrftoken = cookie.load('csrftoken');
+   let content =  new FormData();
+   content.append('enctype', 'multipart/form-data');
+   content.append('username', this.state.username);
+   content.append('password', this.state.password);
+    fetch("http://localhost:8000/api/auth/", {
+      method: "POST",
+      headers: {
+         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+         "X-CSRFToken": csrftoken
+      },
+      credentials: "same-origin",
+      body: content
+   }).then(response => response.json()).then((json) => {
+      if (json.token) {
+         const { dispatch } = this.props;
+         window.sessionStorage.setItem("token", json.token);
+         window.sessionStorage.setItem('currentUser', json.listener);
+         dispatch(ProfileActions.getCurrentUser(json.listener));
+         dispatch(push('/app/'));
+      } else {
+         if (json.username) {
+            this.setState({username_errors: [json.username]});
+         }
+         if (json.password) {
+            this.setState({password_errors: [json.password]});
+         }
+         if (json.detail) {
+            this.setState({username_errors: [json.detail]});
+         }
+         if (json.non_field_errors) {
+            this.setState({username_errors: [json.non_field_errors], password_errors: [json.non_field_errors]})
+         }
+      }
+   })
   }
   handleJoin = () => { alert('open sign up form!') }
 
@@ -136,3 +175,9 @@ export default class LoginModal extends Component {
     );
   }
 }
+
+LoginModal.propTypes = {
+   dispatch: PropTypes.func.isRequired
+}
+
+export default connect()(LoginModal);

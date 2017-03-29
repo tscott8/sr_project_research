@@ -10,14 +10,15 @@ import Header from "../components/Header"
 import FloatingControls from '../components/FloatingControls'
 // import * as ActionTypes from '../constants/ActionTypes'
 import * as AudioActions from '../actions/AudioActions'
+import * as ProfileActions from '../actions/ProfileActions'
 import find from 'lodash/find'
 import clone from 'lodash/clone';
 
 console.info(themeEnum);
 
 @connect(
-  state => ({audio: state.audio, theme: state.theme}),
-  dispatch => bindActionCreators(AudioActions, dispatch)
+  state => ({audio: state.audio, theme: state.theme, profile: state.profile}),
+  dispatch => bindActionCreators({...AudioActions, ...ProfileActions}, dispatch)
 )
 
 export default class App extends Component {
@@ -35,6 +36,11 @@ export default class App extends Component {
     this.props.setProgress(ReactDOM.findDOMNode(this.refs.audio));
     this.props.setTime(ReactDOM.findDOMNode(this.refs.audio));
     this.props.retrieveSongs(this.props.isShuffling);
+
+    // Get current user if not in store
+    if (!this.props.profile.currentUser.avatar) {
+      this.props.getCurrentUser(window.sessionStorage.getItem('currentUser'));
+   }
   }
 
 
@@ -111,7 +117,7 @@ export default class App extends Component {
        isShuffling: isShuffling,
        isLooping: isLooping,
        currentlyPlaying: currentlyPlaying,
-       queue: queue, 
+       queue: queue,
      }
    //   console.info(this.state.currentTheme);
      return (
@@ -136,6 +142,7 @@ export default class App extends Component {
             />
             <Header
               {...audioProps}
+              currentUser={this.props.profile.currentUser}
               currentPage={currentPage ?  (" / " + this.props.routes[this.props.routes.length-1].path) : ""}
             />
             {this.props.children}

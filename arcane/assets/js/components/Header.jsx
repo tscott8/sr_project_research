@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
 import { AppBar } from 'material-ui'
 import ArcaneDrawer from './ArcaneDrawer'
 import NowPlayingDrawer from './NowPlayingDrawer'
@@ -6,7 +8,7 @@ import RightActions from './RightActions';
 
 const host = 'http://localhost:8000/api/search/'
 
-export default class Header extends Component  {
+class Header extends Component  {
 
   constructor(props){
     super(props);
@@ -36,6 +38,13 @@ export default class Header extends Component  {
       })))
     }
 
+    handleSignOut = () => {
+      const { dispatch } = this.props;
+      console.log("IN header SIGN OUT");
+      window.sessionStorage.removeItem('token');
+      dispatch(push('/'));
+   }
+
   render() {
     return (
       <div>
@@ -53,11 +62,13 @@ export default class Header extends Component  {
         <AppBar
           iconElementRight={
             <RightActions
+              currentUser={this.props.currentUser}
               dataSource={this.state.dataSource}
               onDrawerClick={this.handleRightToggle}
               onSearchClick={this.handleSearchClick}
               onUpdate={this.getSearchResults}
               searching={this.state.searching}
+              onSignOut={this.handleSignOut}
             />}
           iconStyleRight={{maxWidth:'66vw'}}
           onLeftIconButtonTouchTap={this.handleLeftToggle}
@@ -69,3 +80,5 @@ export default class Header extends Component  {
       );
   }
 }
+
+export default connect()(Header);

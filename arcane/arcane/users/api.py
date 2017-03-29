@@ -28,7 +28,7 @@ class ListenerSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = Listener
-        fields = ('id', 'location', 'avatar', 'artist', 'settings')
+        fields = ('id', 'user', 'location', 'avatar', 'artist', 'settings')
 
 class ListenerViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
@@ -44,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True, validators=[validators.UniqueValidator(queryset=User.objects.all())])
     username = serializers.CharField(max_length=124, validators=[validators.UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(min_length=8, write_only=True)
+    listener = ListenerSerializer(read_only=True)
 
     def create(self, validated_data):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
@@ -53,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password')
+        fields = ('id', 'username', 'email', 'password', 'listener')
 
 class UserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)

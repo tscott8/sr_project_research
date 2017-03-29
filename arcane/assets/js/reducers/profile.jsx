@@ -1,9 +1,13 @@
-import { GET_ARTIST_PROFILE, GET_ARTIST_MEMBERS, GET_ARTIST_SUMMARIES } from '../constants/ActionTypes';
+import {
+   GET_ARTIST_PROFILE, GET_ARTIST_MEMBERS, GET_ARTIST_SUMMARIES,
+   GET_CURRENT_USER,
+} from '../constants/ActionTypes';
 
 const initialState = {
    artist: {},
    members: [],
-   summaries: []
+   summaries: [],
+   currentUser: {}
 };
 
 export default function profile(state = initialState, action) {
@@ -14,6 +18,13 @@ export default function profile(state = initialState, action) {
          return {...state, members: action.members}
       case GET_ARTIST_SUMMARIES:
          return {...state, summaries: action.summaries}
+      case GET_CURRENT_USER:
+         console.log("IN profile GET CURRENT USER", action);
+         if (action.user)
+            return {...state, currentUser: action.user}
+         else {
+            return {...state, currentUser: {}}
+         }
       default:
          return state;
    }

@@ -24,7 +24,7 @@ export default class GenresCollection extends Component {
             artists={tile.artists}
             cols={cols}
             id={tile.id}
-            imgURL={tile.icon ? tile.icon : url+'static/images/hip_hop.png'}
+            imgURL={tile.icon ? tile.icon : url+'static/images/base_icons/hip_hop.png'}
             title={tile.name}
             type={'genre'}
           />

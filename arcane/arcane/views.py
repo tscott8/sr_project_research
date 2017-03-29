@@ -13,4 +13,4 @@ class CustomObtainAuthToken(ObtainAuthToken):
         user = User.objects.get(id=token.user_id)
         listener = Listener.objects.get(user=user.id)
         print(listener)
-        return Response({'token': token.key, 'user': serializers.serialize('json', listener)})
+        return Response({'token': token.key, 'listener': listener.id})

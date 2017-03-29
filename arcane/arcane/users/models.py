@@ -53,17 +53,20 @@ def upload_user_avatar(instance, file):
 class Listener(models.Model):
     # name = models.CharField(max_length=124)
     # email = models.EmailField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='listener', on_delete=models.CASCADE)
     location = models.CharField(max_length=3, default='USA')
     avatar = models.ImageField(upload_to=upload_user_avatar, blank=True, null=True)
     artist = models.ForeignKey(Artist, blank=True, null=True)
     settings = models.ForeignKey(Settings, blank=False, null=False, default=1)
 
     def __str__(self):
-        return self.user.first_name + self.user.last_name
+        # userFirst = User.objects.get(id=self.user)
+        print('user:', self.location, self.user, self.user.first_name)
+        return self.user.first_name + " " + self.user.last_name
 
     def __unicode__(self):
         return '%d: %s' % (self.id, self.name)
+
 
 # class Login(models.Model):
 #     username = models.CharField(max_length=124)

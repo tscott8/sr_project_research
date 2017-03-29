@@ -13,9 +13,26 @@ import Settings from '../containers/SettingsPage'
 import ProfilePage from '../containers/ProfilePage'
 import PlaylistsPage from '../containers/PlaylistsPage'
 
+function loggedIn() {
+   if (window.sessionStorage.getItem("token")) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+function checkAuth(nextState, replace) {
+   if (!loggedIn()) {
+      replace({
+         pathname: '/'
+      })
+   }
+}
+
+
 export default (
    <Route path="/" component={SplashPage}>
-     <Route path="/app/" component={App} >
+     <Route path="/app/" component={App} onEnter={checkAuth} >
        <IndexRoute component={Browse} />
        <Route path="upload" component={Upload} />
        <Route path="radio" component={Radio} />
@@ -25,7 +42,7 @@ export default (
        <Route path="settings" component={Settings} />
        <Route path="profile/:id" component={ProfilePage} />
        <Route path="playlists/:id" component={PlaylistsPage} />
-       {/* <Route path="*" component={SplashPage} /> */}
+       <Route path="*" component={Browse} /> 
      </Route>
      <Route path="*" component={SplashPage} />
    </Route>

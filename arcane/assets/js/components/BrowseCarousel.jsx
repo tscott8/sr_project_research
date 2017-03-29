@@ -87,7 +87,7 @@ export default class BrowseCarousel extends Component {
       }
     if (type === "genre")
       props = {
-        imgURL: item.icon ? item.icon : url+'static/images/hip_hop.png',
+        imgURL: item.icon ? item.icon : url+'static/images/base_icons/hip_hop.png',
         title:item.name,
         subtitle: null,
         artists: item.artists

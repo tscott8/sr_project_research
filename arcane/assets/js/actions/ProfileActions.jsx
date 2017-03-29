@@ -29,3 +29,12 @@ export function getArtistSummaries(id) {
       summaries: json.results
    }))
 }
+
+export function getCurrentUser(id) {
+   return fetch(host + "/users/listeners/" + id + "/")
+   .then(response => response.json())
+   .then(json => ({
+      type: types.GET_CURRENT_USER,
+      user: json
+   }))
+}

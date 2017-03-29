@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { RaisedButton, Dialog } from 'material-ui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
