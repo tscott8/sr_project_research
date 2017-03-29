@@ -4,7 +4,6 @@ import ArcaneDrawer from './ArcaneDrawer'
 import NowPlayingDrawer from './NowPlayingDrawer'
 import RightActions from './RightActions';
 
-
 const host = 'http://localhost:8000/api/search/'
 
 export default class Header extends Component  {
@@ -19,19 +18,24 @@ export default class Header extends Component  {
     };
   }
 
-  handleSearchClick = () => { this.setState({searching: !this.state.searching}); }
-  handleLeftToggle = () => { this.setState({leftOpen: !this.state.leftOpen}); }
-  handleRightToggle = () => { this.setState({rightOpen: !this.state.rightOpen}); }
   handleLeftClose = () => { this.setState({leftOpen: false}); }
-  handleRightClose = () => { this.setState({rightOpen: false}); }
-  getSearchResults = (query) => {
-     fetch(host + "?query=" + query)
-     .then(response => response.json())
-     .then(json => (this.setState({
-        dataSource: json.results
-     })))
 
-  }
+  handleRightClose = () => { this.setState({rightOpen: false}); }
+
+  handleLeftToggle = () => { this.setState({leftOpen: !this.state.leftOpen}); }
+
+  handleRightToggle = () => { this.setState({rightOpen: !this.state.rightOpen}); }
+
+  handleSearchClick = () => { this.setState({searching: !this.state.searching}); }
+
+    getSearchResults = (query) => {
+      fetch(host + "?query=" + query)
+      .then(response => response.json())
+      .then(json => (this.setState({
+        dataSource: json.results
+      })))
+    }
+
   render() {
     return (
       <div>

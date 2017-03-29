@@ -14,7 +14,7 @@ export default class Audio extends React.Component {
         onProgress: React.PropTypes.func,
         onTimeUpdate: React.PropTypes.func,
         // preload: React.PropTypes.bool,
-        src: React.PropTypes.string
+        src: React.PropTypes.string // LINTER <- THIS IS NEVER USED
         // volume: React.PropTypes.number
     };
 
@@ -78,7 +78,7 @@ export default class Audio extends React.Component {
         forEach(this.state.listeners, (obj) => {
             audio.removeEventListener(obj.event, obj.func);
         })
-        this.state.listeners = [];
+        this.setState({listeners:[]})
     }
 
     togglePlay = () => {
