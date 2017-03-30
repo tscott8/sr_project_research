@@ -179,7 +179,7 @@ class Settings extends Component {
 
            </div>
            <div>
-             <ThemeSwitcher />
+             {/* <ThemeSwitcher /> */}
            </div>
            <div style={styles.appSection}>
              {this.renderSettings(appSettings, 'app')}
