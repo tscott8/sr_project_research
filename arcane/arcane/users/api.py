@@ -45,16 +45,18 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=124, validators=[validators.UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(min_length=8, write_only=True)
     listener = ListenerSerializer(read_only=True)
+    first_name = serializers.CharField(min_length=1)
+    last_name = serializers.CharField(min_length=1)
 
     def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+        user = User.objects.create_user(username=validated_data['username'], email=validated_data['email'], password=validated_data['password'], first_name=validated_data['first_name'], last_name=validated_data['last_name'])
         # if user:
         #     token = Token.objects.create(user=user.id)
         return user
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'listener')
+        fields = ('id', 'username', 'email', 'password', 'listener', 'first_name', 'last_name')
 
 class UserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)

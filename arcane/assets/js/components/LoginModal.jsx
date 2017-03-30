@@ -127,7 +127,7 @@ class LoginModal extends Component {
           onTouchTap={this.handleJoin}
         />
         <FlatButton
-          containerElement={this.renderLink()}
+          // containerElement={this.renderLink()}
           disabled={this.formHasErrors()}
           id={'login_form_submit'}
           key={'login_form_submit'}
@@ -147,7 +147,9 @@ class LoginModal extends Component {
 
     if (this.state.createUser) {
       return (
-        <SignUpForm {...this.props} />
+        <SignUpForm {...this.props}
+          handleCancel={() => this.setState({createUser:false})}
+        />
       )
     }
     else {
