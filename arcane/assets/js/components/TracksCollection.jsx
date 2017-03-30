@@ -21,6 +21,7 @@ export default class TracksCollection extends Component {
   }
 
   loadMore = () => {
+    console.log('LOADING NEXT TRACKS')
      const {tracks, dispatch} = this.props;
      if (tracks.next) {
         dispatch(TrackActions.getNextTracks(tracks.next));
@@ -75,6 +76,7 @@ export default class TracksCollection extends Component {
         >
           <Divider />
           <ListItem
+            // style={{position:'relative', marginLeft:'.5%', marginRight:'2%'}}
             disabled
             id={'tracks_collection_menu_item_list_item'+track.id}
             innerDivStyle={{whiteSpace:'pre-line'}}

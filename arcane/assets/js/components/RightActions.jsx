@@ -14,20 +14,22 @@ const styles = {
 
 const RightActions = (props) => (
   <div
-    // style={{display:'flex', flexDirection:'row', justifyContent:'flex-end'}}
+    style={{display:'flex', flexDirection:'row', justifyContent:'flex-end'}}
   >
     <ExpandingSearchBox {...props} />
     <IconMenu
       anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-      style={props.currentUser.avatar ? {display:'inline-flex',paddingLeft:12, paddingRight:12} : {}}
+      style={props.currentUser.avatar ? {display:'flex', flexDirection:'column', justifyContent:'center',
+        paddingLeft:4, paddingRight:4
+      } : null}
       iconButtonElement={props.currentUser.avatar ?
         <Avatar
           src={props.currentUser.avatar}
           // style={styles.userAvatar}
-          size={24}
+          // size={24}
         /> :
         <IconButton iconClassName="material-icons">{"person"}</IconButton>}
-      iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
+      iconStyle={!props.currentUser.avatar ? {color: props.muiTheme.palette.alternateTextColor} : null}
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
     ><MenuItem primaryText="Profile" />
       <MenuItem primaryText="Help" />

@@ -14,3 +14,9 @@ export function getGenreArtists(genreID) {
              artists: json
            }));
          };
+export function getNextArtists(url) {
+ return fetch(url).then(response => response.json()).then(json => ({
+           type:types.GET_NEXT_ARTISTS,
+           artists: json
+         }));
+};

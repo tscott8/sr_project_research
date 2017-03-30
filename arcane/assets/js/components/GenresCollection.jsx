@@ -3,7 +3,6 @@ import {GridTile, GridList} from 'material-ui'
 import Tile from './Tile'
 import MediaQuery from 'react-responsive'
 
-
 const url = "http://localhost:8000/";
 
 export default class GenresCollection extends Component {
@@ -36,15 +35,15 @@ export default class GenresCollection extends Component {
   renderGrid (cols) {
     const {genres} = this.props;
     if(genres){
-    return(
-      <GridList
-        cols={cols}
-        style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
-      >
-        {this.renderGenreTiles(genres.results, cols)}
-      </GridList>
-    );
-  }
+      return(
+        <GridList
+          cols={cols}
+          style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
+        >
+          {this.renderGenreTiles(genres.results, cols)}
+        </GridList>
+      );
+    }
   }
   render() {
     const {cols} = this.props;

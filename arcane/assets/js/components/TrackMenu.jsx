@@ -26,7 +26,8 @@ export default class TrackMenu extends Component {
         iconButtonElement={
           <IconButton iconClassName="material-icons">{"more_vert"}</IconButton>}
         onChange={this.handleSelect}
-        style={{position:'absolute', top:12, right:36}}
+        style={{position:'absolute', top:12, right:'3%', padding:0}}
+        // style={{display:'inline-flex', flexDirection:'row', justifyContent:'flex-end'}}
         targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
       >
         <MenuItem

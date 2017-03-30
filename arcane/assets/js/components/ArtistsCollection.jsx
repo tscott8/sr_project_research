@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {GridTile, GridList} from 'material-ui'
 import Tile from './Tile'
 import MediaQuery from 'react-responsive'
+import Waypoint from 'react-waypoint'
+import * as AlbumActions from '../actions/ArtistActions'
 
 const url = "http://localhost:8000/";
 
@@ -9,6 +11,14 @@ export default class ArtistsCollection extends Component {
   constructor(props) {
     super(props);
   }
+
+  handleLoadMore = () => {
+     const {artists, dispatch} = this.props;
+     if (artists.next) {
+        dispatch(ArtistActions.getNextArtists(artists.next));
+     }
+  }
+
   renderArtistTiles(artists,cols) {
     if (artists) {
       let arr = artists.map((tile) => (
@@ -38,14 +48,19 @@ export default class ArtistsCollection extends Component {
     const { artists } = this.props;
     if(artists){
       return(
-        <GridList
-          cols={cols}
-          style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
-        >
-          {this.renderArtistTiles(artists.results,cols)}
-        </GridList>
-        );
-  }
+        <div>
+          <GridList
+            cols={cols}
+            style={{margin:2, maxWidth:'100%', maxHeight:'100%'}}
+          >
+            {this.renderArtistTiles(artists.results,cols)}
+          </GridList>
+          <Waypoint
+            onEnter={this.handleLoadMore}
+          />
+        </div>
+      );
+    }
   }
   render() {
     const {cols} = this.props;
