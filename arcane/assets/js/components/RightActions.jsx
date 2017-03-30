@@ -8,23 +8,25 @@ const ExpandingSearchBox = muiThemeable()(makeExpanding(SearchBox));
 
 const styles = {
    userAvatar: {
-      top: '0'
+    //  top:7,
    }
 }
 
 const RightActions = (props) => (
-  <div>
+  <div
+    // style={{display:'flex', flexDirection:'row', justifyContent:'flex-end'}}
+  >
     <ExpandingSearchBox {...props} />
     <IconMenu
       anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+      style={props.currentUser.avatar ? {display:'inline-flex',paddingLeft:12, paddingRight:12} : {}}
       iconButtonElement={props.currentUser.avatar ?
-         <Avatar
-             src={props.currentUser.avatar}
-             style={styles.userAvatar}
-            /> :
-         <Avatar
-            icon={<FontIcon className="material-icons">{"person"}</FontIcon>}
-            />}
+        <Avatar
+          src={props.currentUser.avatar}
+          // style={styles.userAvatar}
+          size={24}
+        /> :
+        <IconButton iconClassName="material-icons">{"person"}</IconButton>}
       iconStyle={{color: props.muiTheme.palette.alternateTextColor}}
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
     ><MenuItem primaryText="Profile" />
