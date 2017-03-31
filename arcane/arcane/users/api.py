@@ -1,6 +1,9 @@
 from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets, filters, validators
-
+from rest_framework.decorators import detail_route
+from rest_framework.renderers import JSONRenderer
+from json import dumps
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .models import Settings, Listener, Playlist #, Login
@@ -90,7 +93,7 @@ class UserViewSet(viewsets.ModelViewSet):
 #         serializer.save()
 
 class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
-    tracks = serializers.PrimaryKeyRelatedField(queryset=Track.objects.all())
+    tracks = serializers.PrimaryKeyRelatedField(queryset=Track.objects.all(), many=True)
     user = serializers.PrimaryKeyRelatedField(queryset=Listener.objects.all())
     class Meta:
         model = Playlist
@@ -105,6 +108,16 @@ class PlaylistViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+    @detail_route(methods=['get'], url_path='tracks')
+    def get_tracks(self, request, id=None):
+        playlist = Playlist.objects.get(id=id)
+        if playlist:
+            tracks = list(map((lambda track: TrackSerializer(track).data), playlist.tracks.all()))
+        else:
+            tracks = []
+        data = {'tracks': tracks}
+        return HttpResponse(dumps(data), content_type='application/json')
 
 def router_register(router):
     router.register(r'users', SettingsViewSet)

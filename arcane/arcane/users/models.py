@@ -83,7 +83,7 @@ class Listener(models.Model):
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    user = models.OneToOneField(Listener, blank=False, null=False)
+    user = models.ForeignKey(Listener, blank=False, null=False)
     tracks = models.ManyToManyField(Track, symmetrical=False)
 
     def __str__(self):
