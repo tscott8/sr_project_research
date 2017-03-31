@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from json import dumps
 from django.core.urlresolvers import reverse
 from django.views import View
 from django.db.models import Q
@@ -49,8 +50,12 @@ class Upload(View):
         form = UploadForm(request.POST, request.FILES)
         files = request.FILES.getlist('uploadfiles')
         # if form.is_valid():
+        newTracks = []
         for f in files:
-            Track.objects.create(url=f)
+            newTracks.append(Track.objects.create(url=f))
+        newTracks = list(map((lambda track: TrackSerializer(track).data), newTracks))
+        data = {'tracks': newTracks}
+        return HttpResponse(dumps(data), content_type='application/json')
         # Redirect to the track list after POST
         # return HttpResponseRedirect(reverse('upload'))
 
