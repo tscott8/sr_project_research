@@ -3,6 +3,7 @@ from PIL import Image
 from io import BytesIO
 import glob
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Genre_Helpers(object):
@@ -20,6 +21,11 @@ class Genre_Helpers(object):
     def capitalize_str(self, string):
         return string[:1].upper() + string[1:]
 
+    def os_based_split(self, string):
+        if sys.platform == 'linux':
+            return(string.split('/')[-1])
+        else:
+            return(string.split('\\')[1])
 
     def import_genre_images(self, path):
         image_obj = {}
@@ -27,18 +33,21 @@ class Genre_Helpers(object):
         # for filename in glob.glob('../../static/images/genres/*.jpg'):
         for filename in glob.glob(path+'/*.jpg' ):
          #assuming gif
+            print('path',path)
             im=Image.open(filename)
             # print(type(im))
-            str = self.capitalize_str(filename.split('\\')[1])
+            # print(sys.platform)
+            split_filename = self.os_based_split(filename)
+            str = self.capitalize_str(split_filename)
+
             if '_' in str:
                 str = str.replace('_', ' ')
                 str2 = str.split(' ')
                 str2 = self.capitalize_str(str2[0]), self.capitalize_str(str2[1])
                 str = ' '.join(str2)
-            # image_obj[str.strip('.jpg')]=im
-            path = os.path.join('static' , 'images' ,'genres', filename.split('\\')[1])
-            # print(path)
-            image_obj[str.strip('.jpg')]=filename.split('\\')[1]
+            path = os.path.join('static' , 'images' ,'genres', split_filename)
+            image_obj[str.strip('.jpg')] = split_filename
+
         return image_obj
 
     def get_image(self, images, genre):
