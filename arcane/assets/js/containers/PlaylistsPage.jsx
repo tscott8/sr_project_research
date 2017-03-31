@@ -14,10 +14,14 @@ const styles = {
 class PlaylistsPage extends Component {
    constructor(props) {
       super(props);
-
+      this.state = {
+         expanded: false
+      }
       const { dispatch } = this.props;
       dispatch(PlaylistActions.getUserPlaylists(this.props.params.id));
    }
+
+   handleClose = () => {this.setState({expanded: false});}
 
    renderPlaylists(lists) {
       let arr = lists.map((list) => (

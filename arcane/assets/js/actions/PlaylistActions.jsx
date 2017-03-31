@@ -10,3 +10,12 @@ export function getUserPlaylists(userID) {
       playlists: json.results
    }));
 }
+
+export function getPlaylistTracks(playlistID) {
+   return fetch(host + "/users/playlists/" + playlistID + "/tracks/")
+   .then(response => response.json())
+   .then(json => ({
+      type: types.GET_PLAYLIST_TRACKS,
+      tracks: json.tracks
+   }))
+}
