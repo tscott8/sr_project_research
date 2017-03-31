@@ -14,7 +14,8 @@ export default class EditableTable extends Component {
    onRequestClose = () => {this.setState({expanded: false})}
 
    handleEditSelect = (e) => {
-      this.setState({selected: this.props.items[e], expanded: true});
+      console.info("IN editabletable handleEditSelect", e);
+      this.setState({selected: this.props.items[e[0]], expanded: true});
    }
 
    render() {
