@@ -159,8 +159,8 @@ export default class MiniPlayer extends Component {
    //  console.info(queue);
       let q = queue.map((track) => (
         <div
-          id={'miniplayer_queue_track_' + (track === null ? '-1' : track.id)}
-          key={'miniplayer_queue_track_' + (track === null ? '-1' : track.id)}
+          id={'miniplayer_queue_track_' + (track == null ? '-1' : track.id)}
+          key={'miniplayer_queue_track_' + (track == null ? '-1' : track.id)}
         >
           <Divider />
           <ListItem
