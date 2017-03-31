@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Paper } from 'material-ui'
+import { Paper, List, ListItem } from 'material-ui'
 import theme from '../constants/material-ui-theme'
 
 import * as PlaylistActions from '../actions/PlaylistActions'
@@ -16,7 +16,16 @@ class PlaylistsPage extends Component {
       super(props);
 
       const { dispatch } = this.props;
-      dispatch(PlaylistActions.getUserPlaylists());
+      dispatch(PlaylistActions.getUserPlaylists(this.props.params.id));
+   }
+
+   renderPlaylists(lists) {
+      let arr = lists.map((list) => (
+         <ListItem key={"playlist_" + list.id}
+            primaryText={list.name}
+            secondaryText={list.tracks.length + " songs"} />
+      ))
+      return arr;
    }
 
    render() {
@@ -24,6 +33,9 @@ class PlaylistsPage extends Component {
          <div>
             <Paper style={styles.paper}>
                <h3>Playlists Page</h3>
+               <List>
+                  {this.renderPlaylists(this.props.playlists.playlists)}
+               </List>
             </Paper>
          </div>
       );

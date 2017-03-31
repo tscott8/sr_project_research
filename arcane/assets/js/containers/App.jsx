@@ -92,9 +92,10 @@ export default class App extends Component {
       } = this.props.audio;
 
       let song = currentlyPlaying;
-      if (song === null) {
+      if (song == null) {
          song = this.props.audio.defaultSong;
       }
+      // console.info(song);
 
       let queue = this.props.audio.upcoming.map(clone);
       queue.unshift(currentlyPlaying);
@@ -127,7 +128,7 @@ export default class App extends Component {
             <Audio
               ref="audio"
               autoPlay={this.state.autoPlay}
-              src={song.url}
+              src={song ? song.url : ""}
               onProgress={this.handleProgress}
               onTimeUpdate={this.handleTimeUpdate}
               onError={this.handleError}
