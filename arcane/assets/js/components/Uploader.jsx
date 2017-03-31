@@ -5,6 +5,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Paper, FlatButton,  CircularProgress, Snackbar} from 'material-ui';
 import cookie from 'react-cookie';
 import theme from '../constants/material-ui-theme'
+import EditableTable from '../components/EditableTable'
 
 const styles = {
   paper: {
@@ -44,6 +45,7 @@ export default class Uploader extends Component  {
     this.state = {
       stagedFiles: [],
       confirmedFiles: [],
+      dirty: false,
       completed: 0,
       stepIndex: 0,
       snackOpen: false,
@@ -52,7 +54,7 @@ export default class Uploader extends Component  {
   }
   handleNext = () => {
     const {stepIndex} = this.state;
-    if (stepIndex < 2) {
+    if (stepIndex < 3) {
       this.setState({stepIndex: stepIndex + 1});
     }
   };
@@ -86,9 +88,9 @@ export default class Uploader extends Component  {
          credentials: "same-origin",
          body:fd
          })
-      .then(response => (response.status, console.log(response)))
-      .then(status => (
-         this.setState({ stepIndex: 0, snackOpen: true })
+      .then(response => response.json())
+      .then(json => (console.log(json),
+         this.setState({ stepIndex: 3, snackOpen: true, stagedFiles: json.tracks })
       ));
   }
 
@@ -123,6 +125,8 @@ export default class Uploader extends Component  {
            size={300}
            thickness={5}
          /></div>);
+     case 3:
+       return this.renderEditTable();
      default:
        return 'You\'re a long way from home sonny jim!';
    }
@@ -153,6 +157,12 @@ export default class Uploader extends Component  {
         </Table>
       );
     }
+  }
+  renderEditTable() {
+     const {stagedFiles} = this.state;
+     if (stagedFiles) {
+        return <EditableTable items={stagedFiles}/>
+     }
   }
   renderDropzone() {
     return (
@@ -191,6 +201,16 @@ export default class Uploader extends Component  {
           primary
         />
     }
+    else if (stepIndex === 3){
+      action =
+         <FlatButton
+           disabled={this.state.dirty === false}
+           label="Submit Changes"
+           labelStyle={this.state.stepIndex !== 1 ? {color:'red'} : {}}
+           onTouchTap={this.handleNext}
+           primary
+        />
+    }
     return (
       <div style={{marginTop: 20}}>
         <FlatButton
@@ -223,6 +243,11 @@ export default class Uploader extends Component  {
               <StepButton onClick={() => this.setState({stepIndex: 2})}>
                 Upload
               </StepButton>
+            </Step>
+            <Step>
+               <StepButton onClick={() => this.setState({stepIndex: 3})}>
+                  Edit
+               </StepButton>
             </Step>
           </Stepper>
           <div style={contentStyle}>
