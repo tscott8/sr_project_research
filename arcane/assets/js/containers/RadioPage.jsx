@@ -1,7 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Radio from '../components/Radio'
+import RadioChoices from '../components/RadioChoices'
 import * as TrackActions from '../actions/TrackActions'
+
+const styles = {
+   scrollable: {
+      height: 'calc(100vh - 64px)',
+      overflowY: 'auto',
+      overflowX: 'visible',
+      width: '100%',
+      padding: 10
+   }
+}
 
 class RadioPage extends Component {
    constructor(props) {
@@ -12,10 +23,15 @@ class RadioPage extends Component {
 
    render() {
       return (
-        <Radio
-          isPlaying={this.props.audio.isPlaying}
-          tracks={this.props.audio}
-        />
+         <div style={styles.scrollable}>
+            <Radio
+               isPlaying={this.props.audio.isPlaying}
+               tracks={this.props.audio}
+               />
+            <RadioChoices
+               {...this.props}
+               />
+         </div>
       );
     }
 }
@@ -26,10 +42,10 @@ RadioPage.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { tracks, audio } = state
+  const { tracks, audio, genres } = state
 
   return {
-     tracks, audio
+     tracks, audio, genres
   }
 }
 

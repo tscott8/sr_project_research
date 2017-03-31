@@ -7,7 +7,8 @@
    PLAY, SET_TIME, SET_PROGRESS,
    TOGGLE_FAVORITE, TOGGLE_REPEAT,
    UPDATE_POSITION, PAUSE, TOGGLE_LOOP,
-   TOGGLE_SHUFFLE, ADD_TO_QUEUE
+   TOGGLE_SHUFFLE, ADD_TO_QUEUE,
+   START_GENRE_RADIO
  } from '../constants/ActionTypes'
 
  // import find from 'lodash/find';
@@ -134,6 +135,8 @@ function getAudioState(audio) {
         upcoming = upcoming.concat(action.songs);
         console.info("IN audio ADD_TO_QUEUE", action.songs);
        return {...state, upcoming: upcoming };
+     case START_GENRE_RADIO:
+        return {...state, upcoming: action.songs}
      default:
       //   console.info("IN audio DEFAULT", state);
        return state

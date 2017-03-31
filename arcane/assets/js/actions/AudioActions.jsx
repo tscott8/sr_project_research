@@ -112,3 +112,12 @@ export function addToQueue(songs) {
    console.info("IN AUDIO ACTIONS ADD TO QUEUE", songs)
   return { type: types.ADD_TO_QUEUE, songs}
 }
+
+export function startGenreRadio(genreID) {
+   return fetch("http://localhost:8000/api/tracks/?genre=" + genreID)
+   .then(response => response.json())
+   .then(json => ({
+      type: types.START_GENRE_RADIO,
+      songs: json.results
+   }));
+}
