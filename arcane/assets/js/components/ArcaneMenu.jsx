@@ -10,7 +10,7 @@ const menuList = [
   { "name": "Upload", "icon": "cloud_upload", "url": "upload" },
   { "name": "Radio", "icon": "radio", "url": "radio"},
   { "name": "My Music", "icon": "library_music", "url": "my_music"},
-  { "name": "Profile", "icon": "account_circle", "url": "profile"},
+  { "name": "Profile", "icon": "account_circle", "url": "profile/1"},
   { "name": "About", "icon": "info", "url": "about"},
   { "name": "Settings", "icon": "settings", "url": "settings"}
 ];
