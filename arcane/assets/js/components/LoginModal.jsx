@@ -22,7 +22,7 @@ const styles = {
   },
   formActions:{
     display:'flex',
-    flexDirection:'row',
+    flexDirection:'row-reverse',
     justifyContent:'space-around',
     borderColor:'transparent',
     paddingTop:24,
@@ -121,12 +121,6 @@ class LoginModal extends Component {
     return (
       <div style={styles.formActions}>
         <FlatButton
-          id={'login_form_join'}
-          key={'login_form_join'}
-          label="Join Us"
-          onTouchTap={this.handleJoin}
-        />
-        <FlatButton
           // containerElement={this.renderLink()}
           disabled={this.formHasErrors()}
           id={'login_form_submit'}
@@ -135,7 +129,13 @@ class LoginModal extends Component {
           onTouchTap={this.handleLogin}
           secondary
         />
-        </div>
+        <FlatButton
+          id={'login_form_join'}
+          key={'login_form_join'}
+          label="Join Us"
+          onTouchTap={this.handleJoin}
+        />
+      </div>
       );
   }
   renderLink () {

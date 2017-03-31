@@ -19,7 +19,7 @@ const styles = {
   },
   formActions:{
     display:'flex',
-    flexDirection:'row',
+    flexDirection:'row-reverse',
     justifyContent:'space-around',
     borderColor:'transparent',
     paddingTop:24
@@ -173,18 +173,18 @@ class SignUpForm extends Component {
     return (
       <div style={styles.formActions}>
         <FlatButton
-          id={'join_form_cancel'}
-          key={'join_form_cancel'}
-          label="Cancel"
-          onTouchTap={this.props.handleCancel}
-        />
-        <FlatButton
           disabled={this.formHasErrors() || this.formIsEmpty()}
           id={'join_form_submit'}
           key={'join_form_submit'}
           label={"Join Arcane"}
           onTouchTap={this.handleJoin}
           secondary
+        />
+        <FlatButton
+          id={'join_form_cancel'}
+          key={'join_form_cancel'}
+          label="Cancel"
+          onTouchTap={this.props.handleCancel}
         />
       </div>
   );
